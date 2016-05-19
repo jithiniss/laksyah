@@ -109,7 +109,7 @@ foreach ($ids as $id) {
                                                                 </div>
                                                                 <div style = "padding-top: 5px; position: relative;">
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   <!--<form method = "post" name = "option" action = "<?= Yii::app()->request->baseUrl; ?>/index.php/cart/Buynow" id = "myform">-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   <!--<form method = "post" name = "option" action = "<?= Yii::app()->request->baseUrl; ?>/index.php/cart/Buynow" id = "myform">-->
                                                                         <input type = "submit" class = "add add_to_cart" id="<?= $product->id; ?>" href = "#" value = "Add To Cart">
                                                                         <input type = "hidden" id = "opt_id" name = "opt">
                                                                         <input type = "hidden" value = "<?= $product->canonical_name; ?>" id="cano_name_<?= $product->id; ?>" name="cano_name">
@@ -331,13 +331,16 @@ foreach ($ids as $id) {
                                                         </ul>
                                                 </div>
                                                 <?php
-                                                foreach ($dir_contents as $file1) {
+                                                if (!empty($dir_contents)) {
+                                                        foreach ($dir_contents as $file1) {
 
-                                                }
-                                                ?>
-                                                <div class="product_big_image"> <img src="<?php echo $bigg . $file1; ?>" id="laksyah_zoom" data-zoom-image="<?php echo $zoom . $file1; ?>" alt=""/>
-                                                        <div class="product_social_shares"> <span>Share this look with your friends</span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><i class="fa fa-pinterest-p"></i><a href="#"><i class="fa fa-envelope-o"></i></a> </div>
-                                                </div>
+                                                        }
+                                                        ?>
+                                                        <div class="product_big_image"> <img src="<?php echo $bigg . $file1; ?>" id="laksyah_zoom" data-zoom-image="<?php echo $zoom . $file1; ?>" alt=""/>
+                                                                <div class="product_social_shares"> <span>Share this look with your friends</span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><i class="fa fa-pinterest-p"></i><a href="#"><i class="fa fa-envelope-o"></i></a> </div>
+                                                        </div>
+                                                <?php } ?>
+
                                                 <div class="mobile_slider">
                                                         <div class="laksyah_slider">
                                                                 <div class="item"> <img src="images/product_big.jpg" id="laksyah_zoom" data-zoom-image="images/product_big.jpg" alt=""/> </div>
