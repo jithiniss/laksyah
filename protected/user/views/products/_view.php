@@ -15,7 +15,7 @@
                                         <div class="second_image">
                                                 <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Products/Detail/name/<?php echo $data->canonical_name; ?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php
                                                         echo Yii::app()->Upload->folderName(0, 1000, $data->id)
-                                                        ?>/<?php echo $data->id; ?>/hover/hover.<?php echo $data->main_image; ?>" alt=""/></a>
+                                                        ?>/<?php echo $data->id; ?>/hover/hover.<?php echo $data->hover_image; ?>" alt=""/></a>
 
                                         </div>
                                 <?php } ?>

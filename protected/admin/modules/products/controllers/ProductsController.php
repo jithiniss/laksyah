@@ -124,7 +124,8 @@ class ProductsController extends Controller {
                                                 $id = $model->id;
                                                 $dimension[0] = array('width' => '116', 'height' => '155', 'name' => 'small');
                                                 $dimension[1] = array('width' => '263', 'height' => '408', 'name' => 'medium');
-                                                $dimension[2] = array('width' => '594', 'height' => '758', 'name' => 'big');
+                                                $dimension[2] = array('width' => '544', 'height' => '758', 'name' => 'big');
+                                                $dimension[2] = array('width' => '800', 'height' => '1060', 'name' => 'zoom');
                                                 Yii::app()->Upload->uploadImage($image, $id, true, $dimension);
                                         }
 
@@ -137,7 +138,7 @@ class ProductsController extends Controller {
                                         if ($images != "") {
                                                 $id = $model->id;
                                                 $dimension[0] = array('width' => '116', 'height' => '155', 'name' => 'small');
-                                                $dimension[1] = array('width' => '594', 'height' => '758', 'name' => 'big');
+                                                $dimension[1] = array('width' => '544', 'height' => '758', 'name' => 'big');
                                                 $dimension[2] = array('width' => '800', 'height' => '1060', 'name' => 'zoom');
 
                                                 Yii::app()->Upload->uploadMultipleImage($images, $id, true, $dimension);
@@ -182,100 +183,102 @@ class ProductsController extends Controller {
                 // $this->performAjaxValidation($model);
 
                 if (isset($_POST['Products'])) {
-                        if ($model->validate()) {
-                                $image = CUploadedFile::getInstance($model, 'main_image');
-                                $h_image = CUploadedFile::getInstance($model, 'hover_image');
-                                $images = CUploadedFile::getInstancesByName('gallery_images');
-                                $new_video = CUploadedFile::getInstance($model, 'video');
-                                $model->attributes = $_POST['Products'];
-                                $model->main_image = $image->extensionName;
-                                $model->hover_image = $h_image->extensionName;
-                                $model->video = $new_video->extensionName;
-                                if ($_POST['Products']['new_from'] != "" && $_POST['Products']['new_from'] != '0000-00-00')
-                                        $model->new_from = date("Y-m-d", strtotime($_POST['Products']['new_from']));
-                                else
-                                        $model->new_from = 0;
-                                if ($_POST['Products']['new_to'] != "" && $_POST['Products']['new_to'] != '0000-00-00')
-                                        $model->new_to = date("Y-m-d", strtotime($_POST['Products']['new_to']));
-                                else
-                                        $model->new_to = 0;
-                                if ($_POST['Products']['sale_from'] != "" && $_POST['Products']['sale_from'] != '0000-00-00')
-                                        $model->sale_from = date("Y-m-d", strtotime($_POST['Products']['sale_from']));
-                                else
-                                        $model->sale_from = 0;
-                                if ($_POST['Products']['sale_to'] != "" && $_POST['Products']['sale_to'] != '0000-00-00')
-                                        $model->sale_to = date("Y-m-d", strtotime($_POST['Products']['sale_to']));
-                                else
-                                        $model->sale_to = 0;
-                                if ($_POST['Products']['special_price_from'] != "" && $_POST['Products']['special_price_from'] != '0000-00-00')
-                                        $model->special_price_from = date("Y-m-d", strtotime($_POST['Products']['special_price_from']));
-                                else
-                                        $model->special_price_from = 0;
-                                if ($_POST['Products']['special_price_to'] != "" && $_POST['Products']['special_price_to'] != '0000-00-00')
-                                        $model->special_price_to = date("Y-m-d", strtotime($_POST['Products']['special_price_to']));
-                                else
-                                        $model->special_price_to = 0;
-                                $model->status = $_POST['Products']['status'];
-                                $model->enquiry_sale = $_POST['Products']['enquiry_sale'];
-                                $model->DOU = date('Y-m-d');
-                                if ($image != "") {
-                                        $id = $model->id;
-                                        $dimension[0] = array('width' => '150', 'height' => '120', 'name' => 'small');
-                                        $dimension[1] = array('width' => '280', 'height' => '310', 'name' => 'medium');
-                                        $dimension[2] = array('width' => '585', 'height' => '385', 'name' => 'big');
-                                        Yii::app()->Upload->uploadImage($image, $id, true, $dimension);
-                                } else {
-                                        $model->main_image = $image1;
-                                }
+
+                        $image = CUploadedFile::getInstance($model, 'main_image');
+                        $h_image = CUploadedFile::getInstance($model, 'hover_image');
+                        $images = CUploadedFile::getInstancesByName('gallery_images');
+                        $new_video = CUploadedFile::getInstance($model, 'video');
+                        $model->attributes = $_POST['Products'];
+                        $model->main_image = $image->extensionName;
+                        $model->hover_image = $h_image->extensionName;
+                        $model->video = $new_video->extensionName;
+                        if ($_POST['Products']['new_from'] != "" && $_POST['Products']['new_from'] != '0000-00-00')
+                                $model->new_from = date("Y-m-d", strtotime($_POST['Products']['new_from']));
+                        else
+                                $model->new_from = 0;
+                        if ($_POST['Products']['new_to'] != "" && $_POST['Products']['new_to'] != '0000-00-00')
+                                $model->new_to = date("Y-m-d", strtotime($_POST['Products']['new_to']));
+                        else
+                                $model->new_to = 0;
+                        if ($_POST['Products']['sale_from'] != "" && $_POST['Products']['sale_from'] != '0000-00-00')
+                                $model->sale_from = date("Y-m-d", strtotime($_POST['Products']['sale_from']));
+                        else
+                                $model->sale_from = 0;
+                        if ($_POST['Products']['sale_to'] != "" && $_POST['Products']['sale_to'] != '0000-00-00')
+                                $model->sale_to = date("Y-m-d", strtotime($_POST['Products']['sale_to']));
+                        else
+                                $model->sale_to = 0;
+                        if ($_POST['Products']['special_price_from'] != "" && $_POST['Products']['special_price_from'] != '0000-00-00')
+                                $model->special_price_from = date("Y-m-d", strtotime($_POST['Products']['special_price_from']));
+                        else
+                                $model->special_price_from = 0;
+                        if ($_POST['Products']['special_price_to'] != "" && $_POST['Products']['special_price_to'] != '0000-00-00')
+                                $model->special_price_to = date("Y-m-d", strtotime($_POST['Products']['special_price_to']));
+                        else
+                                $model->special_price_to = 0;
+                        $model->status = $_POST['Products']['status'];
+                        $model->enquiry_sale = $_POST['Products']['enquiry_sale'];
+                        $model->DOU = date('Y-m-d');
 
 
-                                if ($h_image != "") {
-                                        $id = $model->id;
-
-                                        $dimensions[0] = array('width' => '280', 'height' => '310', 'name' => 'medium');
-
-                                        Yii::app()->Upload->uploadHoverImage($h_image, $id, true, $dimensions);
-                                } else {
-
-                                        $model->hover_image = $image2;
-                                }
-
-
-                                if ($images != "") {
-                                        $id = $model->id;
-                                        $dimension[0] = array('width' => '116', 'height' => '155', 'name' => 'small');
-                                        $dimension[1] = array('width' => '544', 'height' => '758', 'name' => 'big');
-                                        $dimension[2] = array('width' => '800', 'height' => '1060', 'name' => 'zoom');
-                                        Yii::app()->Upload->uploadMultipleImage($images, $id, true, $dimension);
-                                } else {
-                                        $model->gallery_images = $image0;
-                                }
+                        if ($image != "") {
+                                $id = $model->id;
+                                $dimension[0] = array('width' => '116', 'height' => '155', 'name' => 'small');
+                                $dimension[1] = array('width' => '263', 'height' => '408', 'name' => 'medium');
+                                $dimension[2] = array('width' => '544', 'height' => '758', 'name' => 'big');
+                                $dimension[3] = array('width' => '800', 'height' => '1060', 'name' => 'zoom');
+                                Yii::app()->Upload->uploadImage($image, $id, true, $dimension);
+                        } else {
+                                $model->main_image = $image1;
+                        }
 
 
-                                if ($new_video != "") {
-                                        $folder = Yii::app()->Upload->folderName(0, 1000, $model->id);
-                                        $id = $model->id;
-                                        $dimensions[0] = array('name' => 'video');
-                                        Yii::app()->Upload->uploadVideo($new_video, $id, true, $dimension);
-                                        // $old = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/videos/video.' . $video;
-                                        //  unlink($old);
-                                } else {
-                                        $model->video = $video;
-                                }
+                        if ($h_image != "") {
+                                $id = $model->id;
 
-                                $model->product_name = $_POST['Products']['product_name'];
-                                $model->description = $_POST['Products']['description'];
-                                $model->meta_description = $_POST['Products']['meta_description'];
-                                $model->stock_availability = $_POST['Products']['stock_availability'];
-                                if ($model->stock_availability == 1) {
-                                        $this->notify($id, $model->canonical_name);
-                                }
-                                $model->deal_day_status = $_POST['Products']['deal_day_status'];
-                                $model->deal_day_date = date('Y-m-d', strtotime($_POST['Products']['deal_day_date']));
+                                $dimensions[0] = array('width' => '280', 'height' => '310', 'name' => 'medium');
 
-                                if ($model->save(false)) {
-                                        $this->redirect(array('admin', 'id' => $model->id));
-                                }
+                                Yii::app()->Upload->uploadHoverImage($h_image, $id, true, $dimensions);
+                        } else {
+
+                                $model->hover_image = $image2;
+                        }
+
+
+                        if ($images != "") {
+                                $id = $model->id;
+                                $dimension[0] = array('width' => '116', 'height' => '155', 'name' => 'small');
+                                $dimension[1] = array('width' => '544', 'height' => '758', 'name' => 'big');
+                                $dimension[2] = array('width' => '800', 'height' => '1060', 'name' => 'zoom');
+                                Yii::app()->Upload->uploadMultipleImage($images, $id, true, $dimension);
+                        } else {
+                                $model->gallery_images = $image0;
+                        }
+
+
+                        if ($new_video != "") {
+                                $folder = Yii::app()->Upload->folderName(0, 1000, $model->id);
+                                $id = $model->id;
+                                $dimensions[0] = array('name' => 'video');
+                                Yii::app()->Upload->uploadVideo($new_video, $id, true, $dimension);
+                                // $old = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/videos/video.' . $video;
+                                //  unlink($old);
+                        } else {
+                                $model->video = $video;
+                        }
+
+                        $model->product_name = $_POST['Products']['product_name'];
+                        $model->description = $_POST['Products']['description'];
+                        $model->meta_description = $_POST['Products']['meta_description'];
+                        $model->stock_availability = $_POST['Products']['stock_availability'];
+                        if ($model->stock_availability == 1) {
+                                $this->notify($id, $model->canonical_name);
+                        }
+                        $model->deal_day_status = $_POST['Products']['deal_day_status'];
+                        $model->deal_day_date = date('Y-m-d', strtotime($_POST['Products']['deal_day_date']));
+
+                        if ($model->save(false)) {
+                                $this->redirect(array('admin', 'id' => $model->id));
                         }
                 }
 
