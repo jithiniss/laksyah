@@ -2012,6 +2012,60 @@ Modal
 .products_item:hover .product_image>a img{
 
 }
+
+/*
+-------------------------
+Product Sold Out
+-------------------------
+*/
+.sold_out_notify{
+        background-color:#e1dfd2;
+        padding:18px 15px;
+        margin-bottom:28px;
+}
+.sold_out_notify .btn-primary{
+        height:34px;
+        line-height:34px;	}
+.sold_out_notify h4{
+        font-size:14px;
+        font-weight:bold;
+        line-height:14px;
+        margin:0px;
+        text-transform:uppercase;
+        margin-bottom:10px;
+}
+.sold_out_notify .input-group{
+        margin-bottom:5px;
+}
+.sold_out_notify p{
+        font-size:12px;
+        font-style:italic;
+        margin:0px;
+}
+/*
+----------------------
+-----------------]---
+*/
+.out_of_stock_badge{
+        background-image:url(../images/out-of-stock.png);
+        width:106px;
+        height:71px;
+        position:absolute;
+        top:0px;
+        right:0px;
+}
+.allmost_gone_badge{
+        background-image:url(../images/almost-gone.png);
+        width:106px;
+        height:71px;
+        position:absolute;
+        top:0px;
+        right:0px;
+}
+.product_metas{
+        position:relative;
+}
+
 /*------------------------
 Media Queries
 ------------------------*/

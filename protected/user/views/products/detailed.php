@@ -68,314 +68,11 @@ foreach ($ids as $id) {
                                         ?>
 
                                         <ul class="list-unstyled list-inline prices">
-                                                <div>
-                                                        <?php if (Yii::app()->user->hasFlash('success')): ?>
-                                                                <div class="alert alert-success mesage">
-                                                                        <strong>Success!</strong> <?php echo Yii::app()->user->getFlash('success'); ?>
-                                                                </div>
-                                                        <?php endif; ?>
-                                                        <?php if (Yii::app()->user->hasFlash('error')): ?>
-                                                                <div class="alert alert-danger mesage">
-                                                                        <strong>sorry!</strong><?php echo Yii::app()->user->getFlash('error'); ?>
-                                                                </div>
-                                                        <?php endif; ?>
-                                                </div>
+
                                                 <h3><?php echo $product->product_name; ?></h3>
                                                 <span><?php echo $product->product_code; ?></span><br>
                                                 <span><?php echo Yii::app()->Discount->Discount($product); ?></span>
                                                 <br>
-
-
-                                                <script>
-                                                        $(document).ready(function () {
-<?php if ($model->hasErrors()) { ?>
-                                                                        $("#myModal").modal('show');
-<?php } ?>
-                                                        });
-                                                </script>
-
-                                                <script>
-                                                        $(document).ready(function () {
-<?php if (Yii::app()->user->hasFlash('enuirysuccess')) { ?>
-                                                                        $("#myModal").modal('show');
-                                                                        $(".modal-body").html('Your Enquiry Submitted Successfully');
-
-<?php } ?>
-                                                        });
-                                                </script>
-                                                <div class="modal " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                                                        <div class="modal-dialog" role="document">
-                                                                <div class="modal-content">
-                                                                        <div class="modal-header">
-                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                                <h4 class="modal-title" id="myModalLabel">Enquire Now</h4>
-                                                                        </div>
-                                                                        <div class="modal-body">
-                                                                                <div class="form">
-
-                                                                                        <?php
-                                                                                        $form = $this->beginWidget('CActiveForm', array(
-                                                                                            'id' => 'product-enquiry-form',
-                                                                                            'htmlOptions' => array('class' => 'form-horizontal', 'enctype' => 'multipart/form-data'),
-                                                                                            // Please note: When you enable ajax validation, make sure the corresponding
-                                                                                            // controller action is handling ajax validation correctly.
-                                                                                            // There is a call to performAjaxValidation() commented in generated controller code.
-                                                                                            // See class documentation of CActiveForm for details on this.
-                                                                                            'enableAjaxValidation' => true,
-                                                                                        ));
-                                                                                        ?>
-
-                                                                                        <p class="note">Fields with <span class="required">*</span> are required.</p>
-
-
-
-                                                                                        <div class="form-group">
-                                                                                                <?php echo $form->labelEx($model, 'product_id', array('class' => 'col-sm-2 control-label')); ?>
-                                                                                                <div class="col-sm-10"><?php echo CHtml::activeDropDownList($model, 'product_id', CHtml::listData(Products::model()->findAll(), 'id', 'product_name'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
-                                                                                                </div>
-                                                                                                <?php echo $form->error($model, 'product_id'); ?>
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                                <?php echo $form->labelEx($model, 'name', array('class' => 'col-sm-2 control-label')); ?>
-                                                                                                <div class="col-sm-10"><?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control')); ?>
-                                                                                                </div>
-                                                                                                <?php echo $form->error($model, 'name'); ?>
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                                <?php echo $form->labelEx($model, 'email', array('class' => 'col-sm-2 control-label')); ?>
-                                                                                                <div class="col-sm-10"><?php echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control')); ?>
-                                                                                                </div>
-                                                                                                <?php echo $form->error($model, 'email'); ?>
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                                <?php echo $form->labelEx($model, 'phone', array('class' => 'col-sm-2 control-label')); ?>
-                                                                                                <div class="col-sm-10"><?php echo $form->textField($model, 'phone', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control')); ?>
-                                                                                                </div>
-                                                                                                <?php echo $form->error($model, 'phone'); ?>
-                                                                                        </div>
-
-                                                                                        <div class="form-group">
-                                                                                                <?php echo $form->labelEx($model, 'country', array('class' => 'col-sm-2 control-label')); ?>
-                                                                                                <div class="col-sm-10"><?php echo CHtml::activeDropDownList($model, 'country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
-                                                                                                </div>
-                                                                                                <?php echo $form->error($model, 'country'); ?>
-                                                                                        </div>
-                                                                                        <div class="form-group">
-                                                                                                <?php echo $form->labelEx($model, 'size', array('class' => 'col-sm-2 control-label')); ?>
-                                                                                                <div class="col-sm-10"><?php echo CHtml::activeDropDownList($model, 'size', CHtml::listData(MasterSize::model()->findAll(), 'id', 'size'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
-                                                                                                </div>
-                                                                                                <?php echo $form->error($model, 'size'); ?>
-                                                                                        </div>
-
-                                                                                        <div class="form-group">
-                                                                                                <?php echo $form->labelEx($model, 'requirement', array('class' => 'col-sm-2 control-label')); ?>
-                                                                                                <div class="col-sm-10"><?php
-                                                                                                        $this->widget('application.admin.extensions.eckeditor.ECKEditor', array(
-                                                                                                            'model' => $model,
-                                                                                                            'attribute' => 'requirement',
-                                                                                                        ));
-                                                                                                        ?>
-                                                                                                </div>
-                                                                                                <?php echo $form->error($model, 'requirement'); ?>
-                                                                                        </div>
-
-
-
-                                                                                        <div class="modal-footer">
-                                                                                                <?php echo CHtml::submitButton($model->isNewRecord ? 'Enquiry Now' : 'Save', array('class' => 'btn btn-default')); ?>
-                                                                                                <?php echo CHtml::resetButton($model->isNewRecord ? 'Reset' : 'Save', array('class' => 'btn btn-primary')); ?>
-                                                                                        </div>
-                                                                                        <?php $this->endWidget(); ?>
-                                                                                </div><!-- form -->
-                                                                        </div>
-
-                                                                </div>
-                                                        </div>
-                                                </div>
-
-                                                <?php
-                                                //check wheather sale or enquiry//
-
-                                                if ($product->enquiry_sale == 1) {
-                                                        //instock//
-
-                                                        if ($product->stock_availability == 1) {
-                                                                if ($product->quantity >= 1) {
-                                                                        if (isset(Yii::app()->session['user'])) {
-                                                                                ?>
-                                                                                <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist add wish ">Add to WishList</a>
-                                                                                <?php
-                                                                        }
-                                                                        ?>
-
-
-                                                                        <div class="product_quantity">
-                                                                                <h3>Quantity</h3>
-                                                                                <div class="qunatity">
-                                                                                        <select class="qty" >
-                                                                                                <option value="1">1</option>
-                                                                                                <option value="2">2</option>
-                                                                                                <option value="3">3</option>
-                                                                                                <option value="4">4</option>
-                                                                                                <option value="5">5</option>
-                                                                                        </select>
-                                                                                </div>
-                                                                        </div>
-                                                                        <!-- / Quantity-->
-                                                                        <div class="shipping_info">
-                                                                                <div class="row">
-                                                                                        <div class="col-md-6 col-xs-6">
-                                                                                                <h4><a href="#"><i class="fa fa-globe"></i> <span>We Ship Worldwide</span></a></h4>
-                                                                                        </div>
-                                                                                        <div class="col-md-6 col-xs-6">
-                                                                                                <h4><a href="#"><i class="fa fa-truck"></i> <span>Free Shipping In India</span></a></h4>
-                                                                                        </div>
-                                                                                </div>
-                                                                                <p><a href="#">View Shipping and Return Policies</a></p>
-                                                                        </div>
-                                                                        <!-- / Shipping_ifo-->
-                                                                        <div class="product_button_group">
-                                                                                <div class="row">
-                                                                                        <div class="col-md-7 col-xs-7">
-                                                                                                <button class="btn btn-skel add_to_cart" id="<?= $product->id; ?>"><i class="fa fa-shopping-bag"></i> ADD TO SHOPPING BAG</button>
-                                                                                                <input type = "hidden" id = "opt_id" name = "opt">
-                                                                                                <input type = "hidden" value = "<?= $product->canonical_name; ?>" id="cano_name_<?= $product->id; ?>" name="cano_name">
-                                                                                        </div>
-                                                                                        <div class="col-md-5 col-xs-5">
-                                                                                                <button type="button" class="btn btn-skel" data-toggle="modal" data-target="#enquiryModal"><i class="fa fa-envelope"></i> ENQUIRY</button>
-                                                                                        </div>
-                                                                                </div>
-                                                                                <div class="row">
-                                                                                        <div class="col-md-7 col-xs-7">
-                                                                                                <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $data->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
-
-                                                                                        </div>
-                                                                                        <div class="col-md-5 col-xs-5">
-                                                                                                <button type="button" class="btn-primary" ><i class="fa fa-envelope"></i> BUY NOW</button>
-                                                                                        </div>
-                                                                                </div>
-                                                                        </div>
-
-
-
-
-                                                                <?php } else {
-                                                                        ?>
-
-
-
-                                                                        <form action = "<?= Yii::app()->baseUrl; ?>/index.php/products/ProductNotify/id/<?= $product->id; ?>" method = "post" name = "notify">
-                                                                                <div class="product_button_group">
-                                                                                        <div class="row">
-                                                                                                <?php
-                                                                                                if (isset(Yii::app()->session['user'])) {
-                                                                                                        ?>
-                                                                                                        <div class="col-md-7 col-xs-7">
-                                                                                                                <input type="text" id="email"  name="email" value="<?= Yii::app()->session['user']['email'] ?>">
-                                                                                                        </div>
-
-                                                                                                        <?php
-                                                                                                } else {
-                                                                                                        ?>
-                                                                                                        <div class="col-md-7 col-xs-7">
-                                                                                                                <input type="text" id="email" placeholder="Email"  name="email">
-                                                                                                        </div>
-
-                                                                                                        <?php
-                                                                                                }
-                                                                                                ?>
-
-                                                                                                <div class="col-md-5 col-xs-5">
-                                                                                                        <button type="submit" class="btn btn-skel" ><i class="fa fa-envelope"></i> NOTIFY ME</button>
-                                                                                                </div>
-                                                                                        </div>
-                                                                                        <div class="row">
-                                                                                                <div class="col-md-7 col-xs-7">
-                                                                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $data->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
-
-                                                                                                </div>
-                                                                                                <div class="col-md-5 col-xs-5">
-                                                                                                        <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
-                                                                                                </div>
-                                                                                        </div>
-
-
-
-                                                                                </div>
-
-                                                                        </form>
-                                                                        <?php
-                                                                }
-                                                        }
-                                                        //out of stock//
-                                                        elseif ($product->stock_availability == 0) {
-                                                                ?>
-                                                                <form action = "<?= Yii::app()->baseUrl; ?>/index.php/products/ProductNotify/id/<?= $product->id; ?>" method = "post" name = "notify">
-                                                                        <div class="product_button_group">
-                                                                                <div class="row">
-                                                                                        <?php
-                                                                                        if (isset(Yii::app()->session['user'])) {
-                                                                                                ?>
-                                                                                                <div class="col-md-7 col-xs-7">
-                                                                                                        <input type="text" id="email"  name="email" value="<?= Yii::app()->session['user']['email'] ?>">
-                                                                                                </div>
-
-                                                                                                <?php
-                                                                                        } else {
-                                                                                                ?>
-                                                                                                <div class="col-md-7 col-xs-7">
-                                                                                                        <input type="text" id="email" placeholder="Email"  name="email">
-                                                                                                </div>
-
-                                                                                                <?php
-                                                                                        }
-                                                                                        ?>
-
-                                                                                        <div class="col-md-5 col-xs-5">
-                                                                                                <button type="submit" class="btn btn-skel" ><i class="fa fa-envelope"></i> NOTIFY ME</button>
-                                                                                        </div>
-                                                                                </div>
-
-
-                                                                                <div class="row">
-                                                                                        <div class="col-md-7 col-xs-7">
-                                                                                                <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $data->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
-
-                                                                                        </div>
-                                                                                        <div class="col-md-5 col-xs-5">
-                                                                                                <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
-                                                                                        </div>
-                                                                                </div>
-
-
-                                                                        </div>
-
-                                                                </form>
-                                                                <?php
-                                                        } else {
-                                                                //other checking if availanle//
-                                                        }
-                                                }
-                                                //enquiry//
-                                                else {
-                                                        ?>
-                                                        <div class="product_button_group">
-                                                                <div class="row">
-                                                                        <div class="col-md-7 col-xs-7">
-                                                                                <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $data->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
-
-                                                                        </div>
-                                                                        <div class="col-md-5 col-xs-5">
-                                                                                <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
-                                                                        </div>
-                                                                </div>
-                                                        </div>
-
-                                                        <!-- Modal -->
-
-                                                        <?php
-                                                }
-                                                ?>
 
 
 
@@ -408,6 +105,18 @@ foreach ($ids as $id) {
                         </div>
                         <div class="product_details">
                                 <div class="row">
+                                        <div>
+                                                <?php if (Yii::app()->user->hasFlash('success')): ?>
+                                                        <div class="alert alert-success mesage">
+                                                                <strong>Success!</strong> <?php echo Yii::app()->user->getFlash('success'); ?>
+                                                        </div>
+                                                <?php endif; ?>
+                                                <?php if (Yii::app()->user->hasFlash('error')): ?>
+                                                        <div class="alert alert-danger mesage">
+                                                                <strong>sorry!</strong><?php echo Yii::app()->user->getFlash('error'); ?>
+                                                        </div>
+                                                <?php endif; ?>
+                                        </div>
                                         <div class="col-sm-7 col-md-8">
                                                 <div class="product_thumb">
                                                         <ul id="gal1">
@@ -472,11 +181,24 @@ foreach ($ids as $id) {
                                         </div>
                                         <div class="col-sm-5 col-md-4 product_details_sidebar">
                                                 <div class="product_metas">
+                                                        <?php if ($product->quantity >= 2 && $product->quantity != 0) { ?>
+                                                                <div class="out_of_stock_badge"></div>
+                                                        <?php } else if ($product->quantity == 2) { ?>
+                                                        <?php } ?>
+                                                        <div class="allmost_gone_badge"></div>
                                                         <h1>Hester</h1>
                                                         <h5>Anarkali & Suites</h5>
                                                         <div class="product_ID">SUK: LKLEE1006</div>
                                                         <div class="product_price"><span><?php echo Yii::app()->Discount->Discount($product); ?></span></div>
                                                         <p class="tax_info"><em>Inclusive of all local taxes</em></p>
+                                                        <div class="sold_out_notify">
+                                                                <h4>Product Out of Stock Subscription</h4>
+                                                                <div class="input-group">
+                                                                        <input type="text" class="form-control"  placeholder="Enter Email Address">
+                                                                        <div class="input-group-btn"><button class="btn-primary btn">Notify Me</button></div>
+                                                                </div>
+                                                                <p>(Notify me when this product is back in stock)</p>
+                                                        </div>
                                                         <div class="project_video">
                                                                 <h3>Watch Video</h3>
                                                                 <div class="video_thumb"> <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/video_thumb.jpg" alt=""/>
@@ -534,24 +256,318 @@ foreach ($ids as $id) {
                                                                 <p><a href="#">View Shipping and Return Policies</a></p>
                                                         </div>
                                                         <!-- / Shipping_ifo-->
-                                                        <div class="product_button_group">
-                                                                <div class="row">
-                                                                        <div class="col-md-7 col-xs-7">
-                                                                                <button class="btn btn-skel"><i class="fa fa-shopping-bag"></i> ADD TO SHOPPING BAG</button>
-                                                                        </div>
-                                                                        <div class="col-md-5 col-xs-5">
-                                                                                <button class="btn btn-skel" data-toggle="modal" data-target="#enquiryModal"><i class="fa fa-envelope"></i> ENQUIRY</button>
-                                                                        </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                        <div class="col-md-7 col-xs-7">
-                                                                                <button class="btn btn-skel"><i class="fa fa-heart"></i> ADD TO WISHLIST</button>
-                                                                        </div>
-                                                                        <div class="col-md-5 col-xs-5">
-                                                                                <button class="btn-primary"><i class="fa fa-envelope"></i> BUY NOW</button>
+
+
+
+                                                        <script>
+                                                                $(document).ready(function () {
+<?php if ($model->hasErrors()) { ?>
+                                                                                $("#myModal").modal('show');
+<?php } ?>
+                                                                });
+                                                        </script>
+
+                                                        <script>
+                                                                $(document).ready(function () {
+<?php if (Yii::app()->user->hasFlash('enuirysuccess')) { ?>
+                                                                                $("#myModal").modal('show');
+                                                                                $(".modal-body").html('Your Enquiry Submitted Successfully');
+
+<?php } ?>
+                                                                });
+                                                        </script>
+                                                        <div class="modal " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                                <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                                        <h4 class="modal-title" id="myModalLabel">Enquire Now</h4>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                        <div class="form">
+
+                                                                                                <?php
+                                                                                                $form = $this->beginWidget('CActiveForm', array(
+                                                                                                    'id' => 'product-enquiry-form',
+                                                                                                    'htmlOptions' => array('class' => 'form-horizontal', 'enctype' => 'multipart/form-data'),
+                                                                                                    // Please note: When you enable ajax validation, make sure the corresponding
+                                                                                                    // controller action is handling ajax validation correctly.
+                                                                                                    // There is a call to performAjaxValidation() commented in generated controller code.
+                                                                                                    // See class documentation of CActiveForm for details on this.
+                                                                                                    'enableAjaxValidation' => true,
+                                                                                                ));
+                                                                                                ?>
+
+                                                                                                <p class="note">Fields with <span class="required">*</span> are required.</p>
+
+
+
+                                                                                                <div class="form-group">
+                                                                                                        <?php echo $form->labelEx($model, 'product_id', array('class' => 'col-sm-2 control-label')); ?>
+                                                                                                        <div class="col-sm-10"><?php echo CHtml::activeDropDownList($model, 'product_id', CHtml::listData(Products::model()->findAll(), 'id', 'product_name'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
+                                                                                                        </div>
+                                                                                                        <?php echo $form->error($model, 'product_id'); ?>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                        <?php echo $form->labelEx($model, 'name', array('class' => 'col-sm-2 control-label')); ?>
+                                                                                                        <div class="col-sm-10"><?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control')); ?>
+                                                                                                        </div>
+                                                                                                        <?php echo $form->error($model, 'name'); ?>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                        <?php echo $form->labelEx($model, 'email', array('class' => 'col-sm-2 control-label')); ?>
+                                                                                                        <div class="col-sm-10"><?php echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control')); ?>
+                                                                                                        </div>
+                                                                                                        <?php echo $form->error($model, 'email'); ?>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                        <?php echo $form->labelEx($model, 'phone', array('class' => 'col-sm-2 control-label')); ?>
+                                                                                                        <div class="col-sm-10"><?php echo $form->textField($model, 'phone', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control')); ?>
+                                                                                                        </div>
+                                                                                                        <?php echo $form->error($model, 'phone'); ?>
+                                                                                                </div>
+
+                                                                                                <div class="form-group">
+                                                                                                        <?php echo $form->labelEx($model, 'country', array('class' => 'col-sm-2 control-label')); ?>
+                                                                                                        <div class="col-sm-10"><?php echo CHtml::activeDropDownList($model, 'country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
+                                                                                                        </div>
+                                                                                                        <?php echo $form->error($model, 'country'); ?>
+                                                                                                </div>
+                                                                                                <div class="form-group">
+                                                                                                        <?php echo $form->labelEx($model, 'size', array('class' => 'col-sm-2 control-label')); ?>
+                                                                                                        <div class="col-sm-10"><?php echo CHtml::activeDropDownList($model, 'size', CHtml::listData(MasterSize::model()->findAll(), 'id', 'size'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
+                                                                                                        </div>
+                                                                                                        <?php echo $form->error($model, 'size'); ?>
+                                                                                                </div>
+
+                                                                                                <div class="form-group">
+                                                                                                        <?php echo $form->labelEx($model, 'requirement', array('class' => 'col-sm-2 control-label')); ?>
+                                                                                                        <div class="col-sm-10"><?php
+                                                                                                                $this->widget('application.admin.extensions.eckeditor.ECKEditor', array(
+                                                                                                                    'model' => $model,
+                                                                                                                    'attribute' => 'requirement',
+                                                                                                                ));
+                                                                                                                ?>
+                                                                                                        </div>
+                                                                                                        <?php echo $form->error($model, 'requirement'); ?>
+                                                                                                </div>
+
+
+
+                                                                                                <div class="modal-footer">
+                                                                                                        <?php echo CHtml::submitButton($model->isNewRecord ? 'Enquiry Now' : 'Save', array('class' => 'btn btn-default')); ?>
+                                                                                                        <?php echo CHtml::resetButton($model->isNewRecord ? 'Reset' : 'Save', array('class' => 'btn btn-primary')); ?>
+                                                                                                </div>
+                                                                                                <?php $this->endWidget(); ?>
+                                                                                        </div><!-- form -->
+                                                                                </div>
+
                                                                         </div>
                                                                 </div>
                                                         </div>
+
+                                                        <?php
+                                                        //check wheather sale or enquiry//
+
+                                                        if ($product->enquiry_sale == 1) {
+                                                                //instock//
+
+                                                                if ($product->stock_availability == 1) {
+                                                                        if ($product->quantity >= 1) {
+                                                                                if (isset(Yii::app()->session['user'])) {
+                                                                                        ?>
+                                                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist add wish ">Add to WishList</a>
+                                                                                        <?php
+                                                                                }
+                                                                                ?>
+
+
+                                                                                <div class="product_quantity">
+                                                                                        <h3>Quantity</h3>
+                                                                                        <div class="qunatity">
+                                                                                                <select class="qty" >
+                                                                                                        <option value="1">1</option>
+                                                                                                        <option value="2">2</option>
+                                                                                                        <option value="3">3</option>
+                                                                                                        <option value="4">4</option>
+                                                                                                        <option value="5">5</option>
+                                                                                                </select>
+                                                                                        </div>
+                                                                                </div>
+                                                                                <!-- / Quantity-->
+                                                                                <div class="shipping_info">
+                                                                                        <div class="row">
+                                                                                                <div class="col-md-6 col-xs-6">
+                                                                                                        <h4><a href="#"><i class="fa fa-globe"></i> <span>We Ship Worldwide</span></a></h4>
+                                                                                                </div>
+                                                                                                <div class="col-md-6 col-xs-6">
+                                                                                                        <h4><a href="#"><i class="fa fa-truck"></i> <span>Free Shipping In India</span></a></h4>
+                                                                                                </div>
+                                                                                        </div>
+                                                                                        <p><a href="#">View Shipping and Return Policies</a></p>
+                                                                                </div>
+                                                                                <!-- / Shipping_ifo-->
+                                                                                <div class="product_button_group">
+                                                                                        <div class="row">
+                                                                                                <div class="col-md-7 col-xs-7">
+                                                                                                        <button class="btn btn-skel add_to_cart" id="<?= $product->id; ?>"><i class="fa fa-shopping-bag"></i> ADD TO SHOPPING BAG</button>
+                                                                                                        <input type = "hidden" id = "opt_id" name = "opt">
+                                                                                                        <input type = "hidden" value = "<?= $product->canonical_name; ?>" id="cano_name_<?= $product->id; ?>" name="cano_name">
+                                                                                                </div>
+                                                                                                <div class="col-md-5 col-xs-5">
+                                                                                                        <button type="button" class="btn btn-skel" data-toggle="modal" data-target="#enquiryModal"><i class="fa fa-envelope"></i> ENQUIRY</button>
+                                                                                                </div>
+                                                                                        </div>
+                                                                                        <div class="row">
+                                                                                                <div class="col-md-7 col-xs-7">
+                                                                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $data->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
+
+                                                                                                </div>
+                                                                                                <div class="col-md-5 col-xs-5">
+                                                                                                        <button type="button" class="btn-primary" ><i class="fa fa-envelope"></i> BUY NOW</button>
+                                                                                                </div>
+                                                                                        </div>
+                                                                                </div>
+
+
+
+
+                                                                        <?php } else {
+                                                                                ?>
+
+
+
+                                                                                <form action = "<?= Yii::app()->baseUrl; ?>/index.php/products/ProductNotify/id/<?= $product->id; ?>" method = "post" name = "notify">
+                                                                                        <div class="product_button_group">
+                                                                                                <div class="row">
+                                                                                                        <?php
+                                                                                                        if (isset(Yii::app()->session['user'])) {
+                                                                                                                ?>
+                                                                                                                <div class="col-md-7 col-xs-7">
+                                                                                                                        <input type="text" id="email"  name="email" value="<?= Yii::app()->session['user']['email'] ?>">
+                                                                                                                </div>
+
+                                                                                                                <?php
+                                                                                                        } else {
+                                                                                                                ?>
+                                                                                                                <div class="col-md-7 col-xs-7">
+                                                                                                                        <input type="text" id="email" placeholder="Email"  name="email">
+                                                                                                                </div>
+
+                                                                                                                <?php
+                                                                                                        }
+                                                                                                        ?>
+
+                                                                                                        <div class="col-md-5 col-xs-5">
+                                                                                                                <button type="submit" class="btn btn-skel" ><i class="fa fa-envelope"></i> NOTIFY ME</button>
+                                                                                                        </div>
+                                                                                                </div>
+                                                                                                <div class="row">
+                                                                                                        <div class="col-md-7 col-xs-7">
+                                                                                                                <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $data->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
+
+                                                                                                        </div>
+                                                                                                        <div class="col-md-5 col-xs-5">
+                                                                                                                <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
+                                                                                                        </div>
+                                                                                                </div>
+
+
+
+                                                                                        </div>
+
+                                                                                </form>
+                                                                                <?php
+                                                                        }
+                                                                }
+                                                                //out of stock//
+                                                                elseif ($product->stock_availability == 0) {
+                                                                        ?>
+                                                                        <form action = "<?= Yii::app()->baseUrl; ?>/index.php/products/ProductNotify/id/<?= $product->id; ?>" method = "post" name = "notify">
+                                                                                <div class="product_button_group">
+                                                                                        <div class="row">
+                                                                                                <?php
+                                                                                                if (isset(Yii::app()->session['user'])) {
+                                                                                                        ?>
+                                                                                                        <div class="col-md-7 col-xs-7">
+                                                                                                                <input type="text" id="email"  name="email" value="<?= Yii::app()->session['user']['email'] ?>">
+                                                                                                        </div>
+
+                                                                                                        <?php
+                                                                                                } else {
+                                                                                                        ?>
+                                                                                                        <div class="col-md-7 col-xs-7">
+                                                                                                                <input type="text" id="email" placeholder="Email"  name="email">
+                                                                                                        </div>
+
+                                                                                                        <?php
+                                                                                                }
+                                                                                                ?>
+
+                                                                                                <div class="col-md-5 col-xs-5">
+                                                                                                        <button type="submit" class="btn btn-skel" ><i class="fa fa-envelope"></i> NOTIFY ME</button>
+                                                                                                </div>
+                                                                                        </div>
+
+
+                                                                                        <div class="row">
+                                                                                                <div class="col-md-7 col-xs-7">
+                                                                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $data->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
+
+                                                                                                </div>
+                                                                                                <div class="col-md-5 col-xs-5">
+                                                                                                        <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
+                                                                                                </div>
+                                                                                        </div>
+
+
+                                                                                </div>
+
+                                                                        </form>
+                                                                        <?php
+                                                                } else {
+                                                                        //other checking if availanle//
+                                                                }
+                                                        }
+                                                        //enquiry//
+                                                        else {
+                                                                ?>
+                                                                <div class="product_button_group">
+                                                                        <div class="row">
+                                                                                <div class="col-md-7 col-xs-7">
+                                                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $data->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
+
+                                                                                </div>
+                                                                                <div class="col-md-5 col-xs-5">
+                                                                                        <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
+                                                                                </div>
+                                                                        </div>
+                                                                </div>
+
+                                                                <!-- Modal -->
+
+                                                                <?php
+                                                        }
+                                                        ?>
+
+                                                        <!--                                                        <div class="product_button_group">
+                                                                                                                        <div class="row">
+                                                                                                                                <div class="col-md-7 col-xs-7">
+                                                                                                                                        <button class="btn btn-skel"><i class="fa fa-shopping-bag"></i> ADD TO SHOPPING BAG</button>
+                                                                                                                                </div>
+                                                                                                                                <div class="col-md-5 col-xs-5">
+                                                                                                                                        <button class="btn btn-skel" data-toggle="modal" data-target="#enquiryModal"><i class="fa fa-envelope"></i> ENQUIRY</button>
+                                                                                                                                </div>
+                                                                                                                        </div>
+                                                                                                                        <div class="row">
+                                                                                                                                <div class="col-md-7 col-xs-7">
+                                                                                                                                        <button class="btn btn-skel"><i class="fa fa-heart"></i> ADD TO WISHLIST</button>
+                                                                                                                                </div>
+                                                                                                                                <div class="col-md-5 col-xs-5">
+                                                                                                                                        <button class="btn-primary"><i class="fa fa-envelope"></i> BUY NOW</button>
+                                                                                                                                </div>
+                                                                                                                        </div>
+                                                                                                                </div>-->
                                                         <!--/Button Group-->
                                                         <div class="product_description">
                                                                 <div>
