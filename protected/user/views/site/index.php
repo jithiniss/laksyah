@@ -154,4 +154,9 @@
         </div>
         <!-- / Testimonials-->
 </div>
+<?php
+foreach ($model as $mod) {
+        var_dump($mod);
+}
+?>
 <!-- / End Content-->

@@ -226,4 +226,10 @@ class SiteController extends Controller {
                 $this->redirect(Yii::app()->request->urlReferrer);
         }
 
+        public function actionGiftcard() {
+                $model = GiftCard::model()->findAll();
+
+                $this->render('giftcard', array('model' => $model));
+        }
+
 }

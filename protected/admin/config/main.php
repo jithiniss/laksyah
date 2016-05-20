@@ -14,7 +14,7 @@ return array(
     'runtimePath' => $admin . '/runtime',
     'controllerPath' => $admin . '/controllers',
     'viewPath' => $admin . '/views',
-    'name' => 'Vijay Masala',
+    'name' => '',
     // preloading 'log' component
     'preload' => array('log', 'booster'),
     // autoloading model and component classes
@@ -46,6 +46,7 @@ return array(
         'testimonials',
         'appointment',
         'makepayment',
+        'giftcard',
         // uncomment the following to enable the Gii tool
         'gii' => array(
             'class' => 'system.gii.GiiModule',

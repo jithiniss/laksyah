@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <meta charset="utf-8">
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <title>laKsyah | Admin</title>
-                <!--<script src="<?php // echo Yii::app()->baseUrl                                                                                                                                                                                                                                              ?>/admin-themes/plugins/jQuery/jQuery-2.1.4.min.js"></script>-->
+                <!--<script src="<?php // echo Yii::app()->baseUrl                                                                                                                                                                                                                                                ?>/admin-themes/plugins/jQuery/jQuery-2.1.4.min.js"></script>-->
                 <!-- Tell the browser to be responsive to screen width -->
                 <link rel="stylesheet" href="<?php echo Yii::app()->baseUrl; ?>/css/admin.css">
                 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -26,7 +26,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <link rel="stylesheet" href="<?php echo Yii::app()->baseUrl; ?>/css/admin.css">
 
                 <!-- Bootstrap 3.3.5 -->
-        <!--        <link rel="stylesheet" href="<?php //echo Yii::app()->baseUrl;                                                   ?>/admin-themes/bootstrap/css/bootstrap.min.css">-->
+        <!--        <link rel="stylesheet" href="<?php //echo Yii::app()->baseUrl;                                                     ?>/admin-themes/bootstrap/css/bootstrap.min.css">-->
                 <!-- Font Awesome -->
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
                 <!-- Ionicons -->
@@ -234,6 +234,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                         $action224 = "active";
                                                         $actionn51 = "active";
                                                         break;
+                                                case "giftCard":
+                                                        $action225 = "active";
+                                                        $actionn55 = "active";
+                                                        break;
                                                 case "site":
                                                         if (Yii::app()->controller->action->id == "home") {
                                                                 $action18 = "active";
@@ -369,6 +373,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                 <li class="<?php echo $action51 ?>">
                                                         <a href="<?php echo Yii::app()->baseUrl ?>/admin.php/makepayment/MakePayment/admin">
                                                                 <i class="glyphicon glyphicon-bookmark"></i><span>Make Payment</span>
+                                                        </a>
+                                                </li>
+                                                <li class="<?php echo $action55 ?>">
+                                                        <a href="<?php echo Yii::app()->baseUrl ?>/admin.php/giftcard/GiftCard/admin">
+                                                                <i class="glyphicon glyphicon-gift"></i><span>Gift Card</span>
                                                         </a>
                                                 </li>
 
