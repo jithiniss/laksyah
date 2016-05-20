@@ -122,6 +122,9 @@
                                         </div>
                                         <div id="custm">
                                                 <div class="form-group">
+                                                        <a href="<?php echo Yii::app()->request->baseUrl; ?>/images/thumb_big2.jpg" download><input type="button" value="DOWNLOAD MEASUREMENT FORM"/></a>
+                                                </div>
+                                                <div class="form-group">
                                                         <?php $model->unit = 2; ?>
                                                         <?php echo $form->radioButtonList($model, 'unit', array(1 => 'In', 2 => 'Cm'), array('separator' => "")); ?>
                                                         <?php echo $form->error($model, 'unit'); ?>
