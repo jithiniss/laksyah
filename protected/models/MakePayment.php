@@ -30,14 +30,14 @@ class MakePayment extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
-                    array('userid, product_name, product_code, message, amount_type, amount, pay_method, date,status', 'required'),
+                    array('userid, product_name, product_code, message, amount_type, amount, pay_method, date', 'required'),
                     array('userid,amount,pay_method', 'numerical', 'integerOnly' => true),
                     array('product_name', 'length', 'max' => 200),
                     array('product_code, amount_type, pay_method', 'length', 'max' => 15),
                     array('amount', 'length', 'max' => 25),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, userid, product_name, product_code, message, amount_type, amount, pay_method, date,status', 'safe', 'on' => 'search'),
+                    array('id, userid, product_name, product_code, message, amount_type, amount, pay_method, date', 'safe', 'on' => 'search'),
                 );
         }
 
