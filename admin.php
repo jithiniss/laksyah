@@ -1,7 +1,5 @@
 <?php
 
-echo "hii";
-
 // change the following paths if necessary
 $yii = dirname(__FILE__) . '/framework/yii.php';
 $config = dirname(__FILE__) . '/protected/admin/config/main.php';
