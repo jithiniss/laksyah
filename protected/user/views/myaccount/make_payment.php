@@ -66,7 +66,13 @@
                         <?php echo $form->error($model, 'amount', array('style' => 'color:red')); ?>
                         <?php echo $form->error($model, 'amount_type', array('style' => 'color:red')); ?>
                 </div>
-
+                <div class="form-group"><?php
+                        $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+                        ?>
+                        <input type="hidden" id="wallet_amt" value="<?php echo $user->wallet_amt; ?>">
+                        <b>Amount From My Credit:</b><input type="text" name="wallet_amt" autocomplete="off" id="credit" >
+                        <b>(Available Credit:<span id="balance"></span>)</b>
+                </div>
 
 
                 <div class="form-group">
@@ -76,11 +82,8 @@
                         <?php echo $form->radioButtonList($model, 'pay_method', array('3' => ''), array('uncheckValue' => null)); ?><?php echo 'VOUCHER:'; ?>
                         <?php echo $form->error($model, 'pay_method', array('style' => 'color:red')); ?>
                 </div>
-                <div class="form-group">
+                <input type="checkbox" required>By making to agree our payment policies.
 
-                        <?php echo $form->checkBox($model, 'status', array('value' => 1, 'uncheckValue' => 0)); ?><?php echo 'By making to agree our payment policies:'; ?>
-                        <?php echo $form->error($model, 'status'); ?>
-                </div>
 
         </div>
         <div class="row buttons" style="margin-left: 76px;">
@@ -90,3 +93,20 @@
         <?php $this->endWidget(); ?>
 
         <!-- form -->
+        <script>
+                $(document).ready(function () {
+                        $('#credit').on('change', function () {
+                                var credit = $("#credit").val();
+                                var cred = credit
+                                .00;
+
+                                var wallet_amt = $("#wallet_amt").val();
+                                if (cred > wallet_amt) {
+                                        alert("Your Amount greater than available balance");
+                                } else {
+                                        var balance = wallet_amt - cred;
+                                        document.getElementById("balance").innerHTML = balance;
+                                }
+                        });
+                });
+        </script>

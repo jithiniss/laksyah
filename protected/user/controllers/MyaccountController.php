@@ -278,26 +278,53 @@ class MyaccountController extends Controller {
                         $model->attributes = $_POST['MakePayment'];
                         $model->userid = Yii::app()->session['user']['id'];
                         $model->date = date('Y-m-d');
+
                         if ($model->validate()) {
-                                if ($model->status == 1) {
-
-                                        if ($model->save()) {
-
-                                                Yii::app()->user->setFlash('success', "your amount has been  successfully added");
-                                                $this->redirect('Makepayment');
+                                if ($model->save()) {
+                                        if ($model->amount <= $_POST['wallet_amt']) {
+                                                $wallet_add = new WalletHistory;
+                                                $wallet_add->user_id = Yii::app()->session['user']['id'];
+                                                $wallet_add->type_id = 3;
+                                                $wallet_add->amount = $_POST['wallet_amt'];
+                                                $wallet_add->entry_date = date('Y-m-d');
+                                                $wallet_add->credit_debit = 2;
+                                                $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+                                                $wallet_amount = $user->wallet_amt;
+                                                $wallet_add->balance_amt = $wallet_amount - $wallet_add->amount;
+                                                if ($wallet_add->save()) {
+                                                        $amount = $wallet_amount - $wallet_add->amount;
+                                                        $user->wallet_amt = $amount;
+                                                        $user->save();
+                                                        $wallet_add->unsetAttributes();
+                                                }
                                         } else {
-                                                Yii::app()->user->setFlash('error', "Sorry! There is some error..");
+                                                $this->redirect('Makepayment_debit');
                                         }
-                                }
-                                if ($model->status == 0) {
-                                        Yii::app()->user->setFlash('error', "Sorry! Please agree your payment policies....");
+
+//                                                $to = 'shahana@intersmart.in,$user->email';
+//                                                $subject = "Product Availability";
+//
+//                                                $message = "sssssssssssssssssssssss";
+//                                                $headers = "MIME-Version: 1.0" . "\r\n";
+//                                                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+//                                                $headers .= 'From: <>' . "\r\n";
+//                                                mail($to, $subject, $message, $headers);
+                                        Yii::app()->user->setFlash('success', "your amount has been  successfully added");
+                                        $this->redirect('Makepayment');
+                                } else {
+                                        Yii::app()->user->setFlash('error', "Sorry! There is some error..");
                                 }
                         }
                 }
 
+
                 $this->render('make_payment', array(
                     'model' => $model,
                 ));
+        }
+
+        public function actionMakepayment_debit() {
+                echo 'jgjh';
         }
 
 //        public function loadModel($id) {
