@@ -451,6 +451,7 @@ foreach ($ids as $id) {
                                                 </div>
                                                 <?php
                                                 if (!empty($dir_contents)) {
+
                                                         foreach ($dir_contents as $file1) {
 
                                                         }
