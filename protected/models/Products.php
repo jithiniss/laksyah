@@ -11,6 +11,7 @@
  * @property string $main_image
  * @property string $hover_image
  * @property string $gallery_images
+ * @property string $video
  * @property string $description
  * @property string $meta_title
  * @property string $meta_description
@@ -77,6 +78,8 @@ class Products extends CActiveRecord {
                     array('DOU', 'safe'),
                     array('product_code', 'unique'),
                     array('canonical_name', 'unique'),
+                    array('video', 'file', 'types' => 'mp4', 'on' => 'create'),
+                    array('video', 'file', 'types' => 'mp4', 'on' => 'update'),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
                     array('id, category_id, main_image,hover_image, gallery_images, description, meta_title, meta_description, meta_keywords, header_visibility, sort_order, price, quantity, subtract_stock,discount,discount_type,discount_rate, requires_shipping, dimensionl, dimensionw, dimensionh, dimension_class, weight, weight_class, status, related_products, CB, UB, DOC, DOU', 'safe', 'on' => 'search'),
@@ -111,6 +114,7 @@ class Products extends CActiveRecord {
                     'main_image' => 'Main Image',
                     'hover_image' => 'Hover Image',
                     'gallery_images' => 'Gallery Images',
+                    'video' => 'Video',
                     'description' => 'Description',
                     'meta_title' => 'Meta Title',
                     'meta_description' => 'Meta Description',
@@ -177,6 +181,7 @@ class Products extends CActiveRecord {
                 $criteria->compare('main_image', $this->main_image, true);
                 $criteria->compare('hover_image', $this->hover_image, true);
                 $criteria->compare('gallery_images', $this->gallery_images, true);
+                $criteria->compare('video', $this->video, true);
                 $criteria->compare('description', $this->description, true);
                 $criteria->compare('meta_title', $this->meta_title, true);
                 $criteria->compare('meta_description', $this->meta_description, true);

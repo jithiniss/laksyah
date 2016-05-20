@@ -160,6 +160,49 @@ class UploadFile extends CApplicationComponent {
                 $resize->save($path . '/' . $name);
         }
 
+        public function uploadVideo($video, $id, $foldername = false, $dimensions = array()) {
+
+                if ($foldername) {
+                        $folder = $this->folderName(0, 1000, $id) . '/';
+                } else {
+                        $folder = "";
+                }
+
+
+                if (isset($video)) {
+
+                        if (Yii::app()->basePath . '/../uploads/products') {
+                                chmod(Yii::app()->basePath . '/../uploads/products', 0777);
+                                if ($foldername) {
+
+
+                                        if (!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder))
+                                                mkdir(Yii::app()->basePath . '/../uploads/products/' . $folder);
+                                        chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/', 0777);
+
+                                        if (!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id))
+                                                mkdir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id);
+                                        chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/', 0777);
+
+                                        if (!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/videos'))
+                                                mkdir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/videos');
+                                        chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . 'videos/', 0777);
+                                }
+                                if ($video->saveAs(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/videos/video.' . $video->extensionName)) {
+
+
+
+                                        $a = chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/', 0777);
+
+
+                                        $file = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/videos/video.' . $video->extensionName;
+
+                                        $path = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/videos';
+                                }
+                        }
+                }
+        }
+
 }
 
 ?>

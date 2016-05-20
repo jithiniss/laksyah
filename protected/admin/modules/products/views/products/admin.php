@@ -48,6 +48,31 @@
                         'type' => 'raw'
                     ),
                     array(
+                        'name' => 'hover_image',
+                        'value' => function($data) {
+                                if ($data->hover_image == "") {
+                                        return;
+                                } else {
+                                        $folder = Yii::app()->Upload->folderName(0, 1000, $data->id);
+                                        return '<img width="125" style="border: 2px solid #d2d2d2;" src="' . Yii::app()->request->baseUrl . '/uploads/products/' . $folder . '/' . $data->id . '/hover/hover.' . $data->hover_image . '" />';
+                                }
+                        },
+                        'type' => 'raw'
+                    ),
+                    array(
+                        'name' => 'video',
+                        'value' => function($data) {
+                                if ($data->video == "") {
+                                        return;
+                                } else {
+                                        //  $folder = Yii::app()->Upload->folderName(0, 1000, $data->id);
+                                        //  return '<img width="125" style="border: 2px solid #d2d2d2;" src="' . Yii::app()->request->baseUrl . '/uploads/products/' . $folder . '/' . $data->id . '/videos/videos.' . $data->video . '" />';
+                                        echo $data->video;
+                                }
+                        },
+                        'type' => 'raw'
+                    ),
+                    array(
                         'name' => 'description',
                         'value' => function($data) {
                                 $contents = str_word_count($data->description);
