@@ -3,7 +3,9 @@
 class ProductsController extends Controller {
 
         public function actionCategory($name) {
-
+                if (isset(Yii::app()->session['temp_product_filter']) != '') {
+                        unset(Yii::app()->session['temp_product_filter']);
+                }
                 $parent = ProductCategory::model()->findByAttributes(array('canonical_name' => $name));
 
                 $category = ProductCategory::model()->findAllByAttributes(array('parent' => $parent->parent));
@@ -40,12 +42,6 @@ class ProductsController extends Controller {
                 );
 
                 $this->render('deal', array('dataProvider' => $dataProvider));
-        }
-
-        public function actionFilter() {
-                echo $_POST['min'];
-                echo $_POST['max'];
-                exit;
         }
 
         public function actionDetail($name) {
@@ -130,6 +126,19 @@ class ProductsController extends Controller {
                         }
                 } else {
                         $this->redirect('site/error');
+                }
+        }
+
+        public function actionPriceRange() {
+                if (Yii::app()->request->isAjaxRequest) {
+                        Yii::app()->session['temp_product_filter'] = 1;
+                        $min = $_REQUEST['amount'];
+                        $max = $_REQUEST['amount1'];
+                        $cat = $_REQUEST['cat_name'];
+                        $parent = ProductCategory::model()->findByPk($cat);
+                        $cats = ProductCategory::model()->findAllByattributes(array('parent' => $parent->id), array('condition' => "id != $parent->id"));
+                        $dataProvider = Yii::app()->Menu->MenuCategoriesFilter($cats, $parent, $categ = 0, $min, $max);
+                        $this->renderPartial('_view1', array('dataProvider' => $dataProvider, 'parent' => $parent, 'name' => $cat));
                 }
         }
 
