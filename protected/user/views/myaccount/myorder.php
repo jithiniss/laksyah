@@ -59,6 +59,7 @@
             </div>
 
         </div>
-        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/border.png" class="img-responsive design"/> </div>
+        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/border.png" class="img-responsive design"/>
+    </div>
 </div>
 

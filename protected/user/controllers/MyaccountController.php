@@ -327,6 +327,11 @@ class MyaccountController extends Controller {
                 echo 'jgjh';
         }
 
+        public function actionMyordernew() {
+                $myorders = Order::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
+                $this->render('myorder_new', array('myorders' => $myorders));
+        }
+
 //        public function loadModel($id) {
 //                $model = UserSizechart::model()->findByPk($id);
 //                if ($model === null)

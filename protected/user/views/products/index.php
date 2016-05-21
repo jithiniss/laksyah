@@ -148,12 +148,18 @@
                     showLoader();
                     //debugger;
                     var form = $("#slide_rnge");
+                    var value = <?php echo Yii::app()->session['temp_product_filter']; ?>
                     $.ajax({
                         url: baseurl + 'Products/PriceRange',
                         type: "POST",
                         data: form.serialize()
                     }).done(function (data) {
-                        $(".product_list").html(data);
+                        if (value == 1) {
+                            $("#content").html(data);
+                        } else {
+                            $(".product_list").html(data);
+                        }
+
                         hideLoader();
                     });
 
@@ -167,7 +173,7 @@
 
 
             $(".add_to_cart").click(function () {
-                        var id = $(this).attr('id');
+                var id = $(this).attr('id');
                 var canname = $("#cano_name_" + id).val();
                 var qty = $(".qty_" + id).val();
                 addtocart(canname, qty);
