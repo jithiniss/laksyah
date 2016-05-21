@@ -57,6 +57,7 @@ class ProductsController extends Controller {
                                 $product_view->user_id = $user_id;
                                 $product_view->save();
                         }
+                        $recently = ProductViewed::model()->findAllByAttributes(array('product_id' => $prduct->id, 'user_id' => $user_id));
                 } else {
                         if (!isset(Yii::app()->session['temp_user'])) {
                                 Yii::app()->session['temp_user'] = microtime(true);
@@ -73,9 +74,10 @@ class ProductsController extends Controller {
                                         $product_view->save(FALSE);
                                 }
                         }
+                        $recently = ProductViewed::model()->findAllByAttributes(array('product_id' => $prduct->id, 'session_id' => $sessonid));
                 }
 
-                $recently = ProductViewed::model()->findAllByAttributes(array('product_id' => $prduct->id, 'session_id' => $sessonid));
+
 
                 $model = new ProductEnquiry;
                 if (isset($_POST['ProductEnquiry'])) {

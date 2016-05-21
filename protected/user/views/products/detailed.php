@@ -94,12 +94,12 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                         }
                                         ?>
                                         <div class="product_big_image"> <img src="<?php echo $bigg . $file1; ?>" id="laksyah_zoom" data-zoom-image="<?php echo $zoom . $file1; ?>" alt=""/>
-                                                <div class="product_social_shares"> <span>Share this look with your friends</span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><i class="fa fa-pinterest-p"></i><a href="#"><i class="fa fa-envelope-o"></i></a> </div>
+                                                <div class="product_social_shares"> <span>Share this look with your friends</span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><i class="fa fa-pinterest-p"></i><a href="#" data-toggle="modal" data-target="#enquirymail"><i class="fa fa-envelope-o"></i></a> </div>
                                         </div>
                                 <?php } else { ?>
 
                                         <div class="product_big_image"> <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/big.<?= $product->main_image ?>" id="laksyah_zoom" data-zoom-image="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/zoom.<?= $product->main_image ?>" alt=""/>
-                                                <div class="product_social_shares"> <span>Share this look with your friends</span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><i class="fa fa-pinterest-p"></i><a href="#"><i class="fa fa-envelope-o"></i></a> </div>
+                                                <div class="product_social_shares"> <span>Share this look with your friends</span><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-twitter"></i></a><i class="fa fa-pinterest-p"></i><a href="#" data-toggle="modal" data-target="#enquirymail"><i class="fa fa-envelope-o"></i></a> </div>
                                         </div>
                                 <?php } ?>
                                 <div class="mobile_slider">
@@ -177,7 +177,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                         <h3>Watch Video</h3>
                                                         <div class="video_thumb">
 
-                                                                                                                                                                                                                                                                                                <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
                                                                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/video_thumb.jpg" alt=""/>
                                                                 <a class="video_link laksyah_video fancybox.iframe" href="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>"><i class="fa fa-play-circle-o"></i></a>
                                                         </div>
@@ -249,6 +249,33 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                 <div class="modal-footer">
                                                                         <button type="button" class="btn btn-primary">Save changes</button>
                                                                 </div>
+                                                        </div><!-- /.modal-content -->
+                                                </div><!-- /.modal-dialog -->
+                                        </div><!-- /.modal -->
+
+
+                                        <div class="modal fade" id="enquirymail" tabindex="-1" role="dialog">
+                                                <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                                <div class="modal-header text-center">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                                        <h2 class="modal-title">Email To a friend</h2>
+                                                                </div>
+                                                                <br />
+                                                                <div class="modal-body text-center">
+
+                                                                        <div class="row">
+                                                                                <div class="col-sm-6 validating">
+                                                                                        <input placeholder="Email" size="60" maxlength="225" class="form-control"  name="email" id="ProductEnquiry_product_id" type="text" >
+                                                                                </div>
+                                                                                <div class="col-sm-6 validating">
+                                                                                        <button type="button" class="btn btn-primary">SEND MAIL</button>
+                                                                                </div>
+
+                                                                        </div>
+                                                                </div>
+
+
                                                         </div><!-- /.modal-content -->
                                                 </div><!-- /.modal-dialog -->
                                         </div><!-- /.modal -->
@@ -640,7 +667,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                 </div>
                         </div>
                         <div class="section_title">
-                                <h2>Frequently Bought Together</h2>
+                                <h2>Related Products</h2>
                         </div>
                         <div class="related_itel_lists">
                                 <div class="product_list ">
