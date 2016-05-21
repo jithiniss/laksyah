@@ -18,7 +18,6 @@ class SiteController extends Controller {
                         'class' => 'CViewAction',
                     ),
                 );
-
         }
 
         /**
@@ -37,8 +36,7 @@ class SiteController extends Controller {
                                 $admin = AdminUser::model()->findByAttributes(array('username' => $model->username, 'password' => $model->password));
                                 if ($admin == '') {
                                         $model->addError(password, 'invalid username or password');
-                                }
-                                else {
+                                } else {
                                         $id = $admin->admin_post_id;
                                         $post = AdminPost::model()->findByPk($id);
                                         Yii::app()->session['post'] = $post;
@@ -54,17 +52,27 @@ class SiteController extends Controller {
                 $this->render('login', array(
                     'model' => $model,
                 ));
-
         }
 
         public function actionHome() {
-                // renders the view file 'protected/views/site/index.php'
-                // using the default layout 'protected/views/layouts/main.php'
+                $model = Order::model()->findAll();
+                $count = count($model);
+                $out_stock = Products::model()->findByAttributes(array('quantity' => 0));
+                $count_stock = count($out_stock);
                 if (!isset(Yii::app()->session['admin'])) {
                         $this->redirect('logOut');
                 }
-                $this->render('index');
+                $this->render('index', array('count' => $count, 'count_stock' => $count_stock));
+        }
 
+        public function actionOrderNotification() {
+                $model = Order::model()->findAll();
+                $this->render('orderNotification', array('model' => $model));
+        }
+
+        public function actionOutofstock() {
+                $out_stock = Products::model()->findByAttributes(array('quantity' => 0));
+                $this->render('out_ofstock', array('out_stock' => $out_stock));
         }
 
         /**
@@ -77,7 +85,6 @@ class SiteController extends Controller {
                         else
                                 $this->render('error', $error);
                 }
-
         }
 
         /**
@@ -101,7 +108,6 @@ class SiteController extends Controller {
                         }
                 }
                 $this->render('contact', array('model' => $model));
-
         }
 
         public function actionCategoryTagAdd() {
@@ -117,7 +123,6 @@ class SiteController extends Controller {
                                 $model->save(false);
                         }
                 }
-
         }
 
         public function actionCategoryTag() {
@@ -141,7 +146,6 @@ class SiteController extends Controller {
                                 echo '<div class="' . $_REQUEST['type'] . '_tag-sub">' . $tag->category_tag . '</div>';
                         }
                 }
-
         }
 
         public function actionCategoryCat() {
@@ -171,7 +175,6 @@ class SiteController extends Controller {
                                 echo '<div class="' . $_REQUEST['type'] . '_tag-sub" id="' . $tag->id . '">' . $cat_parent . '</div>';
                         }
                 }
-
         }
 
         public function findParent($data) {
@@ -191,8 +194,7 @@ class SiteController extends Controller {
                 $index = count($_SESSION['category']);
                 if ($data->id == $data->parent) {
                         $_SESSION['category'][$index + 1] = $data->category_name;
-                }
-                else {
+                } else {
                         $results = ProductCategory::model()->findByPk($data->parent);
                         $_SESSION['category'][$index + 1] = $data->category_name;
                         return $this->findParent($results);
@@ -203,7 +205,6 @@ class SiteController extends Controller {
                         $return .=$cat . '>';
                 }
                 return rtrim($return, '>');
-
         }
 
         /**
@@ -227,7 +228,6 @@ class SiteController extends Controller {
                 }
                 // display the login form
                 $this->render('login', array('model' => $model));
-
         }
 
         /**
@@ -238,6 +238,6 @@ class SiteController extends Controller {
                 unset(Yii::app()->session['admin']);
                 unset(Yii::app()->session['post']);
                 $this->redirect(Yii::app()->homeUrl);
-
         }
+
 }

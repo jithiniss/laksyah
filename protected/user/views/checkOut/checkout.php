@@ -62,71 +62,72 @@
                                                         </select>
                                                 </div>
 
-                                                <div class="row  bill_form" style="">
-                                                        <?php //echo $form->errorSummary($billing); ?>
-                                                        <div class="col-sm-6">
-                                                                <?php echo $form->labelEx($billing, '[bill]first_name', array('class' => 'control-label')); ?>
-                                                                <?php echo $form->textField($billing, '[bill]first_name', array('placeholder' => 'First Name ', 'class' => 'form-control aik')); ?>
-                                                                <?php echo $form->error($billing, '[bill]first_name'); ?>
+                                                <div class=" bill_form" style="">
+                                                        <div class="row">
+                                                                <?php //echo $form->errorSummary($billing); ?>
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, '[bill]first_name', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]first_name', array('placeholder' => 'First Name ', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo $form->error($billing, '[bill]first_name'); ?>
+                                                                </div>
+
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, '[bill]last_name', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]last_name', array('placeholder' => 'Last Name ', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo $form->error($billing, '[bill]last_name'); ?>
+                                                                </div>
+                                                        </div>
+                                                        <div class="row">
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, '[bill]contact_number', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]contact_number', array('placeholder' => 'Contact Number ', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo $form->error($billing, '[bill]contact_number'); ?>
+                                                                </div>
+
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, '[bill]address_1', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]address_1', array('placeholder' => 'Address Line 1 ', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo $form->error($billing, '[bill]address_1'); ?>
+                                                                </div>
+                                                        </div>
+                                                        <div class="row">
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, '[bill]address_2', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]address_2', array('placeholder' => 'Address Line 2 ', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo $form->error($billing, '[bill]address_2'); ?>
+                                                                </div>
+
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, '[bill]city', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]city', array('placeholder' => 'City ', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo $form->error($billing, '[bill]city'); ?>
+                                                                </div>
+                                                        </div>
+                                                        <div class="row">
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, '[bill]postcode', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo $form->error($billing, '[bill]postcode'); ?>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, '[bill]country', array('class' => 'control-label')); ?>
+                                                                        <?php echo CHtml::activeDropDownList($billing, '[bill]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo $form->error($billing, '[bill]country'); ?>
+                                                                </div>
+                                                        </div>
+                                                        <div class="row">
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, '[bill]state', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]state', array('placeholder' => 'state ', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo $form->error($billing, '[bill]state'); ?>
+                                                                </div>
+                                                                <div class="col-sm-6">
+
+                                                                </div>
                                                         </div>
 
-                                                        <div class="col-sm-6">
-                                                                <?php echo $form->labelEx($billing, '[bill]last_name', array('class' => 'control-label')); ?>
-                                                                <?php echo $form->textField($billing, '[bill]last_name', array('placeholder' => 'Last Name ', 'class' => 'form-control aik')); ?>
-                                                                <?php echo $form->error($billing, '[bill]last_name'); ?>
-                                                        </div>
                                                 </div>
-                                                <div class="row">
-                                                        <div class="col-sm-6">
-                                                                <?php echo $form->labelEx($billing, '[bill]contact_number', array('class' => 'control-label')); ?>
-                                                                <?php echo $form->textField($billing, '[bill]contact_number', array('placeholder' => 'Contact Number ', 'class' => 'form-control aik')); ?>
-                                                                <?php echo $form->error($billing, '[bill]contact_number'); ?>
-                                                        </div>
-
-                                                        <div class="col-sm-6">
-                                                                <?php echo $form->labelEx($billing, '[bill]address_1', array('class' => 'control-label')); ?>
-                                                                <?php echo $form->textField($billing, '[bill]address_1', array('placeholder' => 'Address Line 1 ', 'class' => 'form-control aik')); ?>
-                                                                <?php echo $form->error($billing, '[bill]address_1'); ?>
-                                                        </div>
-                                                </div>
-                                                <div class="row">
-                                                        <div class="col-sm-6">
-                                                                <?php echo $form->labelEx($billing, '[bill]address_2', array('class' => 'control-label')); ?>
-                                                                <?php echo $form->textField($billing, '[bill]address_2', array('placeholder' => 'Address Line 2 ', 'class' => 'form-control aik')); ?>
-                                                                <?php echo $form->error($billing, '[bill]address_2'); ?>
-                                                        </div>
-
-                                                        <div class="col-sm-6">
-                                                                <?php echo $form->labelEx($billing, '[bill]city', array('class' => 'control-label')); ?>
-                                                                <?php echo $form->textField($billing, '[bill]city', array('placeholder' => 'City ', 'class' => 'form-control aik')); ?>
-                                                                <?php echo $form->error($billing, '[bill]city'); ?>
-                                                        </div>
-                                                </div>
-                                                <div class="row">
-                                                        <div class="col-sm-6">
-                                                                <?php echo $form->labelEx($billing, '[bill]postcode', array('class' => 'control-label')); ?>
-                                                                <?php echo $form->textField($billing, '[bill]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik')); ?>
-                                                                <?php echo $form->error($billing, '[bill]postcode'); ?>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                                <?php echo $form->labelEx($billing, '[bill]country', array('class' => 'control-label')); ?>
-                                                                <?php echo CHtml::activeDropDownList($billing, '[bill]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik')); ?>
-                                                                <?php echo $form->error($billing, '[bill]country'); ?>
-                                                        </div>
-                                                </div>
-                                                <div class="row">
-                                                        <div class="col-sm-6">
-                                                                <?php echo $form->labelEx($billing, '[bill]state', array('class' => 'control-label')); ?>
-                                                                <?php echo $form->textField($billing, '[bill]state', array('placeholder' => 'state ', 'class' => 'form-control aik')); ?>
-                                                                <?php echo $form->error($billing, '[bill]state'); ?>
-                                                        </div>
-                                                        <div class="col-sm-6">
-
-                                                        </div>
-                                                </div>
-
                                         </div>
-
 
                                 </div>
 
@@ -267,8 +268,8 @@
                 <div class="col-md-4 sidebar-right">
                         <div class="fixed_scroller">
                                 <div class="order_summary">
-                                        <div class="panel-title">ORDER SUMMARY</div>
                                         <div class="panel-body cart_products">
+
                                                 <?php
                                                 foreach ($carts as $cart) {
                                                         $prod_details = Products::model()->findByPk($cart->product_id);
@@ -276,8 +277,6 @@
                                                         ?>
                                                         <?php $producttotal = $prod_details->price * $cart->quantity; ?>
                                                         <div class="cart_product_detail">
-
-
                                                                 <?php
                                                                 if ($cart->options != 0) {
                                                                         $option = Options::model()->findByPk($cart->options)
@@ -305,29 +304,36 @@
                                                                 <p><span>Color:</span>Doeskin</p>
                                                                 <p><span>Size:</span> Red</p>
                                                                 <p><span>Qty:</span><?php echo $cart->quantity; ?></p>
-
+                                                                <div class="clearfix"></div>
 
                                                         </div>
                                                         <div class="cart_product_detail">
+
                                                                 <?php
                                                                 if ($cart->gift_option != 0) {
                                                                         ?>
+
                                                                         <?php $gift_user_details = TempUserGifts::model()->findByAttributes(array('cart_id' => $cart->id)); ?>
-                                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/laksyah_gift.jpg" class="img-responsive crt"  >
+                                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/laksyah_gift.jpg" class="img-responsive crt"  />
                                                                         <h3>GIFT PACK <span class="pull-right"><strong><?php echo Yii::app()->Currency->convert($cart->rate); ?>
                                                                                         </strong></span>
                                                                         </h3>
                                                                         <p><span>From:</span><?php echo $gift_user_details->from; ?></p>
-                                                                        <p><span>From:</span> <?php echo $gift_user_details->to; ?></p>
+                                                                        <p><span>To:</span> <?php echo $gift_user_details->to; ?></p>
+                                                                        <div class="clearfix"></div>
                                                                         <?php $gift += $cart->rate; ?>
+
                                                                         <?php
                                                                 }
                                                                 ?>
+
                                                                 <?php $product_price += $producttotal; ?>
-                                                                <?php
-                                                        }
-                                                        ?>
-                                                </div>
+                                                        </div>
+
+                                                        <?php
+                                                }
+                                                ?>
+
                                         </div>
 
 
@@ -422,9 +428,9 @@
                                         <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'PAY SECURELY NOW', array('class' => 'btn-primary btn-full')); ?>
                                 </div>
 
-
-
                         </div>
+
+
                         <?php $this->endWidget(); ?>
 
                 </div>

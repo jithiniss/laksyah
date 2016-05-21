@@ -97,10 +97,10 @@
 <script type="text/javascript">
         $(document).ready(function () {
                 $('#credit').on('change', function () {
-                        var credit = $j("#credit").val();
+                        var credit = $("#credit").val();
                         var cred = credit
                         .00;
-                        var wallet_amt = $j("#wallet_amt").val();
+                        var wallet_amt = $("#wallet_amt").val();
                         if (cred > wallet_amt) {
                                 alert("Your Amount greater than available balance");
                         } else {
