@@ -22,7 +22,7 @@
                 <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery-ui.min.css" rel="stylesheet">
                 <link rel="stylesheet" href="<?php echo Yii::app()->request->baseUrl; ?>/css/mystyle.css">
                 <link href="<?php echo Yii::app()->request->baseUrl; ?>/css/jquery.fancybox.css" rel="stylesheet">
-                <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>-->
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <!--                <script src="<?php echo yii::app()->request->baseUrl; ?>/js/jquery.min.js"></script>-->
                 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.js"></script>
                 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.countdown.min.js"></script>
