@@ -1,4 +1,69 @@
 <!-- Modal -->
+<style>
+        @media (min-width: 768px){
+                .form-inline .form-control {
+                        display: inline-block;
+                        width: 100%;
+                        vertical-align: middle;
+                }
+        }
+</style>
+<div class="modal fade" id="loginModal" tabindex="-2" role="dialog">
+        <div class="modal-dialog">
+                <div class="modal-content">
+                        <div class="modal-header text-left">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <ul class="nav nav-tabs" role="tablist">
+                                        <li role="presentation" class="active"><a href="#signin" aria-controls="home" role="tab" data-toggle="tab">Sign In</a></li>
+                                        <li role="presentation"><a href="#register" aria-controls="profile" role="tab" data-toggle="tab">Register</a></li>
+                                </ul>
+                        </div>
+                        <div class="modal-body">
+                                <div class="login_popup">
+                                        <!-- Nav tabs -->
+
+
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                                <div role="tabpanel" class="tab-pane active" id="signin">
+                                                        <h2>SIGN IN</h2>
+                                                        <h4>Sign in to proceed to Checkout</h4>
+                                                        <label>Email Address</label>
+                                                        <input class="form-control" type="text">
+                                                        <label>Password</label>
+                                                        <input class="form-control" type="password">
+                                                        <p><a href="#" class="forgot">Forgot Password?</a></p>
+                                                        <button class="btn-primary btn-full">SIGN IN</button>
+                                                        <p class="text-center register italic">Not a Member? <a href="#">REGISTER NOW</a></p>
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane" id="register">
+                                                        <h2>Registration</h2>
+                                                        <h4>Please fillout your profile information</h4>
+                                                        <label>First Name*</label>
+                                                        <input class="form-control" type="text">
+                                                        <label>Last Name*</label>
+                                                        <input class="form-control" type="text">
+                                                        <label>Email Address*</label>
+                                                        <input class="form-control" type="text">
+                                                        <label>Phone Number*</label>
+                                                        <input class="form-control" type="text">
+                                                        <label>Password*</label>
+                                                        <input type="text" class="form-control" placeholder="">
+
+                                                        <label>Confirm Password*</label>
+                                                        <input type="text" class="form-control error" placeholder="">
+
+                                                        <button class="btn-primary btn-full">Create an Acocunt</button>
+
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+</div>
+
+
 <div class="modal " id="logreg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -18,8 +83,10 @@
 
                                         <!-- Tab panes -->
                                         <div class="tab-content">
-                                                <div role="tabpanel" class="tab-pane active" id="home">
-                                                        <h4>Login Here</h4>
+                                                <div role="tabpanel" class="tab-pane active login_popup " id="home">
+
+                                                        <h2>SIGN IN</h2>
+                                                        <h4>Sign in to proceed to Checkout</h4>
                                                         <div class="col-xs-12">
                                                                 <?php if (Yii::app()->user->hasFlash('passworderror1')): ?>
                                                                         <div class="alert alert-danger mesage">
@@ -27,7 +94,7 @@
                                                                                 <strong>sorry!</strong><?php echo Yii::app()->user->getFlash('passworderror1'); ?>
                                                                         </div>
                                                                 <?php endif; ?>
-                                                                <h1>Login</h1>
+
                                                                 <?php
                                                                 $login = $this->beginWidget('CActiveForm', array(
                                                                     'id' => 'login-form',
@@ -43,13 +110,13 @@
 
                                                                 <div class="form-group">
                                                                         <?php echo $login->labelEx($loginform, '[log]email', array('class' => '')); ?>
-                                                                        <?php echo $login->textField($loginform, '[log]email', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Email Address', 'class' => 'form-contact', 'autocomplete' => "off")); ?>
+                                                                        <?php echo $login->textField($loginform, '[log]email', array('size' => 60, 'maxlength' => 100, 'class' => 'form-control', 'autocomplete' => "off")); ?>
                                                                         <?php echo $login->error($loginform, '[log]email'); ?>
 
                                                                 </div>
                                                                 <div class="form-group">
                                                                         <?php echo $login->labelEx($loginform, '[log]password', array('class' => '')); ?>
-                                                                        <?php echo $login->passwordField($loginform, '[log]password', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Password', 'class' => 'form-contact')); ?>
+                                                                        <?php echo $login->passwordField($loginform, '[log]password', array('size' => 60, 'maxlength' => 100, 'class' => 'form-control')); ?>
                                                                         <?php echo $login->error($loginform, '[log]password'); ?>
 
                                                                 </div>
@@ -60,7 +127,7 @@
                                                                         <li ><a style="text-decoration:underline;" href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/forgotPassword/">Forgot Password ?</a></li>
                                                                         <li><a style="text-decoration:underline;" href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/register/">New User ?</a></li>
                                                                         <li>
-                                                                                <?php echo CHtml::submitButton($loginform->isNewRecord ? 'Sign In' : 'Sign In', array('class' => 'btn btn-default bowl3')); ?>
+                                                                                <?php echo CHtml::submitButton($loginform->isNewRecord ? 'SIGN IN' : 'SIGN IN', array('class' => 'btn-primary btn-full')); ?>
                                                                         </li>
 
 
@@ -69,9 +136,9 @@
                                                         </div>
 
                                                 </div>
-                                                <div role="tabpanel" class="tab-pane" id="profile">
-
-
+                                                <div role="tabpanel" class="tab-pane login_popup" id="profile">
+                                                        <h2>REGISTRATION</h2>
+                                                        <h4>Please fillout your profile information</h4>
                                                         <div class="col-xs-12 forward">
                                                                 <?php if (Yii::app()->user->hasFlash('feilderror1')): ?>
                                                                         <div class="alert alert-danger mesage">
@@ -93,107 +160,89 @@
                                                                         ));
                                                                         ?>
 
-                                                                        <div class="form-group">
-                                                                                <?php echo $reg->labelEx($regform, '[reg]first_name', array('class' => '')); ?>
-                                                                                <?php echo $reg->textField($regform, '[reg]first_name', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'First Name', 'class' => 'form-contact-2')); ?>
-                                                                                <?php echo $reg->error($regform, '[reg]first_name'); ?>
+                                                                        <?php echo $reg->labelEx($regform, '[reg]first_name', array('class' => '')); ?>
+                                                                        <?php echo $reg->textField($regform, '[reg]first_name', array('class' => 'form-control')); ?>
+                                                                        <?php echo $reg->error($regform, '[reg]first_name'); ?>
 
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                                <?php echo $reg->labelEx($regform, '[reg]last_name', array('class' => '')); ?>
-                                                                                <?php echo $reg->textField($regform, '[reg]last_name', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Last Name', 'class' => 'form-contact-2')); ?>
-                                                                                <?php echo $reg->error($regform, '[reg]last_name'); ?>
 
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                                <?php echo $reg->labelEx($regform, 'Date of Birth', array('class' => '')); ?>
-                                                                                <?php
-                                                                                $from = date('Y') - 80;
-                                                                                $to = date('Y') + 20;
-                                                                                $this->widget('zii.widgets.jui.CJuiDatePicker', array(
-                                                                                    'model' => $regform,
-                                                                                    'attribute' => '[reg]dob',
-                                                                                    'value' => '[reg]dob',
-                                                                                    'options' => array(
-                                                                                        'dateFormat' => 'dd-mm-yy',
-                                                                                        'changeYear' => true, // can change year
-                                                                                        'changeMonth' => true, // can change month
-                                                                                        'yearRange' => $from . ':' . $to, // range of year
-                                                                                        'showButtonPanel' => true, // show button panel
-                                                                                    ),
-                                                                                    'htmlOptions' => array(
-                                                                                        'size' => '10', // textField size
-                                                                                        'maxlength' => '10', // textField maxlength
-                                                                                        'class' => 'form-contact-2',
-                                                                                        'placeholder' => 'Date Of Birth',
-                                                                                    ),
-                                                                                ));
-                                                                                ?>
-                                                                                <?php echo $reg->error($regform, 'Date of Birth'); ?>
+                                                                        <?php echo $reg->labelEx($regform, '[reg]last_name', array('class' => '')); ?>
+                                                                        <?php echo $reg->textField($regform, '[reg]last_name', array('class' => 'form-control')); ?>
+                                                                        <?php echo $reg->error($regform, '[reg]last_name'); ?>
 
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                                <?php echo $reg->labelEx($regform, '[reg]gender', array('class' => '')); ?>
-                                                                                <?php echo $reg->dropDownList($regform, '[reg]gender', array('male' => "male", 'female' => "fe-male"), array('class' => 'form-contact-2')); ?>
-                                                                                <?php echo $reg->error($regform, '[reg]gender'); ?>
+                                                                        <?php echo $reg->labelEx($regform, 'Date of Birth', array('class' => '')); ?>
+                                                                        <?php
+                                                                        $from = date('Y') - 80;
+                                                                        $to = date('Y') + 20;
+                                                                        $this->widget('zii.widgets.jui.CJuiDatePicker', array(
+                                                                            'model' => $regform,
+                                                                            'attribute' => '[reg]dob',
+                                                                            'value' => '[reg]dob',
+                                                                            'options' => array(
+                                                                                'dateFormat' => 'dd-mm-yy',
+                                                                                'changeYear' => true, // can change year
+                                                                                'changeMonth' => true, // can change month
+                                                                                'yearRange' => $from . ':' . $to, // range of year
+                                                                                'showButtonPanel' => true, // show button panel
+                                                                            ),
+                                                                            'htmlOptions' => array(
+                                                                                'size' => '10', // textField size
+                                                                                'maxlength' => '10', // textField maxlength
+                                                                                'class' => 'form-control',
+                                                                                'placeholder' => 'Date Of Birth',
+                                                                            ),
+                                                                        ));
+                                                                        ?>
+                                                                        <?php echo $reg->error($regform, 'Date of Birth'); ?>
 
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                                <?php echo $reg->labelEx($regform, '[reg]email', array('class' => '')); ?>
-                                                                                <?php echo $reg->textField($regform, '[reg]email', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Email Address', 'class' => 'form-contact-2')); ?>
-                                                                                <?php echo $reg->error($regform, '[reg]email'); ?>
 
-                                                                        </div>
+                                                                        <?php echo $reg->labelEx($regform, '[reg]gender', array('class' => '')); ?>
+                                                                        <?php echo $reg->dropDownList($regform, '[reg]gender', array('male' => "male", 'female' => "fe-male"), array('class' => 'form-control')); ?>
+                                                                        <?php echo $reg->error($regform, '[reg]gender'); ?>
 
-                                                                        <div class="form-group">
-                                                                                <?php echo $reg->labelEx($regform, '[reg]phone_no_1', array('class' => '')); ?>
-                                                                                <?php echo $reg->textField($regform, '[reg]phone_no_1', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Phone Number 1', 'class' => 'form-contact-2')); ?>
-                                                                                <?php echo $reg->error($regform, '[reg]phone_no_1'); ?>
 
-                                                                        </div>
+                                                                        <?php echo $reg->labelEx($regform, '[reg]email', array('class' => '')); ?>
+                                                                        <?php echo $reg->textField($regform, '[reg]email', array('size' => 60, 'maxlength' => 100, 'class' => 'form-control')); ?>
+                                                                        <?php echo $reg->error($regform, '[reg]email'); ?>
 
-                                                                        <div class="form-group">
-                                                                                <?php echo $reg->labelEx($regform, '[reg]phone_no_2', array('class' => '')); ?>
-                                                                                <?php echo $reg->textField($regform, '[reg]phone_no_2', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Phone Number 2', 'class' => 'form-contact-2')); ?>
-                                                                                <?php echo $reg->error($regform, '[reg]phone_no_2'); ?>
+                                                                        <?php echo $reg->labelEx($regform, '[reg]phone_no_1', array('class' => '')); ?>
+                                                                        <?php echo $reg->textField($regform, '[reg]phone_no_1', array('size' => 60, 'maxlength' => 100, 'class' => 'form-control')); ?>
+                                                                        <?php echo $reg->error($regform, '[reg]phone_no_1'); ?>
 
-                                                                        </div>
 
-                                                                        <div class="form-group">
-                                                                                <?php echo $reg->labelEx($regform, '[reg]fax', array('class' => '')); ?>
-                                                                                <?php echo $reg->textField($regform, '[reg]fax', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Fax', 'class' => 'form-contact-2')); ?>
-                                                                                <?php echo $reg->error($regform, '[reg]fax'); ?>
+                                                                        <?php echo $reg->labelEx($regform, '[reg]phone_no_2', array('class' => '')); ?>
+                                                                        <?php echo $reg->textField($regform, '[reg]phone_no_2', array('size' => 60, 'maxlength' => 100, 'class' => 'form-control')); ?>
+                                                                        <?php echo $reg->error($regform, '[reg]phone_no_2'); ?>
 
-                                                                        </div>
 
-                                                                        <div class="form-group">
-                                                                                <?php echo $reg->labelEx($regform, '[reg]password', array('class' => '')); ?>
-                                                                                <?php echo $reg->passwordField($regform, '[reg]password', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Password', 'class' => 'form-contact-2')); ?>
-                                                                                <?php echo $reg->error($regform, '[reg]password'); ?>
+                                                                        <?php echo $reg->labelEx($regform, '[reg]fax', array('class' => '')); ?>
+                                                                        <?php echo $reg->textField($regform, '[reg]fax', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Fax', 'class' => 'form-control')); ?>
+                                                                        <?php echo $reg->error($regform, '[reg]fax'); ?>
 
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                                <?php echo $reg->labelEx($regform, '[reg]confirm', array('class' => '')); ?>
-                                                                                <?php echo $reg->passwordField($regform, '[reg]confirm', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Confirm Password', 'class' => 'form-contact-2')); ?>
-                                                                                <?php echo $reg->error($regform, '[reg]confirm'); ?>
 
-                                                                        </div>
+                                                                        <?php echo $reg->labelEx($regform, '[reg]password', array('class' => '')); ?>
+                                                                        <?php echo $reg->passwordField($regform, '[reg]password', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Password', 'class' => 'form-control')); ?>
+                                                                        <?php echo $reg->error($regform, '[reg]password'); ?>
 
-                                                                        <div class="form-group">
 
-                                                                                <?php echo $reg->labelEx($regform, '[reg]newsletter', array('class' => '')); ?>
-                                                                                <?php echo $reg->dropDownList($regform, '[reg]newsletter', array('1' => "Yes", '0' => "No"), array('class' => 'form-contact-2')); ?>
-                                                                                <?php echo $reg->error($regform, '[reg]newsletter'); ?>
+                                                                        <?php echo $reg->labelEx($regform, '[reg]confirm', array('class' => '')); ?>
+                                                                        <?php echo $reg->passwordField($regform, '[reg]confirm', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Confirm Password', 'class' => 'form-control')); ?>
+                                                                        <?php echo $reg->error($regform, '[reg]confirm'); ?>
 
 
 
-                                                                        </div>
+                                                                        <?php echo $reg->labelEx($regform, '[reg]newsletter', array('class' => '')); ?>
+                                                                        <?php echo $reg->dropDownList($regform, '[reg]newsletter', array('1' => "Yes", '0' => "No"), array('class' => 'form-control')); ?>
+                                                                        <?php echo $reg->error($regform, '[reg]newsletter'); ?>
+
+
+
+
 
 
 
 
                                                                         <div class="box-footer">
-                                                                                <?php echo CHtml::submitButton($regform->isNewRecord ? 'Create' : 'Save', array('class' => 'btn btn-success pos')); ?>
+                                                                                <?php echo CHtml::submitButton($regform->isNewRecord ? 'Create an Acocunt' : 'Save', array('class' => 'btn-primary btn-full')); ?>
                                                                         </div>
 
                                                                         <?php $this->endWidget(); ?>
@@ -214,6 +263,18 @@
 </div>
 <div class="container main_container inner_pages">
         <h1>Shopping Bag</h1>
+        <?php if (Yii::app()->user->hasFlash('success')): ?>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Success!</strong> <?php echo Yii::app()->user->getFlash('success'); ?>
+                </div>
+        <?php endif; ?>
+        <?php if (Yii::app()->user->hasFlash('error')): ?>
+                <div class="alert alert-danger  alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong></strong> <?php echo Yii::app()->user->getFlash('error'); ?>
+                </div>
+        <?php endif; ?>
         <!--    <div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 Discount Coupon Applied
@@ -458,18 +519,7 @@
 
                 <div class="col-md-4 sidebar-right">
                         <div class="has fixed_scroller">
-                                <?php if (Yii::app()->user->hasFlash('success')): ?>
-                                        <div class="alert alert-success alert-dismissible" role="alert">
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <strong>Success!</strong> <?php echo Yii::app()->user->getFlash('success'); ?>
-                                        </div>
-                                <?php endif; ?>
-                                <?php if (Yii::app()->user->hasFlash('error')): ?>
-                                        <div class="alert alert-danger  alert-dismissible" role="alert">
-                                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <strong></strong> <?php echo Yii::app()->user->getFlash('error'); ?>
-                                        </div>
-                                <?php endif; ?>
+
                                 <div class="order_summary">
                                         <div class="panel-title">ORDER SUMMARY</div>
                                         <div class="panel-body">
