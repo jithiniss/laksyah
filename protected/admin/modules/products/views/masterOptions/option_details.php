@@ -40,11 +40,44 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label">Product Name</label><div class="col-sm-10"><span style="text-transform: capitalize;"> <?php echo $productOptions->product->product_name; ?></span></div>
                 </div>
+                <input type="hidden" value="<?php echo $options->master_option_id; ?>" id="master_option_id"/>
+                <?php
+                $check_type = OptionDetails::model()->findAll(['condition' => 'master_option_id=' . $options->master_option_id]);
+
+                if(!empty($check_type)) {
+                        $t = 1;
+                        foreach($check_type as $type) {
+                                if($type->color_id != 0) {
+                                        if($t == 1) {
+                                                $types.=$type->color_id;
+                                        } else {
+                                                $types.=',' . $type->color_id;
+                                        }
+                                } else if($type->size_id != 0) {
+                                        if($t == 1) {
+                                                $types.=$type->size_id;
+                                        } else {
+                                                $types.=',' . $type->size_id;
+                                        }
+                                }
+
+
+                                $t++;
+                        }
+
+                        if($types != "") {
+                                $condition = ' and id not in(' . $types . ') ';
+                        }
+                } else {
+                        $condition = '';
+                }
+                ?>
                 <?php if($productOptions->option_type_id == 1) { ?>
                         <div class="form-group">
                             <?php echo $form->labelEx($model, 'color_id', array('class' => 'col-sm-2 control-label')); ?>
                             <div class="col-sm-10">
-                                <?php echo CHtml::activeDropDownList($model, 'color_id', CHtml::listData(OptionCategory::model()->findAll(['condition' => 'option_type_id=1']), 'id', 'color_name'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
+
+                                <?php echo CHtml::activeDropDownList($model, 'color_id', CHtml::listData(OptionCategory::model()->findAll(['condition' => 'option_type_id=1 ' . $condition]), 'id', 'color_name'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
 
                                 <?php echo $form->error($model, 'color_id'); ?>
                             </div>
@@ -55,7 +88,7 @@
                         <div class="form-group">
                             <?php echo $form->labelEx($model, 'size_id', array('class' => 'col-sm-2 control-label')); ?>
                             <div class="col-sm-10">
-                                <?php echo CHtml::activeDropDownList($model, 'size_id', CHtml::listData(OptionCategory::model()->findAll(['condition' => 'option_type_id=2']), 'id', 'size'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
+                                <?php echo CHtml::activeDropDownList($model, 'size_id', CHtml::listData(OptionCategory::model()->findAll(['condition' => 'option_type_id=2 ' . $condition]), 'id', 'size'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
 
                                 <?php echo $form->error($model, 'size_id'); ?>
                             </div>
@@ -74,7 +107,7 @@
                         <div class="form-group">
                             <?php echo $form->labelEx($model, 'size_id', array('class' => 'col-sm-2 control-label')); ?>
                             <div class="col-sm-10">
-                                <?php echo CHtml::activeDropDownList($model, 'size_id', CHtml::listData(OptionCategory::model()->findAll(['condition' => 'option_type_id=2']), 'id', 'size'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
+                                <?php echo CHtml::activeDropDownList($model, 'size_id', CHtml::listData(OptionCategory::model()->findAll(['condition' => 'option_type_id=2']), 'id', 'size'), array('empty' => '--Select--', 'class' => 'form-control option_sizes', 'disabled' => $model->isNewRecord ? false : true)); ?>
 
                                 <?php echo $form->error($model, 'size_id'); ?>
                             </div>
@@ -175,3 +208,32 @@
     </div>
 
 </section><!-- form -->
+
+
+<script>
+        var baseurl = "<?php print Yii::app()->request->baseUrl; ?>";
+        $(document).ready(function () {
+            $('#OptionDetails_color_id').on('change', function () {
+                var color_id = $(this).val();
+                var master_id = $('#master_option_id').val();
+                ProductOptionType(color_id, master_id);
+            });
+
+            function ProductOptionType(color_id, master_id) {
+
+                $.ajax({
+                    'url': baseurl + '/admin.php/products/MasterOptions/ProductTypeOptions',
+                    'type': "POST",
+                    'dataType': 'html',
+                    'data': {color_id: color_id, master_id: master_id},
+                    success: function (result) {
+
+
+                        $('.option_sizes').html(result);
+                        $('.option_sizes').show();
+                    }
+
+                });
+            }
+        });
+</script>

@@ -26,7 +26,7 @@ class MasterOptionsController extends Controller {
         public function accessRules() {
                 return array(
                     array('allow', // allow all users to perform 'index' and 'view' actions
-                        'actions' => array('create', 'admin', 'delete', 'OptionDetails', 'ProductOptions', 'OptionsDelete'),
+                        'actions' => array('create', 'admin', 'delete', 'OptionDetails', 'ProductOptions', 'OptionsDelete', 'ProductTypeOptions'),
                         'users' => array('*'),
                     ),
                     array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -161,6 +161,67 @@ class MasterOptionsController extends Controller {
                 }
         }
 
+        public function actionProductTypeOptions() {
+                if(Yii::app()->request->isAjaxRequest) {
+                        if($_REQUEST['color_id'] != "" && $_REQUEST['master_id'] != "") {
+                                $check_type = OptionDetails::model()->findAll(['condition' => 'master_option_id=' . $_REQUEST['master_id'] . ' and color_id=' . $_REQUEST['color_id']]);
+
+
+                                if(!empty($check_type)) {
+                                        $t = 1;
+                                        foreach($check_type as $type) {
+
+                                                if($t == 1) {
+                                                        $types.=$type->size_id;
+                                                } else {
+                                                        $types.=',' . $type->size_id;
+                                                }
+
+
+
+                                                $t++;
+                                        }
+
+                                        if($types != "") {
+                                                $condition = ' and id not in(' . $types . ') ';
+                                        } else {
+                                                $condition = '';
+                                        }
+
+                                        $data = OptionCategory::model()->findAll(['condition' => 'option_type_id=2 and id not in(' . $types . ') ']);
+
+                                        if($data != '') {
+                                                $data = CHtml::listData($data, 'id', 'size');
+                                                echo CHtml::tag('option', array('value' => ''), '--Select--', true);
+                                                foreach($data as $value => $name) {
+                                                        echo CHtml::tag('option', array('value' => $value), CHtml::encode($name), true);
+                                                }
+                                        }
+                                } else {
+                                        $data = OptionCategory::model()->findAll(['condition' => 'option_type_id=2']);
+
+                                        if($data != '') {
+                                                $data = CHtml::listData($data, 'id', 'size');
+                                                echo CHtml::tag('option', array('value' => ''), '--Select--', true);
+                                                foreach($data as $value => $name) {
+                                                        echo CHtml::tag('option', array('value' => $value), CHtml::encode($name), true);
+                                                }
+                                        }
+                                }
+                        } else {
+                                $data = OptionCategory::model()->findAll(['condition' => 'option_type_id=2']);
+
+                                if($data != '') {
+                                        $data = CHtml::listData($data, 'id', 'size');
+                                        echo CHtml::tag('option', array('value' => ''), '--Select--', true);
+                                        foreach($data as $value => $name) {
+                                                echo CHtml::tag('option', array('value' => $value), CHtml::encode($name), true);
+                                        }
+                                }
+                        }
+                }
+        }
+
         /**
          * Deletes a particular model.
          * If deletion is successful, the browser will be redirected to the 'admin' page.
@@ -169,7 +230,7 @@ class MasterOptionsController extends Controller {
         public function actionDelete($id) {
                 $fe = $this->loadModel($id);
                 if($fe->delete()) {
-                        $product_options = OptionDetails::model()->deleteAllByAttributes(['master_option_id' => $id]);
+                        OptionDetails::model()->deleteAllByAttributes(['master_option_id' => $id]);
                 }
 
 // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
@@ -188,7 +249,7 @@ class MasterOptionsController extends Controller {
 
                                         $master_del = MasterOptions::model()->findByPk($option)->delete();
                                         if($master_del) {
-                                                echo "ggiii";
+                                                // echo "ggiii";
                                                 $this->redirect(array('/products/masterOptions/create'));
                                         } else {
                                                 echo "558";
