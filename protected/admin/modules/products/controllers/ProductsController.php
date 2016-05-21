@@ -88,6 +88,10 @@ class ProductsController extends Controller {
                         $model->main_image = $image->extensionName;
                         $model->hover_image = $hover_image->extensionName;
                         $model->video = $video->extensionName;
+
+                        $model->related_products = $_POST['Products']['related_products'];
+                        $model->related_products = implode(",", $model->related_products);
+
                         $model->meta_description = $_POST['Products']['meta_description'];
                         if ($_POST['Products']['new_from'] != "")
                                 $model->new_from = date("Y-m-d", strtotime($_POST['Products']['new_from']));
@@ -119,6 +123,8 @@ class ProductsController extends Controller {
 
 
                         if ($model->validate()) {
+
+
                                 if ($model->save()) {
                                         if ($image != "") {
                                                 $id = $model->id;
@@ -153,6 +159,7 @@ class ProductsController extends Controller {
 
                                                 Yii::app()->Upload->uploadVideo($video, $id, true, $dimensions);
                                         }
+
                                         $this->redirect(array('admin', 'id' => $model->id));
                                 }
                         }
@@ -178,6 +185,7 @@ class ProductsController extends Controller {
                 $image0 = $model->gallery_images;
                 $image2 = $model->hover_image;
                 $video = $model->video;
+                $rel_pdt = $model->related_products;
                 $oldvideo = 'video.' . $video;
                 // Uncomment the following line if AJAX validation is needed
                 // $this->performAjaxValidation($model);
@@ -192,6 +200,15 @@ class ProductsController extends Controller {
                         $model->main_image = $image->extensionName;
                         $model->hover_image = $h_image->extensionName;
                         $model->video = $new_video->extensionName;
+
+
+                        $model->related_products = $_POST['Products']['related_products'];
+
+                        if ($model->related_products != "") {
+                                $model->related_products = implode(",", $model->related_products);
+                        } else {
+                                $model->related_products = "";
+                        }
                         if ($_POST['Products']['new_from'] != "" && $_POST['Products']['new_from'] != '0000-00-00')
                                 $model->new_from = date("Y-m-d", strtotime($_POST['Products']['new_from']));
                         else
