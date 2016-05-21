@@ -78,8 +78,8 @@ class Products extends CActiveRecord {
                     array('DOU', 'safe'),
                     array('product_code', 'unique'),
                     array('canonical_name', 'unique'),
-                    array('video', 'file', 'types' => 'mp4', 'on' => 'create'),
-                    array('video', 'file', 'types' => 'mp4', 'on' => 'update'),
+                    array('video', 'file', 'types' => 'mp4', 'allowEmpty' => true, 'on' => 'create'),
+                    array('video', 'file', 'types' => 'mp4', 'allowEmpty' => true, 'on' => 'update'),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
                     array('id, category_id, main_image,hover_image, gallery_images, description, meta_title, meta_description, meta_keywords, header_visibility, sort_order, price, quantity, subtract_stock,discount,discount_type,discount_rate, requires_shipping, dimensionl, dimensionw, dimensionh, dimension_class, weight, weight_class, status, related_products, CB, UB, DOC, DOU', 'safe', 'on' => 'search'),

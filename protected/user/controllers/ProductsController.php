@@ -190,4 +190,36 @@ class ProductsController extends Controller {
                 }
         }
 
+        public function actionmailfn() {
+                $page_url = $_SERVER["HTTP_REFERER"];
+                $from = $_POST['from'];
+                $to = $_POST['email'];
+                $subject = 'Enquiry message from ' . $from;
+                $message = '<html>
+   <body>
+       <table border="0" style="border-spacing: 20px;background-color: #b3e6ff;width:100%;">
+           <tr>
+               <td></td>
+           </tr>
+              <tr> <td>  Mail from :' . $from . '  </td>   </tr>
+           <tr> <td>  Page Url:' . $page_url . '  </td>   </tr>
+           <tr>
+               <td>Thanks</td>
+           </tr>
+           <tr>
+             <td style="font-weight:bold;">Lakshya </span></td>
+           </tr>
+       </table>
+   </body>
+</html>';
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                $headers .= 'From: <rejin@intersmart.in>' . "\r\n";
+
+                /*    if (mail($to, $subject, $message, $headers)) {
+                  Yii::app()->user->setFlash('success', " your email sent successfully..");
+                  $this->redirect($page_url);
+                  } */
+        }
+
 }

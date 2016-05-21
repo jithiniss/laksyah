@@ -90,7 +90,13 @@ class ProductsController extends Controller {
                         $model->video = $video->extensionName;
 
                         $model->related_products = $_POST['Products']['related_products'];
-                        $model->related_products = implode(",", $model->related_products);
+                        // $model->related_products = implode(",", $model->related_products);
+
+                        if ($model->related_products != "") {
+                                $model->related_products = implode(",", $model->related_products);
+                        } else {
+                                $model->related_products = "";
+                        }
 
                         $model->meta_description = $_POST['Products']['meta_description'];
                         if ($_POST['Products']['new_from'] != "")
@@ -293,9 +299,10 @@ class ProductsController extends Controller {
                         }
                         $model->deal_day_status = $_POST['Products']['deal_day_status'];
                         $model->deal_day_date = date('Y-m-d', strtotime($_POST['Products']['deal_day_date']));
-
-                        if ($model->save(false)) {
-                                $this->redirect(array('admin', 'id' => $model->id));
+                        if ($model->validate()) {
+                                if ($model->save(false)) {
+                                        $this->redirect(array('admin', 'id' => $model->id));
+                                }
                         }
                 }
 
