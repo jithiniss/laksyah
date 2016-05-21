@@ -46,7 +46,18 @@
                     array(
                         'htmlOptions' => array('nowrap' => 'nowrap'),
                         'class' => 'booster.widgets.TbButtonColumn',
-                        'template' => '{update}{delete}{view}',
+                        'template' => '{update}{delete}{view}{status}',
+                        'buttons' => array(
+                            'status' => array(
+                                'url' => 'Yii::app()->request->baseUrl."/admin.php/products/orderHistory/create/id/$data->id"',
+                                'label' => '<i class="fa fa-truck" style="font-size:20px;padding:2px;"></i>',
+                                'options' => array(
+                                    'data-toggle' => 'tooltip',
+                                    'title' => 'view',
+                                    'target' => '_blank',
+                                ),
+                            ),
+                        ),
                     ),
                 ),
             ));

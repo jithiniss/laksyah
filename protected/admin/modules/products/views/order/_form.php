@@ -67,12 +67,12 @@
     </div>
 
 
-    <div class="form-group">
-        <?php echo $form->labelEx($model, 'admin_comment', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-10"><?php echo $form->textArea($model, 'admin_comment', array('rows' => 6, 'cols' => 50, 'class' => 'form-control')); ?>
-        </div>
-        <?php echo $form->error($model, 'admin_comment'); ?>
-    </div>
+    <!--    <div class="form-group">
+    <?php echo $form->labelEx($model, 'admin_comment', array('class' => 'col-sm-2 control-label')); ?>
+            <div class="col-sm-10"><?php echo $form->textArea($model, 'admin_comment', array('rows' => 6, 'cols' => 50, 'class' => 'form-control')); ?>
+            </div>
+    <?php echo $form->error($model, 'admin_comment'); ?>
+        </div>-->
     <div class="form-group">
         <?php echo $form->labelEx($model, 'transaction_id', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-10"><?php echo $form->textField($model, 'transaction_id', array('class' => 'form-control')); ?>
@@ -86,12 +86,12 @@
         </div>
         <?php echo $form->error($model, 'payment_status'); ?>
     </div>
-    <div class="form-group">
-        <?php echo $form->labelEx($model, 'admin_status', array('class' => 'col-sm-2 control-label')); ?>
-        <div class="col-sm-10"><?php echo CHtml::activeDropDownList($model, 'admin_status', CHtml::listData(OrderStatus::model()->findAll(), 'id', 'title'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
-        </div>
-        <?php echo $form->error($model, 'admin_status'); ?>
-    </div>
+    <!--    <div class="form-group">
+    <?php echo $form->labelEx($model, 'admin_status', array('class' => 'col-sm-2 control-label')); ?>
+            <div class="col-sm-10"><?php echo CHtml::activeDropDownList($model, 'admin_status', CHtml::listData(OrderStatus::model()->findAll(), 'id', 'title'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
+            </div>
+    <?php echo $form->error($model, 'admin_status'); ?>
+        </div>-->
 
     <div class="form-group">
         <?php echo $form->labelEx($model, 'status', array('class' => 'col-sm-2 control-label')); ?>
