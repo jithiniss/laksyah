@@ -3,9 +3,7 @@
 class ProductsController extends Controller {
 
         public function actionCategory($name) {
-//                if (isset(Yii::app()->session['temp_product_filter']) != '') {
-//                        unset(Yii::app()->session['temp_product_filter']);
-//                }
+
                 $parent = ProductCategory::model()->findByAttributes(array('canonical_name' => $name));
 
                 $category = ProductCategory::model()->findAllByAttributes(array('parent' => $parent->parent));
@@ -17,7 +15,9 @@ class ProductsController extends Controller {
                         $categ = '';
                 }
                 $dataProvider = Yii::app()->Menu->MenuCategories($cats, $parent, $categ);
-
+                if (isset(Yii::app()->session['temp_product_filter'])) {
+                        unset(Yii::app()->session['temp_product_filter']);
+                }
                 $this->render('index', array('dataProvider' => $dataProvider, 'parent' => $parent, 'category' => $category, 'name' => $name));
         }
 
@@ -29,14 +29,13 @@ class ProductsController extends Controller {
                 } else {
                         $categ = '';
                 }
-
                 $dataProvider = new CActiveDataProvider('Products', array(
                     'criteria' => array(
                         'condition' => 'deal_day_status = 1 and quantity > 0 and deal_day_date = "' . $date . '"',
                     ),
                     'sort' => array(
-                    //'defaultOrder' => 'price ASC',
-                    //'defaultOrder' => $categ,
+                        //'defaultOrder' => 'price ASC',
+                        'defaultOrder' => $categ,
                     )
                         )
                 );
@@ -163,16 +162,29 @@ class ProductsController extends Controller {
 
         public function actionPriceRange() {
                 if (Yii::app()->request->isAjaxRequest) {
-                        Yii::app()->session['temp_product_filter'] = 1;
                         $min = $_REQUEST['amount'];
                         $max = $_REQUEST['amount1'];
                         $cat = $_REQUEST['cat_name'];
-                        $parent = ProductCategory::model()->findByPk($cat);
-                        $cats = ProductCategory::model()->findAllByattributes(array('parent' => $parent->id), array('condition' => "id != $parent->id"));
-                        $dataProvider = Yii::app()->Menu->MenuCategoriesFilter($cats, $parent, $categ = 0, $min, $max);
+                        $data[0] = $min;
+                        $data[1] = $max;
+                        $data[3] = $cat;
+                        if (!isset(Yii::app()->session['temp_product_filter'])) {
+                                Yii::app()->session['temp_product_filter'] = $data;
+                        }
+                        if ($cat != '' && $min != '' && $max != '') {
+                                $parent = ProductCategory::model()->findByPk($cat);
+                                $cats = ProductCategory::model()->findAllByattributes(array('parent' => $parent->id), array('condition' => "id != $parent->id"));
+                                $dataProvider = Yii::app()->Menu->MenuCategoriesFilter($cats, $parent, $categ = 0, $min, $max);
+                        } else {
+                                $parent = ProductCategory::model()->findByPk(Yii::app()->session['temp_product_filter'][3]);
+                                $cats = ProductCategory::model()->findAllByattributes(array('parent' => $parent->id), array('condition' => "id != $parent->id"));
+                                $dataProvider = Yii::app()->Menu->MenuCategoriesFilter($cats, $parent, $categ = 0, Yii::app()->session['temp_product_filter'][0], Yii::app()->session['temp_product_filter'][1]);
+                        }
 
-                        $this->renderPartial('_view1', array('dataProvider' => $dataProvider));
-                        //   $this->renderPartial('_view1', array('dataProvider' => $dataProvider, 'parent' => $parent, 'name' => $cat));
+                        //$this->renderPartial('_view1', array('dataProvider' => $dataProvider));
+                        $this->renderPartial('_view1', array('dataProvider' => $dataProvider, 'parent' => $parent, 'name' => $cat));
+                } else {
+
                 }
         }
 
