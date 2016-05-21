@@ -296,6 +296,8 @@ class CartController extends Controller {
                                         Yii::app()->session['coupen_id'] = $coupen_id;
                                         UserWishlist::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
                                         CouponHistory::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
+                                        ProductViewed::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
+
                                         unset(Yii::app()->session['temp_user']);
                                         $this->redirect(array('cart/proceed'));
                                 }
@@ -337,6 +339,7 @@ class CartController extends Controller {
                                         Yii::app()->session['coupen_id'] = $coupen_id;
                                         UserWishlist::model()->updateAll(array("user_id" => $model->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
                                         CouponHistory::model()->updateAll(array("user_id" => $model->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
+                                        ProductViewed::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
                                         unset(Yii::app()->session['temp_user']);
                                         $this->redirect(array('Cart/proceed'));
                                 }

@@ -46,25 +46,28 @@ class ProductsController extends Controller {
         public function actionDetail($name) {
                 $product_view = new ProductViewed;
                 $prduct = Products::model()->findByAttributes(array('canonical_name' => $name, 'status' => 1));
-                if (Yii::app()->session['user'] != '' && Yii::app()->session['user'] != NULL) {
+                $recently = '';
+                $related_products = explode(",", $prduct->related_products);
 
+                if (Yii::app()->session['user'] != '' && Yii::app()->session['user'] != NULL) {
                         $user_id = Yii::app()->session['user']['id'];
-                        $product_view_exist = ProductViewed::model()->findByAttributes(array('product_id' => $prduct->id, 'user_id' => $user_id));
+                        $product_view_exist = ProductViewed::model()->findByAttributes(array('user_id' => $user_id));
                         if ($product_view_exist == NULL) {
                                 $product_view->date = date('Y-m-d');
                                 $product_view->product_id = $prduct->id;
                                 $product_view->session_id = NULL;
                                 $product_view->user_id = $user_id;
-                                $product_view->save();
+                                if ($product_view->product_id != '') {
+                                        $product_view->save(FALSE);
+                                }
                         }
-                        $recently = ProductViewed::model()->findAllByAttributes(array('product_id' => $prduct->id, 'user_id' => $user_id));
+                        $recently = ProductViewed::model()->findAllByAttributes(array('user_id' => $user_id), array('order' => 'date DESC'));
                 } else {
                         if (!isset(Yii::app()->session['temp_user'])) {
                                 Yii::app()->session['temp_user'] = microtime(true);
                         }
                         $sessonid = Yii::app()->session['temp_user'];
-                        $product_view_exist = ProductViewed::model()->findByAttributes(array('product_id' => $prduct->id, 'session_id' => $sessonid));
-
+                        $product_view_exist = ProductViewed::model()->findByAttributes(array('session_id' => $sessonid));
                         if (empty($product_view_exist) && $product_view_exist == NULL) {
                                 $product_view->date = date('Y-m-d');
                                 $product_view->product_id = $prduct->id;
@@ -74,11 +77,8 @@ class ProductsController extends Controller {
                                         $product_view->save(FALSE);
                                 }
                         }
-                        $recently = ProductViewed::model()->findAllByAttributes(array('product_id' => $prduct->id, 'session_id' => $sessonid));
+                        $recently = ProductViewed::model()->findAllByAttributes(array('session_id' => $sessonid), array('order' => 'date DESC'));
                 }
-
-
-
                 $model = new ProductEnquiry;
                 if (isset($_POST['ProductEnquiry'])) {
                         $model->attributes = $_POST['ProductEnquiry'];
@@ -88,7 +88,7 @@ class ProductsController extends Controller {
                         }
                 }
                 if (!empty($prduct)) {
-                        $this->render('detailed', array('product' => $prduct, 'model' => $model));
+                        $this->render('detailed', array('product' => $prduct, 'model' => $model, 'recently' => $recently, 'related_products' => $related_products));
                 } else {
                         $this->redirect(array('Site/Error'));
                 }

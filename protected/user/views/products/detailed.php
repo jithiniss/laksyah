@@ -177,7 +177,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                         <h3>Watch Video</h3>
                                                         <div class="video_thumb">
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
                                                                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/video_thumb.jpg" alt=""/>
                                                                 <a class="video_link laksyah_video fancybox.iframe" href="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>"><i class="fa fa-play-circle-o"></i></a>
                                                         </div>
@@ -380,11 +380,6 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                                                 if ($product->stock_availability == 1) {
                                                         if ($product->quantity >= 1) {
-                                                                if (isset(Yii::app()->session['user'])) {
-                                                                        ?>
-                                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist add wish ">Add to WishList</a>
-                                                                        <?php
-                                                                }
                                                                 ?>
 
 
@@ -537,7 +532,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                                                         <!-- Tab panes -->
                                                         <div class="tab-content">
-                                                                <div role="tabpanel" class="tab-pane active" id="description"> Featuring classic smoky grey georgette high low asymmetrical tulle anarkali, Boat neck with self-fabric cord piping, Concealed side zip fastening, Quilted detailing on front and back rawsilkbodice, Keyhole with draw cord fastening at the back Voluminously flowing 1 inch kali cut skirt with broad sequence border </div>
+                                                                <div role="tabpanel" class="tab-pane active" id="description"><?= $product->description; ?> </div>
                                                                 <div role="tabpanel" class="tab-pane" id="details">...</div>
                                                                 <div role="tabpanel" class="tab-pane" id="sizechart"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/sample.jpg" alt=""/></div>
                                                         </div>
@@ -555,114 +550,30 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                         <div class="related_itel_lists">
                                 <div class="product_list ">
                                         <div class="row related_list_slider">
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a hreff="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
+                                                <?php
+                                                if (!empty($recently) && $recently != '') {
+                                                        foreach ($recently as $recent) {
+
+                                                                $product_details = Products::model()->findByPk($recent->product_id);
+                                                                if (!empty($product_details)) {
+                                                                        ?>
+                                                                        <?php
+                                                                        $folder1 = Yii::app()->Upload->folderName(0, 1000, $product_details->id);
+                                                                        ?>
+                                                                        <div class="col-sm-2">
+                                                                                <div class="products_item"> <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Products/Detail/name/<?php echo $product_details->canonical_name; ?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder1 ?>/<?= $product_details->id ?>/big.<?= $product_details->main_image ?>" alt=""/></a>
+                                                                                        <div class="list_title">
+                                                                                                <h3><?= $product_details->product_name; ?></h3>
+                                                                                                <!--<h4>Saree</h4>-->
+                                                                                                <p><?= Yii::app()->Currency->convert($product_details->price); ?></p>
+                                                                                        </div>
+                                                                                </div>
+                                                                        </div>
+                                                                        <?php
+                                                                }
+                                                        }
+                                                }
+                                                ?>
                                         </div>
                                 </div>
                         </div>
@@ -672,124 +583,31 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                         <div class="related_itel_lists">
                                 <div class="product_list ">
                                         <div class="row related_list_slider">
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
-                                                <div class="col-sm-2">
-                                                        <div class="products_item"> <a href="#"><img src="<?= Yii::app()->request->baseUrl; ?>/images/thumb_big.jpg" alt=""/></a>
-                                                                <div class="list_title">
-                                                                        <h3>Aambal</h3>
-                                                                        <h4>Saree</h4>
-                                                                        <p><i class="fa fa-rupee"></i> 3500</p>
-                                                                </div>
-                                                        </div>
-                                                </div>
 
+                                                <?php
+                                                if (!empty($related_products) && $related_products != '') {
+                                                        foreach ($related_products as $related_product) {
+
+                                                                $product_details1 = Products::model()->findByPk($related_product);
+                                                                if (!empty($product_details1)) {
+                                                                        ?>
+                                                                        <?php
+                                                                        $folder2 = Yii::app()->Upload->folderName(0, 1000, $product_details1->id);
+                                                                        ?>
+                                                                        <div class="col-sm-2">
+                                                                                <div class="products_item"> <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Products/Detail/name/<?php echo $product_details1->canonical_name; ?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder2 ?>/<?= $product_details1->id ?>/big.<?= $product_details1->main_image ?>" alt=""/></a>
+                                                                                        <div class="list_title">
+                                                                                                <h3><?= $product_details1->product_name; ?></h3>
+                                                                                                <!--<h4>Saree</h4>-->
+                                                                                                <p><?= Yii::app()->Currency->convert($product_details1->price); ?></p>
+                                                                                        </div>
+                                                                                </div>
+                                                                        </div>
+                                                                        <?php
+                                                                }
+                                                        }
+                                                }
+                                                ?>
                                         </div>
                                 </div>
                         </div>

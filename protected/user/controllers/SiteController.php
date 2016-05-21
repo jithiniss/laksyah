@@ -97,6 +97,11 @@ class SiteController extends Controller {
                                         if ($model->save()) {
 //Yii::app()->user->setFlash('success', "Dear, $model->first_name, your message has been sent successfully");
                                                 Yii::app()->session['user'] = $model;
+                                                ProductViewed::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
+                                                Cart::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
+
+                                                UserWishlist::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
+                                                unset(Yii::app()->session['temp_user']);
                                                 $this->redirect('index');
                                         } else {
 // Yii::app()->user->setFlash('error', "Sorry! Message seniding Failed..");
@@ -131,6 +136,7 @@ class SiteController extends Controller {
                                                 Cart::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
 
                                                 UserWishlist::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
+                                                ProductViewed::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
 
                                                 unset(Yii::app()->session['temp_user']);
                                         }

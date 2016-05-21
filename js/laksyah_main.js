@@ -67,7 +67,7 @@ $(document).ready(function () {
         ////////////////////////////////////////////////////
 
         $('.currency_drop a').click(function (e) {
-                e.preventDefault();
+                //   e.preventDefault();
                 $('.currency_drop li').removeClass('active');
                 $(this).parent('li').addClass('active');
                 var selectedCurrency = $(this).html();
