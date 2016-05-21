@@ -1,419 +1,433 @@
 <div class="clearfix"></div>
-<div class="container">
-        <div class="row">
-                <?php
-                $form = $this->beginWidget('CActiveForm', array(
-                    'id' => 'user-address-form',
-                    'htmlOptions' => array('class' => 'form-group'),
-                    // Please note: When you enable ajax validation, make sure the corresponding
-                    // controller action is handling ajax validation correctly.
-                    // There is a call to performAjaxValidation() commented in generated controller code.
-                    // See class documentation of CActiveForm for details on this.
-                    'enableAjaxValidation' => false,
-                ));
+<div class="container main_container inner_pages">
+        <h1>Checkout</h1>
+        <?php
+        $form = $this->beginWidget('CActiveForm', array(
+            'id' => 'user-address-form',
+            'htmlOptions' => array('class' => 'form-group'),
+            // Please note: When you enable ajax validation, make sure the corresponding
+            // controller action is handling ajax validation correctly.
+            // There is a call to performAjaxValidation() commented in generated controller code.
+            // See class documentation of CActiveForm for details on this.
+            'enableAjaxValidation' => false,
+        ));
+        ?>
+
+
+        <?php if (Yii::app()->user->hasFlash('success')):
                 ?>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <?php echo Yii::app()->user->getFlash('success'); ?>
+                </div>
+        <?php endif; ?>
+        <?php if (Yii::app()->user->hasFlash('checkout_error')): ?>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <?php echo Yii::app()->user->getFlash('checkout_error'); ?>
+                </div>
+
+        <?php endif; ?>
+        <div class="row">
                 <div class="col-md-8">
-                        <div class="set-mingg">
-                                <div class="">
-                                        <div class="row">
-
-                                                <!--            <a href="#add_address" data-toggle="collapse" data-parent="#accordion">Add New Address</a><br>-->
-
-                                                <div class="col-md-12 forward"  id="add_address">
-                                                        <div class="row">
-
-                                                                <?php // echo $form->errorSummary($model);     ?>
-                                                                <?php if (Yii::app()->user->hasFlash('success')):
+                        <div class="check_out related_element">
+                                <div class="border_box">
+                                        <input type="hidden" value="<?php echo $deafult_shipping->country; ?>" class="country_default" name="country_default" />
+                                        <div class="box_title">
+                                                Billing Details
+                                        </div>
+                                        <div class="box_content">
+                                                <h3>Biiling Address</h3>
+                                                <div class="form_row">
+                                                        <label>Select a billing address from your address book or enter a new address.</label>
+                                                        <select  name="bill_address" class="select_bill_exist form-control" id="bill_exist">
+                                                                <option  value="0">New Address</option>
+                                                                <?php
+                                                                foreach ($addresss as $address) {
                                                                         ?>
-                                                                        <div class="info">
-                                                                                <?php echo Yii::app()->user->getFlash('success'); ?>
-                                                                        </div>
-                                                                <?php endif; ?>
-                                                                <?php if (Yii::app()->user->hasFlash('checkout_error')): ?>
-                                                                        <div class="alert alert-danger fade in">
+                                                                        <option <?php
+                                                                        if ($address->default_billing_address == 1) {
+                                                                                echo 'selected';
+                                                                        }
+                                                                        ?>  value="<?php echo $address->id; ?>"><?php echo $address->first_name; ?> <?php echo $data->last_name; ?> ,   <?php echo $address->address_1; ?>
+                                                                                <?php echo $address->address_2; ?> , <?php echo $address->city; ?> ,
+                                                                                <?php echo $address->state; ?> , <?php echo $address->country; ?>
+                                                                                <?php echo $address->postcode; ?></option>
+                                                                        <?php
+                                                                        if (isset($_GET['box'])) {
+                                                                                echo "Success!";
+                                                                        }
+                                                                }
+                                                                ?>
+                                                        </select>
+                                                </div>
 
-                                                                                <?php echo Yii::app()->user->getFlash('checkout_error'); ?>
-                                                                        </div>
+                                                <div class="row  bill_form" style="">
+                                                        <?php //echo $form->errorSummary($billing); ?>
+                                                        <div class="col-sm-6">
+                                                                <?php echo $form->labelEx($billing, '[bill]first_name', array('class' => 'control-label')); ?>
+                                                                <?php echo $form->textField($billing, '[bill]first_name', array('placeholder' => 'First Name ', 'class' => 'form-control aik')); ?>
+                                                                <?php echo $form->error($billing, '[bill]first_name'); ?>
+                                                        </div>
 
-                                                                <?php endif; ?>
-                                                                <div class="bill_details">
-                                                                        <input type="hidden" value="<?php echo $deafult_shipping->country; ?>" class="country_default" name="country_default" />
-                                                                        <h3>Billing Details</h3>
-                                                                        <div class="clearfix"></div>
-                                                                        <h5>Select a billing address from your address book or enter  a new address.</h5>
-                                                                        <select  name="bill_address" class="select_bill_exist" id="bill_exist">
-                                                                                <option  value="0">New Address</option>
-                                                                                <?php
-                                                                                foreach ($addresss as $address) {
-                                                                                        ?>
-                                                                                        <option <?php
-                                                                                        if ($address->default_billing_address == 1) {
-                                                                                                echo 'selected';
-                                                                                        }
-                                                                                        ?>  value="<?php echo $address->id; ?>"><?php echo $address->first_name; ?> <?php echo $data->last_name; ?> ,   <?php echo $address->address_1; ?>
-                                                                                                <?php echo $address->address_2; ?> , <?php echo $address->city; ?> ,
-                                                                                                <?php echo $address->state; ?> , <?php echo $address->country; ?>
-                                                                                                <?php echo $address->postcode; ?></option>
-                                                                                        <?php
-                                                                                        if (isset($_GET['box'])) {
-                                                                                                echo "Success!";
-                                                                                        }
-                                                                                }
+                                                        <div class="col-sm-6">
+                                                                <?php echo $form->labelEx($billing, '[bill]last_name', array('class' => 'control-label')); ?>
+                                                                <?php echo $form->textField($billing, '[bill]last_name', array('placeholder' => 'Last Name ', 'class' => 'form-control aik')); ?>
+                                                                <?php echo $form->error($billing, '[bill]last_name'); ?>
+                                                        </div>
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-sm-6">
+                                                                <?php echo $form->labelEx($billing, '[bill]contact_number', array('class' => 'control-label')); ?>
+                                                                <?php echo $form->textField($billing, '[bill]contact_number', array('placeholder' => 'Contact Number ', 'class' => 'form-control aik')); ?>
+                                                                <?php echo $form->error($billing, '[bill]contact_number'); ?>
+                                                        </div>
+
+                                                        <div class="col-sm-6">
+                                                                <?php echo $form->labelEx($billing, '[bill]address_1', array('class' => 'control-label')); ?>
+                                                                <?php echo $form->textField($billing, '[bill]address_1', array('placeholder' => 'Address Line 1 ', 'class' => 'form-control aik')); ?>
+                                                                <?php echo $form->error($billing, '[bill]address_1'); ?>
+                                                        </div>
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-sm-6">
+                                                                <?php echo $form->labelEx($billing, '[bill]address_2', array('class' => 'control-label')); ?>
+                                                                <?php echo $form->textField($billing, '[bill]address_2', array('placeholder' => 'Address Line 2 ', 'class' => 'form-control aik')); ?>
+                                                                <?php echo $form->error($billing, '[bill]address_2'); ?>
+                                                        </div>
+
+                                                        <div class="col-sm-6">
+                                                                <?php echo $form->labelEx($billing, '[bill]city', array('class' => 'control-label')); ?>
+                                                                <?php echo $form->textField($billing, '[bill]city', array('placeholder' => 'City ', 'class' => 'form-control aik')); ?>
+                                                                <?php echo $form->error($billing, '[bill]city'); ?>
+                                                        </div>
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-sm-6">
+                                                                <?php echo $form->labelEx($billing, '[bill]postcode', array('class' => 'control-label')); ?>
+                                                                <?php echo $form->textField($billing, '[bill]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik')); ?>
+                                                                <?php echo $form->error($billing, '[bill]postcode'); ?>
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                                <?php echo $form->labelEx($billing, '[bill]country', array('class' => 'control-label')); ?>
+                                                                <?php echo CHtml::activeDropDownList($billing, '[bill]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik')); ?>
+                                                                <?php echo $form->error($billing, '[bill]country'); ?>
+                                                        </div>
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-sm-6">
+                                                                <?php echo $form->labelEx($billing, '[bill]state', array('class' => 'control-label')); ?>
+                                                                <?php echo $form->textField($billing, '[bill]state', array('placeholder' => 'state ', 'class' => 'form-control aik')); ?>
+                                                                <?php echo $form->error($billing, '[bill]state'); ?>
+                                                        </div>
+                                                        <div class="col-sm-6">
+
+                                                        </div>
+                                                </div>
+
+                                        </div>
+
+
+                                </div>
+
+
+
+                                <div class="border_box">
+                                        <div class="box_title">
+                                                Shipping Details
+                                        </div>
+                                        <div class="box_content">
+                                                <h3>Shipping Address <span class="pull-right"><input type="checkbox" checked="" name="billing_same" value="1" class="bill_same"><label>Same as Billing Address</label></span></h3>
+                                                <div class="ship_form">
+                                                        <div class="form_row">
+                                                                <label>Select a billing address from your address book or enter a new address.</label>
+                                                                <select  name="ship_address" class="select_ship_exist form-control">
+                                                                        <option  value="0">New Address</option>
+                                                                        <?php
+                                                                        foreach ($addresss as $address) {
                                                                                 ?>
-                                                                        </select>
-                                                                        <br />
-                                                                        <br />
-                                                                        <br />
-                                                                </div>
-                                                                <div class="row  bill_form" style="">
-                                                                        <?php //echo $form->errorSummary($billing); ?>
-                                                                        <div class="col-md-4">
-                                                                                <?php echo $form->labelEx($billing, '[bill]first_name', array('class' => 'control-label')); ?>
-                                                                                <?php echo $form->textField($billing, '[bill]first_name', array('placeholder' => 'First Name ', 'class' => 'form-control aik')); ?>
-                                                                                <?php echo $form->error($billing, '[bill]first_name'); ?>
-                                                                        </div>
-
-                                                                        <div class="col-md-4">
-                                                                                <?php echo $form->labelEx($billing, '[bill]last_name', array('class' => 'control-label')); ?>
-                                                                                <?php echo $form->textField($billing, '[bill]last_name', array('placeholder' => 'Last Name ', 'class' => 'form-control aik')); ?>
-                                                                                <?php echo $form->error($billing, '[bill]last_name'); ?>
-                                                                        </div>
-
-                                                                        <div class="col-md-4">
-                                                                                <?php echo $form->labelEx($billing, '[bill]contact_number', array('class' => 'control-label')); ?>
-                                                                                <?php echo $form->textField($billing, '[bill]contact_number', array('placeholder' => 'Contact Number ', 'class' => 'form-control aik')); ?>
-                                                                                <?php echo $form->error($billing, '[bill]contact_number'); ?>
-                                                                        </div>
-
-                                                                        <div class="col-md-4">
-                                                                                <?php echo $form->labelEx($billing, '[bill]address_1', array('class' => 'control-label')); ?>
-                                                                                <?php echo $form->textField($billing, '[bill]address_1', array('placeholder' => 'Address Line 1 ', 'class' => 'form-control aik')); ?>
-                                                                                <?php echo $form->error($billing, '[bill]address_1'); ?>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                                <?php echo $form->labelEx($billing, '[bill]address_2', array('class' => 'control-label')); ?>
-                                                                                <?php echo $form->textField($billing, '[bill]address_2', array('placeholder' => 'Address Line 2 ', 'class' => 'form-control aik')); ?>
-                                                                                <?php echo $form->error($billing, '[bill]address_2'); ?>
-                                                                        </div>
-
-                                                                        <div class="col-md-4">
-                                                                                <?php echo $form->labelEx($billing, '[bill]city', array('class' => 'control-label')); ?>
-                                                                                <?php echo $form->textField($billing, '[bill]city', array('placeholder' => 'City ', 'class' => 'form-control aik')); ?>
-                                                                                <?php echo $form->error($billing, '[bill]city'); ?>
-                                                                        </div>
-
-                                                                        <div class="col-md-4">
-                                                                                <?php echo $form->labelEx($billing, '[bill]postcode', array('class' => 'control-label')); ?>
-                                                                                <?php echo $form->textField($billing, '[bill]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik')); ?>
-                                                                                <?php echo $form->error($billing, '[bill]postcode'); ?>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                                <?php echo $form->labelEx($billing, '[bill]country', array('class' => 'control-label')); ?>
-                                                                                <?php echo CHtml::activeDropDownList($billing, '[bill]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik')); ?>
-
-                                                                                <?php echo $form->error($billing, '[bill]country'); ?>
-                                                                        </div>
-                                                                        <div class="col-md-4">
-                                                                                <?php echo $form->labelEx($billing, '[bill]state', array('class' => 'control-label')); ?>
-                                                                                <?php echo $form->textField($billing, '[bill]state', array('placeholder' => 'state ', 'class' => 'form-control aik')); ?>
-
-                                                                                <?php echo $form->error($billing, '[bill]state'); ?>
-                                                                        </div>
-
-                                                                </div>
-
-
+                                                                                <option  value="<?php echo $address->id; ?>"><?php echo $address->first_name; ?> <?php echo $data->last_name; ?> ,   <?php echo $address->address_1; ?>
+                                                                                        <?php echo $address->address_2; ?> , <?php echo $address->city; ?> ,
+                                                                                        <?php echo $address->state; ?> , <?php echo $address->country; ?>
+                                                                                        <?php echo $address->postcode; ?></option>
+                                                                                <?php
+                                                                                if (isset($_GET['box'])) {
+                                                                                        echo "Success!";
+                                                                                }
+                                                                        }
+                                                                        ?>
+                                                                </select>
                                                         </div>
 
 
-
-                                                        <div class="row">
-                                                                <br />
-                                                                <br />
-
-                                                                <h3>Shipping Details</h3>
-
-                                                                <input type="checkbox" checked="" name="billing_same" value="1" class="bill_same">Same As Billing Address
-                                                                <br />
-                                                                <br />
-                                                                <div class="ship_form">
-                                                                        <div class="clearfix"></div>
-                                                                        <h5>Select a Shipping address from your address book or enter  a new address.</h5>
-                                                                        <select  name="ship_address" class="select_ship_exist">
-                                                                                <option  value="0">New Address</option>
-                                                                                <?php
-                                                                                foreach ($addresss as $address) {
-                                                                                        ?>
-                                                                                        <option  value="<?php echo $address->id; ?>"><?php echo $address->first_name; ?> <?php echo $data->last_name; ?> ,   <?php echo $address->address_1; ?>
-                                                                                                <?php echo $address->address_2; ?> , <?php echo $address->city; ?> ,
-                                                                                                <?php echo $address->state; ?> , <?php echo $address->country; ?>
-                                                                                                <?php echo $address->postcode; ?></option>
-                                                                                        <?php
-                                                                                        if (isset($_GET['box'])) {
-                                                                                                echo "Success!";
-                                                                                        }
-                                                                                }
-                                                                                ?>
-                                                                        </select>
-
-                                                                        <br />
-
-                                                                        <div class="clearfix"></div>
-
-                                                                        <br />
-
-                                                                        <div class="row ship_form_content">
-                                                                                <div class="col-md-4">
-                                                                                        <?php echo $form->labelEx($shipping, '[ship]first_name', array('class' => 'control-label')); ?>
-                                                                                        <?php echo $form->textField($shipping, '[ship]first_name', array('placeholder' => 'First Name ', 'class' => 'form-control aik1')); ?>
-                                                                                        <?php echo $form->error($shipping, '[ship]first_name'); ?>
-                                                                                </div>
-
-                                                                                <div class="col-md-4">
-                                                                                        <?php echo $form->labelEx($shipping, '[ship]last_name', array('class' => 'control-label')); ?>
-                                                                                        <?php echo $form->textField($shipping, '[ship]last_name', array('placeholder' => 'Last Name ', 'class' => 'form-control aik1')); ?>
-                                                                                        <?php echo $form->error($shipping, '[ship]last_name'); ?>
-                                                                                </div>
-
-                                                                                <div class="col-md-4">
-                                                                                        <?php echo $form->labelEx($shipping, '[ship]contact_number', array('class' => 'control-label')); ?>
-                                                                                        <?php echo $form->textField($shipping, '[ship]contact_number', array('placeholder' => 'Contact Number ', 'class' => 'form-control aik1')); ?>
-                                                                                        <?php echo $form->error($shipping, '[ship]contact_number'); ?>
-                                                                                </div>
-
-                                                                                <div class="col-md-4">
-                                                                                        <?php echo $form->labelEx($shipping, '[ship]address_1', array('class' => 'control-label')); ?>
-                                                                                        <?php echo $form->textField($shipping, '[ship]address_1', array('placeholder' => 'Address Line 1 ', 'class' => 'form-control aik1')); ?>
-                                                                                        <?php echo $form->error($shipping, '[ship]address_1'); ?>
-                                                                                </div>
-                                                                                <div class="col-md-4">
-                                                                                        <?php echo $form->labelEx($shipping, '[ship]address_2', array('class' => 'control-label')); ?>
-                                                                                        <?php echo $form->textField($shipping, '[ship]address_2', array('placeholder' => 'Address Line 2 ', 'class' => 'form-control aik1')); ?>
-                                                                                        <?php echo $form->error($shipping, '[ship]address_2'); ?>
-                                                                                </div>
-
-                                                                                <div class="col-md-4">
-                                                                                        <?php echo $form->labelEx($shipping, '[ship]city', array('class' => 'control-label')); ?>
-                                                                                        <?php echo $form->textField($shipping, '[ship]city', array('placeholder' => 'City ', 'class' => 'form-control aik1')); ?>
-                                                                                        <?php echo $form->error($shipping, '[ship]city'); ?>
-                                                                                </div>
-
-                                                                                <div class="col-md-4">
-                                                                                        <?php echo $form->labelEx($shipping, '[ship]postcode', array('class' => 'control-label')); ?>
-                                                                                        <?php echo $form->textField($shipping, '[ship]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik1')); ?>
-                                                                                        <?php echo $form->error($shipping, '[ship]postcode'); ?>
-                                                                                </div>
-                                                                                <div class="col-md-4">
-                                                                                        <?php echo $form->labelEx($shipping, '[ship]country', array('class' => 'control-label')); ?>
-                                                                                        <?php echo CHtml::activeDropDownList($shipping, '[ship]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik1 shipping_country')); ?>
-
-                                                                                        <?php echo $form->error($shipping, '[ship]country'); ?>
-                                                                                </div>
-                                                                                <div class="col-md-4">
-                                                                                        <?php echo $form->labelEx($shipping, '[ship]state', array('class' => 'control-label')); ?>
-                                                                                        <?php echo $form->textField($shipping, '[ship]state', array('placeholder' => 'state ', 'class' => 'form-control aik1')); ?>
-
-                                                                                        <?php echo $form->error($shipping, '[ship]state'); ?>
-                                                                                </div>
-
-
-
-
-                                                                        </div>
-
-
-
-                                                                </div>
-                                                                <div class="container">
-                                                                        <div class="row">
-                                                                                <div class="col-xs-12 col-sm-6">
-
-                                                                                        <?php if (Yii::app()->user->hasFlash('shipp_availability')): ?>
-                                                                                                <div class="alert alert-danger fade in">
-                                                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
-                                                                                                        <?php echo Yii::app()->user->getFlash('shipp_availability'); ?>
-                                                                                                </div>
-
-                                                                                        <?php endif; ?>
-                                                                                        <h3>Shipping Method</h3>
-                                                                                        <div id="shipping_method" class="shipping_method">
-
-                                                                                        </div>
-                                                                                </div>
-                                                                        </div>
+                                                        <div class="row ship_form_content">
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($shipping, '[ship]first_name', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($shipping, '[ship]first_name', array('placeholder' => 'First Name ', 'class' => 'form-control aik1')); ?>
+                                                                        <?php echo $form->error($shipping, '[ship]first_name'); ?>
                                                                 </div>
 
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($shipping, '[ship]last_name', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($shipping, '[ship]last_name', array('placeholder' => 'Last Name ', 'class' => 'form-control aik1')); ?>
+                                                                        <?php echo $form->error($shipping, '[ship]last_name'); ?>
+                                                                </div>
+                                                        </div>
+                                                        <div class="row ship_form_content">
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($shipping, '[ship]contact_number', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($shipping, '[ship]contact_number', array('placeholder' => 'Contact Number ', 'class' => 'form-control aik1')); ?>
+                                                                        <?php echo $form->error($shipping, '[ship]contact_number'); ?>
+                                                                </div>
 
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($shipping, '[ship]address_1', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($shipping, '[ship]address_1', array('placeholder' => 'Address Line 1 ', 'class' => 'form-control aik1')); ?>
+                                                                        <?php echo $form->error($shipping, '[ship]address_1'); ?>
+                                                                </div>
+                                                        </div>
+                                                        <div class="row ship_form_content">
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($shipping, '[ship]address_2', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($shipping, '[ship]address_2', array('placeholder' => 'Address Line 2 ', 'class' => 'form-control aik1')); ?>
+                                                                        <?php echo $form->error($shipping, '[ship]address_2'); ?>
+                                                                </div>
+
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($shipping, '[ship]city', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($shipping, '[ship]city', array('placeholder' => 'City ', 'class' => 'form-control aik1')); ?>
+                                                                        <?php echo $form->error($shipping, '[ship]city'); ?>
+                                                                </div>
+                                                        </div>
+                                                        <div class="row ship_form_content">
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($shipping, '[ship]postcode', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($shipping, '[ship]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik1')); ?>
+                                                                        <?php echo $form->error($shipping, '[ship]postcode'); ?>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($shipping, '[ship]country', array('class' => 'control-label')); ?>
+                                                                        <?php echo CHtml::activeDropDownList($shipping, '[ship]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik1 shipping_country')); ?>
+
+                                                                        <?php echo $form->error($shipping, '[ship]country'); ?>
+                                                                </div>
+                                                        </div>
+                                                        <div class="row ship_form_content">
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($shipping, '[ship]state', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($shipping, '[ship]state', array('placeholder' => 'state ', 'class' => 'form-control aik1')); ?>
+                                                                        <?php echo $form->error($shipping, '[ship]state'); ?>
+                                                                </div>
+                                                                <div class="col-sm-6">
+
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                                <h3>Shipping Method</h3>
+                                                <div class="row">
+                                                        <div class="col-xs-12 col-sm-6">
+                                                                <?php if (Yii::app()->user->hasFlash('shipp_availability')): ?>
+                                                                        <div class="alert alert-danger fade in">
+                                                                                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
+                                                                                <?php echo Yii::app()->user->getFlash('shipp_availability'); ?>
+                                                                        </div>
+
+                                                                <?php endif; ?>
+
+                                                                <div id="shipping_method" class="shipping_method">
+
+                                                                </div>
                                                         </div>
                                                 </div>
 
                                         </div>
                                 </div>
                         </div>
+                        <!--                        <div class="container">
+                                                        <div class="row">
+                                                                <div class="col-xs-12 col-sm-6">
+                        <?php // if (Yii::app()->user->hasFlash('shipp_availability')): ?>
+                                                                                        <div class="alert alert-danger fade in">
+                                                                                                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
+                        <?php // echo Yii::app()->user->getFlash('shipp_availability'); ?>
+                                                                                        </div>
+
+                        <?php // endif; ?>
+                                                                        <h3>Shipping Method</h3>
+                                                                        <div id="shipping_method" class="shipping_method">
+
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                </div>-->
+
+
                 </div>
-                <div class="col-md-4">
 
-                        <?php
-                        foreach ($carts as $cart) {
-                                $prod_details = Products::model()->findByPk($cart->product_id);
-                                $folder = Yii::app()->Upload->folderName(0, 1000, $prod_details->id);
-                                ?>
-                                <?php $producttotal = $prod_details->price * $cart->quantity; ?>
-                                <div class="row">
-
-                                        <div class="col-xs-4">
+                <div class="col-md-4 sidebar-right">
+                        <div class="fixed_scroller">
+                                <div class="order_summary">
+                                        <div class="panel-title">ORDER SUMMARY</div>
+                                        <div class="panel-body cart_products">
                                                 <?php
-                                                if ($cart->options != 0) {
-                                                        $option = Options::model()->findByPk($cart->options)
+                                                foreach ($carts as $cart) {
+                                                        $prod_details = Products::model()->findByPk($cart->product_id);
+                                                        $folder = Yii::app()->Upload->folderName(0, 1000, $prod_details->id);
                                                         ?>
-                                                        <img class="img-responsive crt" src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/options/<?= $option->id; ?>/small.<?php echo $option->image; ?>" width="100%"/>
-                                                        <?php
-                                                } else {
-                                                        ?>
-                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/small.<?php echo $prod_details->main_image; ?>" class="img-responsive crt" width="100%" align="absmiddle" style="max-height:300px; max-width:200px;display: block;">
-                                                <?php }
-                                                ?>
-                                        </div>
-                                        <div class="col-xs-5">
-                                                <h4><?php echo $prod_details->product_name; ?></h4>
-                                                <h6>Color : Doeskin</h6>
-                                                <h6>Size : Red</h6>
-                                                <h6>Qty : <?php echo $cart->quantity; ?></h6>
-                                        </div>
-                                        <div class = "col-xs-3">
-                                                <h6 ><strong><?php
-                                                                if (isset(Yii::app()->session['currency'])) {
-                                                                        $prod_price = round($prod_details->price, 2) * $cart->quantity;
-                                                                        echo Yii::app()->Currency->convert($prod_price);
+                                                        <?php $producttotal = $prod_details->price * $cart->quantity; ?>
+                                                        <div class="cart_product_detail">
+
+
+                                                                <?php
+                                                                if ($cart->options != 0) {
+                                                                        $option = Options::model()->findByPk($cart->options)
+                                                                        ?>
+                                                                        <img class="img-responsive crt" src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/options/<?= $option->id; ?>/small.<?php echo $option->image; ?>" />
+                                                                        <?php
                                                                 } else {
-                                                                        $prod_price = $prod_details->price * $cart->quantity;
-                                                                        echo Yii::app()->Currency->convert($prod_price);
+                                                                        ?>
+                                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/small.<?php echo $prod_details->main_image; ?>" class="img-responsive crt">
+                                                                <?php }
+                                                                ?>
+
+                                                                <h3><?php echo $prod_details->product_name; ?><span class="pull-right"><strong><?php
+                                                                                        if (isset(Yii::app()->session['currency'])) {
+                                                                                                $prod_price = round($prod_details->price, 2) * $cart->quantity;
+                                                                                                echo Yii::app()->Currency->convert($prod_price);
+                                                                                        } else {
+                                                                                                $prod_price = $prod_details->price * $cart->quantity;
+                                                                                                echo Yii::app()->Currency->convert($prod_price);
+                                                                                        }
+                                                                                        ?>
+                                                                                </strong></span>
+                                                                </h3>
+
+                                                                <p><span>Color:</span>Doeskin</p>
+                                                                <p><span>Size:</span> Red</p>
+                                                                <p><span>Qty:</span><?php echo $cart->quantity; ?></p>
+
+
+                                                        </div>
+                                                        <div class="cart_product_detail">
+                                                                <?php
+                                                                if ($cart->gift_option != 0) {
+                                                                        ?>
+                                                                        <?php $gift_user_details = TempUserGifts::model()->findByAttributes(array('cart_id' => $cart->id)); ?>
+                                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/laksyah_gift.jpg" class="img-responsive crt"  >
+                                                                        <h3>GIFT PACK <span class="pull-right"><strong><?php echo Yii::app()->Currency->convert($cart->rate); ?>
+                                                                                        </strong></span>
+                                                                        </h3>
+                                                                        <p><span>From:</span><?php echo $gift_user_details->from; ?></p>
+                                                                        <p><span>From:</span> <?php echo $gift_user_details->to; ?></p>
+                                                                        <?php $gift += $cart->rate; ?>
+                                                                        <?php
                                                                 }
                                                                 ?>
-                                                        </strong>
-                                                </h6>
+                                                                <?php $product_price += $producttotal; ?>
+                                                                <?php
+                                                        }
+                                                        ?>
+                                                </div>
                                         </div>
 
 
+                                        <?php
+                                        $coupon = CouponHistory::model()->findByAttributes(array('user_id' => Yii::app()->session['user']['id'], 'coupon_id' => Yii::app()->session['couponid']));
 
-                                </div>
 
-                                <?php
-                                if ($cart->gift_option != 0) {
+                                        $from = $coupon->date;
+                                        $to = date('Y-m-d H:i:s');
+                                        $diff_seconds = strtotime($to) - strtotime($from);
+                                        $hours = floor($diff_seconds / 3600);
+                                        $minutes = floor(($diff_seconds % 3600) / 60) + ($hours * 60);
+                                        ?>
+                                        <?php $subtotal = $gift + $product_price - $giftvoucher->discount; ?>
+                                        <?php if ($minutes < 30) { ?>
+                                                <?php $giftvoucher = Coupons::model()->findByPk($coupon->coupon_id); ?>
+                                                <div class="panel-body gift_card_details">
+                                                        <h4>GIFT VOUCHER / GIFT CARD CODE</h4>
+                                                        <p><span>Code:</span>	<?php echo $giftvoucher->code; ?></p>
+                                                        <p><span>Discount:</span><strong class="pull-right"><?php echo Yii::app()->Currency->convert($giftvoucher->discount); ?></strong></p>
+                                                        <div class="clearfix"></div>
+                                                </div>
+                                                <?php
+                                        } else {
+                                                $giftvoucher = 0;
+                                        }
                                         ?>
 
 
 
-                                        <?php $gift_user_details = TempUserGifts::model()->findByAttributes(array('cart_id' => $cart->id)); ?>
+
+                                </div>
+                                <div class="order_amount">
+                                        <div class="price_group">
+
+                                                <div class="pull-left">Subtotal : </div>
+                                                <div class="pull-right"><?php echo Yii::app()->Currency->convert($subtotal); ?></div>
+                                                <div class="clearfix"></div>
+
+                                        </div>
+                                        <div class="price_group">
+                                                <div class="pull-left">Shipping</div>
+                                                <div class="pull-right"><span id="shipping_charge"></span></div>
+                                                <div class="clearfix"></div>
+                                        </div>
+                                        <div class="seperator"></div>
+                                        <div class="price_group total_amount">
+
+                                                <div class="pull-left">ORDER TOTAL</div>
+                                                <div class="pull-right"><span id="grant_total"></span></div>
+                                                <div class="clearfix"></div>
+
+                                        </div>
+                                        <div class="price_group apply_credit">
+
+                                                <?php if (Yii::app()->session['user']['wallet_amt'] != 0) { ?>
+                                                        <div class="pull-left">My Credit</div>
+                                                        <div class="pull-right"><input type="number" class="wallet_amount" value="" /></div>
+                                                        <input type="hidden" class="wallet_amount" name="wallet_amount"  />
+                                                        <div class="clearfix"></div>
+                                                        <p class="text-right">Available Credit: <strong>  <span id="wallet_total"><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></span></strong></p>
+                                                <?php } ?>
+                                                <p class="text-right">Current Credit Balance: <strong>   <span id="wallet_total1"><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></span></strong></p>
 
 
-                                        <div class="row">
-                                                <br />
-                                                <div class="col-xs-4">
-                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/gift_img.jpg" class="img-responsive crt" align="absmiddle" style="max-height:300px; max-width:200px;display: block;">
+                                        </div>
 
-                                                </div>
-                                                <div class="col-xs-5">
-                                                        <h4>GIft Pack</h4>
-                                                        <h6>From : <?php echo $gift_user_details->from; ?></h6>
-                                                        <h6>to : <?php echo $gift_user_details->to; ?></h6>
+                                </div>
+                                <div class="total_pay">
+                                        <div class="price_group">
 
-                                                </div>
-                                                <div class = "col-xs-3">
-                                                        <h6 ><strong><?php echo Yii::app()->Currency->convert($cart->rate); ?>
-                                                                </strong>
-                                                        </h6>
-                                                </div>
+                                                <div class="pull-left">Total Amount to pay :</div>
+                                                <div class="pull-right"><span id="total_pay"></span> <input type="hidden" name="total_pay" class="total_pay" /></div>
+                                                <div class="clearfix"></div>
+                                        </div>
+                                        <div class="price_group payment_method">
+
+                                                <strong class="radio_label pull-left"><input type="radio" checked="" name="payment_method" value="2">CREDIT/DEBIT/NET BANKING</strong>
+                                                <strong class="radio_label pull-left"><input type="radio" name="payment_method" value="3">PAYPAL</strong>
+                                                <div class="clearfix"></div>
 
 
 
                                         </div>
-                                        <hr>
-
-                                        <?php $gift += $cart->rate; ?>
-                                        <?php
-                                }
-                                ?>
-                                <?php $product_price += $producttotal; ?>
-                                <?php
-                        }
-                        ?>
-
-                        <?php
-                        $coupon = CouponHistory::model()->findByAttributes(array('user_id' => Yii::app()->session['user']['id'], 'coupon_id' => Yii::app()->session['couponid']));
-
-
-                        $from = $coupon->date;
-                        $to = date('Y-m-d H:i:s');
-                        $diff_seconds = strtotime($to) - strtotime($from);
-                        $hours = floor($diff_seconds / 3600);
-                        $minutes = floor(($diff_seconds % 3600) / 60) + ($hours * 60);
-                        ?>
-                        <?php $subtotal = $gift + $product_price - $giftvoucher->discount; ?>
-                        <?php if ($minutes < 30) { ?>
-                                <?php $giftvoucher = Coupons::model()->findByPk($coupon->coupon_id); ?>
-                                <div class="row">
-                                        <div class="col-xs-12">
-                                                <h4>GIFT VOUCHER / GIFT CARD CODE</h4>
-                                                <h6>Code : <?php echo $giftvoucher->code; ?></h6>
-                                                <h6>Discount : -<?php echo Yii::app()->Currency->convert($giftvoucher->discount); ?></h6>
-                                        </div>
                                 </div>
-                                <?php
-                        } else {
-                                $giftvoucher = 0;
-                        }
-                        ?>
-                        <hr>
-                        <div class="row">
-                                <div class="col-xs-12">
-                                        <h6>Subtotal : <?php echo Yii::app()->Currency->convert($subtotal); ?></h6>
-                                        <h6>Shipping : - <span id="shipping_charge"></span></h6>
+                                <div class="agree_terms">
+                                        <p><input type="checkbox" required> By placing an order you agree to our Terms &
+                                                Conditions and  Privacy Policy</p>
                                 </div>
+
+                                <div class="cart_buttons">
+                                        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'PAY SECURELY NOW', array('class' => 'btn-primary btn-full')); ?>
+                                </div>
+
+
+
                         </div>
-                        <hr>
-                        <div class="row">
-                                <div class="col-xs-12">
-                                        <h3>Order Total : <span id="grant_total"></span></h3>
-
-                                </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                                <div class="col-xs-12">
-                                        <h2>Wallet </h2>
-                                        <?php if (Yii::app()->session['user']['wallet_amt'] != 0) { ?>
-                                                <h5>My Credit : <input type="number" class="wallet_amount" value="" /></h5>
-                                                <input type="hidden" class="wallet_amount" name="wallet_amount"  />
-                                                <h6>Available Credit Balance : <span id="wallet_total"><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></span></h6>
-                                        <?php } ?>
-                                        <h6>Current Credit  Balance: <span id="wallet_total1"><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></span></h6>
-
-
-                                </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                                <div class="col-xs-12">
-                                        <div class="total_to_pay">
-                                                <h3 >Total Amount to pay : <span id="total_pay"></span> <input type="hidden" name="total_pay" class="total_pay" /></h3>
-                                                <label><input type="radio" checked="" name="payment_method" value="2">CREDIT/DEBIT/NET BANKING</label> <label><input type="radio" name="payment_method" value="3">PAYPAL</label>
-
-                                        </div>
-                                </div>
-                        </div>
-
-                        <div class="row">
-                                <div class="col-md-12">
-                                        <br />
-                                        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Proceed', array('class' => 'btn btn-success soo')); ?>
-                                </div>
-                        </div>
-
+                        <?php $this->endWidget(); ?>
 
                 </div>
-                <?php $this->endWidget(); ?>
-
         </div>
 </div>
 <script>

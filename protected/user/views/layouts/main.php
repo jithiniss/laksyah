@@ -210,7 +210,7 @@
                                                         <li class="seperator"><i class="fa fa-circle"></i></li>
                                                         <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/deal">DEAL of the day</a></li>
                                                         <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                        <li><a href="#contact">Laksyah Gift Cards</a></li>
+                                                        <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/GiftCard">Laksyah Gift Cards</a></li>
                                                 </ul>
                                         </div>
                                         <!--/.nav-collapse -->
