@@ -107,7 +107,7 @@
                         <div class="form-group">
                             <?php echo $form->labelEx($model, 'size_id', array('class' => 'col-sm-2 control-label')); ?>
                             <div class="col-sm-10">
-                                <?php echo CHtml::activeDropDownList($model, 'size_id', CHtml::listData(OptionCategory::model()->findAll(['condition' => 'option_type_id=2']), 'id', 'size'), array('empty' => '--Select--', 'class' => 'form-control option_sizes', 'disabled' => $model->isNewRecord ? false : true)); ?>
+                                <?php echo CHtml::activeDropDownList($model, 'size_id', CHtml::listData(OptionCategory::model()->findAll(['condition' => 'option_type_id=2']), 'id', 'size'), array('empty' => '--Select--', 'class' => 'form-control option_sizes')); ?>
 
                                 <?php echo $form->error($model, 'size_id'); ?>
                             </div>
