@@ -7,8 +7,8 @@
                 <meta name="description" content="">
                 <meta name="author" content="">
                 <title>Laksyah</title>
-                <link rel="icon" href="<?php echo Yii::app()->baseUrl; ?>/images/fav.ico" type="image/x-icon" />
-                <link rel="shortcut icon" href="<?php echo Yii::app()->baseUrl; ?>/images/fav.ico" type="image/x-icon" />
+                <link rel="icon" href="<?php echo Yii::app()->baseUrl; ?>/images/fav.png" type="image/x-icon" />
+                <link rel="shortcut icon" href="<?php echo Yii::app()->baseUrl; ?>/images/fav.png" type="image/x-icon" />
 
 
                 <!-- Bootstrap core CSS -->
