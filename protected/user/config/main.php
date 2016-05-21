@@ -35,12 +35,16 @@ return array(
     // application components
     'components' => array(
         'clientScript' => array(
-            'packages' => array(
+             'scriptMap' => array(
+            'jquery.js'     => false,
+            'jquery.min.js' => false,
+        ),
+            /*'packages' => array(
                 'jquery' => array(
                     'baseUrl' => '//ajax.googleapis.com/ajax/libs/jquery/1.11.3/',
                     'js' => array('jquery.min.js'),
                 )
-            ),
+            ),*/
         // other clientScript config
         ),
         'widgetFactory' => array(
