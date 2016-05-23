@@ -1,9 +1,6 @@
-
-<div class="clearfix"></div>
-
 <div class="container security">
         <div class="row">
-
+                <div class="breadcrumbs"> <a href="#">HOME</a> <span>/</span> <a href="#">My Account</a> <span>/</span> Wishlist </div>
                 <?php echo $this->renderPartial('_menu'); ?>
 
                 <div class="col-sm-9 user_content">
@@ -30,9 +27,7 @@
                                         <div class="cart_row">
                                                 <div class="col-11">
                                                         <div class="cart_product_detail">
-                                                                <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php
-                                                                echo Yii::app()->Upload->folderName(0, 1000, $prod_name->id)
-                                                                ?>/<?php echo $prod_name->id; ?>/small.<?php echo $prod_name->main_image; ?>" alt=""/>
+                                                                <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo Yii::app()->Upload->folderName(0, 1000, $prod_name->id) ?>/<?php echo $prod_name->id; ?>/small.<?php echo $prod_name->main_image; ?>" alt=""/>
                                                                 <h3><?= $prod_name->product_name; ?></h3>
                                                                 <div class="clearfix"></div>
                                                         </div>
