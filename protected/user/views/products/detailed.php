@@ -177,7 +177,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                         <h3>Watch Video</h3>
                                                         <div class="video_thumb">
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
                                                                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/video_thumb.jpg" alt=""/>
                                                                 <a class="video_link laksyah_video fancybox.iframe" href="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>"><i class="fa fa-play-circle-o"></i></a>
                                                         </div>
@@ -644,6 +644,11 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                         + '<div class="last digit">%S<span>Sec</span></div>'));
                         });
                 }
+
+        });
+        $(document).ready(function () {
+
+
                 $(".add_to_cart").click(function () {
 
                         var id = $(this).attr('id');
@@ -653,33 +658,5 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                 });
         });
 
-        function addtocart(canname, qty) {
-
-                $.ajax({
-                        type: "POST",
-                        url: baseurl + 'cart/Buynow',
-                        data: {cano_name: canname, qty: qty}
-                }).done(function (data) {
-                        getcartcount();
-                        getcarttotal();
-                        $(".cart_box").show();
-                        $(".cart_box").html(data);
-
-                        $("html, body").animate({scrollTop: 0}
-                        , "slow")
-                                ;
-                        hideLoader();
-                });
-
-
-        }
-
-
-        function showLoader() {
-                $('.over-lay').show();
-        }
-        function hideLoader() {
-                $('.over-lay').hide();
-        }
 
 </script>

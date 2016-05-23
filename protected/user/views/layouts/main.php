@@ -27,7 +27,7 @@
 <!--                <script src="<?php echo yii::app()->request->baseUrl; ?>/js/jquery.min.js"></script>-->
                 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.js"></script>
                 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.countdown.min.js"></script>
-
+                <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/custom.js"></script>
                 <script>
                         var baseurl = "<?php print Yii::app()->request->baseUrl . "/index.php/"; ?>";
                         var basepath = "<?php print Yii::app()->basePath; ?>";</script>
@@ -325,7 +325,7 @@
 </html>
 
 <script>
-                        $(document).ready(function() {
+                        $(document).ready(function () {
                                 getcartcount();
                                 getcarttotal();
                         });
@@ -337,7 +337,7 @@
                                         async: false,
                                         url: baseurl + 'cart/Getcartcount',
                                         data: {}
-                                }).done(function(data) {
+                                }).done(function (data) {
                                         $(".cart_items").html(data);
                                         hideLoader();
                                 });
@@ -350,7 +350,7 @@
                                         async: false,
                                         url: baseurl + 'cart/Getcarttotal',
                                         data: {}
-                                }).done(function(data) {
+                                }).done(function (data) {
                                         $(".amount").html(data);
                                         hideLoader();
                                 });
@@ -358,16 +358,16 @@
 </script>
 </script>
 <script>
-        $(document).keydown(function(e) {
+        $(document).keydown(function (e) {
                 // ESCAPE key pressed
                 if (e.keyCode == 27) {
                         $(".cart_box").fadeOut(500);
                 }
         });
-        $(document).ready(function() {
+        $(document).ready(function () {
                 /*                  * cart remove funciton . remove individual item from cart
                  */
-                $("#cart_box").on("click", ".drop_cart>.cart_item>.remove_item", function() {
+                $("#cart_box").on("click", ".drop_cart>.cart_item>.remove_item", function () {
                         var cartid = $(this).attr('cartid');
                         var canname = $(this).attr('canname');
                         removecart(cartid, canname);
@@ -381,7 +381,7 @@
                         async: false,
                         url: baseurl + 'cart/Removecart',
                         data: {cartid: cartid, cano_name: canname}
-                }).done(function(data) {
+                }).done(function (data) {
                         getcartcount();
                         getcarttotal();
                         $(".cart_box").html(data);
@@ -401,7 +401,7 @@
                         async: false,
                         url: baseurl + 'cart/Selectcart',
                         data: {}
-                }).done(function(data) {
+                }).done(function (data) {
                         $(".cart_box").html(data);
                         //$(".cart_box").show('fast');
                         hideLoader();
@@ -409,7 +409,7 @@
         }
 </script>
 <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
                 getcartdata();
                 $('[data-toggle="tooltip"]').tooltip();
         });</script>

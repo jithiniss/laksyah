@@ -22,9 +22,15 @@ class MyaccountController extends Controller {
 
                         Yii::app()->session['wishlist_user'] = 1;
                 } else {
-                        $wishlists = UserWishlist::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
+                        $wishlists = UserWishlist::model()->findAllByAttributes(array(), array('select' => 't.prod_id', 'distinct' => true, 'condition' => 'user_id = ' . Yii::app()->session['user']['id']));
                         $this->render('mywishlists', array('wishlists' => $wishlists));
                 }
+        }
+
+        public function actionRemoveMywishlists($pid) {
+
+                UserWishlist::model()->deleteAllByAttributes(array('prod_id' => $pid, 'user_id' => Yii::app()->session['user']['id']));
+                $this->redirect(Yii::app()->request->urlReferrer);
         }
 
         public function actionMyorders() {
