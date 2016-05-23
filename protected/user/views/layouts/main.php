@@ -200,13 +200,13 @@
                                                 <ul class="nav navbar-nav main-nav">
                                                         <li class="active"><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/women">WOMEN</a></li>
                                                         <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                        <li><a href="#about">CELEB STYLE</a></li>
+                                                        <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/celeb-style">CELEB STYLE</a></li>
                                                         <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                        <li><a href="#contact">NEW LOOK</a></li>
+                                                        <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/new-look">NEW LOOK</a></li>
                                                         <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                        <li><a href="#contact">FESTIVE</a></li>
+                                                        <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/festive">FESTIVE</a></li>
                                                         <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                        <li><a href="#contact">DAILY WEAR </a></li>
+                                                        <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/daily-wear">DAILY WEAR </a></li>
                                                         <li class="seperator"><i class="fa fa-circle"></i></li>
                                                         <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/deal">DEAL of the day</a></li>
                                                         <li class="seperator"><i class="fa fa-circle"></i></li>
@@ -318,7 +318,7 @@
 </html>
 
 <script>
-                        $(document).ready(function () {
+                        $(document).ready(function() {
                                 getcartcount();
                                 getcarttotal();
                         });
@@ -330,7 +330,7 @@
                                         async: false,
                                         url: baseurl + 'cart/Getcartcount',
                                         data: {}
-                                }).done(function (data) {
+                                }).done(function(data) {
                                         $(".cart_items").html(data);
                                         hideLoader();
                                 });
@@ -343,7 +343,7 @@
                                         async: false,
                                         url: baseurl + 'cart/Getcarttotal',
                                         data: {}
-                                }).done(function (data) {
+                                }).done(function(data) {
                                         $(".amount").html(data);
                                         hideLoader();
                                 });
@@ -351,16 +351,16 @@
 </script>
 </script>
 <script>
-        $(document).keydown(function (e) {
+        $(document).keydown(function(e) {
                 // ESCAPE key pressed
                 if (e.keyCode == 27) {
                         $(".cart_box").fadeOut(500);
                 }
         });
-        $(document).ready(function () {
+        $(document).ready(function() {
                 /*                  * cart remove funciton . remove individual item from cart
                  */
-                $("#cart_box").on("click", ".drop_cart>.cart_item>.remove_item", function () {
+                $("#cart_box").on("click", ".drop_cart>.cart_item>.remove_item", function() {
                         var cartid = $(this).attr('cartid');
                         var canname = $(this).attr('canname');
                         removecart(cartid, canname);
@@ -374,7 +374,7 @@
                         async: false,
                         url: baseurl + 'cart/Removecart',
                         data: {cartid: cartid, cano_name: canname}
-                }).done(function (data) {
+                }).done(function(data) {
                         getcartcount();
                         getcarttotal();
                         $(".cart_box").html(data);
@@ -394,7 +394,7 @@
                         async: false,
                         url: baseurl + 'cart/Selectcart',
                         data: {}
-                }).done(function (data) {
+                }).done(function(data) {
                         $(".cart_box").html(data);
                         //$(".cart_box").show('fast');
                         hideLoader();
@@ -402,7 +402,7 @@
         }
 </script>
 <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
                 getcartdata();
                 $('[data-toggle="tooltip"]').tooltip();
         });</script>

@@ -135,6 +135,7 @@ class Products extends CActiveRecord {
                     'sale_to' => 'Sale To',
                     'special_price_from' => 'Special Price From',
                     'special_price_to' => 'Special Price To',
+                    'sizechartforwhat' => 'Size Chart for What?',
                     'tax' => 'Tax',
                     'gift_option' => 'Gift Option',
                     'stock_availability' => 'Stock Availability',
@@ -204,6 +205,7 @@ class Products extends CActiveRecord {
                 $criteria->compare('sale_to', $this->sale_to, true);
                 $criteria->compare('special_price_from', $this->special_price_from, true);
                 $criteria->compare('special_price_to', $this->special_price_to, true);
+                $criteria->compare('sizechartforwhat', $this->sizechartforwhat, true);
                 $criteria->compare('tax', $this->tax);
                 $criteria->compare('gift_option', $this->gift_option);
                 $criteria->compare('stock_availability', $this->stock_availability);

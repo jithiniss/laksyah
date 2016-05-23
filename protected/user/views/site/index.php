@@ -103,34 +103,20 @@
                 <h2>The Latest From Our Blog</h2>
                 <div class="blog_list">
                         <div class="row">
-                                <div class="col-sm-3 col-xs-6">
-                                        <div class="blog_list_item"> <img src="<?php echo yii::app()->baseUrl; ?>/images/blog_img.jpg" alt=""/>
-                                                <div class="list_title">
-                                                        <h4>Mind Blowing Celebrity Style Collections at Laksyah</h4>
+                                <?php
+                                foreach ($blog as $blogs) {
+                                        ?>
+                                        <div class="col-sm-3 col-xs-6">
+                                                <div class="blog_list_item"> <img src="<?php echo yii::app()->baseUrl; ?>/uploads/blog/<?php echo $blogs->id; ?>/small.<?php echo $blogs->small_image; ?>" alt=""/>
+                                                        <div class="list_title">
+                                                                <h4><?php echo $blogs->heading; ?></h4>
+                                                        </div>
                                                 </div>
                                         </div>
-                                </div>
-                                <div class="col-sm-3 col-xs-6">
-                                        <div class="blog_list_item"> <img src="<?php echo yii::app()->baseUrl; ?>/images/blog_img.jpg" alt=""/>
-                                                <div class="list_title">
-                                                        <h4>Mind Blowing Celebrity Style Collections at Laksyah</h4>
-                                                </div>
-                                        </div>
-                                </div>
-                                <div class="col-sm-3 col-xs-6">
-                                        <div class="blog_list_item"> <img src="<?php echo yii::app()->baseUrl; ?>/images/blog_img.jpg" alt=""/>
-                                                <div class="list_title">
-                                                        <h4>Mind Blowing Celebrity Style Collections at Laksyah</h4>
-                                                </div>
-                                        </div>
-                                </div>
-                                <div class="col-sm-3 col-xs-6">
-                                        <div class="blog_list_item"> <img src="<?php echo yii::app()->baseUrl; ?>/images/blog_img.jpg" alt=""/>
-                                                <div class="list_title">
-                                                        <h4>Mind Blowing Celebrity Style Collections at Laksyah</h4>
-                                                </div>
-                                        </div>
-                                </div>
+                                        <?php
+                                }
+                                ?>
+
                         </div>
                 </div>
                 <a class="btn btn-skel">READ MORE</a> </div>
@@ -140,14 +126,24 @@
                 <div class="testimonial_carousel">
                         <div id="myCarousel" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner">
-                                        <div class="item active">
-                                                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia augue lorem, euismod placerat mauris placerat sed. Quisque ultrices metus at eros auctor scelerisque."</p>
-                                                <h3>Curabitur aliquet, auctor scelerisque</h3>
-                                        </div>
-                                        <div class="item">
-                                                <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacinia augue lorem, euismod placerat mauris placerat sed. Quisque ultrices metus at eros auctor scelerisque. "</p>
-                                                <h3>Curabitur aliquet, auctor scelerisque</h3>
-                                        </div>
+                                        <?php
+                                        $m = 1;
+                                        foreach ($model as $models) {
+                                                ?>
+
+                                                <div class="item<?php
+                                                if ($m == '1') {
+                                                        echo " active";
+                                                }
+                                                ?>">
+                                                        <p><?php echo $models->content; ?></p>
+                                                        <h3><?php echo $models->name; ?>,<?php echo $models->position; ?></h3>
+                                                </div>
+                                                <?php
+                                                $m = $m + 1;
+                                        }
+                                        ?>
+
                                 </div>
                                 <a class="arrow left" href="#myCarousel" role="button" data-slide="prev"></a> <a class="arrow right" href="#myCarousel" role="button" data-slide="next"></a> </div>
                 </div>
@@ -155,8 +151,8 @@
         <!-- / Testimonials-->
 </div>
 <?php
-foreach ($model as $mod) {
-        var_dump($mod);
-}
+//foreach ($model as $mod) {
+//       var_dump($mod);
+//}
 ?>
 <!-- / End Content-->

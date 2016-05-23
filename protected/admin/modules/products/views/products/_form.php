@@ -245,7 +245,7 @@
         </div>
         <!--    <div class="form-group">
         <?php //echo $form->labelEx($model, 'discount', array('class' => 'col-sm-2 control-label'));    ?>
-                <div class="col-sm-10"><?php //echo $form->textField($model, 'discount', array('class' => 'form-control'));                                           ?>
+                <div class="col-sm-10"><?php //echo $form->textField($model, 'discount', array('class' => 'form-control'));                                            ?>
                 </div>
         <?php //echo $form->error($model, 'discount');    ?>
             </div>-->
@@ -472,7 +472,11 @@
                         ?></div>
                 <?php echo $form->error($model, 'special_price_to'); ?>
         </div>
-
+        <div class="form-group">
+                <?php echo $form->labelEx($model, 'sizechartforwhat', array('class' => 'col-sm-2 control-label')); ?>
+                <div class="col-sm-10"> <?php echo $form->textField($model, 'sizechartforwhat', array('class' => 'form-control')); ?></div>
+                <?php echo $form->error($model, 'sizechartforwhat'); ?>
+        </div>
         <div class="form-group">
                 <?php echo $form->labelEx($model, 'tax', array('class' => 'col-sm-2 control-label')); ?>
                 <div class="col-sm-10"> <?php echo $form->textField($model, 'tax', array('class' => 'form-control')); ?></div>

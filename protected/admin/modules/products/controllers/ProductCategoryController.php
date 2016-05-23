@@ -10,7 +10,7 @@ class ProductCategoryController extends Controller {
 
         public function init() {
                 $test = Yii::app()->session['post']['products'];
-                if(!isset(Yii::app()->session['admin']) || $test != 1) {
+                if (!isset(Yii::app()->session['admin']) || $test != 1) {
                         $this->redirect(Yii::app()->request->baseUrl . '/admin.php/site/logOut');
                 }
         }
@@ -71,7 +71,7 @@ class ProductCategoryController extends Controller {
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-                if(isset($_POST['ProductCategory'])) {
+                if (isset($_POST['ProductCategory'])) {
 
                         $image = CUploadedFile::getInstance($model, 'image');
                         $model->attributes = $_POST['ProductCategory'];
@@ -80,8 +80,12 @@ class ProductCategoryController extends Controller {
                         $model->search_tag = $_POST['ProductCategory']['search_tag'];
                         $model->CB = Yii::app()->session['admin']['id'];
                         $model->DOC = date('Y-m-d');
-                        if($model->save()) {
-                                if($image != "") {
+                        $canon_name = strtolower($_POST['ProductCategory']['category_name']);
+                        $canonical_name = str_replace(' ', '-', $canon_name); // Replaces all spaces with hyphens.
+                        $canonical_name = preg_replace('/[^A-Za-z0-9\-]/', '', $canonical_name); // Removes special chars.
+                        $model->canonical_name = preg_replace('/-+/', '-', $canonical_name); // Replaces multiple hyphens with single one.
+                        if ($model->save()) {
+                                if ($image != "") {
                                         $id = $model->id;
                                         $image->saveAs(Yii::app()->basePath . "/../uploads/products/category/" . $model->id . "." . $image->extensionName);
                                         $file = Yii::app()->basePath . "/../uploads/products/category/" . $model->id . "." . $image->extensionName;
@@ -116,7 +120,7 @@ class ProductCategoryController extends Controller {
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-                if(isset($_POST['ProductCategory'])) {
+                if (isset($_POST['ProductCategory'])) {
                         $image = CUploadedFile::getInstance($model, 'image');
                         $model->attributes = $_POST['ProductCategory'];
                         $model->image = $image->extensionName;
@@ -126,14 +130,19 @@ class ProductCategoryController extends Controller {
                         $model->status = $_POST['ProductCategory']['status'];
                         $model->UB = Yii::app()->session['admin']['id'];
                         $model->DOU = date('Y-m-d');
-                        if($image != "") {
+                        $canon_name = strtolower($_POST['ProductCategory']['category_name']);
+                        $canonical_name = str_replace(' ', '-', $canon_name); // Replaces all spaces with hyphens.
+                        $canonical_name = preg_replace('/[^A-Za-z0-9\-]/', '', $canonical_name); // Removes special chars.
+                        $model->canonical_name = preg_replace('/-+/', '-', $canonical_name); // Replaces multiple hyphens with single one.
+
+                        if ($image != "") {
 
                                 $image->saveAs(Yii::app()->basePath . "/../uploads/products/category/" . $model->id . "." . $image->extensionName);
                         } else {
                                 $model->image = $image0;
                         }
 
-                        if($model->save()) {
+                        if ($model->save()) {
                                 $this->redirect(array('admin', 'id' => $model->id));
                         }
                 }
@@ -151,8 +160,8 @@ class ProductCategoryController extends Controller {
                 $model = $this->loadModel($id);
                 $image0 = $model->image;
 
-                if($image0 != "") {
-                        if(file_exists(Yii::app()->basePath . '/../uploads/products/category/' . $model->id . '.' . $model->image)) {
+                if ($image0 != "") {
+                        if (file_exists(Yii::app()->basePath . '/../uploads/products/category/' . $model->id . '.' . $model->image)) {
                                 unlink(Yii::app()->basePath . "/../uploads/products/category/" . $model->id . "." . $model->image);
                         }
                         $model->delete();
@@ -183,7 +192,7 @@ class ProductCategoryController extends Controller {
         public function actionAdmin() {
                 $model = new ProductCategory('search');
                 $model->unsetAttributes();  // clear any default values
-                if(isset($_GET['ProductCategory']))
+                if (isset($_GET['ProductCategory']))
                         $model->attributes = $_GET['ProductCategory'];
 
                 $this->render('admin', array(
@@ -195,17 +204,17 @@ class ProductCategoryController extends Controller {
 
 
                 //unset($_SESSION['category']);
-                if($data->id == $data->parent) {
+                if ($data->id == $data->parent) {
 
                         $index = count($_SESSION['category']);
-                        if($index == '') {
+                        if ($index == '') {
                                 $index = 0;
                         }
 
                         $_SESSION['category'][$index + 1] = $data->category_name;
                 } else {
                         $index = count($_SESSION['category']);
-                        if($index == '') {
+                        if ($index == '') {
                                 $index = 0;
                         }
                         $results = ProductCategory::model()->findByPk($data->parent);
@@ -216,7 +225,7 @@ class ProductCategoryController extends Controller {
                 }
                 $return = '';
                 $category_arr = array_reverse($_SESSION['category']);
-                foreach($category_arr as $cat) {
+                foreach ($category_arr as $cat) {
                         $return .=$cat . '>';
                         $value = rtrim($return, '>');
                 }
@@ -236,19 +245,19 @@ class ProductCategoryController extends Controller {
                  * parent id setting in catogory table.
                  */
                 $model = ProductCategory::model()->findByPk($id);
-                if($model->parent == "")
+                if ($model->parent == "")
                         $model->parent = $id;
                 $model->save();
 
                 $path->category = $id;
                 $path->parent = $model->parent;
-                if($id == $path->parent) {
+                if ($id == $path->parent) {
                         $path->level = 0;
                 } else {
                         $level = ProductCategoryPath::model()->findByAttributes(array('category' => $path->parent));
                         $path->level = $level->level + 1;
                 }
-                if($path->save()) {
+                if ($path->save()) {
 
                 }
         }
@@ -262,7 +271,7 @@ class ProductCategoryController extends Controller {
          */
         public function loadModel($id) {
                 $model = ProductCategory::model()->findByPk($id);
-                if($model === null)
+                if ($model === null)
                         throw new CHttpException(404, 'The requested page does not exist.');
                 return $model;
         }
@@ -272,7 +281,7 @@ class ProductCategoryController extends Controller {
          * @param ProductCategory $model the model to be validated
          */
         protected function performAjaxValidation($model) {
-                if(isset($_POST['ajax']) && $_POST['ajax'] === 'product-category-form') {
+                if (isset($_POST['ajax']) && $_POST['ajax'] === 'product-category-form') {
                         echo CActiveForm::validate($model);
                         Yii::app()->end();
                 }

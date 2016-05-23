@@ -80,7 +80,7 @@ class ProductsController extends Controller {
                         $images = CUploadedFile::getInstancesByName('gallery_images');
                         $model->product_name = $_POST['Products']['product_name'];
                         $model->enquiry_sale = $_POST['Products']['enquiry_sale'];
-
+                        $model->sizechartforwhat = $_POST['Products']['sizechartforwhat'];
                         if ($_POST['Products']['category_id']) {
                                 $cat = $_POST['Products']['category_id'];
                                 $model->category_id = $cat;
@@ -206,7 +206,7 @@ class ProductsController extends Controller {
                         $model->main_image = $image->extensionName;
                         $model->hover_image = $h_image->extensionName;
                         $model->video = $new_video->extensionName;
-
+                        $model->sizechartforwhat = $_POST['Products']['sizechartforwhat'];
 
                         $model->related_products = $_POST['Products']['related_products'];
 

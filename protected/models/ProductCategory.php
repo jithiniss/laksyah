@@ -39,6 +39,7 @@ class ProductCategory extends CActiveRecord {
                 // will receive user inputs.
                 return array(
                     // array('parent, category_name,description, image, sort_order, meta_title, meta_description, meta_keywords, header_visibility, status, CB, UB, DOC', 'required'),
+                    array('canonical_name', 'required'),
                     array('sort_order, header_visibility, status, CB, UB', 'numerical', 'integerOnly' => true),
                     array('parent, category_name, image, meta_title, meta_keywords,canonical_name', 'length', 'max' => 225),
                     array('DOU', 'safe'),

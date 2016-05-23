@@ -26,7 +26,8 @@ class SiteController extends Controller {
          */
         public function actionIndex() {
                 $model = Testimonial::model()->findAllByAttributes(array('status' => 1));
-                $this->render('index', array('model' => $model));
+                $blog = Blog::model()->findAllByAttributes(array('status' => 1));
+                $this->render('index', array('model' => $model, 'blog' => $blog));
         }
 
         public function actionError() {
@@ -202,14 +203,6 @@ class SiteController extends Controller {
                                         Yii::app()->user->setFlash('error', "Error Occured");
                                 }
 
-//                                $to = 'shahanamohan07@gmail.com';
-//                                $subject = "Product Availability";
-//
-//                                $message = "sssssssssssssssssssssss";
-//                                $headers = "MIME-Version: 1.0" . "\r\n";
-//                                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-//                                $headers .= 'From: <>' . "\r\n";
-//                                mail($to, $subject, $message, $headers);
                                 $this->redirect(array('site/contactUs'));
                         }
                 }
