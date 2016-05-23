@@ -134,7 +134,7 @@ Logo Area
 	font-size: 11px;
 }
 .wallet_icon {
-	background-image: url(images/wallet.png);
+	background-image: url(../images/wallet.png);
 	background-position: center;
 	width: 30px;
 	height: 25px;
@@ -274,7 +274,7 @@ Logo Area
 */
 .design_house {
 	margin-top: 50px;
-	background-image: url(images/design-house-bg.jpg);
+	background-image: url(../images/design-house-bg.jpg);
 	background-size: cover;
 }
 .design_house .row {
@@ -359,7 +359,7 @@ Logo Area
 	border-color: #adaba3;
 }
 .laksyah_gift {
-	background-image: url(images/gift_back.jpg);
+	background-image: url(../images/gift_back.jpg);
 }
 /*
 ---------------------------
@@ -434,7 +434,7 @@ Testimonials Section
 	margin-bottom: 25px;
 }
 .arrow.left {
-	background-image: url(images/arrow_left.png);
+	background-image: url(../images/arrow_left.png);
 	width: 19px;
 	height: 33px;
 	display: block;
@@ -443,7 +443,7 @@ Testimonials Section
 	top: 20px;
 }
 .arrow.right {
-	background-image: url(images/arrow_right.png);
+	background-image: url(../images/arrow_right.png);
 	width: 19px;
 	height: 33px;
 	display: block;
@@ -498,7 +498,7 @@ footer {
 .footer_content {
 	text-align: center;
 	padding-top: 30px;
-	background-image: url(images/footer-bg.jpg);
+	background-image: url(../images/footer-bg.jpg);
 	background-position: center;
 }
 .footer-main .col-md-4 {
@@ -720,7 +720,7 @@ ul.catmenu > li.open ul{
 .ui-slider-horizontal .ui-slider-handle.ui-state-default{
 	background:none;
 		border:none;
-		background-image:url(images/range_slider_pointed.png);
+		background-image:url(../images/range_slider_pointed.png);
 		width:10px;
 		height:21px;
 	    top: -8px !important;
@@ -2143,7 +2143,7 @@ Product Sold Out
 -----------------]---
 */
 .out_of_stock_badge{
-		background-image:url(images/out-of-stock.png);
+		background-image:url(../images/out-of-stock.png);
 		width:106px;
 		height:71px;
 		position:absolute;
@@ -2151,7 +2151,7 @@ Product Sold Out
 		right:0px;
 	}
 .allmost_gone_badge{
-		background-image:url(images/almost-gone.png);
+		background-image:url(../images/almost-gone.png);
 		width:106px;
 		height:71px;
 		position:absolute;
@@ -2358,7 +2358,7 @@ Custom
 	Deal of the Day
 */	
 .deal_header{
-		background-image:url(images/deal_back.png);
+		background-image:url(../images/deal_back.png);
 		height:224px;
 		padding:50px 0px;
 		text-align:center;

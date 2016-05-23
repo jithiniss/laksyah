@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>laKsyah | Admin</title>
-        <!--<script src="<?php // echo Yii::app()->baseUrl                                                                                                                                                                                                                                                 ?>/admin-themes/plugins/jQuery/jQuery-2.1.4.min.js"></script>-->
+        <!--<script src="<?php // echo Yii::app()->baseUrl                                                                                                                                                                                                                                                                ?>/admin-themes/plugins/jQuery/jQuery-2.1.4.min.js"></script>-->
         <!-- Tell the browser to be responsive to screen width -->
         <link rel="stylesheet" href="<?php echo Yii::app()->baseUrl; ?>/css/admin.css">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -26,7 +26,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <link rel="stylesheet" href="<?php echo Yii::app()->baseUrl; ?>/css/admin.css">
 
         <!-- Bootstrap 3.3.5 -->
-<!--        <link rel="stylesheet" href="<?php //echo Yii::app()->baseUrl;                                                      ?>/admin-themes/bootstrap/css/bootstrap.min.css">-->
+<!--        <link rel="stylesheet" href="<?php //echo Yii::app()->baseUrl;                                                                     ?>/admin-themes/bootstrap/css/bootstrap.min.css">-->
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
         <!-- Ionicons -->
@@ -121,7 +121,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
                     <?php
                     $actionId = Yii::app()->controller->id;
-                    switch ($actionId) {
+                    switch($actionId) {
                             case "adminUser":
                                     $action1 = "active";
                                     $actionn1 = "active";
@@ -195,6 +195,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     $actionn4 = "active";
                                     break;
                             case "masterOptions":
+                                    $action21001 = "active";
+                                    $action21 = "active";
+                                    $actionn4 = "active";
+                                    break;
+                            case "optionCategory":
+                                    $action21002 = "active";
                                     $action21 = "active";
                                     $actionn4 = "active";
                                     break;
@@ -239,7 +245,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     $actionn55 = "active";
                                     break;
                             case "site":
-                                    if (Yii::app()->controller->action->id == "home") {
+                                    if(Yii::app()->controller->action->id == "home") {
                                             $action18 = "active";
                                     }
 
@@ -256,7 +262,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <i class="fa fa-dashboard"></i><span> Dash Board</span>
                             </a>
                         </li>
-                        <?php if (isset(Yii::app()->session['post']['admin']) && Yii::app()->session['post']['admin'] == 1) { ?>
+                        <?php if(isset(Yii::app()->session['post']['admin']) && Yii::app()->session['post']['admin'] == 1) { ?>
                                 <li class="<?php echo $actionn1 ?> treeview">
                                     <a href="#"><i class="fa fa-user-secret"></i> <span>Admin</span> <i class="fa fa-angle-left pull-right"></i></a>
                                     <ul class="treeview-menu">
@@ -265,20 +271,30 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </ul>
                                 </li>
                         <?php } ?>
-                        <?php if (isset(Yii::app()->session['post']['products']) && Yii::app()->session['post']['products'] == 1) { ?>
+                        <?php if(isset(Yii::app()->session['post']['products']) && Yii::app()->session['post']['products'] == 1) { ?>
                                 <li class="<?php echo $actionn4 ?> treeview">
                                     <a href="#"><i class="fa fa-bars"></i> <span>Products</span> <i class="fa fa-angle-left pull-right"></i></a>
                                     <ul class="treeview-menu">
                                         <li class="<?php echo $action19 ?>"><a href="<?php echo Yii::app()->baseUrl ?>/admin.php/products/ProductCategory/admin"><i class="fa fa-circle-o"></i> Product Category</a></li>
                                         <li class="<?php echo $action20 ?>"><a href="<?php echo Yii::app()->baseUrl ?>/admin.php/products/Products/admin"><i class="fa fa-circle-o"></i> Products</a></li>
-                                        <li class="<?php echo $action21 ?>"><a href="<?php echo Yii::app()->baseUrl ?>/admin.php/products/masterOptions/admin"><i class="fa fa-circle-o"></i> Products Options</a></li>
+
+                                        <li class="<?php echo $action21 ?> treeview">
+                                            <a href="#"><i class="fa fa-circle-o"></i> <span>Products Option</span> <i class="fa fa-angle-left pull-right"></i></a>
+                                            <ul class="treeview-menu">
+
+                                                <li class="<?php echo $action21001 ?>"><a href="<?php echo Yii::app()->baseUrl ?>/admin.php/products/masterOptions/admin"><i class="fa fa-minus"></i> Option</a></li>
+                                                <li class="<?php echo $action21002 ?>"><a href="<?php echo Yii::app()->baseUrl ?>/admin.php/products/optionCategory/create"><i class="fa fa fa-minus"></i> Option Category </a></li>
+
+                                            </ul>
+                                        </li>
+
                                         <li class="<?php echo $action22 ?>"><a href="<?php echo Yii::app()->baseUrl ?>/admin.php/products/ProductDescription/admin"><i class="fa fa-circle-o"></i> Product Description</a></li>
                                         <li class="<?php echo $action223 ?>"><a href="<?php echo Yii::app()->baseUrl ?>/admin.php/products/productEnquiry/admin"><i class="fa fa-circle-o"></i> Product Enquiry</a></li>
 
                                     </ul>
                                 </li>
                         <?php } ?>
-                        <?php if (isset(Yii::app()->session['post']['products']) && Yii::app()->session['post']['products'] == 1) { ?>
+                        <?php if(isset(Yii::app()->session['post']['products']) && Yii::app()->session['post']['products'] == 1) { ?>
                                 <li class="<?php echo $actionn5 ?> treeview">
                                     <a href="#"><i class="fa fa-bars"></i> <span>Orders</span> <i class="fa fa-angle-left pull-right"></i></a>
                                     <ul class="treeview-menu">
@@ -299,7 +315,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </li>
 
 
-                        <?php if (isset(Yii::app()->session['post']['cms']) && Yii::app()->session['post']['cms'] == 1) { ?>
+                        <?php if(isset(Yii::app()->session['post']['cms']) && Yii::app()->session['post']['cms'] == 1) { ?>
                                 <li class="<?php echo $actionn2 ?> treeview">
                                     <a href="#"><i class="fa fa-book"></i> <span>CMS</span> <i class="fa fa-angle-left pull-right"></i></a>
                                     <ul class="treeview-menu">
@@ -313,7 +329,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </li>
                         <?php } ?>
 
-                        <?php if (isset(Yii::app()->session['post']['static_pages']) && Yii::app()->session['post']['static_pages'] == 1) { ?>
+                        <?php if(isset(Yii::app()->session['post']['static_pages']) && Yii::app()->session['post']['static_pages'] == 1) { ?>
 
                                 <li class="<?php echo $action9 ?>"><a href="<?php echo Yii::app()->baseUrl ?>/admin.php/enquiry/Feedback/admin"><i class="fa fa-envelope"></i> <span>Feedback</span></a></li>
 
@@ -325,13 +341,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <i class="fa fa-at"></i><span>Email Templates</span>
                             </a>
                         </li>
-                        <?php if (isset(Yii::app()->session['post']['coupons']) && Yii::app()->session['post']['coupons'] == 1) { ?>
+                        <?php if(isset(Yii::app()->session['post']['coupons']) && Yii::app()->session['post']['coupons'] == 1) { ?>
 
                                 <li class="<?php echo $action10 ?>"><a href="<?php echo Yii::app()->baseUrl ?>/admin.php/coupons/Coupons/admin"><i class="fa fa-ticket"></i> <span>Coupon Details</span></a></li>
 
                         <?php } ?>
                         <li class="<?php echo $action11 ?> treeview"><a href="<?php echo Yii::app()->baseUrl ?>/admin.php/masters/Newsletter/admin"><i class="fa  fa-newspaper-o"></i> <span>News Letter</span></a></li>
-                        <?php if (isset(Yii::app()->session['post']['cms']) && Yii::app()->session['post']['cms'] == 1) { ?>
+                        <?php if(isset(Yii::app()->session['post']['cms']) && Yii::app()->session['post']['cms'] == 1) { ?>
                                 <li class="<?php echo $actionn3 ?> treeview">
                                     <a href="#"><i class="fa fa-database"></i> <span>Masters</span> <i class="fa fa-angle-left pull-right"></i></a>
                                     <ul class="treeview-menu">

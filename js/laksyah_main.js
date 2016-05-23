@@ -83,12 +83,8 @@ $(document).ready(function () {
                 $(this).children('i').toggleClass('fa-angle-up');
         });
         /////
-        // Size Selector
-        $('.size_selector label').click(function () {
-                $('.size_selector label').removeClass('active');
-                $(this).addClass('active');
-        });
-        ///
+       
+       
         //Popup
         $('.close_popup').click(function () {
                 $('.popup').hide();

@@ -138,3 +138,20 @@ input#email {
         width: 100%;
         height: 40px;
 }
+.size_selector label.disabled {
+    cursor: not-allowed;
+    background: #d2d2d2;
+}
+.color_picker li{
+    cursor: pointer;
+}
+.option_errors{
+    border: 1px dashed #F97575;
+    padding: 10px;
+    display:none;
+    color: red;
+    margin-bottom: 10px;
+}
+.option_errors p{
+    margin:0px;
+}
