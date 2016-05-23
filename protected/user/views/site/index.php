@@ -13,9 +13,13 @@
         <!--/ End Shipping Area -->
         <div class="slider_section">
                 <div class="laksyah_slider">
-                        <div class="item"> <img src="<?php echo yii::app()->baseUrl; ?>/images/slider-1.jpg"> </div>
-                        <div class="item"> <img src="<?php echo yii::app()->baseUrl; ?>/images/slider-1.jpg"> </div>
-                        <div class="item"> <img src="<?php echo yii::app()->baseUrl; ?>/images/slider-1.jpg"> </div>
+                        <?php
+                        foreach ($slider as $sliders) {
+                                ?>
+                                <div class="item"> <img src="<?php echo yii::app()->baseUrl; ?>/uploads/sliders/<?php echo $sliders->id; ?>.<?php echo $sliders->image_extension; ?>"> </div>
+                                <?php
+                        }
+                        ?>
                 </div>
         </div>
         <!-- / End Slider-->

@@ -27,7 +27,8 @@ class SiteController extends Controller {
         public function actionIndex() {
                 $model = Testimonial::model()->findAllByAttributes(array('status' => 1));
                 $blog = Blog::model()->findAllByAttributes(array('status' => 1));
-                $this->render('index', array('model' => $model, 'blog' => $blog));
+                $slider = Slider::model()->findAllByAttributes(array('status' => 1));
+                $this->render('index', array('model' => $model, 'blog' => $blog, 'slider' => $slider));
         }
 
         public function actionError() {

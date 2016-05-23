@@ -258,11 +258,18 @@
                                                                                         <h4>Follow Us<span class="footer-bdr"></span></h4>
                                                                                         <p><a href="#">www.laksyah.com</a> </p>
                                                                                         <ul class="social-icons">
-                                                                                                <li><a href="https://instagram.com/laksyah/" target="_blank" class="instagram"><i class="fa fa-instagram"></i></a> </li>
-                                                                                                <li><a href="https://www.youtube.com/channel/UConEr0j4L-p-NgWg5b6P_vw" target="_blank" class="youtube"><i class="fa fa-youtube"></i></a> </li>
-                                                                                                <li><a href="https://www.facebook.com/laksyah" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a> </li>
-                                                                                                <li><a href="https://twitter.com/laksyah" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a> </li>
-                                                                                                <li><a href="https://www.pinterest.com/laksyah/" target="_blank" class="pinterest"><i class="fa fa-pinterest-p"></i></a> </li>
+                                                                                                <?php
+                                                                                                $inst = SocialMedia::model()->findByPk(4);
+                                                                                                $you = SocialMedia::model()->findByPk(2);
+                                                                                                $face = SocialMedia::model()->findByPk(1);
+                                                                                                $twi = SocialMedia::model()->findByPk(3);
+                                                                                                $pin = SocialMedia::model()->findByPk(5);
+                                                                                                ?>
+                                                                                                <li><a href="<?php echo $inst->link; ?>" target="_blank" class="instagram"><i class="fa fa-instagram"></i></a> </li>
+                                                                                                <li><a href="<?php echo $you->link; ?>" target="_blank" class="youtube"><i class="fa fa-youtube"></i></a> </li>
+                                                                                                <li><a href="<?php echo $face->link; ?>" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a> </li>
+                                                                                                <li><a href="<?php echo $twi->link; ?>" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a> </li>
+                                                                                                <li><a href="<?php echo $pin->link; ?>" target="_blank" class="pinterest"><i class="fa fa-pinterest-p"></i></a> </li>
                                                                                                 <!--<li><a href="https://plus.google.com/u/0/116336234211963787309/posts" class="google-plus"><i class="fa fa-google-plus"></i></a></li>-->
                                                                                         </ul>
                                                                                 </div>
