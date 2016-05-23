@@ -135,12 +135,15 @@ class OrderController extends Controller {
         /**
          * Manages all models.
          */
-        public function actionAdmin() {
+        public function actionAdmin($new_order = '') {
                 $model = new Order('search');
                 $model->unsetAttributes();  // clear any default values
-                if (isset($_GET['Order']))
+                if (isset($_GET['Order'])) {
                         $model->attributes = $_GET['Order'];
-
+                }
+                if ($new_order != '') {
+                        $model->order_date = $new_order;
+                }
                 $this->render('admin', array(
                     'model' => $model,
                 ));

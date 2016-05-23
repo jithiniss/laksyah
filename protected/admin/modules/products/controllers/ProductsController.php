@@ -409,12 +409,16 @@ class ProductsController extends Controller {
         /**
          * Manages all models.
          */
-        public function actionAdmin() {
+        public function actionAdmin($out_ofstock = '') {
+
                 $model = new Products('search');
                 $model->unsetAttributes();  // clear any default values
                 if (isset($_GET['Products'])) {
                         $model->attributes = $_GET['Products'];
                         $model->product_name = $_GET['Products']['product_name'];
+                }
+                if ($out_ofstock != '') {
+                        $model->quantity = '<' . $out_ofstock;
                 }
 
                 $this->render('admin', array(

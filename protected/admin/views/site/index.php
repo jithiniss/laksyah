@@ -18,7 +18,7 @@
                                 <div class="icon">
                                         <i class="ion ion-bag"></i>
                                 </div>
-                                <a href="<?php echo Yii::app()->baseUrl; ?>/admin.php/site/OrderNotification" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="<?php echo Yii::app()->baseUrl; ?>/admin.php/products/order/admin?new_order=<?php echo date("Y-m-d"); ?>" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
 
                         </div>
                 </div><!-- ./col -->
@@ -34,7 +34,7 @@
                                 <div class="icon">
                                         <i class="ion ion-person-add"></i>
                                 </div>
-                                <a href="<?php echo Yii::app()->baseUrl; ?>/admin.php/site/Outofstock" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                <a href="<?php echo Yii::app()->baseUrl; ?>/admin.php/products/products/admin?out_ofstock=2" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                         </div>
                 </div><!-- ./col -->
 

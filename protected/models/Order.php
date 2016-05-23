@@ -115,7 +115,7 @@ class Order extends CActiveRecord {
                 $criteria->compare('id', $this->id);
                 $criteria->compare('user_id', $this->user_id);
                 $criteria->compare('total_amount', $this->total_amount);
-                $criteria->compare('order_date', $this->order_date, true);
+                $criteria->compare('order_date', $this->order_date);
                 $criteria->compare('coupon_id', $this->coupon_id);
                 $criteria->compare('discount_rate', $this->discount_rate);
                 $criteria->compare('gift_option', $this->gift_option);

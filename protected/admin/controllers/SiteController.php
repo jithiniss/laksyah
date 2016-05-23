@@ -70,11 +70,6 @@ class SiteController extends Controller {
                 $this->render('orderNotification', array('model' => $model));
         }
 
-        public function actionOutofstock() {
-                $out_stock = Products::model()->findByAttributes(array('quantity' => 0));
-                $this->render('out_ofstock', array('out_stock' => $out_stock));
-        }
-
         /**
          * This is the action to handle external exceptions.
          */
