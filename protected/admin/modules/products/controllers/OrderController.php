@@ -32,7 +32,7 @@ class OrderController extends Controller {
         public function accessRules() {
                 return array(
                     array('allow', // allow all users to perform 'index' and 'view' actions
-                        'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete'),
+                        'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete', 'print'),
                         'users' => array('*'),
                     ),
                     array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -135,15 +135,12 @@ class OrderController extends Controller {
         /**
          * Manages all models.
          */
-        public function actionAdmin($new_order = '') {
+        public function actionAdmin() {
                 $model = new Order('search');
                 $model->unsetAttributes();  // clear any default values
-                if (isset($_GET['Order'])) {
+                if (isset($_GET['Order']))
                         $model->attributes = $_GET['Order'];
-                }
-                if ($new_order != '') {
-                        $model->order_date = $new_order;
-                }
+
                 $this->render('admin', array(
                     'model' => $model,
                 ));
@@ -172,6 +169,19 @@ class OrderController extends Controller {
                         echo CActiveForm::validate($model);
                         Yii::app()->end();
                 }
+        }
+
+        public function actionPrint($id) {
+                $order = Order::model()->findByPk($id);
+                $user_address = UserAddress::model()->findByPk($order->ship_address_id);
+                $bill_address = UserAddress::model()->findByPk($order->bill_address_id);
+
+                $order_details = OrderProducts::model()->findAllByAttributes(array('order_id' => $id));
+
+
+
+                $this->renderPartial('_invoice', array(
+                    'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'order' => $order));
         }
 
 }

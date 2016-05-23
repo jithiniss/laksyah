@@ -46,7 +46,7 @@
                     array(
                         'htmlOptions' => array('nowrap' => 'nowrap'),
                         'class' => 'booster.widgets.TbButtonColumn',
-                        'template' => '{update}{delete}{view}{status}',
+                        'template' => '{update}{delete}{view}{status}{print}',
                         'buttons' => array(
                             'status' => array(
                                 'url' => 'Yii::app()->request->baseUrl."/admin.php/products/orderHistory/create/id/$data->id"',
@@ -54,6 +54,15 @@
                                 'options' => array(
                                     'data-toggle' => 'tooltip',
                                     'title' => 'view',
+                                    'target' => '_blank',
+                                ),
+                            ),
+                            'print' => array(
+                                'url' => 'Yii::app()->request->baseUrl."/admin.php/products/order/print/id/$data->id"',
+                                'label' => '<i class="fa fa-print" style="font-size:20px;padding:2px;"></i>',
+                                'options' => array(
+                                    'data-toggle' => 'tooltip',
+                                    'title' => 'Print',
                                     'target' => '_blank',
                                 ),
                             ),
