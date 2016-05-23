@@ -51,13 +51,13 @@ class ProductsController extends Controller {
 
                 if (Yii::app()->session['user'] != '' && Yii::app()->session['user'] != NULL) {
                         $user_id = Yii::app()->session['user']['id'];
-                        $product_view_exist = ProductViewed::model()->findByAttributes(array('user_id' => $user_id));
+                        $product_view_exist = ProductViewed::model()->findByAttributes(array('user_id' => $user_id, 'product_id' => $prduct->id));
                         if ($product_view_exist == NULL) {
                                 $product_view->date = date('Y-m-d');
                                 $product_view->product_id = $prduct->id;
                                 $product_view->session_id = NULL;
                                 $product_view->user_id = $user_id;
-                                if ($product_view->product_id != '') {
+                                if ($prduct->id != '') {
                                         $product_view->save(FALSE);
                                 }
                         }
@@ -67,13 +67,14 @@ class ProductsController extends Controller {
                                 Yii::app()->session['temp_user'] = microtime(true);
                         }
                         $sessonid = Yii::app()->session['temp_user'];
-                        $product_view_exist = ProductViewed::model()->findByAttributes(array('session_id' => $sessonid));
+                        $product_view_exist = ProductViewed::model()->findByAttributes(array('session_id' => $sessonid, 'product_id' => $prduct->id));
+
                         if (empty($product_view_exist) && $product_view_exist == NULL) {
                                 $product_view->date = date('Y-m-d');
                                 $product_view->product_id = $prduct->id;
                                 $product_view->session_id = $sessonid;
                                 $product_view->user_id = NULL;
-                                if ($product_view->product_id != '') {
+                                if ($prduct->id != '') {
                                         $product_view->save(FALSE);
                                 }
                         }

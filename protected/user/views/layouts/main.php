@@ -143,7 +143,6 @@
                                                                                         <div class="cart_items"></div>
                                                                                         <i class="fa fa-shopping-bag"></i></div><span class="bag_title">Shopping Bag </span><span class="amount"><?= $counts; ?></span>
                                                                                 <div class="laksyah_dropdown  cart_box" id="cart_box">
-
                                                                                 </div>
                                                                         </li>
 
@@ -160,7 +159,7 @@
                                                                                 </div>
                                                                                 <div class="clearfix"></div>
                                                                         </li>
-                                                                        <li class="my_account has_dropdown"><span class="account_icon"><i class="fa fa-user"></i></span><span class="account_title">My Account</span> <i class="fa fa-angle-down"></i>
+                                                                        <li class="my_account has_dropdown"><span class="account_icon"><i class="fa fa-user"></i></span><span class="account_title">Account</span> <i class="fa fa-angle-down"></i>
                                                                                 <div class="laksyah_dropdown">
                                                                                         <ul class="drop_menu">
                                                                                                 <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/login" class="currency" >Login</a></li>

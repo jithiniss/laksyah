@@ -1,49 +1,29 @@
-
-<style>
-        .list-inline {
-                padding-top: 0px;
-
-        }
-
-</style>
-<div class="clearfix"></div>
-
-
-<div class="container sofa">
-        <div class="row">
-
-
-
-
-                <div style="padding-top: 108px;">
-                        <?php if (Yii::app()->user->hasFlash('success')): ?>
-                                <div class="alert alert-success mesage">
-                                        <strong>Success!</strong> <?php echo Yii::app()->user->getFlash('success'); ?>
-                                </div>
-                        <?php endif; ?>
-                        <?php if (Yii::app()->user->hasFlash('error')): ?>
-                                <div class="alert alert-danger mesage">
-                                        <strong>sorry!</strong><?php echo Yii::app()->user->getFlash('error'); ?>
-                                </div>
-                        <?php endif; ?>
+<div class="container main_container product_archive">
+        <div class="breadcrumbs">
+                <?php
+                //$category_name = Yii::app()->request->getParam('name');
+                $url = Yii::app()->request->urlReferrer;
+                $catname = explode("/", $url);
+                $category_name = $catname[8];
+                ?>
+                <?php echo $this->renderPartial('_bread_crumb', array('category_name' => $category_name)); ?><span> / Deal
+        </div>
+        <div class="deal_header">
+                <h2>Deal of the Day</h2>
+                <h4>Rush to grab sensational deals on exquisite outfits   </h4>
+                <div class="clearfix"></div>
+                <div class="deal_timer">
+                        <div class="deal_title">Deal Ends in:</div>
+                        <div class="deal_time">
+                                <div class="" id="clock"></div>
+                        </div>
+                        <div class="clearfix"></div>
                 </div>
+        </div>
+        <div >
 
-                <div class="form-group">
-                        <form  id="form_id" name="submit"  method="get">
-                                <select name="category" onchange="products();">
-                                        <option value="">Type</option>
-                                        <option value="1">Best Seller</option>
-                                        <option value="2">Price Low To High</option>
-                                        <option value="3">Price High To Low</option>
-                                        <option value="4">Name A-Z</option>
-                                        <option value="5">Name Z-A</option>
-                                </select>
-                        </form>
-                </div>
-                <div class="col-md-9 pickle-space" style="padding-top: 178px;">
-
+                <div class="product_list">
                         <div class="row">
-
                                 <?php
                                 if (!empty($dataprovider) || $dataProvider != '') {
                                         $this->widget('zii.widgets.CListView', array(
@@ -54,13 +34,13 @@
 
                                 }
                                 ?>
+
                         </div>
-
                 </div>
-
         </div>
-
 </div>
+
+
 <script>
         function products() {
                 document.getElementById("form_id").submit();
@@ -71,14 +51,23 @@
 
 
 
+
         $(document).ready(function () {
 
+                if ($('#clock').length) {
+                        $('#clock').countdown('<?= date('Y/m/d'); ?> 23:59:59').on('update.countdown', function (event) {
+                                var $this = $(this).html(event.strftime(''
+
+                                        + '<div class="digit">%H<span>Hrs</span></div><div class="digit">:</div>'
+                                        + '<div class="digit">%M<span>Min</span></div></div><div class="digit">:</div>'
+                                        + '<div class="last digit">%S<span>Sec</span></div>'));
+                        });
+                }
                 $(".add_to_cart").click(function () {
 
                         var id = $(this).attr('id');
                         var canname = $("#cano_name_" + id).val();
                         var qty = $(".qty_" + id).val();
-
                         addtocart(canname, qty);
                 });
         });
@@ -95,8 +84,6 @@
                         $("html, body").animate({scrollTop: 0}, "slow");
                         hideLoader();
                 });
-
-
         }
         function removecart(cartid, canname) {
                 $.ajax({
@@ -112,9 +99,8 @@
                         $("html, body").animate({scrollTop: 0}, "slow");
                         hideLoader();
                 });
-
-
         }
+
         function showLoader() {
                 $('.over-lay').show();
         }
