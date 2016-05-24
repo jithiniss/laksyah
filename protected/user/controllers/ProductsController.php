@@ -248,4 +248,10 @@ class ProductsController extends Controller {
                 }
         }
 
+        public function actionPolicies() {
+                if (Yii::app()->request->isAjaxRequest) {
+                        $this->renderPartial('_policy');
+                }
+        }
+
 }

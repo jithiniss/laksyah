@@ -3,7 +3,7 @@
 <?php
 $value = rtrim($product->category_id, ',');
 $ids = explode(',', $value);
-foreach($ids as $id) {
+foreach ($ids as $id) {
         $cat_name = ProductCategory::model()->findByPk($id)->category_name;
 }
 ?>
@@ -27,12 +27,12 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
     <div class="product_details">
         <div class="row">
             <div>
-                <?php if(Yii::app()->user->hasFlash('success')): ?>
+                <?php if (Yii::app()->user->hasFlash('success')): ?>
                         <div class="alert alert-success mesage">
                             <strong>Success!</strong> <?php echo Yii::app()->user->getFlash('success'); ?>
                         </div>
                 <?php endif; ?>
-                <?php if(Yii::app()->user->hasFlash('error')): ?>
+                <?php if (Yii::app()->user->hasFlash('error')): ?>
                         <div class="alert alert-danger mesage">
                             <strong>sorry!</strong><?php echo Yii::app()->user->getFlash('error'); ?>
                         </div>
@@ -50,14 +50,14 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                         $zoo = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $product->id . '/gallery/zoom';
                         $zoom = Yii::app()->request->baseUrl . '/uploads/products/' . $folder . '/' . $product->id . '/gallery/zoom/';
                         $file_display = array('jpg', 'jpeg', 'png', 'gif');
-                        if(file_exists($big) == false) {
+                        if (file_exists($big) == false) {
 
                         } else {
                                 $dir_contents = scandir($big);
                                 $i = 0;
-                                foreach($dir_contents as $file) {
+                                foreach ($dir_contents as $file) {
                                         $file_type = strtolower(pathinfo($file, PATHINFO_EXTENSION));
-                                        if($file !== '.' && $file !== '..' && in_array($file_type, $file_display) == true) {
+                                        if ($file !== '.' && $file !== '..' && in_array($file_type, $file_display) == true) {
                                                 ?>
 
                                                 <li> <a href="#" data-image="<?php echo $bigg . $file; ?>" data-zoom-image="<?php echo $zoom . $file; ?>"> <img src="<?php echo $thumbs . $file; ?>" alt=""/> </a> </li>
@@ -77,7 +77,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                 <li><a href="#" data-image="<?= Yii::app()->request->baseUrl; ?>/images/product_small.jpg" data-zoom-image="<?= Yii::app()->request->baseUrl; ?>/images/product_big.jpg"> <img src="<?= Yii::app()->request->baseUrl; ?>/images/product_small.jpg" alt=""/> </a></li>
                                                                 <li><a href="#" data-image="<?= Yii::app()->request->baseUrl; ?>/images/product_small.jpg" data-zoom-image="<?= Yii::app()->request->baseUrl; ?>/images/product_big2.jpg"> <img src="<?= Yii::app()->request->baseUrl; ?>/images/product_small.jpg" alt=""/> </a></li>
                         -->
-                        <?php if(empty($dir_contents)) { ?>
+                        <?php if (empty($dir_contents)) { ?>
                                 <li><a href="#" data-image="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/big.<?= $product->main_image ?>" data-zoom-image="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/zoom.<?= $product->main_image ?>"> <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/small.<?= $product->main_image ?>" alt=""/> </a></li>
                         <?php } ?>
                     </ul>
@@ -87,9 +87,9 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                 ?>
 
                 <?php
-                if(!empty($dir_contents)) {
+                if (!empty($dir_contents)) {
 
-                        foreach($dir_contents as $file1) {
+                        foreach ($dir_contents as $file1) {
 
                         }
                         ?>
@@ -114,11 +114,11 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
             <div class="col-sm-5 col-md-4 product_details_sidebar">
                 <div class="product_metas">
                     <?php
-                    if($product->enquiry_sale == 1) {
-                            if($product->quantity == 0) {
+                    if ($product->enquiry_sale == 1) {
+                            if ($product->quantity == 0) {
                                     ?>
                                     <div class="out_of_stock_badge"></div>
-                            <?php } else if($product->quantity <= 2 && $product->quantity != 0) { ?>
+                            <?php } else if ($product->quantity <= 2 && $product->quantity != 0) { ?>
                                     <div class="allmost_gone_badge"></div>
                                     <?php
                             }
@@ -131,7 +131,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                     <div class="product_price"><span><?php echo Yii::app()->Discount->Discount($product); ?></span></div>
                     <p class="tax_info"><em>Inclusive of all local taxes</em></p>
 
-                    <?php if($product->deal_day_status == 1 && $product->deal_day_date == date('Y-m-d')) { ?>
+                    <?php if ($product->deal_day_status == 1 && $product->deal_day_date == date('Y-m-d')) { ?>
                             <div class="deal_timer">
                                 <div class="deal_title">Deal Ends in:</div>
                                 <div class="deal_time">
@@ -142,18 +142,18 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                     <?php } ?>
 
                     <?php
-                    if($product->enquiry_sale == 1) {
+                    if ($product->enquiry_sale == 1) {
                             //instock//
 
-                            if($product->stock_availability == 1) {
-                                    if($product->quantity == 0) {
+                            if ($product->stock_availability == 1) {
+                                    if ($product->quantity == 0) {
                                             ?>
                                             <form action = "<?= Yii::app()->baseUrl; ?>/index.php/products/ProductNotify/id/<?= $product->id; ?>" method = "post" name = "notify">
 
                                                 <div class="sold_out_notify">
                                                     <h4>Product Out of Stock Subscription</h4>
                                                     <div class="input-group">
-                                                        <?php if(isset(Yii::app()->session['user'])) { ?>
+                                                        <?php if (isset(Yii::app()->session['user'])) { ?>
                                                                 <input type="text" class="form-control"  id="email"  name="email" value="<?= Yii::app()->session['user']['email'] ?>">
                                                                 <?php
                                                         } else {
@@ -172,12 +172,12 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                             }
                     }
                     ?>
-                    <?php if($product->video != '') { ?>
+                    <?php if ($product->video != '') { ?>
                             <div class="project_video">
                                 <h3>Watch Video</h3>
                                 <div class="video_thumb">
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
                                     <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/video_thumb.jpg" alt=""/>
                                     <a class="video_link laksyah_video fancybox.iframe" href="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>"><i class="fa fa-play-circle-o"></i></a>
                                 </div>
@@ -187,7 +187,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                     <!--/ Video-->
                     <?php
                     $product_option = MasterOptions::model()->findByAttributes(['product_id' => $product->id]);
-                    if(!empty($product_option)) {
+                    if (!empty($product_option)) {
                             ?>
                             <div class="option_errors">
 
@@ -195,7 +195,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                             <input type="hidden" value="<?php echo $product_option->id; ?>" name="master_option" id="master_option"/>
                             <input type="hidden" value="<?php echo $product_option->option_type_id; ?>" name="option_type" id="option_type"/>
                             <?php
-                            if($product_option->option_type_id == 1 || $product_option->option_type_id == 3) {
+                            if ($product_option->option_type_id == 1 || $product_option->option_type_id == 3) {
                                     $colors = OptionDetails::model()->findAllByAttributes(['status' => 1, 'master_option_id' => $product_option->id], ['select' => 'color_id', 'distinct' => true,]);
                                     ?>
 
@@ -204,11 +204,11 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                     <div class = "color_picker">
                                         <h3>Select Color</h3>
                                         <?php
-                                        if(!empty($colors)) {
+                                        if (!empty($colors)) {
                                                 ?>
                                                 <ul class = "product_colors">
                                                     <?php
-                                                    foreach($colors as $color) {
+                                                    foreach ($colors as $color) {
                                                             $color_name = OptionCategory::model()->findByPk($color->color_id);
                                                             ?>
                                                             <li class = "" option_id="<?php echo $product_option->id; ?>" color="<?php echo $color->color_id; ?>"> <a class = "#" style = "background-color:<?php echo $color_name->color_code; ?>;" title="<?php echo $color_name->color_name; ?>"></a> </li>
@@ -223,20 +223,20 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                             <!--/ Color_picker-->
 
                             <?php
-                            if($product_option->option_type_id == 2 || $product_option->option_type_id == 3) {
+                            if ($product_option->option_type_id == 2 || $product_option->option_type_id == 3) {
                                     $sizes = OptionDetails::model()->findAllByAttributes(['status' => 1, 'master_option_id' => $product_option->id], ['select' => 'size_id', 'distinct' => true]);
                                     ?>
                                     <input type="hidden" value="" name="option_size" id="option_size"/>
                                     <div class = "product_size size_filter">
                                         <h3>Select Size<span><a href = "#" data-toggle = "modal" data-target = "#sizechartModal">SIZE CHART</a></span></h3>
                                         <?php
-                                        if(!empty($sizes)) {
+                                        if (!empty($sizes)) {
                                                 ?>
                                                 <div class = "size_selector">
                                                     <?php
-                                                    foreach($sizes as $size) {
+                                                    foreach ($sizes as $size) {
                                                             $size_name = OptionCategory::model()->findByPk($size->size_id);
-                                                            if($product_option->option_type_id == 3) {
+                                                            if ($product_option->option_type_id == 3) {
                                                                     $disabled = 'disabled';
                                                             } else {
                                                                     $disabled = '';
@@ -267,7 +267,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                     <script>
                             $(document).ready(function () {
-<?php if($model->hasErrors()) {
+<?php if ($model->hasErrors()) {
         ?>
                                         $("#myModal").modal('show');
 <?php } ?>
@@ -275,7 +275,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                     <script>
                             $(document).ready(function () {
-<?php if(Yii::app()->user->hasFlash('enuirysuccess')) { ?>
+<?php if (Yii::app()->user->hasFlash('enuirysuccess')) { ?>
                                         $("#myModal").modal('show');
                                         $(".modal-body").html('Your Enquiry Submitted Successfully');
 <?php } ?>
@@ -298,7 +298,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                     </div><!-- /.modal -->
 
 
-                    <div class="modal fade" id="enquirymail" tabindex="-1" role="dialog">
+                    <div class="modal fade"  id="enquirymail" tabindex="-1" role="dialog">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header text-center">
@@ -325,6 +325,17 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                             </div><!-- /.modal-content -->
                         </div><!-- /.modal-dialog -->
                     </div><!-- /.modal -->
+
+                    <!-- Return Policy Modal starts-->
+                    <div class="modal fade"  id="returns" tabindex="-1" role="dialog">
+                        <div class="modal-dialog">
+                            <div class="modal-content" id="return_policy">
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Return Policy Modal ends-->
+
 
 
 
@@ -421,11 +432,11 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                     <?php
 //check wheather sale or enquiry//
 
-                    if($product->enquiry_sale == 1) {
+                    if ($product->enquiry_sale == 1) {
                             //instock//
 
-                            if($product->stock_availability == 1) {
-                                    if($product->quantity >= 1) {
+                            if ($product->stock_availability == 1) {
+                                    if ($product->quantity >= 1) {
                                             ?>
 
 
@@ -450,7 +461,10 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                         <h4><a href="#"><i class="fa fa-truck"></i> <span>Free Shipping In India</span></a></h4>
                                                     </div>
                                                 </div>
-                                                <p><a href="#">View Shipping and Return Policies</a></p>
+
+                                                <p><a class="return_policies" href="#">View Shipping and Return Policies</a></p>
+
+
                                             </div>
                                             <!-- / Shipping_ifo-->
                                             <div class="product_button_group">
@@ -503,7 +517,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                     }
                             }
                             //out of stock//
-                            elseif($product->stock_availability == 0) {
+                            elseif ($product->stock_availability == 0) {
                                     ?>
                                     <div class="product_button_group">
 
@@ -596,11 +610,11 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                 <div class="product_list ">
                     <div class="row related_list_slider">
                         <?php
-                        if(!empty($recently) && $recently != '') {
-                                foreach($recently as $recent) {
+                        if (!empty($recently) && $recently != '') {
+                                foreach ($recently as $recent) {
 
                                         $product_details = Products::model()->findByPk($recent->product_id);
-                                        if(!empty($product_details)) {
+                                        if (!empty($product_details)) {
                                                 ?>
                                                 <?php
                                                 $folder1 = Yii::app()->Upload->folderName(0, 1000, $product_details->id);
@@ -630,11 +644,11 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                     <div class="row related_list_slider">
 
                         <?php
-                        if(!empty($related_products) && $related_products != '') {
-                                foreach($related_products as $related_product) {
+                        if (!empty($related_products) && $related_products != '') {
+                                foreach ($related_products as $related_product) {
 
                                         $product_details1 = Products::model()->findByPk($related_product);
-                                        if(!empty($product_details1)) {
+                                        if (!empty($product_details1)) {
                                                 ?>
                                                 <?php
                                                 $folder2 = Yii::app()->Upload->folderName(0, 1000, $product_details1->id);
@@ -687,6 +701,26 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                             + '<div class="last digit">%S<span>Sec</span></div>'));
                 });
             }
+
+
+//return ploicy
+
+            $(".return_policies").click(function () {
+
+                $.ajax({
+                    type: "POST",
+                    url: baseurl + 'Products/Policies',
+                }).done(function (data) {
+
+                    if (data != "") {
+                        $("#returns").modal($('#return_policy').html(data));
+
+                    }
+                });
+            });
+
+
+
             $(".add_to_cart").click(function () {
 
                 var id = $(this).attr('id');
@@ -763,7 +797,6 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                 $('#option_color').val(color);
             });
         });
-
         function  color_size(option, color) {
             //showLoader();
             $.ajax({
