@@ -124,8 +124,11 @@ class CartController extends Controller {
                 } else if (isset($sessonid)) {
                         $condition = "session_id= $sessonid";
                 }
-
-                $cart = Cart::model()->findByAttributes(array(), array('condition' => ($condition . ' and options =' . $product_option_id->id . ' and product_id=' . $id)));
+                if ($product_option_id->id != 0) {
+                        $cart = Cart::model()->findByAttributes(array(), array('condition' => ($condition . ' and options =' . $product_option_id->id . ' and product_id=' . $id)));
+                } else {
+                        $cart = Cart::model()->findByAttributes(array(), array('condition' => ($condition . ' and product_id=' . $id)));
+                }
 
 
                 if (!empty($cart)) {

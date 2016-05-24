@@ -177,7 +177,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                         <h3>Watch Video</h3>
                                                         <div class="video_thumb">
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
                                                                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/video_thumb.jpg" alt=""/>
                                                                 <a class="video_link laksyah_video fancybox.iframe" href="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>"><i class="fa fa-play-circle-o"></i></a>
                                                         </div>
@@ -484,7 +484,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                                                                                 </div>
                                                                                 <div class="col-md-5 col-xs-5">
-                                                                                        <button type="button" class="btn-primary" ><i class="fa fa-envelope"></i> BUY NOW</button>
+                                                                                        <button type="button" class="btn-primary buy_now" ><i class="fa fa-envelope"></i> BUY NOW</button>
                                                                                 </div>
                                                                         </div>
                                                                 </div>
@@ -722,6 +722,53 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
 
                 $(".add_to_cart").click(function () {
+
+                        var id = $(this).attr('id');
+                        var canname = $("#cano_name_" + id).val();
+                        var qty = $(".qty").val();
+                        var option_color = $('#option_color').val();
+                        var option_size = $('#option_size').val();
+                        var option_type = $('#option_type').val();
+                        var master_option = $('#master_option').val();
+                        if (option_type == 3) {
+
+                                if (option_color.length == 0 && option_size.length == 0) {
+                                        $('.option_errors').html('<p>Product color required</p><p>Product size required</p>').show();
+                                } else if (option_color.length == 0) {
+                                        $('.option_errors').html('<p>Product color required</p>').show();
+                                } else if (option_size.length == 0) {
+                                        $('.option_errors').html('<p>Product size required</p>').show();
+                                } else {
+                                        $('.option_errors').html("").hide();
+                                        addtocart(canname, qty, option_color, option_size, master_option);
+                                }
+                        } else if (option_type == 1) {
+
+                                if (option_color.length == 0) {
+                                        $('.option_errors').html('<p>Product color required</p>').show();
+                                } else {
+                                        $('.option_errors').html("").hide();
+                                        addtocart(canname, qty, option_color, option_size, master_option);
+                                }
+                        } else if (option_type == 2) {
+                                if (option_size.length == 0) {
+                                        $('.option_errors').html('<p>Product size required</p>').show();
+                                } else {
+                                        $('.option_errors').html("").hide();
+                                        addtocart(canname, qty, option_color, option_size, master_option);
+                                }
+                        }
+                        else {
+                                $('.option_errors').html("").hide();
+                                addtocart(canname, qty, option_color = null, option_size = null, master_option = null);
+                        }
+
+
+
+                });
+
+
+                $(".buy_now").click(function () {
 
                         var id = $(this).attr('id');
                         var canname = $("#cano_name_" + id).val();
