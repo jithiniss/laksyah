@@ -8,6 +8,10 @@ class WalletHistoryController extends Controller {
          */
         public $layout = '//layouts/column2';
 
+        public function init() {
+                date_default_timezone_set('Asia/Kolkata');
+        }
+
         /**
          * @return array action filters
          */
@@ -76,6 +80,7 @@ class WalletHistoryController extends Controller {
                                                 $wallet_redeem->addError('amount', 'Insufficient Balance');
                                         } else {
                                                 $wallet_redeem->user_id = $id;
+                                                $wallet_redeem->payment_method = 1;
 
                                                 $wallet_redeem->entry_date = date('Y-m-d H:i:s');
                                                 $wallet_redeem->credit_debit = 2;
@@ -97,7 +102,8 @@ class WalletHistoryController extends Controller {
 
                                         $entry_amount = $_POST['WalletHistory']['amount'];
                                         $wallet_add->user_id = $model->id;
-                                        $wallet_add->type_id = 2;
+                                        $wallet_add->payment_method = 1;
+
                                         $wallet_add->entry_date = date('Y-m-d H:i:s');
                                         $wallet_add->credit_debit = 1;
                                         $wallet_add->balance_amt = $wallet_amount + $entry_amount;
@@ -135,7 +141,8 @@ class WalletHistoryController extends Controller {
                         $wallet_add->attributes = $_POST['WalletHistory'];
                         $entry_amount = $_POST['WalletHistory']['amount'];
                         $wallet_add->user_id = $model->id;
-                        $wallet_add->type_id = 2;
+
+                        $wallet_add->payment_method = 1;
                         $wallet_add->entry_date = date('Y-m-d H:i:s');
                         $wallet_add->credit_debit = 1;
                         $wallet_add->balance_amt = $wallet_amount + $entry_amount;

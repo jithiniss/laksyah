@@ -14,6 +14,7 @@
  * @property integer $ids
  * @property string $field1
  * @property integer $field2
+ * @property integer $payment_method
  *
  * The followings are the available model relations:
  * @property MasterHistoryType $type
@@ -36,16 +37,16 @@ class WalletHistory extends CActiveRecord {
                 // will receive user inputs.
                 return array(
                     //array('user_id, type_id, amount, entry_date, credit_debit, balance_amt, ids, field1, field2', 'required'),
-                    array('user_id, type_id, credit_debit, ids, field2', 'numerical', 'integerOnly' => true),
+                    array('user_id, type_id, credit_debit, ids, field2,payment_method', 'numerical', 'integerOnly' => true),
                     array('field1', 'length', 'max' => 200),
                     array('amount,balance_amt', 'length', 'max' => 10),
-                    array('amount,field1', 'required', 'on' => 'addWallet'),
+                    array('amount,field1,payment_method,type_id', 'required', 'on' => 'addWallet'),
                     array('amount', 'numerical', 'integerOnly' => true, 'on' => 'addWallet'),
-                    array('type_id,amount,field1,ids', 'required', 'on' => 'redeemWallet'),
+                    array('type_id,amount,field1', 'required', 'on' => 'redeemWallet'),
                     array('amount', 'numerical', 'integerOnly' => true, 'on' => 'redeemWallet'),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, user_id, type_id, amount, entry_date, credit_debit, balance_amt, ids, field1, field2', 'safe', 'on' => 'search'),
+                    array('id, user_id, type_id, amount, entry_date, credit_debit, balance_amt, ids, field1, field2,payment_method', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -76,6 +77,7 @@ class WalletHistory extends CActiveRecord {
                     'ids' => 'Purchase Id',
                     'field1' => 'Comments',
                     'field2' => 'Field2',
+                    'payment_method' => 'Payment Method',
                 );
         }
 
@@ -106,6 +108,7 @@ class WalletHistory extends CActiveRecord {
                 $criteria->compare('ids', $this->ids);
                 $criteria->compare('field1', $this->field1, true);
                 $criteria->compare('field2', $this->field2);
+                $criteria->compare('payment_method', $this->payment_method);
 
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,

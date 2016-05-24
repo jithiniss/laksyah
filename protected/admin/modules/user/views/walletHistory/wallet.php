@@ -71,6 +71,14 @@
                                 </div>
                             </div>
                             <div class="form-group">
+
+                                <?php echo $form->labelEx($wallet_add, 'type_id', array('class' => 'col-sm-3 control-label')); ?>
+                                <div class="col-sm-5"><?php echo $form->dropDownlist($wallet_add, 'type_id', CHtml::listData(MasterHistoryType::model()->findAllByAttributes(['credit_debit' => 2]), 'id', 'type'), array('empty' => 'Select Type', 'class' => 'form-control')); ?>
+
+                                    <?php echo $form->error($wallet_add, 'type_id', array('style' => 'padding-left:0px;')); ?>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <?php echo $form->labelEx($wallet_add, 'amount', array('class' => 'col-sm-3 control-label')); ?>
                                 <div class="col-sm-5"><?php echo $form->textField($wallet_add, 'amount', array('size' => 60, 'maxlength' => 100, 'class' => 'form-control')); ?>
 
