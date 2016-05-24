@@ -397,16 +397,9 @@
                                                 <!--  Cart items-->
                                                 <div class="cart_row with_gift">
                                                         <div class="col-2 cart_product_detail">
-                                                                <?php
-                                                                if ($cart->options != 0) {
-                                                                        $option = Options::model()->findByPk($cart->options)
-                                                                        ?>
-                                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/options/<?= $option->id; ?>/small.<?php echo $option->image; ?>" class="img-responsive crt" align="absmiddle" style="max-height:300px; max-width:200px;display: block;">
-                                                                        <?php
-                                                                } else {
-                                                                        ?>
-                                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/small.<?php echo $prod_details->main_image; ?>" class="img-responsive crt" align="absmiddle" style="max-height:300px; max-width:200px;display: block;">
-                                                                <?php } ?>
+
+                                                                <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/small.<?php echo $prod_details->main_image; ?>" class="img-responsive crt" align="absmiddle" style="max-height:300px; max-width:200px;display: block;">
+
                                                                 <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Products/Detail/name/<?php echo $prod_details->canonical_name; ?>"style="color: #333;text-decoration: none;">  <h3><?php echo $prod_details->product_name; ?></h3></a>
                                                                 <p><span>Color:</span>	Doeskin</p>
                                                                 <p><span>Size:</span>	S</p>
@@ -415,16 +408,12 @@
                                                                 ?>
                                                                 <p><?= $trimstring; ?></p>
                                                                 <?php
-                                                                if ($cart->options != 0) {
-
-                                                                        $price = Options::model()->findByPk($cart->options)->amount;
+                                                                if ($prod_details->discount) {
+                                                                        $price = $prod_details->price - $prod_details->discount;
                                                                 } else {
-                                                                        if ($prod_details->discount) {
-                                                                                $price = $prod_details->price - $prod_details->discount;
-                                                                        } else {
-                                                                                $price = $prod_details->price;
-                                                                        }
+                                                                        $price = $prod_details->price;
                                                                 }
+
                                                                 $cart_qty = $cart->quantity;
                                                                 $tot_price = ($cart_qty * $price) + $cart->rate;
                                                                 ?>
