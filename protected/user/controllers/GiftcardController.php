@@ -31,7 +31,7 @@ class GiftcardController extends Controller {
                                 $this->render('bill_address', array('addresss' => $addresss, 'billing' => $billing));
                         }
                 } else {
-                        $this->redirect('site/login');
+                        $this->redirect(array('site/login'));
                 }
         }
 

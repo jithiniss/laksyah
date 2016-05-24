@@ -13,7 +13,7 @@
  */
 class MenuCategory extends CApplicationComponent {
 
-        public function MenuCategories($cats, $parent, $categ) {
+        public function MenuCategories($cats, $parent, $categ, $min, $max, $size) {
                 if (!empty($cats) || $cats != '') {
                         $find_ids = $this->ids($cats, $parent, $categ);
                 }
@@ -29,15 +29,29 @@ class MenuCategory extends CApplicationComponent {
                                         $find_in_set .= "FIND_IN_SET('$find_id',`category_id`) OR ";
                                 }
                         }
+                } else {
+                        $find_in_set = '';
                 }
-                // var_dump($find_in_set);
-                // exit;
+//                var_dump($find_in_set);
+//                exit;
                 $find_in_set = rtrim($find_in_set, ' OR');
+                if (!empty($find_in_set) && !empty($min) && !empty($max) && !empty($size)) {
+                        $condition = '(id  IN (SELECT product_id FROM option_details WHERE size_id = ' . $size . ')) AND (' . $find_in_set . ') AND (price > ' . $min . ' AND price <' . $max . ')';
+                        $order = '';
+                } elseif (!empty($find_in_set) && !empty($min) && !empty($max)) {
+                        $condition = '(' . $find_in_set . ') AND (price > ' . $min . ' AND price <' . $max . ')';
+                        $order = '';
+                } elseif (!empty($find_in_set)) {
+                        $condition = $find_in_set;
+                        $order = 'RAND()';
+                }
+
+
                 if ($find_in_set != '') {
                         return $dataProvider = new CActiveDataProvider('Products', array(
                             'criteria' => array(
-                                'condition' => $find_in_set,
-                                'order' => 'RAND()',
+                                'condition' => $condition,
+                                'order' => $order,
                             ),
                             'pagination' => array(
                                 'pageSize' => 20,
@@ -98,39 +112,41 @@ class MenuCategory extends CApplicationComponent {
 
         public function ids($cats, $parent, $categ) {
                 $ids = array();
-                foreach ($cats as $cat) {
+                if (!empty($cats)) {
+                        foreach ($cats as $cat) {
 
-                        /* 3rd level of subcategory */
-                        $subcats = ProductCategory::model()->findAllByattributes(array('parent' => $parent->id));
+                                /* 3rd level of subcategory */
+                                $subcats = ProductCategory::model()->findAllByattributes(array('parent' => $parent->id));
 
-                        if (!empty($subcats) || $subcats != '') {
+                                if (!empty($subcats) || $subcats != '') {
 
-                                foreach ($subcats as $subcat) {
-                                        $_SESSION['category']['0'] = '';
-                                        $vals = $this->selectCategory($subcat, $parent->id);
-                                        if (!empty($vals) || $vals != '') {
-                                                foreach ($vals as $val) {
-                                                        if (!in_array($val, $ids)) {
-                                                                array_push($ids, $val);
+                                        foreach ($subcats as $subcat) {
+                                                $_SESSION['category']['0'] = '';
+                                                $vals = $this->selectCategory($subcat, $parent->id);
+                                                if (!empty($vals) || $vals != '') {
+                                                        foreach ($vals as $val) {
+                                                                if (!in_array($val, $ids)) {
+                                                                        array_push($ids, $val);
+                                                                }
                                                         }
                                                 }
+
+                                                $find_ids = $ids;
                                         }
-
-                                        $find_ids = $ids;
                                 }
                         }
-                }
-
-                $cat_details = ProductCategory::model()->findByPk($parent->id);
-                $vals = $this->selectCategory($cat_details, $parent->id);
-                if (!empty($vals) || $vals != '') {
-                        foreach ($vals as $val) {
-                                if (!in_array($val, $ids)) {
-                                        array_push($ids, $val);
+                } else {
+                        $cat_details = ProductCategory::model()->findByPk($parent->id);
+                        $vals = $this->selectCategory($cat_details, $parent->id);
+                        if (!empty($vals) || $vals != '') {
+                                foreach ($vals as $val) {
+                                        if (!in_array($val, $find_ids)) {
+                                                array_push($ids, $val);
+                                        }
                                 }
                         }
+                        return $ids;
                 }
-                return $ids;
         }
 
         public function sorting($categ) {

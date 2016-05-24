@@ -14,7 +14,7 @@ class ProductsController extends Controller {
                 } else {
                         $categ = '';
                 }
-                $dataProvider = Yii::app()->Menu->MenuCategories($cats, $parent, $categ);
+                $dataProvider = Yii::app()->Menu->MenuCategories($cats, $parent, $categ, $min = '', $max = '', $size = '');
                 if (isset(Yii::app()->session['temp_product_filter'])) {
                         unset(Yii::app()->session['temp_product_filter']);
                 }
@@ -168,23 +168,36 @@ class ProductsController extends Controller {
                         $min = $_REQUEST['min'];
                         $max = $_REQUEST['max'];
                         $cat = $_REQUEST['cat'];
-                        // $size_type = $_REQUEST['size'];
+                        $size_type = $_REQUEST['size'];
                         $data[0] = $min;
                         $data[1] = $max;
                         $data[3] = $cat;
                         // $data[4] = $size_type;
 
-                        if ($cat != '' && $min != '' && $max != '') {
-                                Yii::app()->session['temp_product_filter'] = $data;
+
+                        if ($cat != '' && $min != '' && $max != '' && $size_type) {
+                                $categry = ProductCategory::model()->findByPk($cat);
+                                if (!empty($categry)) {
+                                        Yii::app()->session['temp_product_filter'] = $data;
+                                }
+                        }
+                        if ($size_type != '') {
+                                $sizes = OptionCategory::model()->findByAttributes(array('option_type_id' => 2, 'id' => $size_type));
+                                if (!empty($sizes)) {
+                                        $data[4] = $size_type;
+                                        Yii::app()->session['temp_product_filter'][4] = $size_type;
+                                } else {
+                                        $size_type = '';
+                                }
                         }
                         if ($cat != '' && $min != '' && $max != '') {
                                 $parent = ProductCategory::model()->findByPk($cat);
                                 $cats = ProductCategory::model()->findAllByattributes(array('parent' => $parent->id), array('condition' => "id != $parent->id"));
-                                $dataProvider = Yii::app()->Menu->MenuCategoriesFilter($cats, $parent, $categ = 0, $min, $max);
+                                $dataProvider = Yii::app()->Menu->MenuCategories($cats, $parent, $categ = '', $min, $max, $size_type);
                         } else {
                                 $parent = ProductCategory::model()->findByPk(Yii::app()->session['temp_product_filter'][3]);
                                 $cats = ProductCategory::model()->findAllByattributes(array('parent' => $parent->id), array('condition' => "id != $parent->id"));
-                                $dataProvider = Yii::app()->Menu->MenuCategoriesFilter($cats, $parent, $categ = 0, Yii::app()->session['temp_product_filter'][0], Yii::app()->session['temp_product_filter'][1]);
+                                $dataProvider = Yii::app()->Menu->MenuCategories($cats, $parent, $categ = '', Yii::app()->session['temp_product_filter'][0], Yii::app()->session['temp_product_filter'][1], Yii::app()->session['temp_product_filter'][4]);
                         }
 
                         //$this->renderPartial('_view1', array('dataProvider' => $dataProvider));

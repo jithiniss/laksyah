@@ -36,25 +36,17 @@
                 <div class="size_filter">
                     <h4>Size</h4>
                     <div class="size_selector">
-                        <?php
-                        //$sizes = OptionCategory::model()->findAllByAttributes(array('option_type_id' => 2));
-//                        foreach ($sizes as $size) {
-//
-                        ?>
 
-                        <?php //}  ?>
-                        <label for="small" class="active">S
-                            <input type="radio" name="size_selector" value="size_s" id="size_selector_0">
-                        </label>
-                        <label for="medium">M
-                            <input type="radio" name="size_selector" value="size_m" id="size_selector_2">
-                        </label>
-                        <label for="large">L
-                            <input type="radio" name="size_selector" value="size_l" id="size_selector_3">
-                        </label>
-                        <label for="xl">XL
-                            <input type="radio" name="size_selector" value="size_xl" id="size_selector_4">
-                        </label>
+                        <?php
+                        $sizes = OptionCategory::model()->findAllByAttributes(array('option_type_id' => 2));
+                        foreach ($sizes as $size) {
+                                ?>
+                                <label for="small" class="" id="<?= $size->id ?>"><?= $size->size; ?>
+                                    <input type="radio" name="size_selector" value="<?= $size->id ?>" >
+                                </label>
+                        <?php } ?>
+                        <input type="hidden" value="" id="selected_size" name="selected_size"/>
+
                     </div>
                 </div>
             </form>
@@ -128,7 +120,21 @@
         function products() {
             document.getElementById("form_id").submit();
         }
+        // Size Selector
+        $(".size_selector label").click(function () {
+
+            $('.size_selector label').removeClass('active');
+            $("input[name=size_selector]").removeAttr('checked');
+            if ($(this).addClass('active')) {
+                $("input[name=size_selector][value='" + this.id + "']").attr("checked", true);
+                $('#selected_size').val(this.id);
+                productFilter();
+            }
+        });
+        ///
+
 </script>
+
 
 <script>
 
@@ -147,42 +153,22 @@
 //                    {
 //                        pricerange();
 //                    }
-<?php unset(Yii::app()->session['temp_product_filter']); ?>
                     $(".min_value").html("<i class='fa fa-rupee'></i> " + ui.values[ 0 ]);
                     $(".max_value").html("<i class='fa fa-rupee'></i> " + ui.values[ 1 ]);
                 },
                 stop: function (event, ui) {
                     showLoader();
                     //debugger;
-                    var form = $("#slide_rnge");
-                    var min_amount = $("#amount").val();
-                    var max_amount = $("#amount1").val();
-                    var categ_id = $("#cat_name").val();
-//                    var size = $('input[name=size_selector]:checked', '#slide_rnge').val();
-                    var value = <?php echo Yii::app()->session['temp_product_filter']; ?>
-                    $.ajax({
-                        url: baseurl + 'Products/PriceRange',
-                        type: "POST",
-                        //data: form.serialize()
-                        data: {min: min_amount, max: max_amount, cat: categ_id}
-                    }).done(function (data) {
-                        if (value == 1) {
-                            $("#content").html(data);
-                        } else {
-                            $(".product_list").html(data);
-                        }
-
-                        hideLoader();
-                    });
-
+                    productFilter();
                 }
                 //alert();
             });
-            $("#amount").val("$" + $("#slider-range").slider("values", 0));
-            $("#amount1").val("$" + $("#slider-range").slider("values", 1));
+//            $("#amount").val("$" +$("#slider-range").slider("values", 0));
+//            $("#amount1").val("$" + $("#slider-range").slider("values", 1));
+            $("#amount").val($("#slider-range").slider("values", 0));
+            $("#amount1").val($("#slider-range").slider("values", 1));
             $(".min_value").html("<i class='fa fa-rupee'></i> " + $("#slider-range").slider("values", 0));
             $(".max_value").html("<i class='fa fa-rupee'></i> " + $("#slider-range").slider("values", 1));
-
             $(".add_to_cart").click(function () {
                 var id = $(this).attr('id');
                 var canname = $("#cano_name_" + id).val();
@@ -190,6 +176,30 @@
                 addtocart(canname, qty);
             });
         });
+        function productFilter() {
+            var size;
+            var form = $("#slide_rnge");
+            var min_amount = $("#amount").val();
+            var max_amount = $("#amount1").val();
+            var categ_id = $("#cat_name").val();
+            size = $('#selected_size').val();
+
+            var value = <?php echo Yii::app()->session['temp_product_filter']; ?>
+            $.ajax({
+                url: baseurl + 'Products/PriceRange',
+                type: "POST",
+                //data: form.serialize()
+                data: {min: min_amount, max: max_amount, cat: categ_id, size: size}
+            }).done(function (data) {
+                if (value == 1) {
+                    $("#content").html(data);
+                } else {
+                    $(".product_list").html(data);
+                }
+
+                hideLoader();
+            });
+        }
         function addtocart(canname, qty) {
 
             $.ajax({
