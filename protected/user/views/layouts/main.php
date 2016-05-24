@@ -166,7 +166,7 @@
                                             <div class="laksyah_dropdown">
                                                 <ul class="drop_menu">
                                                     <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/login" class="currency" >Login</a></li>
-                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/register" class="currency" >Register</a></li>
+                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/site/register" class="currency" >Register</a></li>
                                                     <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
                                                     <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/cart/Mycart" class="currency" >My Cart</a></li>
 

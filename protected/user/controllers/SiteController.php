@@ -89,27 +89,32 @@ class SiteController extends Controller {
                                 $model->gender = $_POST['UserDetails']['gender'];
                                 $model->phone_no_1 = $_POST['UserDetails']['phone_no_1'];
                                 $model->phone_no_2 = $_POST['UserDetails']['phone_no_2'];
+
                                 if ($model->validate()) {
                                         $model->status = 1;
                                         $model->CB = 1;
                                         $model->UB = 1;
                                         $model->DOC = date('Y-m-d');
-                                }
-                                if ($model->password == $model->confirm) {
-                                        if ($model->save()) {
-//Yii::app()->user->setFlash('success', "Dear, $model->first_name, your message has been sent successfully");
-                                                Yii::app()->session['user'] = $model;
-                                                ProductViewed::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
-                                                Cart::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
 
-                                                UserWishlist::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
-                                                unset(Yii::app()->session['temp_user']);
-                                                $this->redirect('index');
-                                        } else {
+                                        if ($model->password == $model->confirm) {
+                                                if ($model->save()) {
+//Yii::app()->user->setFlash('success', "Dear, $model->first_name, your message has been sent successfully");
+                                                        Yii::app()->session['user'] = $model;
+                                                        if (Yii::app()->session['temp_user'] != '') {
+
+                                                                ProductViewed::model()->updateAll(array("user_id" => $model->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
+                                                                Cart::model()->updateAll(array("user_id" => $model->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
+
+                                                                UserWishlist::model()->updateAll(array("user_id" => $model->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
+                                                                unset(Yii::app()->session['temp_user']);
+                                                        }
+                                                        $this->redirect('site/index');
+                                                } else {
 // Yii::app()->user->setFlash('error', "Sorry! Message seniding Failed..");
+                                                }
+                                        } else {
+                                                $model->addError(confirm, 'password mismatch');
                                         }
-                                } else {
-                                        $model->addError(confirm, 'password mismatch');
                                 }
                         }
                         $this->render('register', array('model' => $model));

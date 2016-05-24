@@ -44,6 +44,7 @@ class UserDetails extends CActiveRecord {
                     array('DOU', 'safe'),
                     array('email', 'unique'),
                     array('wallet_amt', 'length', 'max' => 10),
+                    // array('newsletter', 'numerical', 'min' => 1, 'max' => 1,'message'=>''),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
                     array('id, first_name, last_name,dob, gender,email, phone_no_1, phone_no_2, fax, password, confirm, newsletter, status, CB, UB, DOC, DOU', 'safe', 'on' => 'search'),
