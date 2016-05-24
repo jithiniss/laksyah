@@ -99,6 +99,7 @@ class MasterOptionsController extends Controller {
                                         $model->attributes = $_POST['OptionDetails'];
 
                                         $model->master_option_id = $id;
+                                        $model->product_id = $productOptions->product_id;
 
                                         if($productOptions->option_type_id == 1) {
 

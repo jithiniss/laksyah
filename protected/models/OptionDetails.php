@@ -6,6 +6,7 @@
  * The followings are the available columns in table 'option_details':
  * @property integer $id
  * @property integer $master_option_id
+ * @property integer $product_id
  * @property integer $color_id
  * @property integer $size_id
  * @property integer $stock
@@ -32,11 +33,11 @@ class OptionDetails extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
-                    array('master_option_id, stock, status', 'required'),
-                    array('master_option_id, color_id, size_id, stock, status', 'numerical', 'integerOnly' => true),
+                    array('master_option_id, stock, status,product_id', 'required'),
+                    array('master_option_id, color_id, size_id, stock, status,product_id', 'numerical', 'integerOnly' => true),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, master_option_id, color_id, size_id, stock, status', 'safe', 'on' => 'search'),
+                    array('id, master_option_id, color_id, size_id, stock, status,product_id', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -64,6 +65,7 @@ class OptionDetails extends CActiveRecord {
                     'size_id' => 'Size',
                     'stock' => 'Stock (nos)',
                     'status' => 'Status',
+                    'product_id' => 'Product',
                 );
         }
 
@@ -90,6 +92,7 @@ class OptionDetails extends CActiveRecord {
                 $criteria->compare('size_id', $this->size_id);
                 $criteria->compare('stock', $this->stock);
                 $criteria->compare('status', $this->status);
+                $criteria->compare('product_id', $this->product_id);
 
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
