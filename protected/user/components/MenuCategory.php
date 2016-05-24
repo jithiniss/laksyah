@@ -140,7 +140,7 @@ class MenuCategory extends CApplicationComponent {
                         $vals = $this->selectCategory($cat_details, $parent->id);
                         if (!empty($vals) || $vals != '') {
                                 foreach ($vals as $val) {
-                                        if (!in_array($val, $find_ids)) {
+                                        if (!in_array($val, $ids)) {
                                                 array_push($ids, $val);
                                         }
                                 }
