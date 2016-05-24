@@ -78,10 +78,9 @@ class MenuCategory extends CApplicationComponent {
                         return $dataProvider = new CActiveDataProvider('Products', array(
                             'criteria' => array(
                                 'condition' => '(' . $find_in_set . ') AND (price > ' . $min . ' AND price <' . $max . ')',
-                                'order' => 'RAND()',
                             ),
                             'pagination' => array(
-                                'pageSize' => 2,
+                                'pageSize' => 1,
                             ),
                             'sort' => array(
                             //'defaultOrder' => 'price ASC',

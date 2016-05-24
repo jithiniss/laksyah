@@ -101,7 +101,7 @@
         <div class="row">
             <div class="col-md-12">
                 <br />
-                <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Proceed', array('class' => 'btn btn-success soo')); ?>
+                <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Proceed', array('class' => 'btn btn-success soo', 'name' => 'giftsubmit')); ?>
             </div>
         </div>
 

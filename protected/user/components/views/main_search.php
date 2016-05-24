@@ -1,85 +1,85 @@
 <!--<input type="text" class="textbox-default-searchbox1" placeholder="Search for Deals/Company Name/Keyword/Category/Brand" id="search_box" name="keyword" autocomplete="off">-->
-<div class="search_box">
-        <input type="text" class="form-control" placeholder="Search style number or keyword" name="Keyword" id="search_box" autocomplete="off">
-        <button type="submit" value="search" name="search" class="search" ><i class="fa fa-search"></i></button>
-</div>
+
+<input type="text" class="form-control" placeholder="Search style number or keyword" name="Keyword" id="search_box" autocomplete="off">
+
 <ul class="ul-style" id='result_box' style=""></ul>
 
 <script>
 
         $(document).ready(function () {
+            $(window).keydown(function (event) {
+                if (event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
 
-                $(window).keydown(function (event) {
-                        if (event.keyCode == 13) {
-                                event.preventDefault();
-                                return false;
-                        }
+            });
 
-                });
+            $("#search_box").on('keyup', function (event) {
 
-                $("#search_box").on('keyup', function (event) {
 
-                        var dealers_search = $('#search_box').val();
+                var dealers_search = $('#search_box').val();
 
-                        if (event.which == 17 || event.which == 18 || event.which == 37 || event.which == 39) {
+                if (event.which == 17 || event.which == 18 || event.which == 37 || event.which == 39) {
 
-                        } else if (event.which == 40) {
+                } else if (event.which == 40) {
 
-                                if ($(".li-style").hasClass("activee")) {
-                                        $(".activee + .li-style").addClass("next");
-                                        $(".activee").removeClass("activee");
-                                        $(".next").addClass("activee");
-                                        $(".activee").removeClass("next");
+                    if ($(".li-style").hasClass("activee")) {
+                        $(".activee + .li-style").addClass("next");
+                        $(".activee").removeClass("activee");
+                        $(".next").addClass("activee");
+                        $(".activee").removeClass("next");
 
-                                } else {
-                                        $(".ul-style .li-style").first().addClass("activee");
-                                }
+                    } else {
 
-                        } else if (event.which == 38) {
+                        $(".ul-style .li-style").first().addClass("activee");
+                    }
 
-                                if ($(".li-style").hasClass("activee")) {
+                } else if (event.which == 38) {
 
-                                        $(".activee").prev().addClass("next");
-                                        $(".activee").removeClass("activee");
-                                        $(".next").addClass("activee");
-                                        $(".activee").removeClass("next");
+                    if ($(".li-style").hasClass("activee")) {
 
-                                } else {
+                        $(".activee").prev().addClass("next");
+                        $(".activee").removeClass("activee");
+                        $(".next").addClass("activee");
+                        $(".activee").removeClass("next");
 
-                                        $(".ul-style .li-style").last().addClass("activee");
+                    } else {
 
-                                }
+                        $(".ul-style .li-style").last().addClass("activee");
 
-                        }
+                    }
 
-                        else if (event.which == 13) {
+                }
 
-                                if ($(".li-style").hasClass("activee")) {
-                                        $('#search_box').val($('.activee').text());
-                                        $('#result_box').hide();
-                                }
+                else if (event.which == 13) {
 
-                        } else if (dealers_search != "") {
+                    if ($(".li-style").hasClass("activee")) {
+                        $('#search_box').val($('.activee').text());
+                        $('#result_box').hide();
+                    }
 
-                                $.ajax({
-                                        type: "POST",
-                                        url: baseurl + "Search/Index",
-                                        data: "SearchValue=" + dealers_search,
-                                }).done(function (result) {
+                } else if (dealers_search != "") {
 
-                                        if (result == 'invalid') {
-                                                $('#result_box').hide();
-                                        } else {
-                                                $('#result_box').html(result).show();
-                                        }
+                    $.ajax({
+                        type: "POST",
+                        url: baseurl + "Searching/Index",
+                        data: "SearchValue=" + dealers_search,
+                    }).done(function (result) {
 
-                                });
+                        if (result == 'invalid') {
+                            $('#result_box').hide();
                         } else {
-
-                                $('#result_box').hide();
+                            $('#result_box').html(result).show();
                         }
 
-                });
+                    });
+                } else {
+
+                    $('#result_box').hide();
+                }
+
+            });
 
         });
 

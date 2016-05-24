@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: May 20, 2016 at 01:08 PM
+-- Generation Time: May 21, 2016 at 12:38 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.4.28
 
@@ -156,7 +156,14 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `date` date NOT NULL,
   `gift_option` int(11) NOT NULL,
   `rate` double NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `user_id`, `session_id`, `product_id`, `quantity`, `options`, `date`, `gift_option`, `rate`) VALUES
+(3, 1, NULL, 12, 1, 0, '2016-05-21', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -432,7 +439,7 @@ CREATE TABLE IF NOT EXISTS `gift_card` (
   `doc` date NOT NULL,
   `ub` int(11) NOT NULL,
   `dou` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `gift_card`
@@ -582,15 +589,41 @@ CREATE TABLE IF NOT EXISTS `master_options` (
 `id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `option_type_id` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=41 ;
 
 --
 -- Dumping data for table `master_options`
 --
 
 INSERT INTO `master_options` (`id`, `product_id`, `option_type_id`) VALUES
-(36, 10, 2),
-(35, 11, 3);
+(38, 10, 1),
+(39, 11, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `master_shipping_types`
+--
+
+CREATE TABLE IF NOT EXISTS `master_shipping_types` (
+`id` int(11) NOT NULL,
+  `shipping_type` varchar(100) NOT NULL,
+  `shipping_rate` float NOT NULL,
+  `status` int(11) NOT NULL,
+  `cb` int(11) NOT NULL,
+  `ub` int(11) NOT NULL,
+  `doc` date NOT NULL,
+  `dou` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Dumping data for table `master_shipping_types`
+--
+
+INSERT INTO `master_shipping_types` (`id`, `shipping_type`, `shipping_rate`, `status`, `cb`, `ub`, `doc`, `dou`) VALUES
+(1, 'Type 1', 100, 1, 4, 4, '2016-05-20', '0000-00-00 00:00:00'),
+(2, 'Type 2', 1000, 1, 4, 0, '2016-05-20', '0000-00-00 00:00:00'),
+(3, 'Type 3', 250, 1, 4, 0, '2016-05-20', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -663,6 +696,65 @@ CREATE TABLE IF NOT EXISTS `options` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `option_category`
+--
+
+CREATE TABLE IF NOT EXISTS `option_category` (
+`id` int(11) NOT NULL,
+  `option_type_id` int(11) NOT NULL,
+  `color_name` varchar(50) NOT NULL,
+  `color_code` varchar(50) NOT NULL,
+  `size` varchar(10) NOT NULL,
+  `status` int(11) NOT NULL,
+  `field1` int(11) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+
+--
+-- Dumping data for table `option_category`
+--
+
+INSERT INTO `option_category` (`id`, `option_type_id`, `color_name`, `color_code`, `size`, `status`, `field1`) VALUES
+(1, 1, 'Peach', '#EE6157', '', 0, 0),
+(3, 2, '', '', 'S', 0, 0),
+(4, 1, 'Light Gray', '#d2d2d2', '', 0, 0),
+(5, 2, '', '', 'M', 0, 0),
+(6, 2, '', '', 'L', 0, 0),
+(7, 1, 'RED', '#FF0000', '', 0, 0),
+(8, 1, 'MAROON', '#800000', '', 0, 0),
+(9, 1, 'GREEN', '#008000', '', 0, 0),
+(10, 2, '', '', 'XL', 0, 0),
+(11, 2, '', '', 'XXL', 0, 0),
+(12, 2, '', '', 'XXXL', 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `option_details`
+--
+
+CREATE TABLE IF NOT EXISTS `option_details` (
+`id` int(11) NOT NULL,
+  `master_option_id` int(11) NOT NULL,
+  `color_id` int(11) NOT NULL,
+  `size_id` int(11) NOT NULL,
+  `stock` int(11) NOT NULL,
+  `status` int(11) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=47 ;
+
+--
+-- Dumping data for table `option_details`
+--
+
+INSERT INTO `option_details` (`id`, `master_option_id`, `color_id`, `size_id`, `stock`, `status`) VALUES
+(40, 38, 1, 0, 100, 1),
+(41, 38, 4, 0, 100, 1),
+(42, 39, 0, 3, 10, 1),
+(43, 39, 0, 5, 10, 1),
+(46, 38, 7, 0, 30, 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `option_type`
 --
 
@@ -708,7 +800,7 @@ CREATE TABLE IF NOT EXISTS `order` (
   `admin_status` int(11) NOT NULL,
   `status` int(11) NOT NULL COMMENT '0=notplaced,1=success,2=failed',
   `DOC` date NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=284 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=285 ;
 
 --
 -- Dumping data for table `order`
@@ -719,7 +811,36 @@ INSERT INTO `order` (`id`, `user_id`, `total_amount`, `order_date`, `coupon_id`,
 (280, 1, 2500, '2016-05-11', 0, 0, 0, 0, 0, 0, 0, '', '2', '', 0, 1, 0, 1, '2016-05-11'),
 (281, 1, 1250, '2016-05-11', 0, 0, 0, 0, 0, 0, 0, '', '2', '', 0, 1, 0, 1, '2016-05-11'),
 (282, 1, 2500, '2016-05-17', 0, 0, 0, 0, 0, 0, 0, '', '2', '', 0, 1, 0, 1, '2016-05-17'),
-(283, 1, 2500, '2016-05-17', 0, 0, 0, 0, 0, 0, 0, '', '', '', 0, 0, 0, 0, '2016-05-17');
+(283, 1, 2500, '2016-05-17', 0, 0, 0, 0, 0, 0, 0, '', '', '', 0, 0, 0, 0, '2016-05-17'),
+(284, 1, 1250, '2016-05-21', 0, 0, 0, 0, 0, 0, 0, '', '', '', 0, 0, 0, 0, '2016-05-21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_history`
+--
+
+CREATE TABLE IF NOT EXISTS `order_history` (
+`id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `order_status_comment` varchar(500) NOT NULL,
+  `order_status` int(11) NOT NULL,
+  `shipping_type` int(11) NOT NULL,
+  `tracking_id` varchar(225) NOT NULL,
+  `date` datetime NOT NULL,
+  `status` int(11) NOT NULL,
+  `cb` int(11) NOT NULL,
+  `ub` int(11) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `order_history`
+--
+
+INSERT INTO `order_history` (`id`, `order_id`, `order_status_comment`, `order_status`, `shipping_type`, `tracking_id`, `date`, `status`, `cb`, `ub`) VALUES
+(3, 279, '', 3, 1, 'KJDSHNKFJK76', '2016-05-20 08:22:00', 1, 0, 0),
+(5, 279, 'order placed by customer', 0, 0, '', '2016-05-16 11:00:00', 1, 0, 0),
+(6, 279, 'payment made by customer', 0, 0, '', '2016-05-17 17:34:00', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -738,7 +859,7 @@ CREATE TABLE IF NOT EXISTS `order_products` (
   `status` int(11) NOT NULL,
   `gift_option` int(11) NOT NULL,
   `rate` double NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=317 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=318 ;
 
 --
 -- Dumping data for table `order_products`
@@ -750,7 +871,8 @@ INSERT INTO `order_products` (`id`, `order_id`, `product_id`, `option_id`, `quan
 (313, 280, 11, 0, 1, 2500, '2016-05-11', 0, 0, 0),
 (314, 281, 12, 0, 1, 1250, '2016-05-11', 1, 0, 0),
 (315, 282, 11, 0, 1, 2500, '2016-05-17', 1, 0, 0),
-(316, 283, 11, 0, 1, 2500, '2016-05-17', 0, 0, 0);
+(316, 283, 11, 0, 1, 2500, '2016-05-17', 0, 0, 0),
+(317, 284, 13, 0, 1, 1250, '2016-05-21', 0, 1, 200);
 
 -- --------------------------------------------------------
 
@@ -838,7 +960,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`id`, `category_id`, `product_name`, `product_code`, `main_image`, `gallery_images`, `description`, `canonical_name`, `meta_title`, `meta_description`, `meta_keywords`, `header_visibility`, `sort_order`, `price`, `quantity`, `subtract_stock`, `discount`, `discount_type`, `discount_rate`, `requires_shipping`, `enquiry_sale`, `new_from`, `new_to`, `sale_from`, `sale_to`, `special_price_from`, `special_price_to`, `tax`, `gift_option`, `stock_availability`, `video_link`, `dimensionl`, `dimensionw`, `dimensionh`, `dimension_class`, `weight`, `weight_class`, `status`, `exchange`, `search_tag`, `related_products`, `CB`, `UB`, `DOC`, `DOU`, `deal_day_status`, `deal_day_date`, `hover_image`, `video`) VALUES
-(10, '1,3,', 'salwar 1', 'S1', 'jpeg', '', '<p>\r\n	salwar</p>\r\n', 'women-salwar', '', '', '', 1, 0, 12500, 0, 1, 0, '1', 0, 0, 1, '2016-03-01', '2016-03-04', '2016-04-09', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0, 1, '', 0, 0, 0, 0, 0, 0, 1, 0, '', '', 4, 0, '2016-03-21', '2016-05-19 18:30:00', 1, '2016-05-21', 'jpg', 'mp4'),
+(10, '1,3,', 'salwar 1', 'S1', 'jpg', '', '<p>\r\n	salwar</p>\r\n', 'women-salwar', '', '', '', 1, 0, 12500, 0, 1, 0, '1', 0, 0, 1, '2016-03-01', '2016-03-04', '2016-04-09', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0, 1, '', 0, 0, 0, 0, 0, 0, 1, 0, '', '', 4, 0, '2016-03-21', '2016-05-20 16:25:42', 1, '2016-05-21', 'jpg', 'mp4'),
 (11, '1,3,', 'salwar new', 'p5', 'jpg', '', '<p>\r\n	new salwar suit</p>\r\n', 'women-pink-salwar', '', '', '', 1, 0, 2500, 7, 1, 0, '1', 0, 0, 0, '0000-00-00', '2016-04-18', '2016-04-02', '0000-00-00', '0000-00-00', '0000-00-00', 0, 1, 0, '', 0, 0, 0, 0, 0, 0, 1, 0, '', '', 4, 0, '2016-03-22', '2016-05-19 18:30:00', 1, '2016-04-29', 'jpg', ''),
 (12, '1,2,', 'saree1', 'ddfdfs', 'jpg', '', '<p>\r\n	fgfhgfhfghgh</p>\r\n', 'sareeone', '', '', '', 1, 0, 1250, 20, 1, 0, '1', 0, 0, 1, '2016-03-08', '2016-03-16', '2016-04-13', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0, 1, '', 0, 0, 0, 0, 0, 0, 1, 0, '', '', 4, 0, '2016-03-31', '2016-05-20 09:27:24', 1, '2016-05-20', 'jpg', ''),
 (13, '1,2,', 'saree', 'ddfdfs', 'jpg', '', '<p>\r\n	fgfhgfhfghgh</p>\r\n', 'saree', '', '', '', 1, 0, 1250, 2, 1, 0, '1', 0, 0, 1, '2016-03-08', '2016-03-16', '2016-04-13', '0000-00-00', '0000-00-00', '0000-00-00', 0, 0, 1, '', 0, 0, 0, 0, 0, 0, 1, 0, '', '', 4, 0, '2016-03-31', '2016-05-19 18:30:00', 1, '2016-04-28', 'jpg', '');
@@ -1052,7 +1174,7 @@ CREATE TABLE IF NOT EXISTS `product_viewed` (
   `user_id` int(11) NOT NULL,
   `date` date NOT NULL,
   `feild` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=92 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=100 ;
 
 --
 -- Dumping data for table `product_viewed`
@@ -1061,7 +1183,15 @@ CREATE TABLE IF NOT EXISTS `product_viewed` (
 INSERT INTO `product_viewed` (`id`, `product_id`, `session_id`, `user_id`, `date`, `feild`) VALUES
 (89, 10, '1463723914.635', 0, '2016-05-20', 0),
 (90, 13, '1463723914.635', 0, '2016-05-20', 0),
-(91, 11, '1463723914.635', 0, '2016-05-20', 0);
+(91, 11, '1463723914.635', 0, '2016-05-20', 0),
+(92, 12, '', 1, '2016-05-21', 0),
+(93, 0, '', 1, '2016-05-21', 0),
+(94, 0, '', 1, '2016-05-21', 0),
+(95, 0, '', 1, '2016-05-21', 0),
+(96, 13, '', 1, '2016-05-21', 0),
+(97, 0, '', 1, '2016-05-21', 0),
+(98, 0, '', 1, '2016-05-21', 0),
+(99, 0, '', 1, '2016-05-21', 0);
 
 -- --------------------------------------------------------
 
@@ -1189,7 +1319,7 @@ CREATE TABLE IF NOT EXISTS `temp_user_gifts` (
   `status` int(11) NOT NULL,
   `date` date NOT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=97 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=101 ;
 
 --
 -- Dumping data for table `temp_user_gifts`
@@ -1200,7 +1330,6 @@ INSERT INTO `temp_user_gifts` (`id`, `session_id`, `cart_id`, `from`, `to`, `mes
 (41, '', 196, 'dfg', 'fdgdfgfd', 'ggfdgfdvbvbvvbvbvb', 1, '2016-04-26', 1),
 (42, '1461670649.0994', 197, 'sdfsdfsd', 'sdfsdfdsf', 'sdfsdf', 1, '2016-04-26', 0),
 (43, '1461670649.0994', 198, 'sdfsdfsdf', 'fsdfsdfsdf', 'sdfsdfsdf', 1, '2016-04-26', 0),
-(44, '1461903902.9854', 3, 'Ashik', 'asas', 'asasa', 1, '2016-04-29', 0),
 (45, '', 4, 'vcbcv', 'cvbc', 'vbcvbcv', 1, '2016-04-29', 1),
 (46, '1461991408.1965', 6, 'Ashik', 'ali', 'test', 1, '2016-04-30', 0),
 (48, '', 8, 'fghfghf', 'ghfgh', 'gfhgf', 1, '2016-04-30', 1),
@@ -1239,7 +1368,9 @@ INSERT INTO `temp_user_gifts` (`id`, `session_id`, `cart_id`, `from`, `to`, `mes
 (93, '', 135, 'ertet', 'eter', 'terter', 1, '2016-05-11', 1),
 (94, '', 136, 'fdgdg', 'dgdf', 'gdgdf', 1, '2016-05-11', 1),
 (95, '1462960838.5513', 137, 'rtret', 'te', 'retertert', 1, '2016-05-11', 0),
-(96, '1462960838.5513', 138, 'ertert', 'rtert', 'retretert', 1, '2016-05-11', 0);
+(96, '1462960838.5513', 138, 'ertert', 'rtert', 'retretert', 1, '2016-05-11', 0),
+(98, '', 1, 'rtyr', 'tryrty', 'rtyrtyrty', 1, '2016-05-21', 1),
+(100, '', 3, 'esrtert', 'ertert', 'ertertert', 1, '2016-05-21', 1);
 
 -- --------------------------------------------------------
 
@@ -1297,7 +1428,7 @@ CREATE TABLE IF NOT EXISTS `user_address` (
   `UB` int(11) NOT NULL,
   `DOC` date NOT NULL,
   `DOU` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
 --
 -- Dumping data for table `user_address`
@@ -1311,7 +1442,8 @@ INSERT INTO `user_address` (`id`, `userid`, `first_name`, `last_name`, `company`
 (15, 1, 'siby', 'sam', '', '6756757', 'sdfsf', 'sdfsfs', 'dfsdrfs', '567575', 1, 'dfsdfgsdf', '', '', 1, 0, '2016-04-29', '2016-04-30 09:34:42'),
 (17, 2, 'sdgsdg', 'dsgsdg', '', '4545454545', 'fsdfdsf', 'dfsdg', 'kochi', '454454', 4, 'kerala', '1', '1', 1, 0, '2016-04-12', '2016-04-29 12:22:25'),
 (18, 1, 'Ashik', 'Ali', '', '435345345', 'sdfdsfsdf', 'sdfsdfsdf', 'sdsdfsd', '324324234', 4, 'Kerala', '', '', 1, 0, '2016-05-10', '0000-00-00 00:00:00'),
-(19, 1, 'Ashik', 'Ali', '', '2424234234', 'sdfdsfsdf', 'sdfsdfsdf', 'sdsdfsd', '324324234', 3, 'Kerala', '', '', 1, 0, '2016-05-10', '0000-00-00 00:00:00');
+(19, 1, 'Ashik', 'Ali', '', '2424234234', 'sdfdsfsdf', 'sdfsdfsdf', 'sdsdfsd', '324324234', 3, 'Kerala', '', '', 1, 0, '2016-05-10', '0000-00-00 00:00:00'),
+(20, 1, 'test', 'dfhdfh', '', '436457', 'dfgfdhfdh', 'fghfghfg', 'fghfghf', '5464565', 1, 'fdgdfg', '', '', 1, 0, '2016-05-21', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -1369,7 +1501,7 @@ CREATE TABLE IF NOT EXISTS `user_gifts` (
   `status` int(11) NOT NULL,
   `date` date NOT NULL,
   `order_product_id` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=316 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=317 ;
 
 --
 -- Dumping data for table `user_gifts`
@@ -1624,7 +1756,23 @@ INSERT INTO `user_gifts` (`id`, `user_id`, `order_id`, `from`, `to`, `message`, 
 (312, 1, 280, '', '', '', 1, '2016-05-11', 313),
 (313, 1, 281, '', '', '', 1, '2016-05-11', 314),
 (314, 1, 282, '', '', '', 1, '2016-05-17', 315),
-(315, 1, 283, '', '', '', 1, '2016-05-17', 316);
+(315, 1, 283, '', '', '', 1, '2016-05-17', 316),
+(316, 1, 284, 'erytry', 'rtyrty', 'rtyrtyrty', 1, '2016-05-21', 317);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_giftscard_history`
+--
+
+CREATE TABLE IF NOT EXISTS `user_giftscard_history` (
+`id` int(11) NOT NULL,
+  `giftcard_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `amount` varchar(225) NOT NULL,
+  `unique_code` varchar(225) NOT NULL,
+  `date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1992,6 +2140,12 @@ ALTER TABLE `master_options`
  ADD PRIMARY KEY (`id`), ADD KEY `product_id` (`product_id`,`option_type_id`), ADD KEY `option_type_id` (`option_type_id`);
 
 --
+-- Indexes for table `master_shipping_types`
+--
+ALTER TABLE `master_shipping_types`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `master_size`
 --
 ALTER TABLE `master_size`
@@ -2010,6 +2164,18 @@ ALTER TABLE `options`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `option_category`
+--
+ALTER TABLE `option_category`
+ ADD PRIMARY KEY (`id`), ADD KEY `option_type_id` (`option_type_id`);
+
+--
+-- Indexes for table `option_details`
+--
+ALTER TABLE `option_details`
+ ADD PRIMARY KEY (`id`), ADD KEY `master_option_id` (`master_option_id`,`color_id`,`size_id`), ADD KEY `color_id` (`color_id`), ADD KEY `size_id` (`size_id`);
+
+--
 -- Indexes for table `option_type`
 --
 ALTER TABLE `option_type`
@@ -2020,6 +2186,12 @@ ALTER TABLE `option_type`
 --
 ALTER TABLE `order`
  ADD PRIMARY KEY (`id`), ADD KEY `user_id` (`user_id`), ADD KEY `address_book_id` (`ship_address_id`), ADD KEY `admin_status` (`admin_status`);
+
+--
+-- Indexes for table `order_history`
+--
+ALTER TABLE `order_history`
+ ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `order_products`
@@ -2142,6 +2314,12 @@ ALTER TABLE `user_gifts`
  ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `user_giftscard_history`
+--
+ALTER TABLE `user_giftscard_history`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `user_notify`
 --
 ALTER TABLE `user_notify`
@@ -2211,7 +2389,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `contact_us`
 --
@@ -2266,7 +2444,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 -- AUTO_INCREMENT for table `gift_card`
 --
 ALTER TABLE `gift_card`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `home_category`
 --
@@ -2301,7 +2479,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `master_options`
 --
 ALTER TABLE `master_options`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
+--
+-- AUTO_INCREMENT for table `master_shipping_types`
+--
+ALTER TABLE `master_shipping_types`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `master_size`
 --
@@ -2318,6 +2501,16 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 ALTER TABLE `options`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `option_category`
+--
+ALTER TABLE `option_category`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT for table `option_details`
+--
+ALTER TABLE `option_details`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
+--
 -- AUTO_INCREMENT for table `option_type`
 --
 ALTER TABLE `option_type`
@@ -2326,12 +2519,17 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=284;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=285;
+--
+-- AUTO_INCREMENT for table `order_history`
+--
+ALTER TABLE `order_history`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `order_products`
 --
 ALTER TABLE `order_products`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=317;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=318;
 --
 -- AUTO_INCREMENT for table `order_status`
 --
@@ -2376,7 +2574,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `product_viewed`
 --
 ALTER TABLE `product_viewed`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=92;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=100;
 --
 -- AUTO_INCREMENT for table `shipping_charges`
 --
@@ -2406,7 +2604,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `temp_user_gifts`
 --
 ALTER TABLE `temp_user_gifts`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=97;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=101;
 --
 -- AUTO_INCREMENT for table `testimonial`
 --
@@ -2416,7 +2614,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 -- AUTO_INCREMENT for table `user_address`
 --
 ALTER TABLE `user_address`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT for table `user_details`
 --
@@ -2426,7 +2624,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 -- AUTO_INCREMENT for table `user_gifts`
 --
 ALTER TABLE `user_gifts`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=316;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=317;
+--
+-- AUTO_INCREMENT for table `user_giftscard_history`
+--
+ALTER TABLE `user_giftscard_history`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `user_notify`
 --
