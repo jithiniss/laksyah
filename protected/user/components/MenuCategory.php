@@ -29,8 +29,6 @@ class MenuCategory extends CApplicationComponent {
                                         $find_in_set .= "FIND_IN_SET('$find_id',`category_id`) OR ";
                                 }
                         }
-                } else {
-                        $find_in_set = '';
                 }
 //                var_dump($find_in_set);
 //                exit;
@@ -112,41 +110,39 @@ class MenuCategory extends CApplicationComponent {
 
         public function ids($cats, $parent, $categ) {
                 $ids = array();
-                if (!empty($cats)) {
-                        foreach ($cats as $cat) {
+                foreach ($cats as $cat) {
 
-                                /* 3rd level of subcategory */
-                                $subcats = ProductCategory::model()->findAllByattributes(array('parent' => $parent->id));
+                        /* 3rd level of subcategory */
+                        $subcats = ProductCategory::model()->findAllByattributes(array('parent' => $parent->id));
 
-                                if (!empty($subcats) || $subcats != '') {
+                        if (!empty($subcats) || $subcats != '') {
 
-                                        foreach ($subcats as $subcat) {
-                                                $_SESSION['category']['0'] = '';
-                                                $vals = $this->selectCategory($subcat, $parent->id);
-                                                if (!empty($vals) || $vals != '') {
-                                                        foreach ($vals as $val) {
-                                                                if (!in_array($val, $ids)) {
-                                                                        array_push($ids, $val);
-                                                                }
+                                foreach ($subcats as $subcat) {
+                                        $_SESSION['category']['0'] = '';
+                                        $vals = $this->selectCategory($subcat, $parent->id);
+                                        if (!empty($vals) || $vals != '') {
+                                                foreach ($vals as $val) {
+                                                        if (!in_array($val, $ids)) {
+                                                                array_push($ids, $val);
                                                         }
                                                 }
+                                        }
 
-                                                $find_ids = $ids;
-                                        }
+                                        $find_ids = $ids;
                                 }
                         }
-                } else {
-                        $cat_details = ProductCategory::model()->findByPk($parent->id);
-                        $vals = $this->selectCategory($cat_details, $parent->id);
-                        if (!empty($vals) || $vals != '') {
-                                foreach ($vals as $val) {
-                                        if (!in_array($val, $ids)) {
-                                                array_push($ids, $val);
-                                        }
-                                }
-                        }
-                        return $ids;
                 }
+
+                $cat_details = ProductCategory::model()->findByPk($parent->id);
+                $vals = $this->selectCategory($cat_details, $parent->id);
+                if (!empty($vals) || $vals != '') {
+                        foreach ($vals as $val) {
+                                if (!in_array($val, $ids)) {
+                                        array_push($ids, $val);
+                                }
+                        }
+                }
+                return $ids;
         }
 
         public function sorting($categ) {
