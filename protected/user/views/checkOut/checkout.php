@@ -277,17 +277,9 @@
                                                         ?>
                                                         <?php $producttotal = $prod_details->price * $cart->quantity; ?>
                                                         <div class="cart_product_detail">
-                                                                <?php
-                                                                if ($cart->options != 0) {
-                                                                        $option = Options::model()->findByPk($cart->options)
-                                                                        ?>
-                                                                        <img class="img-responsive crt" src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/options/<?= $option->id; ?>/small.<?php echo $option->image; ?>" />
-                                                                        <?php
-                                                                } else {
-                                                                        ?>
-                                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/small.<?php echo $prod_details->main_image; ?>" class="img-responsive crt">
-                                                                <?php }
-                                                                ?>
+
+                                                                <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/small.<?php echo $prod_details->main_image; ?>" class="img-responsive crt">
+
 
                                                                 <h3><?php echo $prod_details->product_name; ?><span class="pull-right"><strong><?php
                                                                                         if (isset(Yii::app()->session['currency'])) {
