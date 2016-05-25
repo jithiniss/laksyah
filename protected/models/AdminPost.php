@@ -6,16 +6,18 @@
  * The followings are the available columns in table 'admin_post':
  * @property integer $id
  * @property string $post_name
- * @property string $static_pages
+ * @property string $admin
  * @property string $products
- * @property string $enquiry
- * @property string $CB
- * @property string $UB
+ * @property integer $orders
+ * @property integer $coupons
+ * @property integer $cms
+ * @property integer $masters
+ * @property integer $user_details
+ * @property integer $reports
+ * @property integer $CB
+ * @property integer $UB
  * @property string $DOC
  * @property string $DOU
- *
- * The followings are the available model relations:
- * @property AdminUser[] $adminUsers
  */
 class AdminPost extends CActiveRecord {
 
@@ -24,7 +26,6 @@ class AdminPost extends CActiveRecord {
          */
         public function tableName() {
                 return 'admin_post';
-
         }
 
         /**
@@ -34,14 +35,13 @@ class AdminPost extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
-                    // array('post_name, static_pages, products, CB, UB, DOC, DOU', 'required'),
-                    array('post_name, static_pages, products, CB, UB', 'length', 'max' => 100),
+                    array('post_name, admin, products, orders, coupons, cms, masters, user_details, reports,status,', 'required'),
+                    array('orders, coupons, cms, masters, user_details, reports, CB, UB', 'numerical', 'integerOnly' => true),
+                    array('post_name, admin, products', 'length', 'max' => 100),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, post_name, static_pages, products,enquiry,CB, UB, DOC, DOU', 'safe', 'on' => 'search'),
-                    array('post_name', 'required', 'on' => 'post_create')
+                    array('id, post_name, admin, products, orders, coupons, cms, masters, user_details, reports,status, CB, UB, DOC, DOU', 'safe', 'on' => 'search'),
                 );
-
         }
 
         /**
@@ -53,7 +53,6 @@ class AdminPost extends CActiveRecord {
                 return array(
                     'adminUsers' => array(self::HAS_MANY, 'AdminUser', 'admin_post_id'),
                 );
-
         }
 
         /**
@@ -63,15 +62,20 @@ class AdminPost extends CActiveRecord {
                 return array(
                     'id' => 'ID',
                     'post_name' => 'Post Name',
-                    'static_pages' => 'Static Pages',
+                    'admin' => 'Admin',
                     'products' => 'Products',
-                    'enquiry' => 'Enquiry',
+                    'orders' => 'Orders',
+                    'coupons' => 'Coupons',
+                    'cms' => 'Cms',
+                    'masters' => 'Masters',
+                    'user_details' => 'User Details',
+                    'reports' => 'Reports',
+                    'status' => 'Status',
                     'CB' => 'Cb',
                     'UB' => 'Ub',
                     'DOC' => 'Doc',
                     'DOU' => 'Dou',
                 );
-
         }
 
         /**
@@ -93,18 +97,23 @@ class AdminPost extends CActiveRecord {
 
                 $criteria->compare('id', $this->id);
                 $criteria->compare('post_name', $this->post_name, true);
-                $criteria->compare('static_pages', $this->static_pages, true);
+                $criteria->compare('admin', $this->admin);
                 $criteria->compare('products', $this->products, true);
-                $criteria->compare('enquiry', $this->enquiry);
-                $criteria->compare('CB', $this->CB, true);
-                $criteria->compare('UB', $this->UB, true);
+                $criteria->compare('orders', $this->orders);
+                $criteria->compare('coupons', $this->coupons);
+                $criteria->compare('cms', $this->cms);
+                $criteria->compare('masters', $this->masters);
+                $criteria->compare('user_details', $this->user_details);
+                $criteria->compare('reports', $this->reports);
+                $criteria->compare('status', $this->status);
+                $criteria->compare('CB', $this->CB);
+                $criteria->compare('UB', $this->UB);
                 $criteria->compare('DOC', $this->DOC, true);
                 $criteria->compare('DOU', $this->DOU, true);
 
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
                 ));
-
         }
 
         /**
@@ -115,7 +124,8 @@ class AdminPost extends CActiveRecord {
          */
         public static function model($className = __CLASS__) {
                 return parent::model($className);
-
         }
 
 }
+
+?>

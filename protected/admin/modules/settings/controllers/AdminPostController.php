@@ -8,13 +8,6 @@ class AdminPostController extends Controller {
          */
         public $layout = '//layouts/column2';
 
-        public function init() {
-
-                if (!isset(Yii::app()->session['post']['admin']) || Yii::app()->session['post']['admin'] != 1) {
-                        $this->redirect(Yii::app()->request->baseUrl . '/admin.php/site/logOut');
-                }
-        }
-
         /**
          * @return array action filters
          */
@@ -33,7 +26,7 @@ class AdminPostController extends Controller {
         public function accessRules() {
                 return array(
                     array('allow', // allow all users to perform 'index' and 'view' actions
-                        'actions' => array('index', 'view', 'admin', 'delete', 'create', 'update'),
+                        'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete'),
                         'users' => array('*'),
                     ),
                     array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -65,19 +58,22 @@ class AdminPostController extends Controller {
          * If creation is successful, the browser will be redirected to the 'view' page.
          */
         public function actionCreate() {
-                $model = new AdminPost('post_create');
+                $model = new AdminPost;
 
-                // Uncomment the following line if AJAX validation is needed
-                // $this->performAjaxValidation($model);
+// Uncomment the following line if AJAX validation is needed
+// $this->performAjaxValidation($model);
 
                 if (isset($_POST['AdminPost'])) {
                         $model->attributes = $_POST['AdminPost'];
                         $model->CB = Yii::app()->session['admin']['id'];
                         $model->DOC = date('Y-m-d');
-                        if ($model->save())
-                                $this->redirect(array('admin', 'id' => $model->id));
-                }
 
+                        if ($model->validate()) {
+                                if ($model->save()) {
+                                        $this->redirect(array('admin', 'id' => $model->id));
+                                }
+                        }
+                }
                 $this->render('create', array(
                     'model' => $model,
                 ));
@@ -90,20 +86,20 @@ class AdminPostController extends Controller {
          */
         public function actionUpdate($id) {
                 $model = $this->loadModel($id);
-                $model->scenario = 'post_create';
-                $enq = $model->enquiry;
 
-                // Uncomment the following line if AJAX validation is needed
-                // $this->performAjaxValidation($model);
+// Uncomment the following line if AJAX validation is needed
+// $this->performAjaxValidation($model);
 
                 if (isset($_POST['AdminPost'])) {
                         $model->attributes = $_POST['AdminPost'];
                         $model->UB = Yii::app()->session['admin']['id'];
-                        $model->enquiry = $_POST['AdminPost']['enquiry'];
-                        if ($model->save())
-                                $this->redirect(array('admin', 'id' => $model->id));
+                        $model->DOU = date('Y-m-d');
+                        if ($model->validate()) {
+                                if ($model->save()) {
+                                        $this->redirect(array('admin', 'id' => $model->id));
+                                }
+                        }
                 }
-
                 $this->render('update', array(
                     'model' => $model,
                 ));
@@ -117,7 +113,7 @@ class AdminPostController extends Controller {
         public function actionDelete($id) {
                 $this->loadModel($id)->delete();
 
-                // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
                 if (!isset($_GET['ajax']))
                         $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
@@ -172,3 +168,5 @@ class AdminPostController extends Controller {
         }
 
 }
+
+?>
