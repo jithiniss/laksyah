@@ -17,7 +17,7 @@
             </div>
         </div>
         <!-- / Sidebar-->
-        <div class="col-sm-9 user_content"> <a class="account_link pull-right" href="#">Credit History</a>
+        <div class="col-sm-9 user_content"> <a class="account_link pull-right" href="<?php echo Yii::app()->baseUrl; ?>/index.php/CreditHistory">Credit History</a>
             <h1>Add Credit Money</h1>
             <!--<div class="alert alert-success alert-dismissible" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -76,7 +76,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-3">
-                        <label>Message*</label>
+                        <label>Message</label>
                     </div>
                     <div class="col-sm-6">
                         <?php echo $form->textArea($wallet_add, 'field1', array('class' => 'form-control')); ?>

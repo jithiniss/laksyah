@@ -35,16 +35,16 @@ return array(
     // application components
     'components' => array(
         'clientScript' => array(
-             'scriptMap' => array(
-            'jquery.js'     => false,
-            'jquery.min.js' => false,
-        ),
-            /*'packages' => array(
-                'jquery' => array(
-                    'baseUrl' => '//ajax.googleapis.com/ajax/libs/jquery/1.11.3/',
-                    'js' => array('jquery.min.js'),
-                )
-            ),*/
+            'scriptMap' => array(
+                'jquery.js' => false,
+                'jquery.min.js' => false,
+            ),
+        /* 'packages' => array(
+          'jquery' => array(
+          'baseUrl' => '//ajax.googleapis.com/ajax/libs/jquery/1.11.3/',
+          'js' => array('jquery.min.js'),
+          )
+          ), */
         // other clientScript config
         ),
         'widgetFactory' => array(
@@ -76,6 +76,8 @@ return array(
         'urlManager' => array(
             'urlFormat' => 'path',
             'rules' => array(
+                'CreditHistory' => 'MyWallet/CreditHistory',
+                'AddCredit' => 'MyWallet/index',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

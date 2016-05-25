@@ -58,7 +58,7 @@ class MyWalletController extends Controller {
                         $wallet_history->field2 = 1; //success
                         if($wallet_history->save()) {
                                 if($user_wallet->save()) {
-                                        Yii::app()->session['user']['wallet_amt'] = $user_wallet->wallet_amt;
+                                        Yii::app()->session['user'] = $user_wallet;
                                         Yii::app()->user->setFlash('wallet_success', "Money Added Successfully");
                                         $this->redirect(array('Index'));
                                 } else {
@@ -92,6 +92,11 @@ class MyWalletController extends Controller {
                 } else {
                         die('114:Error Occured');
                 }
+        }
+
+        public function actionCreditHistory() {
+                $history = WalletHistory::model()->findAllByAttributes(['user_id' => Yii::app()->session['user']['id']], ['order' => 'entry_date desc']);
+                $this->render('wallet_history', array('history' => $history));
         }
 
 }

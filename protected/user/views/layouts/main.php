@@ -61,7 +61,7 @@
                                 <li><a href="#"><i class="fa fa-mobile-phone"></i> MOBILE APP</a></li>
 
                                 <li class="has_dropdown"><a href="#" class="active_currency">
-                                        <?php if (isset(Yii::app()->session['currency'])) { ?>
+                                        <?php if(isset(Yii::app()->session['currency'])) { ?>
                                                 <i class="fa currency_symbol"><img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/currency/<?php echo Yii::app()->session['currency']['id']; ?>.<?php echo Yii::app()->session['currency']['image']; ?>" width="16" height="11" alt=""/></i> <?php echo Yii::app()->session['currency']['currency_code']; ?>
                                         <?php } else { ?>
                                                 <i class="fa currency_symbol"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/india-home.jpg" width="16" height="11" alt=""/></i> INR
@@ -72,7 +72,7 @@
                                             <?php
                                             $currencies = Currency::model()->findAll();
 
-                                            foreach ($currencies as $currency) {
+                                            foreach($currencies as $currency) {
                                                     ?>
                                                     <li><a href="<?php echo Yii::app()->baseUrl; ?>/index.php/site/CurrencyChange/id/<?= $currency->id; ?>" class="currency" code="<?= $currency->id; ?>"><i class="fa currency_symbol"><img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/currency/<?= $currency->id; ?>.<?= $currency->image; ?>" width="16" height="11" alt=""/></i><?= $currency->currency_code; ?></a></li>
                                             <?php } ?>
@@ -103,10 +103,10 @@
                             </form>
 
                         </div>
-                        <div class="col-sm-2 logo_col col-xs-4"><a href="<?php echo yii::app()->baseUrl; ?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" width="218" height="103" alt=""/></a></div>
+                        <div class="col-sm-2 logo_col col-xs-4"><a href="<?php echo Yii::app()->baseUrl; ?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" width="218" height="103" alt=""/></a></div>
                         <div class="col-sm-5 col-xs-8">
                             <?php
-                            if (isset(Yii::app()->session['user']['id'])) {
+                            if(isset(Yii::app()->session['user']['id'])) {
                                     $cart_items = Cart::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
                                     $counts = count($cart_items);
                             } else {
@@ -116,16 +116,17 @@
                             ?>
                             <ul class="user_nav">
 
-                                <?php if (isset(Yii::app()->session['user'])) { ?>
+                                <?php if(isset(Yii::app()->session['user'])) { ?>
 
-                                        <li class="my_credit">
-                                            <div class="wallet_icon"></div>
-                                            <div class="wallet_item">
-                                                <h6>My Credit</h6>
-                                                <h5><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></h5>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </li>
+                                        <a href="<?php echo Yii::app()->baseUrl; ?>/index.php/CreditHistory" style="color: #414042;">  <li class="my_credit">
+                                                <div class="wallet_icon"></div>
+                                                <div class="wallet_item">
+                                                    <h6>My Credit</h6>
+                                                    <h5><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></h5>
+
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </li> </a>
                                         <li class="my_account has_dropdown"><span class="account_icon"><i class="fa fa-user"></i></span><span class="account_title">My Account</span> <i class="fa fa-angle-down"></i>
                                             <div class="laksyah_dropdown">
                                                 <ul class="drop_menu">
@@ -388,7 +389,7 @@
                 getcartcount();
                 getcarttotal();
                 $(".cart_box").html(data);
-<?php if (Yii::app()->controller->action->id == 'Mycart') { ?>
+<?php if(Yii::app()->controller->action->id == 'Mycart') { ?>
                         location.reload();
 <?php } ?>
                 hideLoader();
