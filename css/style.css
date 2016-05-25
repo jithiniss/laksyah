@@ -613,6 +613,9 @@ a.google-map-tag {
 	text-align: left;
 	color:#414042;	
 }
+.has_dropdown .drop_menu li a{
+		color:#414042;
+	}
 .drop_menu li:last-child {
 	border: none;
 	padding: 0px;
@@ -1029,6 +1032,13 @@ Pagination
 		font-size:13px;
 		color:#7f7f7f;
 		text-decoration:underline;
+		font-weight:normal;
+	}
+.cart_action.action_link a{
+		display:inline-block;
+	}
+.cart_action a:hover{
+		color:#404241;
 	}
 .cart_row.with_gift{
 		border-bottom-style:dotted;
@@ -2464,7 +2474,180 @@ Gift Cards
 		transition:none;
 		transform:none!important;
 	}
-	
+/*
+-------------------------
+CMS Pages
+-------------------------
+*/
+.user_content article img{
+		display:block;
+		margin-bottom:30px;
+	}
+.user_content article p{
+		line-height:22px;
+		margin:0px;
+		margin-bottom:10px;
+	}
+.user_content article h3{
+		font-size:18px;
+		font-weight:bold;
+	}
+.user_content article h2{
+		font-size:22px;
+		font-weight:bold;
+	}
+.user_content article h4{
+		font-size:16px;
+		font-weight:bold;
+	}
+.user_content article em{
+		font-family:Merriweather, serif;
+		font-size:13px;
+	}
+.user_content article ul li{
+		line-height:21px;
+	}
+.registration_form textarea.form-control{
+		height:80px;
+	}
+.margin-bottom-none{
+		margin-bottom:0px !important;
+	}
+.registration_form.contact_us{
+		background-color:#f7f4f1;
+		padding:20px;
+	}
+.registration_form.contact_us .form-control{
+		height:41px;
+	}
+.contact_us_details{
+		padding:20px 0px;
+		border-bottom:solid 1px #d5d5d7;
+		margin-bottom:28px;
+	}
+.contact_us_details h4{
+		margin-bottom:0px;
+	}
+.margin-bottom{
+		margin-bottom:15px;
+	}
+.panel-default>.panel-heading{
+		background:none;
+		border-radius:0;
+		font-weight:bold;
+	}
+.panel-default{
+	border-radius:0;
+	}
+/*
+--------------------------
+Blog 
+--------------------------
+*/
+.blog_lists .blog_item{
+		border:solid 1px #cdcdcd;
+		margin-bottom:30px;
+		padding:20px;
+	}
+.blog_lists .blog_item h2{
+		font-size:18px;
+		font-family:Merriweather, serif;
+		font-weight:bold;
+		margin:0px;
+		font-style:italic;
+		margin-bottom:10px;
+	}
+.blog_lists .blog_item h2 a{
+		color:#404241;
+		text-decoration:none;
+	}
+p.meta{
+		color:#7f7f7f;
+		font-size:12px;
+		text-align:left;
+	}
+.blog_lists .blog_item img{
+		float:left;
+		margin-right:15px;
+	}
+.blog_lists .blog_item p{
+		text-align:justify;
+	}
+.blog_lists .blog_item p a {
+		color:#f47721;
+	}
+.pages .pagination{
+		float:none;
+	}
+.pages{
+		text-align:center;
+	}
+.blog_single article{
+		width:878px;
+		margin:auto;
+		max-width:100%;
+	}
+.blog_titles  h1{
+		font-size:18px;
+		font-family:Merriweather, serif;
+		font-weight:bold;
+		margin:0px;
+		font-style:italic;
+		margin-bottom:5px;
+		border:none;
+		padding:0px;
+	}
+.blog_titles p{
+		margin:0px !important;
+		padding:0px;
+	}
+.blog_titles p.author{
+		margin:0px;
+		padding:0px;
+		color:#d2730e;
+		font-weight:bold;
+		padding-bottom:25px;
+	}
+.article_footer a{
+		font-family:"Open Sans", sans-serif;
+	}
+.article_footer{
+		margin-top:28px;
+		border-top:solid 1px #c0c0c0;
+		padding-top:15px;
+	}
+.header_special_row h4 a{
+				color:#414042;
+				text-decoration:none;
+			}
+.empty_image{
+		border-right:solid 1px #c0c0c0;
+		padding-right:10% !important;
+	}
+.empty_message{
+		padding-left:10% !important;
+	}
+.empty_message h2{
+		margin:0px;
+		padding:0px;
+		font-size:30px;
+		color:#d2730e;
+		font-weight:bold;
+		margin-bottom:5px;
+	}
+.empty_message h3{
+		margin:0px;
+		padding:0px;
+		font-size:13px;
+		font-family:"Open Sans", sans-serif;
+		font-weight:bold;
+		margin-bottom:10px;
+		line-height:22px;
+	}
+.empty_message h2.fournotfour{
+		font-size:50px;
+	}
+
 /*------------------------
 Media Queries
 ------------------------*/
@@ -2572,6 +2755,11 @@ Media Queries
 	.laksyah_dropdown{
 			right:0;
 		}
+	.blog_lists .blog_item img{
+			width:100%;
+			height:auto;
+			margin-bottom:20px;
+		}
 }
 @media (min-width: 768px){
 	.container {
@@ -2580,7 +2768,12 @@ Media Queries
 	
 }
 @media (max-width: 768px){
-	.logo_col img {
+	
+	.blog_lists .blog_item img{
+			width:auto;
+			height:auto;
+		}
+		.logo_col img {
 		max-width:120px;
 	}
 	.logo_col{
@@ -2688,6 +2881,10 @@ Media Queries
 	.header_special_row h4{
 				font-size:11px;
 				text-align:center;
+			}
+	.header_special_row h4 a{
+				color:#414042;
+				text-decoration:none;
 			}
 	.header_special_row h4 i{
 			display:block;
@@ -2880,9 +3077,4 @@ Media Queries
 			bottom:0px;
 		}
 	
-}
-/*..................................................................*/
-.main_container .border_box .giftcard{
-          margin-top: 54px;
-  
 }
