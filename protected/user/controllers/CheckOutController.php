@@ -596,6 +596,9 @@ class CheckOutController extends Controller {
         public function actionOrderSuccess() {
                 $order = Order::model()->findByPk(yii::app()->session['orderid']);
                 unset(yii::app()->session['orderid']);
+                $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+                Yii::app()->session['user'] = $user;
+                unset(yii::app()->session['orderid']);
                 $this->render('order_success');
         }
 
