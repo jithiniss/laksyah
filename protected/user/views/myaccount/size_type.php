@@ -144,7 +144,7 @@
                                                         <div class="price_group radio_buttons">
                                                                 <?php $model->unit = 2; ?>
                                                                 <p class="pull-left padd-right-25">Measurement Unit :</p>
-                                                                <label class="radio_group active">
+                                                                <label class="radio_group ">
                                                                         <?php echo $form->radioButton($model, 'unit', array('value' => 1, 'uncheckValue' => null, 'hidden' => 'true')); ?>
                                                                 </label>
                                                                 <span class="radio_label pull-left"><strong>Inches</strong></span>
