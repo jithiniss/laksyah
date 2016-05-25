@@ -61,7 +61,7 @@
                         </div>
                         <div class="sort">
 
-                            <form  id="form_id" name="submit"  method="get">
+                            <form  id="form_id" name="submit"  method="POST" action="<?= Yii::app()->baseUrl; ?>/index.php/products/category/name/<?= $category_name ?>">
                                 Sort by
                                 <select name="category" onchange="products();">
                                     <option value="">Type</option>

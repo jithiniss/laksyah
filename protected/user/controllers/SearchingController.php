@@ -62,31 +62,52 @@ class SearchingController extends Controller {
                         $data[3] = $cat;
                         // $data[4] = $size_type;
 
-                        if ($cat != '' && $min != '' && $max != '' && $size_type) {
-                                $categry = ProductCategory::model()->findByPk($cat);
-                                if (!empty($categry)) {
-                                        Yii::app()->session['temp_product_filter'] = $data;
-                                }
+                        if ($cat != '' && $min != '' && $max != '') {
+                                Yii::app()->session['temp_product_filter'] = $data;
                         }
                         if ($size_type != '') {
                                 $sizes = OptionCategory::model()->findByAttributes(array('option_type_id' => 2, 'id' => $size_type));
                                 if (!empty($sizes)) {
                                         $data[4] = $size_type;
                                         Yii::app()->session['temp_product_filter'][4] = $size_type;
+                                        Yii::app()->session['temp_product_filter_check'] = 1;
                                 } else {
                                         $size_type = '';
                                 }
                         }
                         if ($cat != '' && $min != '' && $max != '') {
-                                $condition = 'search_tag == ' . $cat . ' OR product_name =' . $cat;
-                                $cats = Products::model()->findAllByattributes(array(), array('condition' => $condition));
-                                var_dump($cats);
-                                exit;
-                                $dataProvider = Yii::app()->Menu->MenuCategories($cats, $parent, $categ = '', $min, $max, $size_type);
+                                $condition = "product_name LIKE '%" . $cat . "%'"
+                                        . " OR search_tag LIKE '%" . $cat . "%' ";
+                                $products = Products::model()->findAllByAttributes(array(), array('condition' => $condition));
+                                // $ids = array();
+                                $b = 1;
+                                foreach ($products as $prods) {
+                                        if ($b == 1) {
+                                                $prod_ids .= $prods->id;
+                                        } else {
+                                                $prod_ids .= ',' . $prods->id;
+                                        }
+                                        $b++;
+                                }
+
+                                $dataProvider = Yii::app()->Menu->filterMenuProducts($prod_ids, $min, $max, $size_type);
+                                //   var_dump($dataProvider);
+                                //   exit;
                         } else {
-                                $parent = ProductCategory::model()->findByPk(Yii::app()->session['temp_product_filter'][3]);
-                                $cats = ProductCategory::model()->findAllByattributes(array('parent' => $parent->id), array('condition' => "id != $parent->id"));
-                                $dataProvider = Yii::app()->Menu->MenuCategories($cats, $parent, $categ = '', Yii::app()->session['temp_product_filter'][0], Yii::app()->session['temp_product_filter'][1], Yii::app()->session['temp_product_filter'][4]);
+                                $condition = "product_name LIKE '%" . Yii::app()->session['temp_product_filter'][3] . "%'"
+                                        . " OR search_tag LIKE '%" . Yii::app()->session['temp_product_filter'][3] . "%' ";
+                                $products = Products::model()->findAllByAttributes(array(), array('condition' => $condition));
+                                // $ids = array();
+                                $b = 1;
+                                foreach ($products as $prods) {
+                                        if ($b == 1) {
+                                                $prod_ids .= $prods->id;
+                                        } else {
+                                                $prod_ids .= ',' . $prods->id;
+                                        }
+                                        $b++;
+                                }
+                                $dataProvider = Yii::app()->Menu->filterMenuProducts($prod_ids, Yii::app()->session['temp_product_filter'][0], Yii::app()->session['temp_product_filter'][1], Yii::app()->session['temp_product_filter'][4]);
                         }
 
                         //$this->renderPartial('_view1', array('dataProvider' => $dataProvider));

@@ -39,6 +39,9 @@ class MenuCategory extends CApplicationComponent {
                 } elseif (!empty($find_in_set) && !empty($min) && !empty($max)) {
                         $condition = '(' . $find_in_set . ') AND (price > ' . $min . ' AND price <' . $max . ')';
                         $order = '';
+                } elseif (!empty($find_in_set) && !empty($categ)) {
+                        $condition = $find_in_set;
+                        $order = '';
                 } elseif (!empty($find_in_set)) {
                         $condition = $find_in_set;
                         $order = 'RAND()';
@@ -56,7 +59,42 @@ class MenuCategory extends CApplicationComponent {
                                 'pageSize' => 20,
                             ),
                             'sort' => array(
-                            //'defaultOrder' => 'price ASC',
+                                'defaultOrder' => $srt,
+                            // 'defaultOrder' => 'product_name RAND() ',
+                            )
+                                )
+                        );
+//                        var_dump($dataProvider);
+//                        exit;
+                } else {
+
+                        return $dataProvider = '';
+                }
+        }
+
+        public function filterMenuProducts($products, $min, $max, $size_type) {
+
+                if (!empty($products) && !empty($min) && !empty($max) && !empty($size_type)) {
+
+                        $condition .= '(id  IN (SELECT product_id FROM option_details WHERE size_id = ' . $size_type . ')) AND (id  IN (' . $products . ')) AND (price > ' . $min . ' AND price <' . $max . ')';
+                        $order = '';
+                } elseif (!empty($products) && !empty($min) && !empty($max)) {
+                        $condition .= '(id  IN (' . $products . ')) AND  (price > ' . $min . ' AND price <' . $max . ')';
+                        $order = '';
+                }
+
+                if ($products != '') {
+
+                        return $dataProvider = new CActiveDataProvider('Products', array(
+                            'criteria' => array(
+                                'condition' => $condition,
+                                'order' => $order,
+                            ),
+                            'pagination' => array(
+                                'pageSize' => 1,
+                            ),
+                            'sort' => array(
+                                'defaultOrder' => $srt,
                             // 'defaultOrder' => 'product_name RAND() ',
                             )
                                 )

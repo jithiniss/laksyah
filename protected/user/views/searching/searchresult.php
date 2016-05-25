@@ -183,18 +183,20 @@
             var categ_id = $("#cat_name").val();
             size = $('#selected_size').val();
 
-            var value = <?php echo Yii::app()->session['temp_product_filter']; ?>
+            //var value = <?php echo Yii::app()->session['temp_product_filter_check'] ?>;
+            // alert(value);
             $.ajax({
                 url: baseurl + 'Searching/PriceRange',
                 type: "POST",
                 //data: form.serialize()
                 data: {min: min_amount, max: max_amount, cat: categ_id, size: size}
             }).done(function (data) {
-                if (value == 1) {
-                    $("#content").html(data);
-                } else {
-                    $(".product_list").html(data);
-                }
+                $(".product_list").html(data);
+//                if (value == 1) {
+//                    $("#content").html(data);
+//                } else {
+//                    $(".product_list").html(data);
+//                }
 
                 hideLoader();
             });
