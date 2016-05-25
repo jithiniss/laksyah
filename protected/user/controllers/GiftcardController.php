@@ -15,8 +15,6 @@ class GiftcardController extends Controller {
                         if (isset($_POST['giftsubmit'])) {
                                 if ($_REQUEST['bill_address'] == 0) {
                                         if (isset($_POST['UserAddress']['bill'])) {
-                                                echo Yii::app()->session['gift_card_detail'];
-                                                exit;
                                                 $billing_address = $this->addAddress($billing, $_POST['UserAddress']['bill']);
                                                 $bill_address_id = $billing_address;
                                                 $this->AddCard($bill_address_id);
