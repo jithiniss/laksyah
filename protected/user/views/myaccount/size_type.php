@@ -203,7 +203,7 @@
 
                                                                                 <tr>
                                                                                         <td class="col_slno">6</td>
-                                                                                        <td class="col_measure">Shoulder to Breastpoint:</td>
+                                                                                        <td class="col_measure">Shoulder to Bustpoint:</td>
                                                                                         <td class="col_value"> <?php echo $form->textField($model, 'shoulder_to_breastpoint', array('class' => 'form-control')); ?>
                                                                                                 <?php echo $form->error($model, 'shoulder_to_breastpoint'); ?></td>
                                                                                         </div>
