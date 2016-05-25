@@ -58,9 +58,14 @@ class GiftcardController extends Controller {
 
         public function actionPayment() {
                 $model = UserGiftscardHistory::model()->findByPk(Yii::app()->session['user_gift_id']);
+                $voucher_coupon = new Coupons;
                 if (!empty($model)) {
                         $model->unique_code = substr(str_shuffle(md5(time())), 0, 10);
                         $model->save();
+                        $voucher_coupon->gift_card_amount = $model->amount;
+                        $voucher_coupon->gift_card_id = $model->unique_code;
+                        $voucher_coupon->type = 2;
+                        $voucher_coupon->save();
                         $user = Yii::app()->session['user']['email'];
 //                                $to = $user->email;
 //                                $subject = "Gift Card";

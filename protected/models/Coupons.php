@@ -5,20 +5,22 @@
  *
  * The followings are the available columns in table 'coupons':
  * @property integer $id
- * @property integer $product_id
- * @property integer $user_id
- * @property integer $session_id
+ * @property string $product_id
+ * @property string $user_id
  * @property integer $cash_limit
+ * @property integer $gift_card_amount
  * @property string $code
+ * @property string $gift_card_id
  * @property string $starting_date
  * @property string $expiry_date
  * @property integer $discount
  * @property string $discount_type
  * @property integer $unique
+ * @property integer $type
  * @property integer $status
- * The followings are the available model relations:
- * @property UserDetails $user
- * @property Products $product
+ * @property string $DOC
+ * @property string $DOU
+ * @property double $session_id
  */
 class Coupons extends CActiveRecord {
 
@@ -36,13 +38,15 @@ class Coupons extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
-                    //array('product_id, user_id, cash_limit, code, expiry_date, discount, discount_type, status', 'required'),
-                    array('cash_limit, discount,  unique,status', 'numerical', 'integerOnly' => true),
+                    // array('product_id, user_id, cash_limit, gift_card_amount, code, gift_card_id, starting_date, expiry_date, discount, discount_type, unique, type, status, DOC, DOU, session_id', 'required'),
+                    array('cash_limit, gift_card_amount, discount, unique, type, status', 'numerical', 'integerOnly' => true),
+                    array('session_id', 'numerical'),
+                    array('product_id, user_id', 'length', 'max' => 20),
                     array('code, discount_type', 'length', 'max' => 50),
-                    array('code', 'unique'),
+                    array('gift_card_id', 'length', 'max' => 100),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, product_id, user_id, session_id, cash_limit, code, expiry_date, discount, discount_type, status', 'safe', 'on' => 'search'),
+                    array('id, product_id, user_id, cash_limit, gift_card_amount, code, gift_card_id, starting_date, expiry_date, discount, discount_type, unique, type, status, DOC, DOU, session_id', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -53,8 +57,6 @@ class Coupons extends CActiveRecord {
                 // NOTE: you may need to adjust the relation name and the related
                 // class name for the relations automatically generated below.
                 return array(
-                        //'user' => array(self::BELONGS_TO, 'UserDetails', 'user_id'),
-                        //'product' => array(self::BELONGS_TO, 'Products', 'product_id'),
                 );
         }
 
@@ -66,15 +68,20 @@ class Coupons extends CActiveRecord {
                     'id' => 'ID',
                     'product_id' => 'Product',
                     'user_id' => 'User',
-                    'session_id' => 'Session ID',
                     'cash_limit' => 'Cash Limit',
+                    'gift_card_amount' => 'Gift Card Amount',
                     'code' => 'Code',
+                    'gift_card_id' => 'Gift Card',
                     'starting_date' => 'Starting Date',
                     'expiry_date' => 'Expiry Date',
                     'discount' => 'Discount',
                     'discount_type' => 'Discount Type',
                     'unique' => 'Unique',
+                    'type' => 'Type',
                     'status' => 'Status',
+                    'DOC' => 'Doc',
+                    'DOU' => 'Dou',
+                    'session_id' => 'Session',
                 );
         }
 
@@ -96,18 +103,22 @@ class Coupons extends CActiveRecord {
                 $criteria = new CDbCriteria;
 
                 $criteria->compare('id', $this->id);
-                $criteria->compare('product_id', $this->product_id);
-                $criteria->compare('user_id', $this->user_id);
-                $criteria->compare('session_id', $this->session_id);
+                $criteria->compare('product_id', $this->product_id, true);
+                $criteria->compare('user_id', $this->user_id, true);
                 $criteria->compare('cash_limit', $this->cash_limit);
+                $criteria->compare('gift_card_amount', $this->gift_card_amount);
                 $criteria->compare('code', $this->code, true);
-                $criteria->compare('starting_date', $this->starting_date, true);
+                $criteria->compare('gift_card_id', $this->gift_card_id, true);
                 $criteria->compare('starting_date', $this->starting_date, true);
                 $criteria->compare('expiry_date', $this->expiry_date, true);
                 $criteria->compare('discount', $this->discount);
                 $criteria->compare('discount_type', $this->discount_type, true);
                 $criteria->compare('unique', $this->unique);
+                $criteria->compare('type', $this->type);
                 $criteria->compare('status', $this->status);
+                $criteria->compare('DOC', $this->DOC, true);
+                $criteria->compare('DOU', $this->DOU, true);
+                $criteria->compare('session_id', $this->session_id);
 
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,

@@ -68,46 +68,6 @@ class MenuCategory extends CApplicationComponent {
                 }
         }
 
-        public function MenuCategoriesFilter($cats, $parent, $categ, $min, $max) {
-                if (!empty($cats) || $cats != '') {
-                        $find_ids = $this->ids($cats, $parent, $categ);
-                }
-
-                if (!empty($categ)) {
-                        $srt = $this->sorting($categ);
-                }
-
-                if (!empty($find_ids) || $find_ids != '') {
-                        $find_in_set = '';
-                        foreach ($find_ids as $find_id) {
-                                if ($find_id != '') {
-                                        $find_in_set .= "FIND_IN_SET('$find_id',`category_id`) OR ";
-                                }
-                        }
-                }
-                $find_in_set = rtrim($find_in_set, ' OR');
-                if ($find_in_set != '') {
-                        return $dataProvider = new CActiveDataProvider('Products', array(
-                            'criteria' => array(
-                                'condition' => '(' . $find_in_set . ') AND (price > ' . $min . ' AND price <' . $max . ')',
-                            ),
-                            'pagination' => array(
-                                'pageSize' => 1,
-                            ),
-                            'sort' => array(
-                            //'defaultOrder' => 'price ASC',
-                            // 'defaultOrder' => 'product_name RAND() ',
-                            )
-                                )
-                        );
-//                        var_dump($dataProvider);
-//                        exit;
-                } else {
-
-                        return $dataProvider = '';
-                }
-        }
-
         public function ids($cats, $parent, $categ) {
                 $ids = array();
                 foreach ($cats as $cat) {

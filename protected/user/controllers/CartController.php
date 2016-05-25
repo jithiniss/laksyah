@@ -878,15 +878,10 @@ class CartController extends Controller {
                 foreach ($cart as $carts) {
                         $prod_details = Products::model()->findByPk($carts->product_id);
                         $cart_qty = $carts->quantity;
-                        if ($carts->options != 0) {
-
-                                $price = Options::model()->findByPk($carts->options)->amount;
+                        if ($prod_details->discount) {
+                                $price = $prod_details->price - $prod_details->discount;
                         } else {
-                                if ($prod_details->discount) {
-                                        $price = $prod_details->price - $prod_details->discount;
-                                } else {
-                                        $price = $prod_details->price;
-                                }
+                                $price = $prod_details->price;
                         }
                         $tot_price = $cart_qty * $price;
                         $total+= $tot_price;
@@ -918,6 +913,7 @@ class CartController extends Controller {
 //$order = Order::model()->findByPk(Yii::app()->session['orderid']);
                         if (!empty($cart)) {
                                 $coupon_code = Coupons::model()->findByAttributes(array('code' => $_POST['coupon'], 'status' => 1));
+                                $gift_card = Coupons::model()->findByAttributes(array('gift_card_id' => $_POST['coupon'], 'type' => 2), array('condition' => 'amount' > 0));
                                 $user_id = false;
                                 $prod_id = false;
                                 $limit = false;
@@ -1002,7 +998,7 @@ class CartController extends Controller {
                                                         }
 
                                                         if ($coupon_history->save()) {
-                                                                Yii::app()->session['couponid'] = $coupon_history->coupon_id;
+                                                                Yii::app()->session['couponid'][1] = $coupon_history->coupon_id;  /* coupon code session */
 
                                                                 Yii::app()->user->setFlash('success', "Your coupon code is submitted...");
                                                         }
@@ -1021,16 +1017,62 @@ class CartController extends Controller {
         }
 
         public function giftCardCheck($gift_card, $cart) {
-                $amount = $this->total($cart);
-                if ($amount > $gift_card->amount || $amount == $gift_card->amount) {
-                        $gift_card->amount = 0;
+                $amount = $this->amountTotal($cart);
+
+                if ($amount > $gift_card->gift_card_amount || $amount == $gift_card->gift_card_amount) {
+                        $gift_card->gift_card_amount = 0;
                         $gift_card->save();
-                        return true;
                 } else {
-                        $gift_card->amount = $gift_card->amount - $amount;
+                        $gift_card->gift_card_amount = $gift_card->gift_card_amount - $amount;
                         $gift_card->save();
-                        Yii::app()->user->setFlash('success', "Your card balance is $gift_card->amount");
-                        return true;
+                }
+                $coupon_history = new CouponHistory;
+                $coupon_history->coupon_id = $gift_card->gift_card_id;
+                $coupon_history->total_amount = $amount;
+                if (isset(Yii::app()->session['user'])) {
+                        $coupon_history->user_id = Yii::app()->session['user']['id'];
+                        $coupon_history->order_id = Yii::app()->session['orderid'];
+                        $coupon_history->session_id = NULL;
+                } else if (isset(Yii::app()->session['temp_user'])) {
+
+                        $coupon_history->session_id = Yii::app()->session['temp_user'];
+                        $coupon_history->user_id = 0;
+                }
+
+                if ($coupon_history->save()) {
+                        Yii::app()->session['couponid'][2] = $coupon_history->coupon_id; /* gift card session */
+                }
+                if ($gift_card->gift_card_amount > 0) {
+                        Yii::app()->user->setFlash('success', "Your card balance is $gift_card->gift_card_amount");
+                } else {
+                        Yii::app()->user->setFlash('success', "Your card is submitted");
+                }
+        }
+
+        /* for gift card balance checking */
+
+        public function amountTotal($carts) {
+                foreach ($carts as $cart) {
+                        $prod_details = Products::model()->findByPk($cart->product_id);
+                        $cart_qty = $cart->quantity;
+                        if ($prod_details->discount) {
+                                $price = $prod_details->price - $prod_details->discount;
+                        } else {
+                                $price = $prod_details->price;
+                        }
+
+                        $tot_price = $cart_qty * $price;
+                        if ($cart->gift_option != 0) {
+                                $tot_price = $tot_price + $cart->rate;
+                        }
+                        $total+= $tot_price;
+                }
+                if (isset(Yii::app()->session['couponid'][1])) {
+                        $coupon_amount = CouponHistory::model()->findByPk(Yii::app()->session['couponid'])->total_amount;
+                        $price = $total - $coupon_amount;
+                        return $price;
+                } else {
+                        return $total;
                 }
         }
 
