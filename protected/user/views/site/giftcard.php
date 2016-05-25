@@ -1,5 +1,5 @@
 <div class="container main_container product_archive">
-        <div class="breadcrumbs"> <a href="#">HOME</a> <span>/</span> WOOMEN </div>
+        <div class="breadcrumbs"> <a href="<?php echo Yii::app()->baseUrl ?>">HOME</a> <span>/</span> WOOMEN </div>
         <div class="gift_header">
                 <h2>Laksyah Gift Cards</h2>
                 <h4>Rush to grab sensational deals on exquisite outfits   </h4>
@@ -31,3 +31,4 @@
 
                 </div>
         </div>
+</div>

@@ -130,7 +130,9 @@ class ProductsController extends Controller {
                         else
                                 $model->special_price_to = 0;
                         $model->stock_availability = $_POST['Products']['stock_availability'];
-                        $model->CB = Yii::app()->session['admin']['id'];
+//                        var_dump(Yii::app()->session['admin']['id']);
+//                        exit;
+//                        $model->CB = Yii::app()->session['admin']['id'];
                         $model->DOC = date('Y-m-d');
 
 
