@@ -75,6 +75,8 @@ class SiteController extends Controller {
          * Displays the login page
          */
         public function actionRegister() {
+
+
                 if (isset(Yii::app()->session['user'])) {
                         $this->redirect($this->createUrl('index'));
                 } else {
@@ -98,6 +100,9 @@ class SiteController extends Controller {
 
                                         if ($model->password == $model->confirm) {
                                                 if ($model->save()) {
+
+                                                        //       $this->SendMail($model);
+                                                        //       $this->adminmail($model);
 //Yii::app()->user->setFlash('success', "Dear, $model->first_name, your message has been sent successfully");
                                                         Yii::app()->session['user'] = $model;
                                                         if (Yii::app()->session['temp_user'] != '') {
@@ -108,7 +113,9 @@ class SiteController extends Controller {
                                                                 UserWishlist::model()->updateAll(array("user_id" => $model->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
                                                                 unset(Yii::app()->session['temp_user']);
                                                         }
-                                                        $this->redirect('site/index');
+                                                        //  $this->redirect('site/index');
+                                                        $this->redirect(Yii::app()->request->baseUrl .
+                                                                '/index.php/site/index');
                                                 } else {
 // Yii::app()->user->setFlash('error', "Sorry! Message seniding Failed..");
                                                 }
@@ -119,6 +126,50 @@ class SiteController extends Controller {
                         }
                         $this->render('register', array('model' => $model));
                 }
+        }
+
+        /* mail to user and admin */
+
+        public function SendMail($model) {
+
+
+                $newDate = date("d-m-Y", strtotime($model->DOC));
+                //$to = 'rejin@intersmart.in';
+                $to = $model->email;
+
+                $subject = 'info_lakshya';
+                $message = $this->renderPartial(_user_mail, array('model' => $model));
+                // Always set content-type when sending HTML email
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+                // More headers
+                $headers .= 'From: <no-reply@lakshya.com>' . "\r\n";
+                //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
+                //  echo $message;
+                //  exit();
+                //  mail($to, $subject, $message, $headers);
+        }
+
+        public function Adminmail($model) {
+
+
+                $newDate = date("d-m-Y", strtotime($model->DOC));
+                $to = 'admin@intersmart.in';
+                // $to = $model->email;
+
+                $subject = 'info_lakshya';
+                $message = $this->renderPartial(_admin_mail, array('model' => $model));
+                // Always set content-type when sending HTML email
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+                // More headers
+                $headers .= 'From: <no-reply@lakshya.com>' . "\r\n";
+                //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
+                //  echo $message;
+                //   exit();
+                //  mail($to, $subject, $message, $headers);
         }
 
         /**

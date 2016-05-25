@@ -593,13 +593,80 @@ class CheckOutController extends Controller {
 
          * Order Success Action         */
 
+        /* mail send to admin and user */
+
         public function actionOrderSuccess() {
                 $order = Order::model()->findByPk(yii::app()->session['orderid']);
+                $user_address = UserAddress::model()->findByPk($order->ship_address_id);
+                $bill_address = UserAddress::model()->findByPk($order->bill_address_id);
+                $shiping_charge = ShippingCharges::model()->findByPk($user_address->country);
+                $order_details = OrderProducts::model()->findAllByAttributes(array('order_id' => $order->id));
+                $this->SendMail($order);
+                $this->adminmail($order);
+                exit;
                 unset(yii::app()->session['orderid']);
                 $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
                 Yii::app()->session['user'] = $user;
                 unset(yii::app()->session['orderid']);
                 $this->render('order_success');
+        }
+
+        public function SendMail($order) {
+                $order = Order::model()->findByPk(yii::app()->session['orderid']);
+                $user_address = UserAddress::model()->findByPk($order->ship_address_id);
+
+
+
+                $bill_address = UserAddress::model()->findByPk($order->bill_address_id);
+
+                $order_details = OrderProducts::model()->findAllByAttributes(array('order_id' => $order->id));
+                $shiping_charge = ShippingCharges::model()->findByAttributes(array('country' => $user_address->country));
+
+                $newDate = date("d-m-Y", strtotime($order->DOC));
+                //$to = 'rejin@intersmart.in';
+
+
+                $subject = 'info_lakshya';
+                $message = $this->renderPartial(_user_order_mail, array('order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge));
+                // Always set content-type when sending HTML email
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+                // More headers
+                $headers .= 'From: <no-reply@lakshya.com>' . "\r\n";
+                //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
+                echo $message;
+                // exit();
+                //  mail($to, $subject, $message, $headers);
+        }
+
+        public function Adminmail($order) {
+
+                $order = Order::model()->findByPk(yii::app()->session['orderid']);
+                $user_address = UserAddress::model()->findByPk($order->ship_address_id);
+
+                $bill_address = UserAddress::model()->findByPk($order->bill_address_id);
+
+                $order_details = OrderProducts::model()->findAllByAttributes(array('order_id' => $order->id));
+
+                $shiping_charge = ShippingCharges::model()->findByAttributes(array('country' => $user_address->country));
+
+                $newDate = date("d-m-Y", strtotime($order->DOC));
+                //$to = 'rejin@intersmart.in';
+
+
+                $subject = 'info_lakshya';
+                $message = $this->renderPartial(_admin_order_mail, array('order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge));
+                // Always set content-type when sending HTML email
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+                // More headers
+                $headers .= 'From: <no-reply@lakshya.com>' . "\r\n";
+                //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
+                echo $message;
+                exit();
+                //  mail($to, $subject, $message, $headers);
         }
 
         public function actionDeletGift($id) {
