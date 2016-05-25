@@ -172,3 +172,45 @@ input#email {
 .option_errors p{
     margin:0px;
 }
+#agrees{
+    display:none;
+    color:red;
+}
+.price_group1{
+		font-size:14px;
+		font-weight:bold;
+		line-height:24px;
+	}
+.order_amount .seperator{
+		background-color:#61625d;
+		height:1px;
+		margin:20px 0px;
+	}
+.price_group1.total_amount{
+		font-size:16px;
+	}
+        .radio_group1{
+		border:solid 1px #c0c0c0;
+		width:16px;
+		height:16px;
+		display:inline-block;
+		border-radius:200px;
+		position:relative;
+		float:left;
+		margin-right:10px;
+                    margin-top: 4px;
+	}
+.radio_group1.active:before{
+		width:6px;
+		height:6px;
+		border-radius:200px;
+		background-color:#404241;
+		content:'';
+		display:block;	
+		position:absolute;
+		top:0px;
+		bottom:0px;
+		left:0px;
+		right:0px;
+		margin:auto;
+	}

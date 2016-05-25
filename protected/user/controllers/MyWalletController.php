@@ -10,6 +10,10 @@ class MyWalletController extends Controller {
                 }
         }
 
+        /*
+         * Add money to user wallet by user
+         */
+
         public function actionIndex() {
                 $model = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
 
@@ -29,44 +33,65 @@ class MyWalletController extends Controller {
 
                                 if($wallet_add->validate()) {
                                         if($wallet_add->save()) {
-                                                $amount = $wallet_amount + $entry_amount;
-                                                $model->wallet_amt = $amount;
-                                                $model->save();
-                                                $wallet_add->unsetAttributes();
-                                                Yii::app()->user->setFlash('success1', "Money Added Successfully");
-                                        }
-                                } else {
 
+                                                $this->redirect(array('Success', 'user_id' => $model->id, 'wallet_id' => $wallet_add->id));
+
+                                                // $this->redirect(array('Error', 'wallet_id' => $wallet_add->id));
+                                                $wallet_add->unsetAttributes();
+                                        }
                                 }
                         }
                         $this->render('index', array('wallet_add' => $wallet_add));
                 }
         }
 
-        // Uncomment the following methods and override them if needed
         /*
-          public function filters()
-          {
-          // return the filter configuration for this controller, e.g.:
-          return array(
-          'inlineFilterName',
-          array(
-          'class'=>'path.to.FilterClass',
-          'propertyName'=>'propertyValue',
-          ),
-          );
-          }
-
-          public function actions()
-          {
-          // return external action classes, e.g.:
-          return array(
-          'action1'=>'path.to.ActionClass',
-          'action2'=>array(
-          'class'=>'path.to.AnotherActionClass',
-          'propertyName'=>'propertyValue',
-          ),
-          );
-          }
+         * if payment success
          */
+
+        public function actionSuccess($user_id, $wallet_id) {
+                if(!empty($user_id) && !empty($wallet_id) && $user_id != '' && $wallet_id != '') {
+                        $user_wallet = UserDetails::model()->findByPk($user_id);
+                        $wallet_history = WalletHistory::model()->findByPk($wallet_id);
+                        $amount = $user_wallet->wallet_amt + $wallet_history->amount;
+                        $user_wallet->wallet_amt = $amount;
+                        $wallet_history->field2 = 1; //success
+                        if($wallet_history->save()) {
+                                if($user_wallet->save()) {
+                                        Yii::app()->session['user']['wallet_amt'] = $user_wallet->wallet_amt;
+                                        Yii::app()->user->setFlash('wallet_success', "Money Added Successfully");
+                                        $this->redirect(array('Index'));
+                                } else {
+                                        $wallet_history->delete();
+                                }
+                        } else {
+                                Yii::app()->user->setFlash('wallet_error', "Oops some error occured.Transaction rejected.");
+                                $this->redirect(array('Index'));
+                        }
+                } else {
+                        Yii::app()->user->setFlash('wallet_error', "Oops some error occured.Transaction rejected.");
+                        $this->redirect(array('Index'));
+                }
+        }
+
+        /*
+         * if payment got any error
+         */
+
+        public function actionError($wallet_id) {
+                if(!empty($wallet_id) && $wallet_id != '') {
+
+                        $wallet_history = WalletHistory::model()->findByPk($wallet_id);
+                        if(!empty($wallet_history)) {
+                                $wallet_history->delete();
+                                Yii::app()->user->setFlash('wallet_error', "Oops some error occured.Transaction rejected.");
+                                $this->redirect(array('Index'));
+                        } else {
+                                die('113:Error Occured');
+                        }
+                } else {
+                        die('114:Error Occured');
+                }
+        }
+
 }

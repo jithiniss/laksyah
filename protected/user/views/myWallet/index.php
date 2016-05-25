@@ -23,13 +23,23 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     Success </div>-->
             <div class="registration_form">
-                <?php if(Yii::app()->user->hasFlash('success1')): ?>
-                        <div class="alert alert-success alert-dismissable" style="margin:0 auto;">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <b><i class="icon fa fa-check"></i> Alert ! </b>
-                            <?php echo Yii::app()->user->getFlash('success1'); ?>
-                        </div>
+                <?php if(Yii::app()->user->hasFlash('wallet_success')): ?>
+                        <div class="row">
+                            <div class="alert alert-success alert-dismissable" style="margin:0 auto;">
 
+
+                                <?php echo Yii::app()->user->getFlash('wallet_success'); ?>
+                            </div>
+                        </div>
+                <?php endif; ?>
+                <?php if(Yii::app()->user->hasFlash('wallet_error')): ?>
+                        <div class="row">
+                            <div class="alert alert-danger alert-dismissable" style="margin:0 auto;">
+
+
+                                <?php echo Yii::app()->user->getFlash('wallet_error'); ?>
+                            </div>
+                        </div>
                 <?php endif; ?>
                 <?php
                 $form = $this->beginWidget('CActiveForm', array(
@@ -80,13 +90,13 @@
                         <label>Payment Method*</label>
                     </div>
                     <div class="col-sm-6">
-                        <div class="price_group payment_method">
-                            <label class="radio_group active">
-                                <input type="radio"  name="WalletHistory[payment_method]"  hidden="" value="2" id="RadioGroup1_3">
+                        <div class="price_group1 payment_method">
+                            <label class="radio_group1 active">
+                                <input type="radio"  name="WalletHistory[payment_method]"  checked hidden="" value="2" id="RadioGroup1_3">
                             </label>
                             <strong class="radio_label pull-left">CREDIT/DEBIT/NET BANKING </strong>
-                            <label class="radio_group ">
-                                <input type="radio"name="WalletHistory[payment_method]" checked hidden="" value="3" id="RadioGroup1_4">
+                            <label class="radio_group1 ">
+                                <input type="radio"name="WalletHistory[payment_method]"  hidden="" value="3" id="RadioGroup1_4">
                             </label>
                             <strong class="radio_label pull-left">PAYPAL</strong>
                             <div class="clearfix"></div>
@@ -100,8 +110,9 @@
                     <div class="col-sm-6">
                         <div class="confirm">
                             <div class="custom_check"> <i class="fa fa-check "></i> By making the payment you agree to our <a href="#">payment policies</a>.
-                                <input type="checkbox" hidden="" name="payment_agree">
+                                <input type="checkbox" hidden="" name="payment_agree" id="payment_agree">
                             </div>
+                            <div id="agrees"></div>
                         </div>
                     </div>
                 </div>
@@ -121,5 +132,25 @@
     </div>
 </div>
 <script>
+        $(document).ready(function () {
+            $('#wallet-add-form').submit(function () {
 
+                if ($('#payment_agree').prop('checked')) {
+
+                    $('#agrees').html('').hide();
+                    return true;
+                } else {
+                    $('#agrees').html('Please accept our agreement.').show();
+                    return false;
+                }
+
+
+            });
+            // Custom Radio
+            $('.price_group1 .radio_group1').click(function () {
+                $(this).parents('.price_group1').find('.radio_group1').removeClass('active');
+                $(this).addClass('active');
+                $(this).find('input').attr('checked', true);
+            });
+        });
 </script>
