@@ -77,6 +77,12 @@ class ProductsController extends Controller {
                         $image = CUploadedFile::getInstance($model, 'main_image');
                         $hover_image = CUploadedFile::getInstance($model, 'hover_image');
                         $video = CUploadedFile::getInstance($model, 'video');
+                        //$model->search_tag = $_POST['ProductCategory']['search_tag'];
+                        if ($model->search_tag != "") {
+                                $model->search_tag = implode(",", $model->search_tag);
+                        } else {
+                                $model->search_tag = $_POST['ProductCategory']['search_tag'];
+                        }
                         $images = CUploadedFile::getInstancesByName('gallery_images');
                         $model->product_name = $_POST['Products']['product_name'];
                         $model->enquiry_sale = $_POST['Products']['enquiry_sale'];
@@ -204,6 +210,7 @@ class ProductsController extends Controller {
                         $new_video = CUploadedFile::getInstance($model, 'video');
                         $model->attributes = $_POST['Products'];
                         $model->main_image = $image->extensionName;
+                        $model->search_tag = $_POST['Products']['search_tag'];
                         $model->hover_image = $h_image->extensionName;
                         $model->video = $new_video->extensionName;
                         $model->sizechartforwhat = $_POST['Products']['sizechartforwhat'];

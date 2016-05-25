@@ -45,6 +45,7 @@ class MenuCategory extends CApplicationComponent {
                 }
 
 
+
                 if ($find_in_set != '') {
                         return $dataProvider = new CActiveDataProvider('Products', array(
                             'criteria' => array(

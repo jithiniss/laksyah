@@ -31,9 +31,9 @@ class SearchingController extends Controller {
                 if (isset($_REQUEST['Keyword'])) {
                         $searchterm = $_REQUEST['Keyword'];
 
-                        $dataProvider = new CActiveDataProvider('ProductCategory', array(
+                        $dataProvider = new CActiveDataProvider('Products', array(
                             'criteria' => array(
-                                'condition' => "status =1  AND (category_name LIKE '%" . $searchterm . "%'"
+                                'condition' => "status =1  AND (product_name LIKE '%" . $searchterm . "%'"
                                 . " OR search_tag LIKE '%" . $searchterm . "%' )"),
                                 )
                         );
@@ -49,6 +49,51 @@ class SearchingController extends Controller {
                 //$latest = Books::model()->findAll(['condition' => 'status = 2', 'order' => 'id desc', 'limit' => 5]);
                 $this->render('searchresult', array('dataProvider' => $dataProvider1, 'file_name' => '_searchresult', 'parameter' => $_REQUEST['saerchterm'], 'search_parm' => $category, 'searchterm' => $searchterm));
                 //$this->render('search');
+        }
+
+        public function actionPriceRange() {
+                if (Yii::app()->request->isAjaxRequest) {
+                        $min = $_REQUEST['min'];
+                        $max = $_REQUEST['max'];
+                        $cat = $_REQUEST['cat'];
+                        $size_type = $_REQUEST['size'];
+                        $data[0] = $min;
+                        $data[1] = $max;
+                        $data[3] = $cat;
+                        // $data[4] = $size_type;
+
+                        if ($cat != '' && $min != '' && $max != '' && $size_type) {
+                                $categry = ProductCategory::model()->findByPk($cat);
+                                if (!empty($categry)) {
+                                        Yii::app()->session['temp_product_filter'] = $data;
+                                }
+                        }
+                        if ($size_type != '') {
+                                $sizes = OptionCategory::model()->findByAttributes(array('option_type_id' => 2, 'id' => $size_type));
+                                if (!empty($sizes)) {
+                                        $data[4] = $size_type;
+                                        Yii::app()->session['temp_product_filter'][4] = $size_type;
+                                } else {
+                                        $size_type = '';
+                                }
+                        }
+                        if ($cat != '' && $min != '' && $max != '') {
+                                $condition = 'search_tag == ' . $cat . ' OR product_name =' . $cat;
+                                $cats = Products::model()->findAllByattributes(array(), array('condition' => $condition));
+                                var_dump($cats);
+                                exit;
+                                $dataProvider = Yii::app()->Menu->MenuCategories($cats, $parent, $categ = '', $min, $max, $size_type);
+                        } else {
+                                $parent = ProductCategory::model()->findByPk(Yii::app()->session['temp_product_filter'][3]);
+                                $cats = ProductCategory::model()->findAllByattributes(array('parent' => $parent->id), array('condition' => "id != $parent->id"));
+                                $dataProvider = Yii::app()->Menu->MenuCategories($cats, $parent, $categ = '', Yii::app()->session['temp_product_filter'][0], Yii::app()->session['temp_product_filter'][1], Yii::app()->session['temp_product_filter'][4]);
+                        }
+
+                        //$this->renderPartial('_view1', array('dataProvider' => $dataProvider));
+                        $this->renderPartial('_view1', array('dataProvider' => $dataProvider, 'parent' => $parent, 'name' => $cat));
+                } else {
+
+                }
         }
 
         /*

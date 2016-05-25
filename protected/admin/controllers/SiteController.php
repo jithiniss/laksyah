@@ -143,6 +143,44 @@ class SiteController extends Controller {
                 }
         }
 
+        public function actionProductTagAdd() {
+
+                if (Yii::app()->request->isAjaxRequest) {
+
+                        if (isset($_REQUEST['tag'])) {
+                                $model = new MasterCategoryTags;
+                                $model->category_tag = $_REQUEST['tag'];
+                                $model->CB = Yii::app()->session['admin']['id'];
+                                $model->UB = Yii::app()->session['admin']['id'];
+                                $model->DOC = date('Y-m-d');
+                                $model->save(false);
+                        }
+                }
+        }
+
+        public function actionProductTag() {
+
+                if (Yii::app()->request->isAjaxRequest) {
+
+                        $criteria = new CDbCriteria();
+                        $criteria->addSearchCondition('category_tag', $_REQUEST['tag'], 'AND');
+
+                        //$criteria->compare('category_id',$_REQUEST['category'],true,'AND');
+                        if ($_REQUEST['taged'] != '') {
+
+                                $arrs = explode(',', $_REQUEST['taged']);
+                                $criteria->addNotInCondition('category_tag', $arrs, 'AND');
+                        }
+                        $tags = MasterCategoryTags::model()->findAll($criteria);
+                        foreach ($tags as $tag) {
+                                if ($_REQUEST['type'] == 'category') {
+
+                                }
+                                echo '<div class="' . $_REQUEST['type'] . '_tag-sub">' . $tag->category_tag . '</div>';
+                        }
+                }
+        }
+
         public function actionCategoryCat() {
 
                 if (Yii::app()->request->isAjaxRequest) {

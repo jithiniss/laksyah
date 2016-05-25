@@ -1019,11 +1019,11 @@ class CartController extends Controller {
         public function giftCardCheck($gift_card, $cart) {
                 $amount = $this->amountTotal($cart);
 
-                if ($amount > $gift_card->gift_card_amount || $amount == $gift_card->gift_card_amount) {
+                if ($amount > $gift_card->discount || $amount == $gift_card->discount) {
                         $gift_card->gift_card_amount = 0;
                         $gift_card->save();
                 } else {
-                        $gift_card->gift_card_amount = $gift_card->gift_card_amount - $amount;
+                        $gift_card->discount = $gift_card->discount - $amount;
                         $gift_card->save();
                 }
                 $coupon_history = new CouponHistory;
@@ -1042,8 +1042,8 @@ class CartController extends Controller {
                 if ($coupon_history->save()) {
                         Yii::app()->session['couponid'][2] = $coupon_history->coupon_id; /* gift card session */
                 }
-                if ($gift_card->gift_card_amount > 0) {
-                        Yii::app()->user->setFlash('success', "Your card balance is $gift_card->gift_card_amount");
+                if ($gift_card->discount > 0) {
+                        Yii::app()->user->setFlash('success', "Your card balance is $gift_card->discount");
                 } else {
                         Yii::app()->user->setFlash('success', "Your card is submitted");
                 }

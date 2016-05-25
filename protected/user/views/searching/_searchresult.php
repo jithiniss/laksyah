@@ -2,8 +2,8 @@
 <div class="col-md-4 col-sm-6 col-xs-6 sd choice">
     <div class="effects">
         <div class="zoom-img">
-            <a href="<?= Yii::app()->request->baseUrl; ?>/index.php/products/Category/<?php echo $data->id; ?>">
-                <?php if ($data->image == NULL) { ?>
+            <a href="<?= Yii::app()->request->baseUrl; ?>/index.php/Products/Detail/name/<?php echo $data->canonical_name; ?>">
+                <?php if ($data->main_image == NULL) { ?>
                         <img width="280" height="300" class="safe" src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/no-productimage.jpg" />
                         <?php
                 } else {

@@ -10,9 +10,11 @@
         });</script>
 <section class="searching">
     <div class="container main_container product_archive">
+
+
         <div class="row">
             <div class="col-sm-3 sidebar">
-                <form name="slide_rnge" id="slide_rnge" method="post" action="<?= Yii::app()->baseUrl; ?>/index.php/products/Category/name/<?= $category_name ?>">
+                <form name="slide_rnge" id="slide_rnge" method="post" action="">
                     <h3><i class="fa fa-align-justify "></i>Category</h3>
                     <div class="cat_nav">
                         <?php echo $this->renderPartial('left_menu', array('category' => $category, 'parent' => $parent)); ?>
@@ -24,7 +26,7 @@
 
                             <input type="hidden" id="amount" name="amount" readonly=""  style="border:0; color:#f6931f; font-weight:bold;" />
                             <input type="hidden" id="amount1" name="amount1"readonly=""  style="border:0; color:#f6931f; font-weight:bold;" />
-                            <input type="hidden" id="cat_name" name="cat_name" value="<?= $get_cat_name->id; ?>"/>
+                            <input type="hidden" id="cat_name" name="cat_name" value="<?= $searchterm; ?>"/>
 
                         </p>
                         <div id="slider-range"></div>
@@ -58,28 +60,39 @@
 
 
 
+            <div class="col-sm-9">
+
+                <div class = "about_us searching_cnt resultss">
+                    <h2>Search Result</h2>
+
+                </div>
+
+                <div class="product_list">
+                    <div class="row">
+
+                        <?php
+                        if (!empty($dataprovider) || $dataProvider != '') {
+                                $this->widget('zii.widgets.CListView', array(
+                                    'dataProvider' => $dataProvider,
+                                    'itemView' => '_view',
+                                    'template' => "{pager}\n{items}\n{pager}",
+                                ));
+                        } else {
+
+                        }
+                        ?>
+
+                    </div>
+                </div>
 
 
-            <div class = "about_us searching_cnt resultss">
-                <h2>Search Result</h2>
+
+
 
             </div>
-
-
-
-            <?php
-            $this->widget('zii.widgets.CListView', array(
-                'dataProvider' => $dataProvider,
-                'itemView' => $file_name,
-            ));
-            ?>
-
-
-
         </div>
     </div>
-</div>
-</div>
+
 </section>
 
 <style>
@@ -172,7 +185,7 @@
 
             var value = <?php echo Yii::app()->session['temp_product_filter']; ?>
             $.ajax({
-                url: baseurl + 'Products/PriceRange',
+                url: baseurl + 'Searching/PriceRange',
                 type: "POST",
                 //data: form.serialize()
                 data: {min: min_amount, max: max_amount, cat: categ_id, size: size}

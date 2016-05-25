@@ -63,6 +63,7 @@ class GiftcardController extends Controller {
                         $model->unique_code = substr(str_shuffle(md5(time())), 0, 10);
                         $model->save();
                         $voucher_coupon->gift_card_amount = $model->amount;
+                        $voucher_coupon->discount = $model->amount;
                         $voucher_coupon->gift_card_id = $model->unique_code;
                         $voucher_coupon->type = 2;
                         $voucher_coupon->save();
