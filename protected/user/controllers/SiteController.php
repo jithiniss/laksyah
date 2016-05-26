@@ -208,7 +208,8 @@ class SiteController extends Controller {
                                         }
                                 } else {
 
-                                        $model->addError('password', 'invalid username or password');
+//                                        $model->addError('password', 'invalid username or password');
+                                        Yii::app()->user->setFlash('login_list', "Username or password invalid");
                                 }
                         }
                         if (isset(Yii::app()->session['wishlist_user'])) {
@@ -216,7 +217,7 @@ class SiteController extends Controller {
                                 Yii::app()->user->setFlash('wishlist_user', "Dear, You must login to see Wishlist Items");
                         }
 
-                        $this->render('login', array('model' => $model));
+                        $this->redirect(Yii::app()->request->urlReferrer);
                 }
         }
 
@@ -284,7 +285,6 @@ class SiteController extends Controller {
 
         public function actionGiftcard() {
                 $model = GiftCard::model()->findAll();
-
                 $this->render('giftcard', array('model' => $model));
         }
 

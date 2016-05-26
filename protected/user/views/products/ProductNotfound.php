@@ -13,8 +13,3 @@
         </div>
 
 </div>
-<style>
-        h2{
-                color: #fff;
-        }
-</style>
