@@ -5,10 +5,12 @@ class ProductsController extends Controller {
         public function actionCategory($name) {
 
                 $parent = ProductCategory::model()->findByAttributes(array('canonical_name' => $name));
-
+                if (empty($parent)) {
+                        $this->render('ProductNotfound');
+                }
                 $category = ProductCategory::model()->findAllByAttributes(array('parent' => $parent->parent));
-
                 $cats = ProductCategory::model()->findAllByattributes(array('parent' => $parent->id), array('condition' => "id != $parent->id"));
+
                 if (isset($_POST['category'])) {
                         $categ = $_POST['category'];
                 } else {
@@ -254,7 +256,7 @@ class ProductsController extends Controller {
                                                 $size_name = OptionCategory::model()->findByPk($option_size->size_id);
                                                 ?>
                                                 <label class="" id="<?php echo $option_size->size_id; ?>"><?php echo $size_name->size; ?>
-                                                    <input type = "radio" name = "size_selector_<?php echo $size_name->id; ?>" value = "<?php echo $size_name->id; ?>" id = "size_selector_<?php echo $size_name->id; ?>">
+                                                        <input type = "radio" name = "size_selector_<?php echo $size_name->id; ?>" value = "<?php echo $size_name->id; ?>" id = "size_selector_<?php echo $size_name->id; ?>">
                                                 </label>
                                                 <?php
                                         }

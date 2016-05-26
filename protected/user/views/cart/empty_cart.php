@@ -8,7 +8,7 @@
                 <div class="col-xs-6 empty_message">
                         <h2>Sorry!</h2>
                         <h3>Your cart is empty</h3>
-                        <button class="btn-primary">CONTINUE SHOPPING</button>
+                        <button type="submit" onclick="window.location.href = '<?= Yii::app()->request->baseUrl; ?>/index.php'" class="btn-primary">CONTINUE SHOPPING</button>
                 </div>
         </div>
 
