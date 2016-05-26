@@ -9,7 +9,7 @@ class OrderController extends Controller {
         public $layout = '//layouts/column2';
 
         public function init() {
-                if (!isset(Yii::app()->session['post']['orders']) || Yii::app()->session['post']['orders'] != 1) {
+                if (!isset(Yii::app()->session['admin']) || Yii::app()->session['post']['orders'] != 1) {
                         $this->redirect(Yii::app()->request->baseUrl . '/admin.php/site/logOut');
                 }
         }

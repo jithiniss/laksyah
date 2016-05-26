@@ -8,6 +8,12 @@ class ProductDescriptionController extends Controller {
          */
         public $layout = '//layouts/column2';
 
+        public function init() {
+                if (!isset(Yii::app()->session['admin']) || Yii::app()->session['post']['products'] != 1) {
+                        $this->redirect(Yii::app()->request->baseUrl . '/admin.php/site/logOut');
+                }
+        }
+
         /**
          * @return array action filters
          */
@@ -16,7 +22,6 @@ class ProductDescriptionController extends Controller {
                     'accessControl', // perform access control for CRUD operations
                     'postOnly + delete', // we only allow deletion via POST request
                 );
-
         }
 
         /**
@@ -42,7 +47,6 @@ class ProductDescriptionController extends Controller {
                         'users' => array('*'),
                     ),
                 );
-
         }
 
         /**
@@ -53,7 +57,6 @@ class ProductDescriptionController extends Controller {
                 $this->render('view', array(
                     'model' => $this->loadModel($id),
                 ));
-
         }
 
         /**
@@ -84,7 +87,6 @@ class ProductDescriptionController extends Controller {
                 $this->render('create', array(
                     'model' => $model,
                 ));
-
         }
 
         /**
@@ -107,8 +109,7 @@ class ProductDescriptionController extends Controller {
                         $model->DOU = date('Y-m-d');
                         if ($image != "") {
                                 $image->saveAs(Yii::app()->basePath . "/../uploads/products/description/" . $model->id . "." . $image->extensionName);
-                        }
-                        else {
+                        } else {
                                 $model->image = $image0;
                         }
                         if ($model->save()) {
@@ -120,7 +121,6 @@ class ProductDescriptionController extends Controller {
                 $this->render('update', array(
                     'model' => $model,
                 ));
-
         }
 
         /**
@@ -137,15 +137,13 @@ class ProductDescriptionController extends Controller {
                                 unlink(Yii::app()->basePath . "/../uploads/products/description/" . $model->id . "." . $model->image);
                         }
                         $model->delete();
-                }
-                else {
+                } else {
                         $model->delete();
                 }
 
                 // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
                 if (!isset($_GET['ajax']))
                         $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-
         }
 
         /**
@@ -156,7 +154,6 @@ class ProductDescriptionController extends Controller {
                 $this->render('index', array(
                     'dataProvider' => $dataProvider,
                 ));
-
         }
 
         /**
@@ -171,7 +168,6 @@ class ProductDescriptionController extends Controller {
                 $this->render('admin', array(
                     'model' => $model,
                 ));
-
         }
 
         /**
@@ -186,7 +182,6 @@ class ProductDescriptionController extends Controller {
                 if ($model === null)
                         throw new CHttpException(404, 'The requested page does not exist.');
                 return $model;
-
         }
 
         /**
@@ -198,7 +193,6 @@ class ProductDescriptionController extends Controller {
                         echo CActiveForm::validate($model);
                         Yii::app()->end();
                 }
-
         }
 
 }

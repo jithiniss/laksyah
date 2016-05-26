@@ -8,6 +8,12 @@ class ProductEnquiryController extends Controller {
          */
         public $layout = '//layouts/column2';
 
+        public function init() {
+                if (!isset(Yii::app()->session['admin']) || Yii::app()->session['post']['products'] != 1) {
+                        $this->redirect(Yii::app()->request->baseUrl . '/admin.php/site/logOut');
+                }
+        }
+
         /**
          * @return array action filters
          */

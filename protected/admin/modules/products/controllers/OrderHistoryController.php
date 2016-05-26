@@ -10,6 +10,9 @@ class OrderHistoryController extends Controller {
 
         public function init() {
                 date_default_timezone_set('Asia/Kolkata');
+                if (!isset(Yii::app()->session['admin']) || Yii::app()->session['post']['orders'] != 1) {
+                        $this->redirect(Yii::app()->request->baseUrl . '/admin.php/site/logOut');
+                }
         }
 
         /**

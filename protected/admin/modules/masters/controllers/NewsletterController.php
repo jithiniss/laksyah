@@ -9,10 +9,9 @@ class NewsletterController extends Controller {
         public $layout = '//layouts/column2';
 
         public function init() {
-                if (!isset(Yii::app()->session['post']['cms']) || Yii::app()->session['post']['cms'] != 1) {
+                if (!isset(Yii::app()->session['admin']) || Yii::app()->session['post']['cms'] != 1) {
                         $this->redirect(Yii::app()->request->baseUrl . '/admin.php/site/logOut');
                 }
-
         }
 
         /**
@@ -23,7 +22,6 @@ class NewsletterController extends Controller {
                     'accessControl', // perform access control for CRUD operations
                     'postOnly + delete', // we only allow deletion via POST request
                 );
-
         }
 
         /**
@@ -49,7 +47,6 @@ class NewsletterController extends Controller {
                         'users' => array('*'),
                     ),
                 );
-
         }
 
         /**
@@ -60,7 +57,6 @@ class NewsletterController extends Controller {
                 $this->render('view', array(
                     'model' => $this->loadModel($id),
                 ));
-
         }
 
         /**
@@ -83,7 +79,6 @@ class NewsletterController extends Controller {
                 $this->render('create', array(
                     'model' => $model,
                 ));
-
         }
 
         /**
@@ -106,7 +101,6 @@ class NewsletterController extends Controller {
                 $this->render('update', array(
                     'model' => $model,
                 ));
-
         }
 
         /**
@@ -120,7 +114,6 @@ class NewsletterController extends Controller {
                 // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
                 if (!isset($_GET['ajax']))
                         $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-
         }
 
         /**
@@ -131,7 +124,6 @@ class NewsletterController extends Controller {
                 $this->render('index', array(
                     'dataProvider' => $dataProvider,
                 ));
-
         }
 
         /**
@@ -146,7 +138,6 @@ class NewsletterController extends Controller {
                 $this->render('admin', array(
                     'model' => $model,
                 ));
-
         }
 
         public function actionEmail() {
@@ -155,7 +146,6 @@ class NewsletterController extends Controller {
                 $count = count($email);
                 $this->render('email', array('emails' => $email
                 ));
-
         }
 
         /**
@@ -170,7 +160,6 @@ class NewsletterController extends Controller {
                 if ($model === null)
                         throw new CHttpException(404, 'The requested page does not exist.');
                 return $model;
-
         }
 
         /**
@@ -182,6 +171,6 @@ class NewsletterController extends Controller {
                         echo CActiveForm::validate($model);
                         Yii::app()->end();
                 }
-
         }
+
 }

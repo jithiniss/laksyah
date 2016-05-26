@@ -8,6 +8,12 @@ class CurrencyController extends Controller {
          */
         public $layout = '//layouts/column2';
 
+        public function init() {
+                if (!isset(Yii::app()->session['admin']) || Yii::app()->session['post']['masters'] != 1) {
+                        $this->redirect(Yii::app()->request->baseUrl . '/admin.php/site/logOut');
+                }
+        }
+
         /**
          * @return array action filters
          */
@@ -16,7 +22,6 @@ class CurrencyController extends Controller {
                     'accessControl', // perform access control for CRUD operations
                     'postOnly + delete', // we only allow deletion via POST request
                 );
-
         }
 
         /**
@@ -42,7 +47,6 @@ class CurrencyController extends Controller {
                         'users' => array('*'),
                     ),
                 );
-
         }
 
         /**
@@ -53,7 +57,6 @@ class CurrencyController extends Controller {
                 $this->render('view', array(
                     'model' => $this->loadModel($id),
                 ));
-
         }
 
         /**
@@ -71,8 +74,7 @@ class CurrencyController extends Controller {
                         $model->attributes = $_POST['Currency'];
                         if ($_POST['Currency']['rate'] > 1) {
                                 $model->rate = 1 / $_POST['Currency']['rate'];
-                        }
-                        else {
+                        } else {
                                 $model->rate = 1 * $_POST['Currency']['rate'];
                         }
                         $model->symbol = $_POST['Currency']['symbol'];
@@ -90,7 +92,6 @@ class CurrencyController extends Controller {
                 $this->render('create', array(
                     'model' => $model,
                 ));
-
         }
 
         /**
@@ -111,15 +112,13 @@ class CurrencyController extends Controller {
                         $model->attributes = $_POST['Currency'];
                         if ($_POST['Currency']['rate'] > 1) {
                                 $model->rate = 1 / $_POST['Currency']['rate'];
-                        }
-                        else {
+                        } else {
                                 $model->rate = 1 * $_POST['Currency']['rate'];
                         }
                         $model->symbol = $_POST['Currency']['symbol'];
                         if ($image != "") {
                                 $image->saveAs(Yii::app()->basePath . "/../uploads/currency/" . $model->id . "." . $image->extensionName);
-                        }
-                        else {
+                        } else {
                                 $model->image = $image1;
                         }
                         if ($model->save())
@@ -129,7 +128,6 @@ class CurrencyController extends Controller {
                 $this->render('update', array(
                     'model' => $model,
                 ));
-
         }
 
         /**
@@ -146,7 +144,6 @@ class CurrencyController extends Controller {
 // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
                 if (!isset($_GET['ajax']))
                         $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-
         }
 
         /**
@@ -157,7 +154,6 @@ class CurrencyController extends Controller {
                 $this->render('index', array(
                     'dataProvider' => $dataProvider,
                 ));
-
         }
 
         /**
@@ -172,7 +168,6 @@ class CurrencyController extends Controller {
                 $this->render('admin', array(
                     'model' => $model,
                 ));
-
         }
 
         /**
@@ -187,7 +182,6 @@ class CurrencyController extends Controller {
                 if ($model === null)
                         throw new CHttpException(404, 'The requested page does not exist.');
                 return $model;
-
         }
 
         /**
@@ -199,8 +193,8 @@ class CurrencyController extends Controller {
                         echo CActiveForm::validate($model);
                         Yii::app()->end();
                 }
-
         }
+
 }
 
 ?>
