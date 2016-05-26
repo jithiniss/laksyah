@@ -42,6 +42,9 @@ class MenuCategory extends CApplicationComponent {
                 } elseif (!empty($find_in_set) && !empty($categ)) {
                         $condition = $find_in_set;
                         $order = '';
+                } elseif (!empty($find_in_set) && !empty($size)) {
+                        $condition = '(id  IN (SELECT product_id FROM option_details WHERE size_id = ' . $size . ')) AND (' . $find_in_set . ')';
+                        $order = '';
                 } elseif (!empty($find_in_set)) {
                         $condition = $find_in_set;
                         $order = 'RAND()';

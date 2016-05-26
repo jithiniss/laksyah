@@ -176,17 +176,18 @@ class ProductsController extends Controller {
                         // $data[4] = $size_type;
 
 
-                        if ($cat != '' && $min != '' && $max != '' && $size_type) {
+                        if ($cat != '' && $min != '' && $max != '') {
                                 $categry = ProductCategory::model()->findByPk($cat);
                                 if (!empty($categry)) {
                                         Yii::app()->session['temp_product_filter'] = $data;
                                 }
                         }
-                        if ($size_type != '') {
+                        if ($size_type != '' && $cat != '') {
                                 $sizes = OptionCategory::model()->findByAttributes(array('option_type_id' => 2, 'id' => $size_type));
                                 if (!empty($sizes)) {
                                         $data[4] = $size_type;
                                         Yii::app()->session['temp_product_filter'][4] = $size_type;
+                                        Yii::app()->session['temp_product_filter'][3] = $size_type;
                                 } else {
                                         $size_type = '';
                                 }
