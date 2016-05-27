@@ -27,10 +27,10 @@
 <!--                <script src="<?php echo yii::app()->request->baseUrl; ?>/js/jquery.min.js"></script>-->
                 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/bootstrap.js"></script>
                 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.countdown.min.js"></script>
-                <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/custom.js"></script>
+
                 <script>
-                        var baseurl = "<?php print Yii::app()->request->baseUrl . "/index.php/"; ?>";
-                        var basepath = "<?php print Yii::app()->basePath; ?>";</script>
+                                var baseurl = "<?php print Yii::app()->request->baseUrl . "/index.php/"; ?>";
+                                var basepath = "<?php print Yii::app()->basePath; ?>";</script>
                 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
                 <!--[if lt IE 9]>
                       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -369,113 +369,22 @@
                 <script src="<?php echo yii::app()->request->baseUrl; ?>/js/laksyah_main.js"></script>
         </body>
 </html>
-
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/custom.js"></script>
 <script>
-                        $(document).ready(function () {
+
 <?php if ($loginform->hasErrors()) { ?>
-                                        $("#logreg").modal('show');
+                                $("#logreg").modal('show');
 <?php } ?>
-                                $("#logreg").hide();
-                                $("#logregs").hide();
-                                getcartcount();
-                                getcarttotal();
+
                         });
-                        function getcartcount() {
-
-                                $.ajax({
-                                        type: "POST",
-                                        cache: 'false',
-                                        async: false,
-                                        url: baseurl + 'cart/Getcartcount',
-                                        data: {}
-                                }).done(function (data) {
-                                        $(".cart_items").html(data);
-                                        hideLoader();
-                                });
-                        }
-                        function getcarttotal() {
-
-                                $.ajax({
-                                        type: "POST",
-                                        cache: 'false',
-                                        async: false,
-                                        url: baseurl + 'cart/Getcarttotal',
-                                        data: {}
-                                }).done(function (data) {
-                                        $(".amount").html(data);
-                                        hideLoader();
-                                });
-                        }
-</script>
-</script>
-<script>
-        $(document).keydown(function (e) {
-                // ESCAPE key pressed
-                if (e.keyCode == 27) {
-                        $(".cart_box").fadeOut(500);
-                }
-        });
-        $(document).ready(function () {
-                /*                  * cart remove funciton . remove individual item from cart
-                 */
-                $("#cart_box").on("click", ".drop_cart>.cart_item>.remove_item", function () {
-                        var cartid = $(this).attr('cartid');
-                        var canname = $(this).attr('canname');
-                        removecart(cartid, canname);
-                });
-        });
-        function removecart(cartid, canname) {
-
-                $.ajax({
-                        type: "POST",
-                        cache: 'false',
-                        async: false,
-                        url: baseurl + 'cart/Removecart',
-                        data: {cartid: cartid, cano_name: canname}
-                }).done(function (data) {
-                        getcartcount();
-                        getcarttotal();
-                        $(".cart_box").html(data);
-<?php if (Yii::app()->controller->action->id == 'Mycart') { ?>
-                                location.reload();
-<?php } ?>
-                        hideLoader();
-                });
-        }
-</script>
-
-<script>
-        function login() {
-                document.getElementById("form_id").submit();
-        }
-        function getcartdata() {
-                $.ajax({
-                        type: "POST",
-                        cache: 'false',
-                        async: false,
-                        url: baseurl + 'cart/Selectcart',
-                        data: {}
-                }).done(function (data) {
-                        $(".cart_box").html(data);
-                        //$(".cart_box").show('fast');
-                        hideLoader();
-                });
-        }
-</script>
-<script>
-        $(document).ready(function () {
-                getcartdata();
-                $('[data-toggle="tooltip"]').tooltip();
-        });</script>
-<script>
-        function showLoader() {
-                $('.over-lay').show();
-        }
-        function hideLoader() {
-                $('.over-lay').hide();
-        }
 
 </script>
+
+
+
+
+
+
 
 
 
