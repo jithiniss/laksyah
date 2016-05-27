@@ -2,56 +2,9 @@
 
 class GiftcardController extends Controller {
 
-        public function actionIndex() {
-
-                Yii::app()->session['gift_card_detail'] = $_POST['card_id'];
+        public function actionIndex($card_id) {
+                Yii::app()->session['gift_card_detail'] = $card_id;
                 $this->redirect('Address');
-        }
-
-        public function actionLogin() {
-                if (isset(Yii::app()->session['user'])) {
-                        $this->redirect($this->createUrl('index'));
-                } else {
-                        $model = new UserDetails();
-                        if (isset($_REQUEST['UserDetails'])) {
-
-                                $modell = UserDetails::model()->findByAttributes(array('email' => $_REQUEST['UserDetails']['email'], 'password' => $_REQUEST['UserDetails']['password'], 'status' => 1));
-
-                                if ($modell != '' && $modell != NULL) {
-
-
-                                        Yii::app()->session['user'] = $modell;
-                                        if (isset(Yii::app()->session['temp_user'])) {
-//  Cart::model()->deleteAllByAttributes(array("user_id" => $modell->id));
-
-                                                Cart::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
-
-                                                UserWishlist::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
-                                                ProductViewed::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
-
-                                                unset(Yii::app()->session['temp_user']);
-                                        }
-                                        if (Yii::app()->session['login_flag'] != '' && Yii::app()->session['login_flag'] == 1) {
-                                                unset(Yii::app()->session['login_flag']);
-
-                                                $this->redirect($this->createUrl('/Cart/Proceed'));
-                                        } else {
-                                                unset(Yii::app()->session['wishlist_user']);
-                                                $this->redirect($this->createUrl('/site/index'));
-                                        }
-                                } else {
-
-//                                        $model->addError('password', 'invalid username or password');
-                                        Yii::app()->user->setFlash('login_list', "Username or password invalid");
-                                }
-                        }
-                        if (isset(Yii::app()->session['wishlist_user'])) {
-
-                                Yii::app()->user->setFlash('wishlist_user', "Dear, You must login to see Wishlist Items");
-                        }
-
-                        $this->redirect('Address');
-                }
         }
 
         public function actionAddress() {
@@ -75,7 +28,7 @@ class GiftcardController extends Controller {
                                 $this->render('bill_address', array('addresss' => $addresss, 'billing' => $billing));
                         }
                 } else {
-                        $this->redirect(array('site/login'));
+                        $this->redirect('Login');
                 }
         }
 

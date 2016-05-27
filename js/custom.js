@@ -1,4 +1,6 @@
 $(document).ready(function () {
+        
+        
         $("#logreg").hide();
         $("#logregs").hide();
         getcartcount();

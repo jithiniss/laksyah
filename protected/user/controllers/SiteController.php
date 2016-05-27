@@ -176,6 +176,8 @@ class SiteController extends Controller {
          * Displays the login page
          */
         public function actionLogin() {
+//                echo $_POST['gift_id'];
+//                exit;
                 if (isset(Yii::app()->session['user'])) {
                         $this->redirect($this->createUrl('index'));
                 } else {
@@ -183,11 +185,12 @@ class SiteController extends Controller {
                         if (isset($_REQUEST['UserDetails'])) {
 
                                 $modell = UserDetails::model()->findByAttributes(array('email' => $_REQUEST['UserDetails']['email'], 'password' => $_REQUEST['UserDetails']['password'], 'status' => 1));
-
                                 if ($modell != '' && $modell != NULL) {
-
-
                                         Yii::app()->session['user'] = $modell;
+                                        if ($_POST['gift_id'] != '') {
+//                                                $this->redirect(array('giftcard/address'));
+                                                $this->redirect($this->createUrl('/giftcard/index', array('card_id' => $_POST['gift_id'])));
+                                        }
                                         if (isset(Yii::app()->session['temp_user'])) {
 //  Cart::model()->deleteAllByAttributes(array("user_id" => $modell->id));
 
@@ -204,7 +207,8 @@ class SiteController extends Controller {
                                                 $this->redirect($this->createUrl('/Cart/Proceed'));
                                         } else {
                                                 unset(Yii::app()->session['wishlist_user']);
-                                                $this->redirect($this->createUrl('/site/index'));
+                                                $this->redirect(Yii::app()->request->urlReferrer);
+//                                                $this->redirect($this->createUrl('/site/index'));
                                         }
                                 } else {
 

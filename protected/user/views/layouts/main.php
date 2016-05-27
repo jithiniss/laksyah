@@ -29,8 +29,8 @@
                 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.countdown.min.js"></script>
 
                 <script>
-                                var baseurl = "<?php print Yii::app()->request->baseUrl . "/index.php/"; ?>";
-                                var basepath = "<?php print Yii::app()->basePath; ?>";</script>
+                        var baseurl = "<?php print Yii::app()->request->baseUrl . "/index.php/"; ?>";
+                        var basepath = "<?php print Yii::app()->basePath; ?>";</script>
                 <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
                 <!--[if lt IE 9]>
                       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -39,6 +39,13 @@
         </head>
 
         <body>
+                <script>
+
+                        $(document).ready(function () {
+<?php if (Yii::app()->user->hasFlash('login_list')): ?>
+                                        $("#login").modal('show');
+<?php endif; ?>
+                        });</script>
 
                 <div class="modal" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
@@ -62,11 +69,12 @@
                                                                                 <strong>sorry!</strong><?php echo Yii::app()->user->getFlash('login_list'); ?>
                                                                         </div>
                                                                 <?php endif; ?>
-                                                                <form  name="login" action="<?= Yii::app()->baseUrl; ?>/index.php/Site/login" method="POST">
+                                                                <form  name="login" id="login_form" action="<?= Yii::app()->baseUrl; ?>/index.php/Site/login" method="POST">
                                                                         <label>Email Address</label>
-                                                                        <input class="form-control" type="text" name="UserDetails[email]" />
+                                                                        <input class="form-control" type="text" name="UserDetails[email]" autocomplete="off" />
                                                                         <label>Password</label>
-                                                                        <input class="form-control" type="password" name="UserDetails[password]" />
+                                                                        <input class="form-control" type="password" name="UserDetails[password]" autocomplete="off" />
+                                                                        <input type="hidden" name="gift_id"  id="gift_card" />
                                                                         <p><a href="#" class="forgot">Forgot Password?</a></p>
                                                                         <input type="submit"  class ="btn-primary btn-full" value="SIGN IN" />
                                                                 </form>
@@ -370,23 +378,5 @@
         </body>
 </html>
 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/custom.js"></script>
-<script>
-
-<?php if ($loginform->hasErrors()) { ?>
-                                $("#logreg").modal('show');
-<?php } ?>
-
-                        });
-
-</script>
-
-
-
-
-
-
-
-
-
 </body>
 </html>
