@@ -11,14 +11,15 @@
                     <td><a href="http://laksyah.com"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/emailer_01.jpg" width="776" height="102" alt=""></a></td>
                 </tr>
                 <tr>
-                    <td style="padding:40px 20px; font-family:'Open Sans',arial, sans-serif; font-size:13px"><p>Hi <?php echo $model->first_name; ?><span>      <?php echo $model->last_name; ?></span>,</p>
+                    <td style="padding:40px 20px; font-family:'Open Sans',arial, sans-serif; font-size:13px"><p>Hi <?php echo $username->first_name; ?><span>      <?php echo $username->last_name; ?></span>,</p>
                         <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"></p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">your account has been successfully created</p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">ON  <?php echo $newDate = date("d-m-Y", strtotime($model->DOC)); ?>  </p><p> email id:      <?php echo $model->email; ?></p><p>   password:  <?php echo $model->password; ?></p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><a href="<?php
-                            echo Yii::app()->request->baseUrl .
-                            '/index.php/site/login';
-                            ?>" style="text-transform: uppercase;background-color: #f47721;border-radius: 0;outline: none;border: none;height: 40px;line-height: 40px;padding: 0px 10px;padding-left: 30px;padding-right: 30px; color:#fff; text-decoration:none; display:inline-block;">LOGIN HERE</a></p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">  Oops some error occured.Transaction rejected.
+                        </p>
+
+
+
+
+
                         <hr style="border-color:#404241;">
                     </td>
                 </tr>
