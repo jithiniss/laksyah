@@ -224,7 +224,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                 <h3>Watch Video</h3>
                                 <div class="video_thumb">
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
                                     <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/video_thumb.jpg" alt=""/>
                                     <a class="video_link laksyah_video fancybox.iframe" href="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>"><i class="fa fa-play-circle-o"></i></a>
                                 </div>
@@ -243,7 +243,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                             <input type="hidden" value="<?php echo $product_option->option_type_id; ?>" name="option_type" id="option_type"/>
                             <?php
                             if($product_option->option_type_id == 1 || $product_option->option_type_id == 3) {
-                                    $colors = OptionDetails::model()->findAllByAttributes(['status' => 1, 'master_option_id' => $product_option->id], ['condition' => 'stock>=1', 'select' => 'color_id', 'distinct' => true,]);
+                                    $colors = OptionDetails::model()->findAllByAttributes(['status' => 1, 'master_option_id' => $product_option->id], ['select' => 'color_id,stock,status', 'distinct' => true, 'order' => 'color_id']);
                                     ?>
 
                                     <input type="hidden" value="" name="option_color" id="option_color"/>
@@ -257,8 +257,13 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                     <?php
                                                     foreach($colors as $color) {
                                                             $color_name = OptionCategory::model()->findByPk($color->color_id);
+                                                            if($color->stock != 0 || $color->status != 1) {
+                                                                    $disabled1 = '';
+                                                            } else {
+                                                                    $disabled1 = 'disabled';
+                                                            }
                                                             ?>
-                                                            <li class = "" option_id="<?php echo $product_option->id; ?>" color="<?php echo $color->color_id; ?>"> <a class = "#" style = "background-color:<?php echo $color_name->color_code; ?>;" title="<?php echo $color_name->color_name; ?>"></a> </li>
+                                                            <li class = "<?php echo $disabled1; ?>" option_id="<?php echo $product_option->id; ?>" color="<?php echo $color->color_id; ?>"> <a class = "#" style = "background-color:<?php echo $color_name->color_code; ?>;" title="<?php echo $color_name->color_name; ?>"></a> </li>
 
                                                             <?php
                                                     }
@@ -271,7 +276,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                             <?php
                             if($product_option->option_type_id == 2 || $product_option->option_type_id == 3) {
-                                    $sizes = OptionDetails::model()->findAllByAttributes(['status' => 1, 'master_option_id' => $product_option->id], ['condition' => 'stock>=1', 'select' => 'size_id', 'distinct' => true]);
+                                    $sizes = OptionDetails::model()->findAllByAttributes(['status' => 1, 'master_option_id' => $product_option->id], ['select' => 'size_id,stock,status', 'distinct' => true, 'order' => 'size_id']);
                                     ?>
                                     <input type="hidden" value="" name="option_size" id="option_size"/>
                                     <div class = "product_size size_filter">
@@ -284,9 +289,16 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                     foreach($sizes as $size) {
                                                             $size_name = OptionCategory::model()->findByPk($size->size_id);
                                                             if($product_option->option_type_id == 3) {
+
                                                                     $disabled = 'disabled';
                                                             } else {
-                                                                    $disabled = '';
+
+
+                                                                    if($size->stock != 0 || $size->status != 1) {
+                                                                            $disabled = '';
+                                                                    } else {
+                                                                            $disabled = 'disabled';
+                                                                    }
                                                             }
                                                             ?>
                                                             <label class="<?php echo $disabled; ?>" id="<?php echo $size->size_id; ?>"><?php echo $size_name->size; ?>
@@ -297,7 +309,9 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                     ?>
 
                                                 </div>
-                                        <?php } ?>
+                                                <?php
+                                        }
+                                        ?>
                                     </div>
                                     <?php
                             }
@@ -924,9 +938,13 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                 if (option_type == 3) {
                     color_size(option, color);
                 }
-                $('.color_picker li').removeClass('active');
-                $(this).addClass('active');
-                $('#option_color').val(color);
+                if ($(this).hasClass("disabled")) {
+
+                } else {
+                    $('.color_picker li').removeClass('active');
+                    $(this).addClass('active');
+                    $('#option_color').val(color);
+                }
             });
         });
 
