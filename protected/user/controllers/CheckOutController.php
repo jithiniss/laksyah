@@ -366,9 +366,11 @@ class CheckOutController extends Controller {
                                         if ($bill_address_id != '' && $ship_address_id != '') {
 
                                                 $order_id = Yii::app()->session['orderid'];
+
                                                 $this->addOrder($bill_address_id, $ship_address_id, $cart, $order_id);
 
                                                 if ($wallet > 0) {
+
                                                         $user->wallet_amt = $currentwallet - $wallet;
                                                         $gift_packing = $this->giftpack($order->id);
                                                         if ($gift_packing > 0) {
@@ -377,6 +379,8 @@ class CheckOutController extends Controller {
                                                         }
                                                         $order->payment_mode = 1;
                                                         $order->payment_status = 1;
+                                                        $order->bill_address_id = $bill_address_id;
+                                                        $order->ship_address_id = $ship_address_id;
                                                         $order->status = 1;
                                                         if ($order->save()) {
                                                                 Cart::model()->deleteAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
@@ -390,6 +394,7 @@ class CheckOutController extends Controller {
                                                                 $this->redirect(array('OrderSuccess'));
                                                         }
                                                 } else {
+
                                                         Cart::model()->deleteAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
 
                                                         $gift_packing = $this->giftpack($order->id);
@@ -402,10 +407,15 @@ class CheckOutController extends Controller {
                                                         }
                                                         $order->payment_mode = $_POST['payment_method'];
                                                         $order->payment_status = 1;
+                                                        $order->bill_address_id = $bill_address_id;
+                                                        $order->ship_address_id = $ship_address_id;
                                                         $order->status = 1;
+
                                                         if ($order->save()) {
+
                                                                 $this->updateorderproduct($order->id);
                                                                 //$this->redirect(array('OrderHistory'));
+
                                                                 $this->redirect(array('OrderSuccess'));
                                                         }
 //
@@ -446,13 +456,18 @@ class CheckOutController extends Controller {
                 }
         }
 
-        public function addOrder($address_id_bill, $address_id_ship, $cart, $order_id) {
+        public function addOrder($bill_address_id, $ship_address_id, $cart, $order_id) {
+
+
                 $model1 = $this->loadModel($order_id);
+
+
                 $total_amt = $this->total($cart);
-                $model1->ship_address_id = $address_id_ship;
-                $model1->bill_address_id = $address_id_bill;
+                $model1->ship_address_id = $ship_address_id;
+                $model1->bill_address_id = $bill_address_id;
                 $model1->total_amount = $total_amt;
-                if ($model1->save()) {
+
+                if ($model1->save(false)) {
                         return $model1->id;
                 }
         }
@@ -605,13 +620,14 @@ class CheckOutController extends Controller {
                 $shiping_charge = ShippingCharges::model()->findByPk($user_address->country);
                 $order_details = OrderProducts::model()->findAllByAttributes(array('order_id' => $order->id));
 
-                $this->SendMail($order);
-                $this->adminmail($order);
-                exit;
+                //$this->SendMail($order);
+                //$this->adminmail($order);
+
                 unset(yii::app()->session['orderid']);
                 $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
                 Yii::app()->session['user'] = $user;
                 unset(yii::app()->session['orderid']);
+
                 $this->render('order_success');
         }
 
@@ -662,7 +678,7 @@ class CheckOutController extends Controller {
                 $headers .= 'From: <no-reply@lakshya.com>' . "\r\n";
                 //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
                 echo $message;
-                exit();
+
                 //  mail($to, $subject, $message, $headers);
         }
 

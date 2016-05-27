@@ -274,6 +274,14 @@
                                                 foreach ($carts as $cart) {
                                                         $prod_details = Products::model()->findByPk($cart->product_id);
                                                         $folder = Yii::app()->Upload->folderName(0, 1000, $prod_details->id);
+                                                        $colors = OptionDetails::model()->findByPk($cart->options);
+                                                        $sizes = OptionDetails::model()->findByPk($cart->options);
+                                                        if (!empty($colors)) {
+                                                                $color_name = OptionCategory::model()->findByPk($colors->color_id);
+                                                        }
+                                                        if (!empty($sizes)) {
+                                                                $size_name = OptionCategory::model()->findByPk($sizes->size_id);
+                                                        }
                                                         ?>
                                                         <?php $producttotal = $prod_details->price * $cart->quantity; ?>
                                                         <div class="cart_product_detail">
@@ -293,8 +301,8 @@
                                                                                 </strong></span>
                                                                 </h3>
 
-                                                                <p><span>Color:</span>Doeskin</p>
-                                                                <p><span>Size:</span> Red</p>
+                                                                <?php if (!empty($color_name)) { ?>  <p><span>Color:</span>	<?php echo $color_name->color_name; ?></p> <?php } ?>
+                                                                <?php if (!empty($size_name)) { ?> <p><span>Size:</span><?php echo $size_name->size; ?>S</p> <?php } ?>
                                                                 <p><span>Qty:</span><?php echo $cart->quantity; ?></p>
                                                                 <div class="clearfix"></div>
 
@@ -388,8 +396,9 @@
                                                         <div class="clearfix"></div>
                                                         <p class="text-right">Available Credit: <strong>  <span id="wallet_total"><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></span></strong></p>
                                                 <?php } ?>
-                                                <p class="text-right">Current Credit Balance: <strong>   <span id="wallet_total1"><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></span></strong></p>
-
+                                                <?php if (Yii::app()->session['user']['wallet_amt'] > 0) { ?>
+                                                        <p class="text-right">Current Credit Balance: <strong>   <span id="wallet_total1"><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></span></strong></p>
+                                                <?php } ?>
 
                                         </div>
 
