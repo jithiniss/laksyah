@@ -17,10 +17,12 @@ class ProductsController extends Controller {
                         $categ = '';
                 }
                 $dataProvider = Yii::app()->Menu->MenuCategories($cats, $parent, $categ, $min = '', $max = '', $size = '');
+
                 if (isset(Yii::app()->session['temp_product_filter'])) {
                         unset(Yii::app()->session['temp_product_filter']);
                         unset(Yii::app()->session['temp_product_filter_check']);
                 }
+
                 $this->render('index', array('dataProvider' => $dataProvider, 'parent' => $parent, 'category' => $category, 'name' => $name));
         }
 
@@ -256,7 +258,7 @@ class ProductsController extends Controller {
                                                 $size_name = OptionCategory::model()->findByPk($option_size->size_id);
                                                 ?>
                                                 <label class="" id="<?php echo $option_size->size_id; ?>"><?php echo $size_name->size; ?>
-                                                        <input type = "radio" name = "size_selector_<?php echo $size_name->id; ?>" value = "<?php echo $size_name->id; ?>" id = "size_selector_<?php echo $size_name->id; ?>">
+                                                    <input type = "radio" name = "size_selector_<?php echo $size_name->id; ?>" value = "<?php echo $size_name->id; ?>" id = "size_selector_<?php echo $size_name->id; ?>">
                                                 </label>
                                                 <?php
                                         }
