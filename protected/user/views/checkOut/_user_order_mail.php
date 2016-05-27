@@ -100,8 +100,7 @@
                                 <tr>
                                     <th align="left" bgcolor="#EAEAEA" style="font-family: 'Open Sans',arial, sans-serif;font-size:13px;padding:3px 9px">  PRODUCT NAME</th>
                                     <th align="left" bgcolor="#EAEAEA" style="font-family: 'Open Sans',arial, sans-serif;font-size:13px;padding:3px 9px">QUANTITY</th>
-                                    <th align="center" bgcolor="#EAEAEA" style="font-family: 'Open Sans',arial, sans-serif;font-size:13px;padding:3px 9px">     UNIT PRICE</th>
-
+                                    <th align="center" bgcolor="#EAEAEA" style="font-family: 'Open Sans',arial, sans-serif;font-size:13px;padding:3px 9px"> UNIT PRICE</th>
                                     <th align="right" bgcolor="#EAEAEA" style="font-family: 'Open Sans',arial, sans-serif;font-size:13px;padding:3px 9px">SUB TOTAL</th>
                                 </tr>
                             </thead>
@@ -156,15 +155,11 @@
                                         <strong>Grand Total</strong>
                                     </td>
                                     <td align = "right" style = "padding:3px 8px">
-
-
                                         <strong>
                                             <?php
                                             $total = $granttotal + $shiping_charge->shipping_rate;
                                             echo $total . '.00';
                                             ?>
-
-
                                         </strong>
 
                                     </td>
@@ -173,10 +168,6 @@
                             </tbody>
                         </table>
                         <br>
-
-
-
-
                         <p style="font-size:12px;margin:0 0 10px 0"></p>
                     </td>
                 </tr>
