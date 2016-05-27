@@ -205,7 +205,8 @@ class CartController extends Controller {
                 $gift_user = new TempUserGifts;
                 $gift_options = Cart::model()->findAllByAttributes(array('gift_option' => 1));
                 if (Yii::app()->session['user'] != '' && Yii::app()->session['user'] != NULL) {
-                        $coupen_details = '';
+                        //$current_coupon = explodeYii::app()->session['couponid'];
+                        $coupen_details = CouponHistory::model()->findByAttributes(array('user_id' => Yii::app()->session['user']['id']));
                         $user_id = Yii::app()->session['user']['id'];
                         Cart::model()->deleteAllByAttributes(array(), array('condition' => 'date < subdate(now(), 1) and user_id != ' . Yii::app()->session['user']['id']));
                 } else {
@@ -394,6 +395,12 @@ class CartController extends Controller {
 // $this->render('new_buynow');
                         $this->render('buynow', array('carts' => $cart_items, 'regform' => $model, 'loginform' => $model1, 'gift_user' => $gift_user, 'gift_options' => $gift_options, 'coupen_details' => $coupen_details));
                 } else {
+                        $coupon_ids = explode(',', Yii::app()->session['couponid']);
+                        foreach ($coupon_ids as $coupon_id) {
+                                CouponHistory::model()->deleteAllByAttributes(array('coupon_id' => $coupon_id));
+                        }
+                        unset(Yii::app()->session['couponid']);
+                        unset(Yii::app()->session['couponamount']);
                         $this->render('empty_cart', array());
                 }
         }
@@ -597,31 +604,25 @@ class CartController extends Controller {
                         $cart_items = Cart::model()->findAllByAttributes(array('session_id' => $temp_id));
                 }
                 $total = 0;
+
                 foreach ($cart_items as $items) {
                         if (Yii::app()->session['currency'] != "") {
-                                if ($items->options != 0) {
-                                        $prod_price1 = Options::model()->findByPk($items->options)->amount;
+
+                                $product = Products::model()->findByAttributes(array('id' => $items->product_id));
+                                if ($product->discount) {
+                                        $prod_price1 = $product->price - $product->discount;
                                         $prod_price = round($prod_price1 * Yii::app()->session['currency']->rate, 2);
                                 } else {
-                                        $product = Products::model()->findByAttributes(array('id' => $items->product_id));
-                                        if ($product->discount) {
-                                                $prod_price1 = $product->price - $product->discount;
-                                                $prod_price = round($prod_price1 * Yii::app()->session['currency']->rate, 2);
-                                        } else {
-                                                $prod_price1 = $product->price;
-                                                $prod_price = round($prod_price1 * Yii::app()->session['currency']->rate, 2);
-                                        }
+                                        $prod_price1 = $product->price;
+                                        $prod_price = round($prod_price1 * Yii::app()->session['currency']->rate, 2);
                                 }
                         } else {
-                                if ($items->options != 0) {
-                                        $prod_price = Options::model()->findByPk($items->options)->amount;
+
+                                $product = Products::model()->findByAttributes(array('id' => $items->product_id));
+                                if ($product->discount) {
+                                        $prod_price = $product->price - $product->discount;
                                 } else {
-                                        $product = Products::model()->findByAttributes(array('id' => $items->product_id));
-                                        if ($product->discount) {
-                                                $prod_price = $product->price - $product->discount;
-                                        } else {
-                                                $prod_price = $product->price;
-                                        }
+                                        $prod_price = $product->price;
                                 }
                         }
 
@@ -631,7 +632,11 @@ class CartController extends Controller {
                         }
                         $total+= $price;
                 }
-                echo $total;
+                if (Yii::app()->request->isAjaxRequest) {
+                        echo $total;
+                } else {
+                        return $total;
+                }
         }
 
         public function actionProceed() {
@@ -665,11 +670,13 @@ class CartController extends Controller {
         }
 
         public function updatecoupenhistory($order_id) {
-
-                $model = CouponHistory::model()->findByAttributes(array('user_id' => Yii::app()->session['user']['id'], 'coupon_id' => Yii::app()->session['couponid']));
-                if (!empty($model)) {
-                        $model->order_id = $order_id;
-                        $model->save();
+                $couponids = explode(',', Yii::app()->session['couponid']);
+                foreach ($couponids as $couponid) {
+                        $model = CouponHistory::model()->findByAttributes(array('user_id' => Yii::app()->session['user']['id'], 'coupon_id' => $couponid));
+                        if (!empty($model)) {
+                                $model->order_id = $order_id;
+                                $model->save();
+                        }
                 }
         }
 
@@ -890,6 +897,8 @@ class CartController extends Controller {
         }
 
         public function actionCoupon() {
+                $cart_total = $this->actionTotal();
+
                 date_default_timezone_set('Asia/Kolkata');
                 if (isset($_POST['btn_submit'])) {
                         $coupen_details = Coupons::model()->findByAttributes(array('code' => $_POST['coupon']));
@@ -911,7 +920,7 @@ class CartController extends Controller {
 //$order = Order::model()->findByPk(Yii::app()->session['orderid']);
                         if (!empty($cart)) {
 
-                                $coupon_code = Coupons::model()->findByAttributes(array('code' => $_POST['coupon']));
+                                $coupon_code = Coupons::model()->findByAttributes(array('code' => $_POST['coupon'], 'status' => 1));
                                 $gift_card = Coupons::model()->findByAttributes(array('gift_card_id' => $_POST['coupon'], 'type' => 2), array('condition' => 'amount' > 0));
                                 $user_id = false;
                                 $prod_id = false;
@@ -920,143 +929,204 @@ class CartController extends Controller {
                                 $strt_dte = false;
 
                                 if (!empty($coupon_code)) {
-
                                         $coupe_type = $coupon_code->type;
-                                        if ($coupe_type != 0) {
-
-                                                if (!empty($c_history)) {
-                                                        if ($coupon_code->discount > 0) {
-
-                                                                if ($coupon_code->expiry_date >= date('Y-m-d')) {
-                                                                        $expry_dte = true;
-                                                                } else if ($coupon_code->expiry_date == 0000 - 00 - 00) {
-                                                                        $expry_dte = true;
-                                                                }
-
-                                                                if ($coupon_code->starting_date >= date('Y-m-d')) {
-                                                                        $strt_dte = false;
-                                                                } else {
-                                                                        $strt_dte = true;
-                                                                }
-                                                                if ($coupon_code->starting_date == 0000 - 00 - 00) {
-                                                                        $strt_dte = true;
-                                                                }
-                                                                if ($strt_dte == true && $expry_dte == true) {
-
-                                                                        $coupon_history = new CouponHistory;
-                                                                        $coupon_history->coupon_id = $coupon_code->id;
-                                                                        $coupon_history->total_amount = $coupon_code->discount;
-                                                                        if (isset(Yii::app()->session['user'])) {
-                                                                                $coupon_history->user_id = Yii::app()->session['user']['id'];
-                                                                                $coupon_history->order_id = Yii::app()->session['orderid'];
-                                                                                $coupon_history->session_id = NULL;
-                                                                        } else if (isset(Yii::app()->session['temp_user'])) {
-
-                                                                                $coupon_history->session_id = Yii::app()->session['temp_user'];
-                                                                                $coupon_history->user_id = 0;
-                                                                        }
-
-                                                                        if ($coupon_history->save()) {
-                                                                                // Yii::app()->session['couponid'] = $coupon_history->coupon_id; /* coupon code session */
-                                                                                Yii::app()->session['couponid'] = Yii::app()->session['couponid'] . ',' . $coupon_history->coupon_id;
-                                                                                if (empty(Yii::app()->session['couponid'])) {
-                                                                                        Yii::app()->session['couponid'] = $coupon_history->coupon_id;
-                                                                                } else {
-                                                                                        Yii::app()->session['couponid'] = Yii::app()->session['couponid'] . ',' . $coupon_history->coupon_id;
-                                                                                }
-                                                                                Yii::app()->user->setFlash('success', "Your coupon code is submitted...");
-                                                                        }
-                                                                } else {
-                                                                        Yii::app()->user->setFlash('error', "Sorry! Invalid coupon code..");
-                                                                }
-                                                        } else {
-                                                                Yii::app()->user->setFlash('error', "coupon is used");
-                                                                $this->redirect(array('cart/Mycart'));
-                                                        }
-                                                } else {
-
-                                                        if ($coupon_code->expiry_date >= date('Y-m-d')) {
-                                                                $expry_dte = true;
-                                                        } else if ($coupon_code->expiry_date == 0000 - 00 - 00) {
-                                                                $expry_dte = true;
-                                                        }
-
-                                                        if ($coupon_code->starting_date >= date('Y-m-d')) {
-                                                                $strt_dte = false;
-                                                        } else {
-                                                                $strt_dte = true;
-                                                        }
-                                                        if ($coupon_code->starting_date == 0000 - 00 - 00) {
-                                                                $strt_dte = true;
-                                                        }
-                                                        if ($strt_dte == true && $expry_dte == true) {
-
-                                                                $coupon_history = new CouponHistory;
-                                                                $coupon_history->coupon_id = $coupon_code->id;
-                                                                $coupon_history->total_amount = $coupon_code->discount;
-                                                                if (isset(Yii::app()->session['user'])) {
-                                                                        $coupon_history->user_id = Yii::app()->session['user']['id'];
-                                                                        $coupon_history->order_id = Yii::app()->session['orderid'];
-                                                                        $coupon_history->session_id = NULL;
-                                                                } else if (isset(Yii::app()->session['temp_user'])) {
-
-                                                                        $coupon_history->session_id = Yii::app()->session['temp_user'];
-                                                                        $coupon_history->user_id = 0;
-                                                                }
-
-                                                                if ($coupon_history->save()) {
-                                                                        Yii::app()->session['couponid'][1] = $coupon_history->coupon_id;  /* coupon code session */
-
-                                                                        Yii::app()->user->setFlash('success', "Your coupon code is submitted...");
-                                                                }
-                                                        } else {
-                                                                Yii::app()->user->setFlash('error', "Sorry! Invalid coupon code..");
-                                                        }
-                                                }
-                                        } else if ($coupe_type == 0) {
-                                                if (!empty($c_history)) {
-                                                        Yii::app()->user->setFlash('error', "coupon is used");
+                                        if ($coupe_type == 2) {
+                                                if ($cart_total <= Yii::app()->session['couponamount']) {
+                                                        Yii::app()->user->setFlash('error', "Coupon Limit Reached");
                                                         $this->redirect(array('cart/Mycart'));
                                                 } else {
-                                                        if ($coupon_code->expiry_date >= date('Y-m-d')) {
-                                                                $expry_dte = true;
-                                                        } else if ($coupon_code->expiry_date == 0000 - 00 - 00) {
-                                                                $expry_dte = true;
-                                                        }
 
-                                                        if ($coupon_code->starting_date >= date('Y-m-d')) {
-                                                                $strt_dte = false;
-                                                        } else {
-                                                                $strt_dte = true;
-                                                        }
-                                                        if ($coupon_code->starting_date == 0000 - 00 - 00) {
-                                                                $strt_dte = true;
-                                                        }
-                                                        if ($strt_dte == true && $expry_dte == true) {
+                                                        if (!empty($c_history)) {
 
-                                                                $coupon_history = new CouponHistory;
-                                                                $coupon_history->coupon_id = $coupon_code->id;
-                                                                $coupon_history->total_amount = $coupon_code->discount;
-                                                                if (isset(Yii::app()->session['user'])) {
-                                                                        $coupon_history->user_id = Yii::app()->session['user']['id'];
-                                                                        $coupon_history->order_id = Yii::app()->session['orderid'];
-                                                                        $coupon_history->session_id = NULL;
-                                                                } else if (isset(Yii::app()->session['temp_user'])) {
+                                                                if ($coupon_code->discount > 0) {
 
-                                                                        $coupon_history->session_id = Yii::app()->session['temp_user'];
-                                                                        $coupon_history->user_id = 0;
+                                                                        if ($coupon_code->expiry_date >= date('Y-m-d')) {
+                                                                                $expry_dte = true;
+                                                                        } else if ($coupon_code->expiry_date == 0000 - 00 - 00) {
+                                                                                $expry_dte = true;
+                                                                        }
+
+                                                                        if ($coupon_code->starting_date >= date('Y-m-d')) {
+                                                                                $strt_dte = false;
+                                                                        } else {
+                                                                                $strt_dte = true;
+                                                                        }
+                                                                        if ($coupon_code->starting_date == 0000 - 00 - 00) {
+                                                                                $strt_dte = true;
+                                                                        }
+                                                                        if ($strt_dte == true && $expry_dte == true) {
+
+                                                                                $coupon_history = new CouponHistory;
+                                                                                $coupon_history->coupon_id = $coupon_code->id;
+
+                                                                                $remaining_to_pay = $cart_total - Yii::app()->session['couponamount'];
+                                                                                if ($remaining_to_pay >= $coupon_code->discount) {
+                                                                                        $coupon_history->total_amount = $coupon_code->discount;
+                                                                                } else {
+                                                                                        $coupon_history->total_amount = $coupon_code->discount - $remaining_to_pay;
+                                                                                }
+
+                                                                                $coupon_history->total_amount = $coupon_code->discount;
+                                                                                if (isset(Yii::app()->session['user'])) {
+                                                                                        $coupon_history->user_id = Yii::app()->session['user']['id'];
+                                                                                        $coupon_history->order_id = Yii::app()->session['orderid'];
+                                                                                        $coupon_history->session_id = NULL;
+                                                                                } else if (isset(Yii::app()->session['temp_user'])) {
+
+                                                                                        $coupon_history->session_id = Yii::app()->session['temp_user'];
+                                                                                        $coupon_history->user_id = 0;
+                                                                                }
+
+                                                                                if ($coupon_history->save()) {
+                                                                                        if (empty(Yii::app()->session['couponid'])) {
+                                                                                                Yii::app()->session['couponid'] = $coupon_history->coupon_id;
+                                                                                                Yii::app()->session['couponamount'] = $coupon_history->total_amount;
+                                                                                        } else {
+                                                                                                Yii::app()->session['couponid'] = Yii::app()->session['couponid'] . ',' . $coupon_history->coupon_id;
+                                                                                                Yii::app()->session['couponamount'] = Yii::app()->session['couponamount'] + $coupon_history->total_amount;
+                                                                                        }
+                                                                                        if (Yii::app()->session['couponamount'] >= $cart_total) {
+                                                                                                Yii::app()->session['couponamount'] = $cart_total;
+                                                                                        }
+                                                                                        $coupon_balance = $coupon_code->discount - $coupon_history->total_amount;
+                                                                                        $coupon_save = Coupons::model()->findByAttributes(array('code' => $coupon_code->code));
+                                                                                        //$coupon_save->discount = $coupon_balance;
+                                                                                        $coupon_save->status = 2;
+                                                                                        if ($coupon_save->save()) {
+                                                                                                Yii::app()->user->setFlash('success', "Your coupon code is submitted...");
+                                                                                        }
+                                                                                }
+                                                                        } else {
+                                                                                Yii::app()->user->setFlash('error', "Sorry! Invalid coupon code..");
+                                                                        }
+                                                                } else {
+                                                                        Yii::app()->user->setFlash('error', "coupon is used");
+                                                                        $this->redirect(array('cart/Mycart'));
                                                                 }
-
-                                                                if ($coupon_history->save()) {
-                                                                        Yii::app()->session['couponid'][1] = $coupon_history->coupon_id;  /* coupon code session */
-
-                                                                        Yii::app()->user->setFlash('success', "Your coupon code is submitted...");
-                                                                }
                                                         } else {
-                                                                Yii::app()->user->setFlash('error', "Sorry! Invalid coupon code..");
+
+                                                                if ($coupon_code->discount > 0) {
+
+                                                                        if ($coupon_code->expiry_date >= date('Y-m-d')) {
+                                                                                $expry_dte = true;
+                                                                        } else if ($coupon_code->expiry_date == 0000 - 00 - 00) {
+                                                                                $expry_dte = true;
+                                                                        }
+
+                                                                        if ($coupon_code->starting_date >= date('Y-m-d')) {
+                                                                                $strt_dte = false;
+                                                                        } else {
+                                                                                $strt_dte = true;
+                                                                        }
+                                                                        if ($coupon_code->starting_date == 0000 - 00 - 00) {
+                                                                                $strt_dte = true;
+                                                                        }
+                                                                        if ($strt_dte == true && $expry_dte == true) {
+
+                                                                                $coupon_history = new CouponHistory;
+                                                                                $coupon_history->coupon_id = $coupon_code->id;
+
+                                                                                $remaining_to_pay = $cart_total - Yii::app()->session['couponamount'];
+
+                                                                                if ($remaining_to_pay >= $coupon_code->discount) {
+
+                                                                                        $coupon_history->total_amount = $coupon_code->discount;
+                                                                                } else {
+
+                                                                                        $coupon_history->total_amount = $remaining_to_pay;
+                                                                                }
+
+
+                                                                                if (isset(Yii::app()->session['user'])) {
+                                                                                        $coupon_history->user_id = Yii::app()->session['user']['id'];
+                                                                                        $coupon_history->order_id = Yii::app()->session['orderid'];
+                                                                                        $coupon_history->session_id = NULL;
+                                                                                } else if (isset(Yii::app()->session['temp_user'])) {
+
+                                                                                        $coupon_history->session_id = Yii::app()->session['temp_user'];
+                                                                                        $coupon_history->user_id = 0;
+                                                                                }
+
+                                                                                if ($coupon_history->save()) {
+                                                                                        if (empty(Yii::app()->session['couponid'])) {
+                                                                                                Yii::app()->session['couponid'] = $coupon_history->coupon_id;
+                                                                                                Yii::app()->session['couponamount'] = $coupon_history->total_amount;
+                                                                                        } else {
+                                                                                                Yii::app()->session['couponid'] = Yii::app()->session['couponid'] . ',' . $coupon_history->coupon_id;
+                                                                                                Yii::app()->session['couponamount'] = Yii::app()->session['couponamount'] + $coupon_history->total_amount;
+                                                                                        }
+                                                                                        if (Yii::app()->session['couponamount'] >= $cart_total) {
+                                                                                                Yii::app()->session['couponamount'] = $cart_total;
+                                                                                        }
+                                                                                        $coupon_balance = $coupon_code->discount - $coupon_history->total_amount;
+
+                                                                                        $coupon_save = Coupons::model()->findByAttributes(array('code' => $coupon_code->code));
+                                                                                        //$coupon_save->discount = $coupon_balance;
+                                                                                        $coupon_save->status = 2;
+                                                                                        if ($coupon_save->save()) {
+                                                                                                Yii::app()->user->setFlash('success', "Your coupon code is submitted...");
+                                                                                        }
+                                                                                }
+                                                                        } else {
+                                                                                Yii::app()->user->setFlash('error', "Sorry! Invalid coupon code..");
+                                                                        }
+                                                                } else {
+                                                                        Yii::app()->user->setFlash('error', "coupon is used");
+                                                                        $this->redirect(array('cart/Mycart'));
+                                                                }
                                                         }
                                                 }
                                         }
+//                                        else if ($coupe_type == 0) {
+//                                                if (!empty($c_history)) {
+//                                                        Yii::app()->user->setFlash('error', "coupon is used");
+//                                                        $this->redirect(array('cart/Mycart'));
+//                                                } else {
+//                                                        if ($coupon_code->expiry_date >= date('Y-m-d')) {
+//                                                                $expry_dte = true;
+//                                                        } else if ($coupon_code->expiry_date == 0000 - 00 - 00) {
+//                                                                $expry_dte = true;
+//                                                        }
+//
+//                                                        if ($coupon_code->starting_date >= date('Y-m-d')) {
+//                                                                $strt_dte = false;
+//                                                        } else {
+//                                                                $strt_dte = true;
+//                                                        }
+//                                                        if ($coupon_code->starting_date == 0000 - 00 - 00) {
+//                                                                $strt_dte = true;
+//                                                        }
+//                                                        if ($strt_dte == true && $expry_dte == true) {
+//
+//                                                                $coupon_history = new CouponHistory;
+//                                                                $coupon_history->coupon_id = $coupon_code->id;
+//                                                                $coupon_history->total_amount = $coupon_code->discount;
+//                                                                if (isset(Yii::app()->session['user'])) {
+//                                                                        $coupon_history->user_id = Yii::app()->session['user']['id'];
+//                                                                        $coupon_history->order_id = Yii::app()->session['orderid'];
+//                                                                        $coupon_history->session_id = NULL;
+//                                                                } else if (isset(Yii::app()->session['temp_user'])) {
+//
+//                                                                        $coupon_history->session_id = Yii::app()->session['temp_user'];
+//                                                                        $coupon_history->user_id = 0;
+//                                                                }
+//
+//                                                                if ($coupon_history->save()) {
+//                                                                        if (empty(Yii::app()->session['couponid'])) {
+//                                                                                Yii::app()->session['couponid'] = $coupon_history->coupon_id;
+//                                                                        } else {
+//                                                                                Yii::app()->session['couponid'] = Yii::app()->session['couponid'] . ',' . $coupon_history->coupon_id;
+//                                                                        }
+//
+//                                                                        Yii::app()->user->setFlash('success', "Your coupon code is submitted...");
+//                                                                }
+//                                                        } else {
+//                                                                Yii::app()->user->setFlash('error', "Sorry! Invalid coupon code..");
+//                                                        }
+//                                                }
+//                                        }
+                                } else {
+                                        Yii::app()->user->setFlash('error', "Sorry! Invalid coupon code..");
                                 }
 
 //                                if (empty($coupon_code)) {
@@ -1148,7 +1218,9 @@ class CartController extends Controller {
 //                                }
                                 $this->redirect(array('cart/Mycart'));
                         } else {
-//cart empty //
+
+                                // Yii::app()->user->setFlash('error', "Sorry! Invalid coupon code..");
+                                //$this->redirect(array('cart/Mycart'));
                         }
                 } else {
                         $this->redirect(array('cart/Mycart'));

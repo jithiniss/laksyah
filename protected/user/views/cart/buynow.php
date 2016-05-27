@@ -479,28 +479,56 @@
                                         ?>
 
                                         <?php
-                                        if (isset(Yii::app()->session['couponid'])) {
-                                                $coupn_details = Coupons::model()->findByPk(Yii::app()->session['couponid']);
-                                                if ($coupn_details->discount_type == 1) {
-                                                        $coupon_discount = Yii::app()->Currency->convert($coupn_details->discount);
-                                                } else {
-                                                        $coupon_discount = $coupn_details->discount . '%';
+                                        if (Yii::app()->session['user'] != '' && Yii::app()->session['user'] != NULL) {
+
+                                                if (isset(Yii::app()->session['orderid'])) {
+
+                                                        $coupons = CouponHistory::model()->findAllByAttributes(array('order_id' => Yii::app()->session['orderid']));
+                                                        if (!empty($coupons)) {
+                                                                foreach ($coupons as $coupon) {
+                                                                        $coupn_details = Coupons::model()->findByPk($coupon->coupon_id);
+                                                                        ?>
+                                                                        <div class="cart_row gift_row_coupon">
+                                                                                <div class="col-2 cart_product_detail">
+                                                                                        <h3>GIFT VOUCHER/GIFT CARD CODE</h3>
+                                                                                        <p><span>Code:</span>&nbsp;<?= $coupn_details->code; ?></p>
+                                                                                        <p><span>Discount:</span>&nbsp;&nbsp;<?= $coupon->total_amount ?> </p>
+                                                                                        <div class="clearfix"></div>
+                                                                                </div>
+                                                                                <div class="col-4" style="float:right">
+                                                                                        <div class="cart_action">
+                                                                                                <a href="<?= Yii::app()->baseUrl; ?>/index.php/cart/RemoveCoupon">Remove</a>
+                                                                                        </div>
+                                                                                </div>
+                                                                        </div>
+                                                                        <?php
+                                                                }
+                                                        }
                                                 }
-                                                ?>
-                                                <div class="cart_row gift_row_coupon">
-                                                        <div class="col-2 cart_product_detail">
-                                                                <h3>GIFT VOUCHER/GIFT CARD CODE</h3>
-                                                                <p><span>Code:</span>&nbsp;<?= $coupn_details->code; ?></p>
-                                                                <p><span>Details:</span>&nbsp;&nbsp;<?= $coupon_discount ?> off on purchase above <?= Yii::app()->Currency->convert($coupn_details->cash_limit) ?></p>
-                                                                <div class="clearfix"></div>
-                                                        </div>
-                                                        <div class="col-4" style="float:right">
-                                                                <div class="cart_action">
-                                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/cart/RemoveCoupon">Remove</a>
+                                        } else {
+                                                if (isset(Yii::app()->session['couponid'])) {
+                                                        $coupons = explode(',', Yii::app()->session['couponid']);
+                                                        foreach ($coupons as $coupon) {
+                                                                $coupn_details = Coupons::model()->findByPk($coupon->coupon_id);
+                                                                ?>
+                                                                <div class="cart_row gift_row_coupon">
+                                                                        <div class="col-2 cart_product_detail">
+                                                                                <h3>GIFT VOUCHER/GIFT CARD CODE</h3>
+                                                                                <p><span>Code:</span>&nbsp;<?= $coupn_details->code; ?></p>
+                                                                                <p><span>Discount:</span>&nbsp;&nbsp;<?= $coupon->total_amount ?> </p>
+                                                                                <div class="clearfix"></div>
+                                                                        </div>
+                                                                        <div class="col-4" style="float:right">
+                                                                                <div class="cart_action">
+                                                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/cart/RemoveCoupon">Remove</a>
+                                                                                </div>
+                                                                        </div>
                                                                 </div>
-                                                        </div>
-                                                </div>
-                                        <?php } ?>
+                                                                <?php
+                                                        }
+                                                }
+                                        }
+                                        ?>
                                 </div>
                         </div>
                 </div>
@@ -531,212 +559,223 @@
                                         </div>
                                         <div class="price_group">
 
+
+
                                                 <?php
-                                                if (!empty($coupen_details)) {
-                                                        $coupen = Coupons::model()->findByPk($coupen_details->coupon_id);
-                                                        $discount = $coupen->discount;
-                                                        $ordertotal = $total - $discount;
-                                                        ?>
-                                                        <?php ?>
-                                                        <li class="range">Discount : <span id="discount"><?php echo Yii::app()->Currency->convert($coupen->discount); ?></span></li>
-                                                        <?php
-                                                } else if (Yii::app()->session['user'] != '' && Yii::app()->session['user'] != NULL) {
-                                                        ?>
-                                                        <?php
+                                                if (Yii::app()->session['user'] != '' && Yii::app()->session['user'] != NULL) {
+
                                                         if (isset(Yii::app()->session['orderid'])) {
 
-                                                                $order = CouponHistory::model()->findByAttributes(array('order_id' => Yii::app()->session['orderid']));
-                                                                $discount = $order->total_amount;
-                                                                $ordertotal = $total - $discount;
-                                                        } else {
-                                                                $order = CouponHistory::model()->findByAttributes(array('user_id' => Yii::app()->session['user']['id']), array('order' => 'date desc'));
-                                                                $from = $order->date;
-                                                                $to = date('Y-m-d H:i:s');
-                                                                $diff_seconds = strtotime($to) - strtotime($from);
-                                                                $hours = floor($diff_seconds / 3600);
-                                                                $minutes = floor(($diff_seconds % 3600) / 60) + ($hours * 60);
+                                                                $orders = CouponHistory::model()->findAllByAttributes(array('order_id' => Yii::app()->session['orderid']));
+                                                                if (!empty($orders)) {
+                                                                        foreach ($orders as $order) {
+                                                                                $discount += $order->total_amount;
+                                                                        }
 
-                                                                if ($minutes < 30) {
-                                                                        $discount = $order->total_amount;
-                                                                } else {
-                                                                        $discount = 0;
+                                                                        if ($minutes < 30) {
+                                                                                $discount = $order->total_amount;
+                                                                        } else {
+                                                                                $discount = 0;
+                                                                        }
+                                                                        $ordertotal = $total - $discount;
                                                                 }
-                                                                $ordertotal = $total - $discount;
-                                                        }
 
-                                                        if ($order->coupon_id != 0 && $discount != 0) {
-                                                                ?>
-                                                                <div class="pull-left">Discount</div>
-                                                                <div class="pull-right range" id="discount"><?php echo Yii::app()->Currency->convert($discount); ?></div>
-                                                        <?php } ?></li>
+                                                                if ($order->coupon_id != 0 && $discount != 0) {
+                                                                        ?>
+                                                                        <div class="price_group">
+                                                                                <div class="pull-left">Discount:</div>
+                                                                                <div class="pull-right range" ><span id="discount"><?php echo Yii::app()->Currency->convert($discount); ?></span></div>
+                                                                                <div class="clearfix"></div>
+                                                                        </div>
+                                                                        <?php
+                                                                } else {
+                                                                        $ordertotal = $total;
+                                                                }
+                                                        }
+                                                        ?>
+
+
                                                         <?php
                                                 } else {
-                                                        $ordertotal = $total;
-                                                }
-                                                ?>
-                                                <div class="clearfix"></div>
-                                        </div>
-                                        <div class="seperator"></div>
-                                        <div class="price_group total_amount">
-                                                <div class="pull-left">ORDER TOTAL</div>
-                                                <div class="pull-right range" id="order_total"><?php echo Yii::app()->Currency->convert($ordertotal); ?></div>
-                                                <div class="clearfix"></div>
-                                        </div>
-                                </div>
-                                <!-- / Order Amount-->
-                                <div class="cart_buttons">
-                                        <a class="btn-continue" href="<?= Yii::app()->baseUrl; ?>/index.php">CONTINUE SHOPPING</a>
-                                        <?php if (isset(Yii::app()->session['user']['id'])) { ?>
-                                                <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/cart/Proceed/<?php echo $prod->id; ?>"><button type="button" class="btn btn-big btn-primary cartpg">CHECKOUT&nbsp;<i class="fa fa-angle-right "></i> </button></a>
-                                        <?php } else { ?>
-                                                <a class="btn btn-big btn-primary" data-toggle="modal" data-target="#logreg">CHECKOUT&nbsp;<i class="fa fa-angle-right "></i> </a>
-                                        <?php } ?>
-                                </div>
+                                                        $discount = Yii::app()->session['couponamount'];
+                                                        $ordertotal = $total - Yii::app()->session['couponamount'];
+                                                        ?>
+                                                        <?php if (isset(Yii::app()->session['couponamount'])) { ?>
 
+                                                                <div class="price_group">
+                                                                        <div class="pull-left">Discount:</div>
+                                                                        <div class="pull-right range" ><span id="discount"><?php echo Yii::app()->Currency->convert(Yii::app()->session['couponamount']); ?></span></div>
+                                                                        <div class="clearfix"></div>
+                                                                </div>
+                                                        <?php } ?>
+                                                <?php } ?>
+
+
+
+
+
+
+                                                <div class="seperator"></div>
+                                                <div class="price_group total_amount">
+                                                        <div class="pull-left">ORDER TOTAL</div>
+                                                        <div class="pull-right range" id="order_total"><?php echo Yii::app()->Currency->convert($ordertotal); ?></div>
+                                                        <div class="clearfix"></div>
+                                                </div>
+                                        </div>
+                                        <!-- / Order Amount-->
+                                        <div class="cart_buttons">
+                                                <a class="btn-continue" href="<?= Yii::app()->baseUrl; ?>/index.php">CONTINUE SHOPPING</a>
+                                                <?php if (isset(Yii::app()->session['user']['id'])) { ?>
+                                                        <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/cart/Proceed/<?php echo $prod->id; ?>"><button type="button" class="btn btn-big btn-primary cartpg">CHECKOUT&nbsp;<i class="fa fa-angle-right "></i> </button></a>
+                                                <?php } else { ?>
+                                                        <a class="btn btn-big btn-primary" data-toggle="modal" data-target="#logreg">CHECKOUT&nbsp;<i class="fa fa-angle-right "></i> </a>
+                                                <?php } ?>
+                                        </div>
+
+                                </div>
                         </div>
                 </div>
         </div>
-</div>
 
-<script>
-        $(document).ready(function () {
+        <script>
+                $(document).ready(function () {
 <?php if ($gift_user->hasErrors()) { ?>
-                        $("#giftpopup").modal('show');
+                                $("#giftpopup").modal('show');
 <?php } ?>
 <?php if ($loginform->hasErrors()) { ?>
-                        $("#logreg").modal('show');
+                                $("#logreg").modal('show');
 <?php } ?>
 <?php if ($regform->hasErrors()) { ?>
 
-                        $("#prof").addClass('active');
-                        $("#hom").removeClass('active');
-                        $("#home").removeClass('active');
-                        $("#profile").addClass('active');
+                                $("#prof").addClass('active');
+                                $("#hom").removeClass('active');
+                                $("#home").removeClass('active');
+                                $("#profile").addClass('active');
 
-                        $("#logreg").modal('show');
+                                $("#logreg").modal('show');
 <?php } ?>
 <?php if (Yii::app()->user->hasFlash('feilderror')) { ?>
-                        $("#prof").addClass('active');
-                        $("#hom").removeClass('active');
-                        $("#home").removeClass('active');
-                        $("#profile").addClass('active');
-                        $("#logreg").modal('show');
+                                $("#prof").addClass('active');
+                                $("#hom").removeClass('active');
+                                $("#home").removeClass('active');
+                                $("#profile").addClass('active');
+                                $("#logreg").modal('show');
 <?php } ?>
-        });
-</script>
-<script>
-        $(document).ready(function () {
-                /*submit gift pack remove form */
-                $('.remvegft').click(function () {
-                        $('#gftremove').submit();
                 });
-                /*
-                 * CHeck box uncheked while popup is desable
-                 */
-                /*
-                 * Edit Gift
-                 */
-                $('.edit_gift').click(function () {
-                        var cart_id = $(this).attr('cart_id');
-                        var session_id = $(this).attr('session_id');
-                        editgift(cart_id, session_id);
+        </script>
+        <script>
+                $(document).ready(function () {
+                        /*submit gift pack remove form */
+                        $('.remvegft').click(function () {
+                                $('#gftremove').submit();
+                        });
+                        /*
+                         * CHeck box uncheked while popup is desable
+                         */
+                        /*
+                         * Edit Gift
+                         */
+                        $('.edit_gift').click(function () {
+                                var cart_id = $(this).attr('cart_id');
+                                var session_id = $(this).attr('session_id');
+                                editgift(cart_id, session_id);
 
 
+                        });
+                        $('.gift_options').click(function () {
+                                if ($(this).is(":checked"))
+                                {
+
+                                        $('#temp-user-gifts-form').trigger("reset");
+                                        $("#giftpopup").modal('show');
+                                        var cart_id = $(this).attr("id");
+                                        $("#gift_cart_id").val(cart_id);
+                                        $(document).on('hide.bs.modal', '#giftpopup', function () {
+                                                $('#' + cart_id).prop("checked", false);
+                                        });
+                                }
+                        });
+                        $('.quantity').change(function () {
+                                showLoader();
+                                var cart = $(this).attr('cart');
+                                var qty = this.value;
+                                var product_id = $('#cart_' + cart).val();
+                                quantityChange(cart, qty, product_id);
+                                //total();
+                        });
                 });
-                $('.gift_options').click(function () {
-                        if ($(this).is(":checked"))
-                        {
-
-                                $('#temp-user-gifts-form').trigger("reset");
-                                $("#giftpopup").modal('show');
-                                var cart_id = $(this).attr("id");
-                                $("#gift_cart_id").val(cart_id);
-                                $(document).on('hide.bs.modal', '#giftpopup', function () {
-                                        $('#' + cart_id).prop("checked", false);
-                                });
-                        }
-                });
-                $('.quantity').change(function () {
-                        showLoader();
-                        var cart = $(this).attr('cart');
-                        var qty = this.value;
-                        var product_id = $('#cart_' + cart).val();
-                        quantityChange(cart, qty, product_id);
-                        //total();
-                });
-        });
-        function getorderproduct(product_id, order_id, option) {
-                $.ajax({
-                        type: "POST",
-                        cache: 'false',
-                        async: false,
-                        url: baseurl + 'Cart/Getorderproduct',
-                        data: {product_id: product_id, order_id: order_id, option: option},
-                }).done(function (data) {
-                        $("#order_product_id").val(data);
-                        hideLoader();
-                });
+                function getorderproduct(product_id, order_id, option) {
+                        $.ajax({
+                                type: "POST",
+                                cache: 'false',
+                                async: false,
+                                url: baseurl + 'Cart/Getorderproduct',
+                                data: {product_id: product_id, order_id: order_id, option: option},
+                        }).done(function (data) {
+                                $("#order_product_id").val(data);
+                                hideLoader();
+                        });
 
 
-        }
-        function quantityChange(cart, qty, product_id) {
+                }
+                function quantityChange(cart, qty, product_id) {
 
-                $.ajax({
-                        type: "POST",
-                        cache: 'false',
-                        async: false,
-                        url: baseurl + 'Cart/Calculate',
-                        data: {cart_id: cart, Qty: qty, prod_id: product_id},
-                }).done(function (data) {
-                        var obj = jQuery.parseJSON(data);
-                        $(".range_" + cart).html(obj.producttotal);
-                        $("#giftprice_" + cart).html(obj.gift_rate);
-                        $("#subtotal").html(obj.subtotal);
-                        $("#discount").html(obj.discount);
-                        $("#ordertotal").html(obj.granttotal);
-                        hideLoader();
-                });
-
-
-        }
-        function editgift(cart_id, session_id) {
-
-                $.ajax({
-                        type: "POST",
-                        cache: 'false',
-                        async: false,
-                        url: baseurl + 'Cart/EditGIft',
-                        data: {cart_id: cart_id, session_id: session_id},
-                }).done(function (data) {
-                        $(".edit_modal").html(data);
-                        $("#edit_gift_option").modal('show');
-                        hideLoader();
-                });
+                        $.ajax({
+                                type: "POST",
+                                cache: 'false',
+                                async: false,
+                                url: baseurl + 'Cart/Calculate',
+                                data: {cart_id: cart, Qty: qty, prod_id: product_id},
+                        }).done(function (data) {
+                                var obj = jQuery.parseJSON(data);
+                                $(".range_" + cart).html(obj.producttotal);
+                                $("#giftprice_" + cart).html(obj.gift_rate);
+                                $("#subtotal").html(obj.subtotal);
+                                $("#discount").html(obj.discount);
+                                $("#ordertotal").html(obj.granttotal);
+                                hideLoader();
+                        });
 
 
-        }
-        function total() {
-                $.ajax({
-                        type: "POST",
-                        cache: 'false',
-                        async: false,
-                        url: baseurl + 'Cart/Total',
-                        data: {}
-                }).done(function (data) {
-                        $(".range").html('Rs.' + data);
-                        hideLoader();
-                });
+                }
+                function editgift(cart_id, session_id) {
+
+                        $.ajax({
+                                type: "POST",
+                                cache: 'false',
+                                async: false,
+                                url: baseurl + 'Cart/EditGIft',
+                                data: {cart_id: cart_id, session_id: session_id},
+                        }).done(function (data) {
+                                $(".edit_modal").html(data);
+                                $("#edit_gift_option").modal('show');
+                                hideLoader();
+                        });
 
 
-        }
+                }
+                function total() {
+                        $.ajax({
+                                type: "POST",
+                                cache: 'false',
+                                async: false,
+                                url: baseurl + 'Cart/Total',
+                                data: {}
+                        }).done(function (data) {
+                                $(".range").html('Rs.' + data);
+                                hideLoader();
+                        });
 
-        function showLoader() {
-                $('.over-lay').show();
-        }
-        function hideLoader() {
-                $('.over-lay').hide();
-        }
-</script>
+
+                }
+
+                function showLoader() {
+                        $('.over-lay').show();
+                }
+                function hideLoader() {
+                        $('.over-lay').hide();
+                }
+        </script>
 
 
 
