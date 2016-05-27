@@ -76,7 +76,7 @@ $(document).ready(function () {
         //--------------------------------------------------
         // Sidebar Menu
         $('.catmenu > li > a').click(function (e) {
-                e.preventDefault();
+               // e.preventDefault();
                 $(this).siblings('ul').slideToggle();
                 $(this).parent('li').toggleClass('open');
                 $(this).children('i').toggleClass('fa-angle-down');

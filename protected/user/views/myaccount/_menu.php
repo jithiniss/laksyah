@@ -8,17 +8,17 @@
 </div>-->
 
 <div class="col-sm-3 sidebar">
-        <h3 class="side_nav_toggle"><i class="fa fa-align-justify "></i>My Account</h3>
-        <div class="cat_nav">
-                <ul class="catmenu">
-                        <li><a href="#">My Profile</a></li>
-                        <li> <a href="#">My Credit</a></li>
-                        <li> <a href="#">Address Book</a></li>
-                        <li> <a href="#">My Orders</a></li>
-                        <li> <a href="#">My Wishlist</a></li>
-                        <li> <a href="#">Measurement</a></li>
-                        <li> <a href="#">Make a Payment</a></li>
-                        <li> <a href="#">Track My Order</a></li>
-                </ul>
-        </div>
+    <h3 class="side_nav_toggle"><i class="fa fa-align-justify "></i>My Account</h3>
+    <div class="cat_nav">
+        <ul class="catmenu">
+            <li><a href="#">My Profile</a></li>
+            <li> <a href="<?= Yii::app()->baseUrl; ?>/index.php/CreditHistory">My Credit</a></li>
+            <li> <a href="#">Address Book</a></li>
+            <li> <a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Myordernew">My Order</a></li>
+            <li> <a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists">My Wishlist</a></li>
+            <li> <a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/SizeChartType">Measurement</a></li>
+            <li> <a href="#">Make a Payment</a></li>
+            <li> <a href="#">Track My Order</a></li>
+        </ul>
+    </div>
 </div>
