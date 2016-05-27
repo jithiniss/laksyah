@@ -219,3 +219,12 @@ input#email {
     color: #414042;
     text-decoration: none !important;
         }
+        
+        .size_selector label.disabled{
+		cursor:not-allowed;
+                    background: #d2d2d2;
+	}
+        .size_filter label {
+    min-width: 30px;
+    width:auto;
+        }

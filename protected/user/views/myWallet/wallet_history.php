@@ -1,21 +1,7 @@
 <div class="container main_container inner_pages ">
     <div class="breadcrumbs"> <a href="#">HOME</a> <span>/</span> <a href="#">My Account</a> <span>/</span>   Make a Payment </div>
     <div class="row">
-        <div class="col-sm-3 sidebar">
-            <h3 class="side_nav_toggle"><i class="fa fa-align-justify "></i>My Account</h3>
-            <div class="cat_nav">
-                <ul class="catmenu">
-                    <li><a href="#">My Profile</a></li>
-                    <li> <a href="#">My Credit</a></li>
-                    <li> <a href="#">Address Book</a></li>
-                    <li> <a href="#">My Orders</a></li>
-                    <li> <a href="#">My Wishlist</a></li>
-                    <li> <a href="#">Measurement</a></li>
-                    <li> <a href="#">Make a Payment</a></li>
-                    <li> <a href="#">Track My Order</a></li>
-                </ul>
-            </div>
-        </div>
+        <?php echo $this->renderPartial('//myaccount/_menu'); ?>
         <!-- / Sidebar-->
         <div class="col-sm-9 user_content">
             <a class="account_link pull-right" href="<?php echo Yii::app()->baseUrl; ?>/index.php/AddCredit">Add Credit Money</a>
