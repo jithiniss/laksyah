@@ -13,12 +13,12 @@
                 <tr>
                     <td style="padding:40px 20px; font-family:'Open Sans',arial, sans-serif; font-size:13px"><p>Hi <?php echo $user_wallet->first_name; ?><span>      <?php echo $user_wallet->last_name; ?></span>,</p>
                         <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"></p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">        <?php echo $wallet_history->amount; ?>              added successfully
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">        <?php echo Yii::app()->Currency->convert($wallet_history->amount); ?>              added successfully
                             ON  <?php echo $newDate = date("d-m-Y", strtotime($user_wallet->DOC)); ?>  </p>
 
 
 
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Total amount is     <?php echo $user_wallet->wallet_amt; ?></p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Total amount is     <?php echo Yii::app()->Currency->convert($user_wallet->wallet_amt); ?></p>
 
                         <hr style="border-color:#404241;">
                     </td>

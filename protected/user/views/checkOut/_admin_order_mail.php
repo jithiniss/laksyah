@@ -44,9 +44,6 @@
 
                                         <?php echo $bill_address->state; ?><br>
 
-                                        <?php
-                                        echo $shiping_charge->country;
-                                        ?>
 
 
 
@@ -96,7 +93,7 @@
                                     </td>
                                     <td>&nbsp;</td>
                                     <td valign="top" style="font-size:16px;padding:7px 9px 9px 9px;border-left:1px solid #eaeaea;border-bottom:1px solid #eaeaea;border-right:1px solid #eaeaea">shipping rate:
-                                        <?php echo $shiping_charge->shipping_rate; ?> ( delivered within 3-14 working days )
+                                        <?php echo Yii::app()->Currency->convert($shiping_charge->shipping_rate); ?> ( delivered within 3-14 working days )
                                         &nbsp;
                                     </td>
                                 </tr>
@@ -124,11 +121,11 @@
                                         <tr>
                                             <td align="center" width="776"><?php echo $product_names->product_name; ?></td>
                                             <td align="left" style="padding: 0px 0px 0px 36px" width="776"><?php echo $orders->quantity; ?></td>
-                                            <td align="left" style="padding: 0px 0px 0px 36px;" width="776"><?php echo $orders->amount . '.00'; ?> <?php if ($orders->gift_option == 1) { ?><span style="font-size: 9px;">  + <?php
-                                                            echo $orders->rate . '(gift add on)';
+                                            <td align="left" style="padding: 0px 0px 0px 36px;" width="776"><?php echo Yii::app()->Currency->convert($orders->amount); ?> <?php if ($orders->gift_option == 1) { ?><span style="font-size: 9px;">  + <?php
+                                                            echo Yii::app()->Currency->convert($orders->rate) . '(gift add on)';
                                                     }
                                                     ?>  </span> </td></td>
-                                            <td align="right" style="padding: 0px 10px 0px 0px" width="776"><?php echo $orders->amount + $orders->rate . '.00'; ?></td>
+                                            <td align="right" style="padding: 0px 10px 0px 0px" width="776"><?php echo Yii::app()->Currency->convert($orders->amount + $orders->rate); ?></td>
                                         </tr>
                                 <?php } ?>
 
@@ -143,7 +140,7 @@
                                     <td colspan="3" align="right" style="padding:3px 9px">
                                         Shipping &amp; Handling                    </td>
                                     <td align="right" style="padding:3px 9px">
-                                        <span> <?php echo $shiping_charge->shipping_rate . '.00'; ?> </span>                    </td>
+                                        <span> <?php echo Yii::app()->Currency->convert($shiping_charge->shipping_rate); ?> </span>                    </td>
                                 </tr>
 
 
@@ -170,7 +167,7 @@
                                         <strong>
                                             <?php
                                             $total = $granttotal + $shiping_charge->shipping_rate;
-                                            echo $total . '.00';
+                                            echo Yii::app()->Currency->convert($total);
                                             ?>
 
 

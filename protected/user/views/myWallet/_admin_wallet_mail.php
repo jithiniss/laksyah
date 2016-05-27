@@ -14,12 +14,12 @@
                     <td style="padding:40px 20px; font-family:'Open Sans',arial, sans-serif; font-size:16px"><p>Hi Admin,</p>
                         <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">
                             <?php echo $user_wallet->first_name; ?><span>      <?php echo $user_wallet->last_name; ?></span>
-                            added  <?php echo $wallet_history->amount; ?>  to his wallet      ON  <?php echo $newDate = date("d-m-Y", strtotime($user_wallet->DOC)); ?>
+                            added  <?php echo Yii::app()->Currency->convert($wallet_history->amount); ?>  to his wallet      ON  <?php echo $newDate = date("d-m-Y", strtotime($user_wallet->DOC)); ?>
                         </p>
 
 
 
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Total amount is     <?php echo $user_wallet->wallet_amt; ?></p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Total amount is     <?php echo Yii::app()->Currency->convert($user_wallet->wallet_amt); ?></p>
 
                         <hr style="border-color:#404241;">
                     </td>
