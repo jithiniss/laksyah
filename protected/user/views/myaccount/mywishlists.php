@@ -1,5 +1,5 @@
 <div class="container main_container inner_pages ">
-    <div class="breadcrumbs"> <a href="#">HOME</a> <span>/</span> <a href="#">My Account</a> <span>/</span> Make a Payment </div>
+    <div class="breadcrumbs"> <a href="#">HOME</a> <span>/</span> <a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount">My Account</a> <span>/</span> Make a Payment </div>
     <div class="row">
         <?php echo $this->renderPartial('_menu'); ?>
         <div class="col-sm-9 user_content">
@@ -19,7 +19,8 @@
                                 <div class="cart_product_detail">
                                     <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo Yii::app()->Upload->folderName(0, 1000, $prod_name->id) ?>/<?php echo $prod_name->id; ?>/small.<?php echo $prod_name->main_image; ?>" alt=""/>
                                     <h3><?= $prod_name->product_name; ?></h3>
-        <!--                                    <p><span>Color:</span>	Doeskin</p>
+                                    <p><?= $prod_name->description; ?></p>
+                                          <!--  <p><span>Color:</span>	Doeskin</p>
                                     <p><span>Size:</span>	S</p>
                                     <p><span>Qty:</span>	1</p>-->
                                     <div class="clearfix"></div>

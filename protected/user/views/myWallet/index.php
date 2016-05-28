@@ -1,5 +1,5 @@
 <div class="container main_container inner_pages ">
-    <div class="breadcrumbs"> <a href="#">HOME</a> <span>/</span> <a href="#">My Account</a> <span>/</span> Make a Payment </div>
+    <div class="breadcrumbs"> <a href="#">HOME</a> <span>/</span> <a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount">My Account</a> <span>/</span> Make a Payment </div>
     <div class="row">
         <?php echo $this->renderPartial('//myaccount/_menu'); ?>
         <!-- / Sidebar-->
@@ -9,7 +9,7 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     Success </div>-->
             <div class="registration_form">
-                <?php if(Yii::app()->user->hasFlash('wallet_success')): ?>
+                <?php if (Yii::app()->user->hasFlash('wallet_success')): ?>
                         <div class="row">
                             <div class="alert alert-success alert-dismissable" style="margin:0 auto;">
 
@@ -18,7 +18,7 @@
                             </div>
                         </div>
                 <?php endif; ?>
-                <?php if(Yii::app()->user->hasFlash('wallet_error')): ?>
+                <?php if (Yii::app()->user->hasFlash('wallet_error')): ?>
                         <div class="row">
                             <div class="alert alert-danger alert-dismissable" style="margin:0 auto;">
 

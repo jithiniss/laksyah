@@ -76,6 +76,10 @@ return array(
         'urlManager' => array(
             'urlFormat' => 'path',
             'rules' => array(
+                'Profile' => 'Myaccount/Profile',
+                'OrderHistory' => 'Myaccount/Myordernew',
+                'Wishlists' => 'Myaccount/Mywishlists',
+                'Measurement' => 'Myaccount/SizeChartType',
                 'CreditHistory' => 'MyWallet/CreditHistory',
                 'AddCredit' => 'MyWallet/index',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',

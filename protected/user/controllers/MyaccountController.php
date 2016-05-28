@@ -334,7 +334,7 @@ class MyaccountController extends Controller {
         }
 
         public function actionMyordernew() {
-                $myorders = Order::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
+                $myorders = Order::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']), array('order' => 'order_date DESC'));
                 $this->render('myorder_new', array('myorders' => $myorders));
         }
 
