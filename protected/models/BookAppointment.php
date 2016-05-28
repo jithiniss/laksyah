@@ -30,12 +30,12 @@ class BookAppointment extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
-                    array('name, email, phone, country, city, address, notes', 'required'),
+                    array('name, email, phone, country, notes', 'required'),
                     array('email', 'email'),
                     array('phone', 'numerical'),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, name, email, phone, country, city, address, notes, date', 'safe', 'on' => 'search'),
+                    array('id, name, email, phone, country, city, date', 'safe', 'on' => 'search'),
                 );
         }
 

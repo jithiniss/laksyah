@@ -58,7 +58,7 @@
                                 <div class="section_title design_house_title">
                                         <h2>The Design House</h2>
                                         <h4>Bridal couture & consultancy</h4>
-                                        <a class="btn-dark" href="#">BOOK AN APPOINTMENT</a> </div>
+                                        <a class="btn-dark" href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/BookAppointment">BOOK AN APPOINTMENT</a> </div>
                         </div>
                 </div>
         </div>
