@@ -6,46 +6,9 @@
                 <div class="clearfix"></div>
 
         </div>
-        <div class="modal" id="giftlogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                                <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title" id="myModalLabel"></h4>
-                                </div>
-                                <div class="modal-body">
-                                        <!-- Nav tabs -->
 
 
-                                        <!-- Tab panes -->
-                                        <div class="tab-content">
-                                                <div role="tabpanel" class="tab-pane active login_popup " id="home">
-                                                        <h2>SIGN IN</h2>
-                                                        <h4>Sign in to proceed to Checkout</h4>
-                                                        <?php if (Yii::app()->user->hasFlash('login_list')): ?>
-                                                                <div class="alert alert-danger mesage">
-                                                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                                                        <strong>sorry!</strong><?php echo Yii::app()->user->getFlash('login_list'); ?>
-                                                                </div>
-                                                        <?php endif; ?>
-                                                        <form  name="login" action="<?= Yii::app()->baseUrl; ?>/index.php/Giftcard/login" method="POST">
-                                                                <?php Yii::app()->session['gift_card_detail'] = $gift->id; ?>
-                                                                <label>Email Address</label>
-                                                                <input class="form-control" type="text" name="UserDetails[email]" />
-                                                                <label>Password</label>
-                                                                <input class="form-control" type="password" name="UserDetails[password]" />
 
-                                                                <p><a href="#" class="forgot">Forgot Password?</a></p>
-
-                                                                <input type="submit"  class ="btn-primary btn-full" value="SIGN IN" />
-                                                        </form>
-                                                </div>
-                                        </div>
-
-                                </div>
-                        </div>
-                </div>
-        </div>
         <div class="product_list">
                 <div class="row">
                         <?php

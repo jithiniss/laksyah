@@ -176,8 +176,7 @@ class SiteController extends Controller {
          * Displays the login page
          */
         public function actionLogin() {
-//                echo $_POST['gift_id'];
-//                exit;
+
                 if (isset(Yii::app()->session['user'])) {
                         $this->redirect($this->createUrl('index'));
                 } else {
@@ -185,9 +184,13 @@ class SiteController extends Controller {
                         if (isset($_REQUEST['UserDetails'])) {
 
                                 $modell = UserDetails::model()->findByAttributes(array('email' => $_REQUEST['UserDetails']['email'], 'password' => $_REQUEST['UserDetails']['password'], 'status' => 1));
-                                if ($modell != '' && $modell != NULL) {
+
+                                if (!empty($modell)) {
+
                                         Yii::app()->session['user'] = $modell;
+
                                         if ($_POST['gift_id'] != '') {
+
 //                                                $this->redirect(array('giftcard/address'));
                                                 $this->redirect($this->createUrl('/giftcard/index', array('card_id' => $_POST['gift_id'])));
                                         }

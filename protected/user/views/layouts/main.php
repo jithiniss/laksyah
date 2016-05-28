@@ -42,7 +42,9 @@
                 <script>
 
                         $(document).ready(function () {
-<?php if (Yii::app()->user->hasFlash('login_list')): ?>
+<?php
+if (Yii::app()->user->hasFlash('login_list')):
+        ?>
                                         $("#login").modal('show');
 <?php endif; ?>
                         });</script>
@@ -75,7 +77,7 @@
                                                                         <label>Password</label>
                                                                         <input class="form-control" type="password" name="UserDetails[password]" autocomplete="off" />
                                                                         <input type="hidden" name="gift_id"  id="gift_card" />
-                                                                        <p><a href="#" class="forgot">Forgot Password?</a></p>
+                                                                        <p><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/forgotPassword/" class="forgot">Forgot Password?</a></p>
                                                                         <input type="submit"  class ="btn-primary btn-full" value="SIGN IN" />
                                                                 </form>
                                                         </div>
