@@ -34,7 +34,7 @@
                                     <?php
                             } else {
                                     ?>
-                                    <input type="text"  class="form-control" placeholder="Email Address" id="email"  name="email">
+                                    <input type="text"  class="form-control" placeholder="Email Address" id="email"  name="email" autocomplete="off">
                                     <?php
                             }
                             ?>
