@@ -295,4 +295,8 @@ class SiteController extends Controller {
                 $this->render('giftcard', array('model' => $model));
         }
 
+        public function actionBlotg() {
+                
+        }
+
 }

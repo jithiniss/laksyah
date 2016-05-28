@@ -99,7 +99,7 @@
                                 <div class="section_title gift_title">
                                         <h2>Gift with Love</h2>
                                         <h4>Free Gift Packing and personalized message card</h4>
-                                        <a class="btn-dark" href="#">ORDER NOW</a> </div>
+                                        <a class="btn-dark" href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/products/order_giftoption">ORDER NOW</a> </div>
                         </div>
                 </div>
         </div>
