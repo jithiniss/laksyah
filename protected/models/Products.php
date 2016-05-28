@@ -86,7 +86,7 @@ class Products extends CActiveRecord {
                     array('id, category_id, gallery_images, description, meta_title, meta_description, meta_keywords, header_visibility, sort_order, price, quantity, subtract_stock,discount,discount_type,discount_rate, requires_shipping, dimensionl, dimensionw, dimensionh, dimension_class, weight, weight_class, status, related_products, CB, UB, DOC, DOU', 'safe'),
                     // array('main_image', 'file', 'types' => 'jpg, gif, png', 'safe' => false, 'allowEmpty' => false, 'on' => 'create'),
                     //array('gallery_images', 'file', 'types' => 'jpg, gif, png', 'safe' => false, 'allowEmpty' => false, 'on' => 'create'),
-                    array('category_id,product_name,product_code,main_image,description,price,quantity', 'required', 'on' => 'create'),
+                    array('category_id,product_name,product_code,main_image,description', 'required', 'on' => 'create'),
                 );
         }
 

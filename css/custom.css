@@ -215,7 +215,7 @@ input#email {
 		margin:auto;
 	}
         .lgn_main{
-          
+          cursor:pointer;
     color: #414042;
     text-decoration: none !important;
         }
@@ -227,4 +227,8 @@ input#email {
         .size_filter label {
     min-width: 30px;
     width:auto;
+        }
+        
+        .chnge_passwrd{
+            margin-top: 20px;
         }

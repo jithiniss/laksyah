@@ -11,7 +11,7 @@
                     <div class="col-44">ACTION</div>
                 </div>
                 <?php
-                foreach($wishlists as $wishlist) {
+                foreach ($wishlists as $wishlist) {
                         $prod_name = Products::model()->findByPk($wishlist->prod_id);
                         ?>
                         <div class="cart_row">
@@ -39,10 +39,10 @@
                 <!-- / Cart Item-->
 
             </div>
-            <?php if(!empty($wishlists)) { ?>
-                    <div class="form_button">
-                        <button class="btn btn-primary">ADD ALL TO CART</button>
-                    </div>
+            <?php if (!empty($wishlists)) { ?>
+                    <!--                    <div class="form_button">
+                                            <button class="btn btn-primary">ADD ALL TO CART</button>
+                                        </div>-->
             <?php } ?>
         </div>
     </div>

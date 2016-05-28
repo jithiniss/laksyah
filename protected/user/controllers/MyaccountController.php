@@ -343,6 +343,27 @@ class MyaccountController extends Controller {
                 $this->render('myorders', array('myorders' => $myorders));
         }
 
+        public function actionChangePassword() {
+                $model = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+                if (isset($_POST['submit'])) {
+                        if ($_REQUEST['current'] == $model->password) {
+                                $model->password = $_POST['password'];
+                                $model->confirm = $_POST['confirm'];
+                                $model->save(FALSE);
+
+                                Yii::app()->user->setFlash('success', 'Password successfully changed');
+                                $this->render('changepassword');
+                                exit;
+                        } else {
+                                Yii::app()->user->setFlash('notice', ' Incorrect Current Password');
+                                $this->render('changepassword');
+                                exit;
+                        }
+                } else {
+                        $this->render('changepassword', array('model' => $model));
+                }
+        }
+
 //        public function loadModel($id) {
 //                $model = UserSizechart::model()->findByPk($id);
 //                if ($model === null)

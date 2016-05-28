@@ -56,10 +56,10 @@ class MenuCategory extends CApplicationComponent {
                         return $dataProvider = new CActiveDataProvider('Products', array(
                             'criteria' => array(
                                 'condition' => $condition,
-                                'order' => $order,
+                            //'order' => $order,
                             ),
                             'pagination' => array(
-                                'pageSize' => 20,
+                                'pageSize' => 15,
                             ),
                             'sort' => array(
                                 'defaultOrder' => $srt,

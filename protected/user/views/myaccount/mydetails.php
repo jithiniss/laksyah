@@ -4,6 +4,7 @@
         <?php echo $this->renderPartial('_menu'); ?>
         <div class="col-sm-9 user_content">
             <h1>My Profile</h1>
+            <a class="account_link pull-right" href="<?php echo Yii::app()->baseUrl; ?>/index.php/Myaccount/ChangePassword">Change Password</a>
             <div class="border-bottom">
 
                 <div class="clearfix"></div>
@@ -38,8 +39,7 @@
                         <?php echo $form->error($model, 'first_name'); ?>
                     </div>
                     <div class="col-sm-6">
-                        <?php echo $form->labelEx($model, '
-Last Name*', array('class' => '')); ?>
+                        <?php echo $form->labelEx($model, 'Last Name*', array('class' => '')); ?>
                         <?php echo $form->textField($model, 'last_name', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Last Name', 'class' => 'form-control')); ?>
                         <?php echo $form->error($model, 'last_name'); ?>
 

@@ -19,41 +19,24 @@
 
 <div class="container main_container inner_pages ">
 
-    <?php
-    $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'make-payment-form',
-        // Please note: When you enable ajax validation, make sure the corresponding
-        // controller action is handling ajax validation correctly.
-        // There is a call to performAjaxValidation() commented in generated controller code.
-        // See class documentation of CActiveForm for details on this.
-        'enableAjaxValidation' => false,
-    ));
-    ?>
+
 
 
     <div class="breadcrumbs"> <a href="#">HOME</a> <span>/</span> <a href="#">My Account</a> <span>/</span> Make a Payment </div>
     <div class="row">
-        <div class="col-sm-3 sidebar">
-            <h3 class="side_nav_toggle"><i class="fa fa-align-justify "></i>My Account</h3>
-            <div class="cat_nav">
-                <ul class="catmenu">
-                    <li><a href="#">My Profile</a></li>
-                    <li> <a href="#">My Credit</a></li>
-                    <li> <a href="#">Address Book</a></li>
-                    <li> <a href="#">My Orders</a></li>
-                    <li> <a href="#">My Wishlist</a></li>
-                    <li> <a href="#">Measurement</a></li>
-                    <li> <a href="#">Make a Payment</a></li>
-                    <li> <a href="#">Track My Order</a></li>
-                </ul>
-            </div>
-        </div>
-        <!-- / Sidebar-->
+        <?php echo $this->renderPartial('_menu'); ?>
         <div class="col-sm-9 user_content"> <a class="account_link pull-right" href="#">Credit History</a>
             <h1>Make Payment</h1>
-            <!--<div class="alert alert-success alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    Success </div>-->
+            <?php
+            $form = $this->beginWidget('CActiveForm', array(
+                'id' => 'make-payment-form',
+                // Please note: When you enable ajax validation, make sure the corresponding
+                // controller action is handling ajax validation correctly.
+                // There is a call to performAjaxValidation() commented in generated controller code.
+                // See class documentation of CActiveForm for details on this.
+                'enableAjaxValidation' => false,
+            ));
+            ?>
             <div class="registration_form">
                 <div class="row">
                     <div class="col-sm-3">
@@ -216,20 +199,6 @@
     </div>
     <?php $this->endWidget(); ?>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <!-- form -->
 <!--<script  src="http://code.jquery.com/jquery.min.js"></script>-->
