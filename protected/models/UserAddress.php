@@ -41,7 +41,7 @@ class UserAddress extends CActiveRecord {
                 return array(
                     //array('userid, first_name, last_name, company, contact_number, address_1, address_2, city, postcode, country, state, default_billing_address, default_shipping_address, CB, UB, DOC', 'required'),
                     //array('userid, first_name, last_name, contact_number, address_1, address_2, city, postcode, country, state', 'required'),
-                    array('userid, first_name, last_name, contact_number, address_1, address_2, city, postcode, country, state', 'required'),
+                    array('userid, first_name, last_name, contact_number, address_1, city, postcode, country, state', 'required'),
                     array('userid, country, CB, UB', 'numerical', 'integerOnly' => true),
                     array('first_name, last_name, company, contact_number, city', 'length', 'max' => 100),
                     array('postcode, state, default_billing_address, default_shipping_address', 'length', 'max' => 111),
