@@ -41,7 +41,7 @@
 </div>
 <script>
         function giftcard(id) {
-                document.getElementById('gift_card').value = id;
-//                $('form#login_form').append('<input type="hidden" name="gift_id" value=" id" />');
+//                document.getElementById('gift_card').value = id;
+                $('#login_form').append('<input type="hidden" name="gift_id" id="gift_card" value="' + id + '" />');
         }
 </script>

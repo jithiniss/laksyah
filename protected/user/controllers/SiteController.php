@@ -26,7 +26,7 @@ class SiteController extends Controller {
          */
         public function actionIndex() {
                 $model = Testimonial::model()->findAllByAttributes(array('status' => 1));
-                $blog = Blog::model()->findAllByAttributes(array('status' => 1));
+                $blog = Blog::model()->findAllByAttributes(array('status' => 1), array('limit' => 4));
                 $slider = Slider::model()->findAllByAttributes(array('status' => 1));
                 $this->render('index', array('model' => $model, 'blog' => $blog, 'slider' => $slider));
         }
@@ -176,7 +176,6 @@ class SiteController extends Controller {
          * Displays the login page
          */
         public function actionLogin() {
-
                 if (isset(Yii::app()->session['user'])) {
                         $this->redirect($this->createUrl('index'));
                 } else {

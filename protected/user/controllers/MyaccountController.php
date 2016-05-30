@@ -284,7 +284,6 @@ class MyaccountController extends Controller {
                         $model->attributes = $_POST['MakePayment'];
                         $model->userid = Yii::app()->session['user']['id'];
                         $model->date = date('Y-m-d');
-
                         if ($model->validate()) {
                                 if ($model->save()) {
                                         if ($model->amount <= $_POST['wallet_amt']) {
@@ -325,8 +324,15 @@ class MyaccountController extends Controller {
 
 
                 $this->render('make_payment', array(
-                    'model' => $model,
+                    'model' => $model, 'payment' => $payment
                 ));
+        }
+
+        public function actionMakepaymentProduct() {
+                $product_code = $_REQUEST['product_code'];
+                $payment = Products::model()->findByAttributes(array('product_code' => $model->product_code));
+                var_dump($payment);
+                exit;
         }
 
         public function actionMakepayment_debit() {

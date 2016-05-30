@@ -124,7 +124,7 @@
 
                         </div>
                 </div>
-                <a class="btn btn-skel">READ MORE</a> </div>
+                <a class="btn btn-skel" href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/Blog">READ MORE</a> </div>
         <!-- / End Blog-->
         <div class="testimonials_section">
                 <h2>Testimonials</h2>

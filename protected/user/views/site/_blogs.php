@@ -13,7 +13,7 @@
                         echo ',', $mnth;
                         echo ',', $year;
                         ?></p>
-                <img src="<?php echo yii::app()->request->baseUrl; ?>/uploads/blog/<?= $data->id; ?>/small.<?= $data->big_image ?>" alt=""/>
+                <img src="<?php echo yii::app()->request->baseUrl; ?>/uploads/blog/<?= $data->id; ?>/small.<?= $data->big_image ?>" style="width: 254px;height: 206px;" alt=""/>
                 <p><?= substr($data->small_content, 0, 820); ?><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/BlogDetails?blog=<?= $data->id ?>">read more</a></p>
                 <div class="clearfix"></div>
         </div>
