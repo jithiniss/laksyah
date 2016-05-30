@@ -503,6 +503,10 @@
                 $('.ship_form').show();
 
         }
+<?php if ($shipping->hasErrors()) { ?>
+                $('.bill_same').prop('checked', false);
+                $('.ship_form').show();
+<?php } ?>
         $('.bill_same').click(function () {
 
                 if ($(this).is(":checked"))

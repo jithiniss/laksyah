@@ -8,82 +8,24 @@
                 }
         }
 </style>
-<div class="modal fade" id="loginModal" tabindex="-2" role="dialog">
+<div class="modal fade" id="logreg" tabindex="-2" role="dialog">
         <div class="modal-dialog">
                 <div class="modal-content">
                         <div class="modal-header text-left">
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active"><a href="#signin" aria-controls="home" role="tab" data-toggle="tab">Sign In</a></li>
-                                        <li role="presentation"><a href="#register" aria-controls="profile" role="tab" data-toggle="tab">Register</a></li>
+                                        <li role="presentation" class="log active"><a href="#signin" aria-controls="home" role="tab" data-toggle="tab">Sign In</a></li>
+                                        <li role="presentation" class="reg"><a href="#register" aria-controls="profile" role="tab" data-toggle="tab">Register</a></li>
                                 </ul>
                         </div>
                         <div class="modal-body">
-                                <div class="login_popup">
+                                <div class="login_popup1">
                                         <!-- Nav tabs -->
 
 
                                         <!-- Tab panes -->
                                         <div class="tab-content">
-                                                <div role="tabpanel" class="tab-pane active" id="signin">
-                                                        <h2>SIGN IN</h2>
-                                                        <h4>Sign in to proceed to Checkout</h4>
-                                                        <label>Email Address</label>
-                                                        <input class="form-control" type="text">
-                                                        <label>Password</label>
-                                                        <input class="form-control" type="password">
-                                                        <p><a href="#" class="forgot">Forgot Password?</a></p>
-                                                        <button class="btn-primary btn-full">SIGN IN</button>
-                                                        <p class="text-center register italic">Not a Member? <a href="#">REGISTER NOW</a></p>
-                                                </div>
-                                                <div role="tabpanel" class="tab-pane" id="register">
-                                                        <h2>Registration</h2>
-                                                        <h4>Please fillout your profile information</h4>
-                                                        <label>First Name*</label>
-                                                        <input class="form-control" type="text">
-                                                        <label>Last Name*</label>
-                                                        <input class="form-control" type="text">
-                                                        <label>Email Address*</label>
-                                                        <input class="form-control" type="text">
-                                                        <label>Phone Number*</label>
-                                                        <input class="form-control" type="text">
-                                                        <label>Password*</label>
-                                                        <input type="text" class="form-control" placeholder="">
-
-                                                        <label>Confirm Password*</label>
-                                                        <input type="text" class="form-control error" placeholder="">
-
-                                                        <button class="btn-primary btn-full">Create an Acocunt</button>
-
-                                                </div>
-                                        </div>
-                                </div>
-                        </div>
-                </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-</div>
-
-
-<div class="modal " id="logreg" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                        <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-                        </div>
-                        <div class="modal-body">
-                                <div>
-
-                                        <!-- Nav tabs -->
-                                        <ul class="nav nav-tabs" role="tablist">
-                                                <li role="presentation" id="hom" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Login</a></li>
-                                                <li role="presentation" id="prof"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Register</a></li>
-
-                                        </ul>
-
-                                        <!-- Tab panes -->
-                                        <div class="tab-content">
-                                                <div role="tabpanel" class="tab-pane active login_popup " id="home">
+                                                <div role="tabpanel" class="tab-pane active login_popup" id="signin">
 
                                                         <h2>SIGN IN</h2>
                                                         <h4>Sign in to proceed to Checkout</h4>
@@ -134,9 +76,8 @@
                                                                         <?php $this->endWidget(); ?>
 
                                                         </div>
-
                                                 </div>
-                                                <div role="tabpanel" class="tab-pane login_popup" id="profile">
+                                                <div role="tabpanel" class="tab-pane login_popup" id="register">
                                                         <h2>REGISTRATION</h2>
                                                         <h4>Please fillout your profile information</h4>
                                                         <div class="col-xs-12 forward">
@@ -252,15 +193,18 @@
 
 
                                                 </div>
-
+                                                <div class="clearfix"></div>
                                         </div>
-
                                 </div>
                         </div>
-                        <div class="clearfix"></div>
-                </div>
-        </div>
+                </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
 </div>
+
+
+
+
+
 <div class="container main_container inner_pages">
         <h1>Shopping Bag</h1>
         <?php if (Yii::app()->user->hasFlash('success')): ?>
@@ -281,10 +225,13 @@
             </div>-->
         <div class="modal zoomIn" id="edit_gift_option" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                                <div class="modal-header">
+                        <div class="modal-content gift_body sucess">
+                                <div class="modal-header ">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         <h4 class="modal-title" id="myModalLabel">Gift Address</h4>
+                                        <span class="gift_msg">
+
+                                        </span>
                                 </div>
                                 <div class="modal-body edit_modal">
 
@@ -297,10 +244,12 @@
         </div>
         <div class="modal zoomIn" id="giftpopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
-                        <div class="modal-content">
+                        <div class="modal-content gift_body sucess">
                                 <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                         <h4 class="modal-title" id="myModalLabel">Gift Address</h4>
+                                        <span class="gift_msg">
+                                        </span>
                                 </div>
                                 <div class="modal-body">
 
@@ -429,10 +378,21 @@
                                                                 $cart_rate = $cart->rate;
                                                                 ?>
                                                         </div>
-
+                                                        <?php
+                                                        if (isset(Yii::app()->session['currency'])) {
+                                                                $currency_rate = Yii::app()->session['currency']->rate;
+                                                        } else {
+                                                                $currency_rate = 1;
+                                                        }
+                                                        if ($currency_rate * $prod_details->price <= $currency_rate * 3000) {
+                                                                $gift_message = 0;
+                                                        } else {
+                                                                $gift_message = 1;
+                                                        }
+                                                        ?>
                                                         <div class="col-1">
                                                                 <div class="gift_ticker">
-                                                                        <input type="checkbox" <?php if ($cart->gift_option == '1') { ?> checked="" disabled="" <?php } ?> cart_id="<?php echo $cart->id; ?>" option="<?php echo $cart->options; ?>" product_id="<?php echo $cart->product_id; ?>" <?php if (isset(Yii::app()->session['orderid'])) { ?> order_id="<?php echo Yii::app()->session['orderid']; ?>"  <?php } ?>  name="gift" id="<?php echo $cart->id; ?>" value="1" class="gift_options gift_ticker">
+                                                                        <input type="checkbox" <?php if ($cart->gift_option == '1') { ?> checked="" disabled="" <?php } ?> cart_id="<?php echo $cart->id; ?>" option="<?php echo $cart->options; ?>" product_id="<?php echo $cart->product_id; ?>" <?php if (isset(Yii::app()->session['orderid'])) { ?> order_id="<?php echo Yii::app()->session['orderid']; ?>"  <?php } ?>  name="gift" id="<?php echo $cart->id; ?>" value="1" gift_status="<?php echo $gift_message; ?>" class="gift_options gift_ticker">
                                                                 </div>
                                                         </div>
 
@@ -604,24 +564,22 @@
                         $("#giftpopup").modal('show');
 <?php } ?>
 <?php if ($loginform->hasErrors()) { ?>
+
+                        $(".reg").removeClass('active');
+                        $(".log").addClass('active');
+                        $("#register").removeClass('active');
+                        $("#signin").addClass('active');
                         $("#logreg").modal('show');
 <?php } ?>
 <?php if ($regform->hasErrors()) { ?>
-
-                        $("#prof").addClass('active');
-                        $("#hom").removeClass('active');
-                        $("#home").removeClass('active');
-                        $("#profile").addClass('active');
-
+                        $(".log").removeClass('active');
+                        $(".reg").addClass('active');
+                        $("#signin").removeClass('active');
+                        $("#register").addClass('active');
                         $("#logreg").modal('show');
 <?php } ?>
-<?php if (Yii::app()->user->hasFlash('feilderror')) { ?>
-                        $("#prof").addClass('active');
-                        $("#hom").removeClass('active');
-                        $("#home").removeClass('active');
-                        $("#profile").addClass('active');
-                        $("#logreg").modal('show');
-<?php } ?>
+
+
         });
 </script>
 <script>
@@ -646,7 +604,13 @@
                 $('.gift_options').click(function () {
                         if ($(this).is(":checked"))
                         {
+                                var gift_message = $(this).attr("gift_status");
 
+                                if (gift_message == 1) {
+                                        $(".gift_msg").html('<h3>You are eligible for a free customized gift card and gift packing.</h3>');
+                                } else if (gift_message == 0) {
+                                        $(".gift_msg").html('<h3 style="color:#AB7420">You should pay <?php echo Yii::app()->Currency->convert(200); ?> for the gift packing.</h3>');
+                                }
                                 $('#temp-user-gifts-form').trigger("reset");
                                 $("#giftpopup").modal('show');
                                 var cart_id = $(this).attr("id");

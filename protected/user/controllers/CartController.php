@@ -309,6 +309,7 @@ class CartController extends Controller {
                  * Login for checkout
                  */
                 if (isset($_REQUEST['UserDetails']['log'])) {
+
                         $modell = UserDetails::model()->findByAttributes(array('email' => $_REQUEST['UserDetails']['log']['email'], 'password' => $_REQUEST['UserDetails']['log']['password'], 'status' => 1));
                         if ($modell != '' && $modell != NULL) {
                                 Yii::app()->session['user'] = $modell;
@@ -342,9 +343,10 @@ class CartController extends Controller {
                                         $this->redirect(array('cart/proceed'));
                                 }
                         } else {
-                                $model->addError(confirm, 'invalid username or password');
+
+                                $model1->addError(confirm, 'invalid username or password');
 //                                Yii::app()->user->setFlash('passworderror', "invalid username or password");
-//                                Yii::app()->user->setFlash('passworderror1', "invalid username or password");
+                                Yii::app()->user->setFlash('passworderror1', "invalid username or password");
 //                                $this->redirect(array('Cart/MyCart'));
                         }
                 }
@@ -352,6 +354,7 @@ class CartController extends Controller {
                  * Refister for checkout
                  */
                 if (isset($_POST['UserDetails']['reg'])) {
+
                         $model = new UserDetails('create');
                         $model->attributes = $_POST['UserDetails']['reg'];
                         $date1 = $_POST['UserDetails']['reg']['dob'];
@@ -367,8 +370,8 @@ class CartController extends Controller {
                                 $model->UB = 1;
                                 $model->DOC = date('Y-m-d');
                         } else {
-                                $model->addError(confirm, 'Please Fill the required Feild');
-//                                Yii::app()->user->setFlash('feilderror1', "Please Fill the required Feild");
+                                //$model->addError(confirm, 'Please Fill the required Feild');
+                                Yii::app()->user->setFlash('feilderror1', "Please Fill the required Feild");
 //                                Yii::app()->user->setFlash('feilderror', "Please Fill the required Feild");
                         }
                         if ($model->password == $model->confirm) {
@@ -385,7 +388,7 @@ class CartController extends Controller {
                                 }
                         } else {
                                 $model->addError(confirm, 'password mismatch');
-//                                Yii::app()->user->setFlash('passwordmissmatch', "password mismatch");
+                                Yii::app()->user->setFlash('passwordmissmatch', "password mismatch");
 //                                $this->redirect(array('Cart/MyCart'));
                         }
                 }
