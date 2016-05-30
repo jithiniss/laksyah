@@ -1,5 +1,5 @@
 <div class="container main_container inner_pages blog_single ">
-        <div class="breadcrumbs"> <a href="#">HOME</a> <span>/</span>Kavya's BLOG </div>
+        <div class="breadcrumbs"> <a href="<?php echo yii::app()->request->baseUrl; ?>/index.php">HOME</a> <span>/</span>Kavya's BLOG </div>
         <div class="user_content">
 
                 <!--<div class="alert alert-success alert-dismissible" role="alert">

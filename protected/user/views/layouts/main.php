@@ -140,138 +140,140 @@ if (Yii::app()->user->hasFlash('login_list')):
                                 </div>
                         </div>
                         <!-- /End Top Par-->
-                        <div class="logo-bar">
-                                <div class="container">
-                                        <div class="row">
-                                                <div class="col-sm-5 hidden-xs">
+                        <div class="menu_bar">
+                                <div class="logo-bar">
+                                        <div class="container">
+                                                <div class="row">
+                                                        <div class="col-sm-5 hidden-xs">
 
 
-                                                        <form action="<?php echo Yii::app()->request->baseUrl; ?>/index.php/searching/SearchList" method="post">
-                                                                <div class="search_box">
-                                                                        <?php $this->widget("application.user.components.MainSearch"); ?>
-                                                                        <button type="submit" value="search" name="search" class="search" ><i class="fa fa-search"></i></button>
-                                                                </div>
-                                                        </form>
+                                                                <form action="<?php echo Yii::app()->request->baseUrl; ?>/index.php/searching/SearchList" method="post">
+                                                                        <div class="search_box">
+                                                                                <?php $this->widget("application.user.components.MainSearch"); ?>
+                                                                                <button type="submit" value="search" name="search" class="search" ><i class="fa fa-search"></i></button>
+                                                                        </div>
+                                                                </form>
 
-                                                </div>
-                                                <div class="col-sm-2 logo_col col-xs-4"><a href="<?php echo Yii::app()->baseUrl; ?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" width="218" height="103" alt=""/></a></div>
-                                                <div class="col-sm-5 col-xs-8">
-                                                        <?php
-                                                        if (isset(Yii::app()->session['user']['id'])) {
-                                                                $cart_items = Cart::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
-                                                                $counts = count($cart_items);
-                                                        } else {
-                                                                $cart_items = Cart::model()->findAllByAttributes(array('session_id' => Yii::app()->session['temp_user']));
-                                                                $counts = count($cart_items);
-                                                        }
-                                                        ?>
-                                                        <ul class="user_nav">
+                                                        </div>
+                                                        <div class="col-sm-2 logo_col col-xs-4"><a href="<?php echo Yii::app()->baseUrl; ?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" width="218" height="103" alt=""/></a></div>
+                                                        <div class="col-sm-5 col-xs-8">
+                                                                <?php
+                                                                if (isset(Yii::app()->session['user']['id'])) {
+                                                                        $cart_items = Cart::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
+                                                                        $counts = count($cart_items);
+                                                                } else {
+                                                                        $cart_items = Cart::model()->findAllByAttributes(array('session_id' => Yii::app()->session['temp_user']));
+                                                                        $counts = count($cart_items);
+                                                                }
+                                                                ?>
+                                                                <ul class="user_nav">
 
-                                                                <?php if (isset(Yii::app()->session['user'])) { ?>
+                                                                        <?php if (isset(Yii::app()->session['user'])) { ?>
 
-                                                                        <a href="<?php echo Yii::app()->baseUrl; ?>/index.php/CreditHistory" style="color: #414042;">  <li class="my_credit">
-                                                                                        <div class="wallet_icon"></div>
-                                                                                        <div class="wallet_item">
-                                                                                                <h6>My Credit</h6>
-                                                                                                <h5><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></h5>
+                                                                                <a href="<?php echo Yii::app()->baseUrl; ?>/index.php/CreditHistory" style="color: #414042;">  <li class="my_credit">
+                                                                                                <div class="wallet_icon"></div>
+                                                                                                <div class="wallet_item">
+                                                                                                        <h6>My Credit</h6>
+                                                                                                        <h5><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></h5>
 
+                                                                                                </div>
+                                                                                                <div class="clearfix"></div>
+                                                                                        </li> </a>
+                                                                                <li class="my_account has_dropdown"><span class="account_icon"><i class="fa fa-user"></i></span><span class="account_title">My Account</span> <i class="fa fa-angle-down"></i>
+                                                                                        <div class="laksyah_dropdown">
+                                                                                                <ul class="drop_menu">
+                                                                                                        <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount" class="currency" >My Account</a></li>
+                                                                                                        <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Profile" class="currency" >Settings</a></li>
+                                                                                                        <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/Logout" class="currency" >Log Out</a></li>
+                                                            <!--                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
+                                                                                                        <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Myordernew" class="currency" >My Orders</a></li>
+                                                                                                        <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/SizeChartType" class="currency" >My Size Chart</a>
+                                                                                                        <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Addressbook" class="currency" >Address Book</a></li>
+                                                                                                        <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/cart/Mycart" class="currency" >My Cart</a></li>
+                                                                                                        <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Myaccount/Makepayment" class="currency" >Make A Payment</a></li>-->
+
+
+                                                                                                </ul>
                                                                                         </div>
-                                                                                        <div class="clearfix"></div>
-                                                                                </li> </a>
-                                                                        <li class="my_account has_dropdown"><span class="account_icon"><i class="fa fa-user"></i></span><span class="account_title">My Account</span> <i class="fa fa-angle-down"></i>
-                                                                                <div class="laksyah_dropdown">
-                                                                                        <ul class="drop_menu">
-                                                                                                <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount" class="currency" >My Account</a></li>
-                                                                                                <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Profile" class="currency" >Settings</a></li>
-                                                                                                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/Logout" class="currency" >Log Out</a></li>
-                                                    <!--                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
-                                                                                                <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Myordernew" class="currency" >My Orders</a></li>
-                                                                                                <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/SizeChartType" class="currency" >My Size Chart</a>
-                                                                                                <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Addressbook" class="currency" >Address Book</a></li>
-                                                                                                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/cart/Mycart" class="currency" >My Cart</a></li>
-                                                                                                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Myaccount/Makepayment" class="currency" >Make A Payment</a></li>-->
+                                                                                </li>
+                                                                                <li class="shopping_bag has_dropdown">
+                                                                                        <div class="cart_icon">
+                                                                                                <div class="cart_items"></div>
+                                                                                                <i class="fa fa-shopping-bag"></i></div><span class="bag_title">Shopping Bag </span><span class="amount"><?= $counts; ?></span>
+                                                                                        <div class="laksyah_dropdown  cart_box" id="cart_box">
+                                                                                        </div>
+                                                                                </li>
 
+                                                                                <li class="hidden-lg hidden-md hidden-sm"><div class="navbar-header">
+                                                                                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                                                                                        </div></li>
+                                                                        <?php } else { ?>
+                                                                                <li><a  data-toggle="modal" data-target="#login" class="currency lgn_main">Login</a></li>
+                                                                                <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/site/register" class="currency lgn_main" >Register</a></li>
+                                                                                <!--                                                                        <li class="my_credit">
+                                                                                                                                                                <div class="wallet_icon"></div>
+                                                                                                                                                                <div class="wallet_item">
+                                                                                                                                                                        <h6>My Credit</h6>
+                                                                                                                                                                        <h5><?php echo Yii::app()->Currency->convert(0); ?></h5>
+                                                                                                                                                                </div>
+                                                                                                                                                                <div class="clearfix"></div>
+                                                                                                                                                        </li>-->
+                                                <!--                                        <li class="my_account has_dropdown"><span class="account_icon"><i class="fa fa-user"></i></span><span class="account_title">Account</span> <i class="fa fa-angle-down"></i>
+                                                                                    <div class="laksyah_dropdown">
+                                                                                        <ul class="drop_menu">
+                                                                                            <li><a  data-toggle="modal" data-target="#login">Login</a></li>
+                                                                                            <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/site/register" class="currency" >Register</a></li>
+                                                                                            <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
+                                                                                            <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/cart/Mycart" class="currency" >My Cart</a></li>
 
                                                                                         </ul>
-                                                                                </div>
-                                                                        </li>
-                                                                        <li class="shopping_bag has_dropdown">
-                                                                                <div class="cart_icon">
-                                                                                        <div class="cart_items"></div>
-                                                                                        <i class="fa fa-shopping-bag"></i></div><span class="bag_title">Shopping Bag </span><span class="amount"><?= $counts; ?></span>
-                                                                                <div class="laksyah_dropdown  cart_box" id="cart_box">
-                                                                                </div>
-                                                                        </li>
+                                                                                    </div>
+                                                                                </li>-->
 
-                                                                        <li class="hidden-lg hidden-md hidden-sm"><div class="navbar-header">
-                                                                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                                                                                </div></li>
-                                                                <?php } else { ?>
-                                                                        <li><a  data-toggle="modal" data-target="#login" class="currency lgn_main">Login</a></li>
-                                                                        <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/site/register" class="currency lgn_main" >Register</a></li>
-                                                                        <!--                                                                        <li class="my_credit">
-                                                                                                                                                        <div class="wallet_icon"></div>
-                                                                                                                                                        <div class="wallet_item">
-                                                                                                                                                                <h6>My Credit</h6>
-                                                                                                                                                                <h5><?php echo Yii::app()->Currency->convert(0); ?></h5>
-                                                                                                                                                        </div>
-                                                                                                                                                        <div class="clearfix"></div>
-                                                                                                                                                </li>-->
-                                        <!--                                        <li class="my_account has_dropdown"><span class="account_icon"><i class="fa fa-user"></i></span><span class="account_title">Account</span> <i class="fa fa-angle-down"></i>
-                                                                            <div class="laksyah_dropdown">
-                                                                                <ul class="drop_menu">
-                                                                                    <li><a  data-toggle="modal" data-target="#login">Login</a></li>
-                                                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/site/register" class="currency" >Register</a></li>
-                                                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
-                                                                                    <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/cart/Mycart" class="currency" >My Cart</a></li>
+                                                                                <li class="shopping_bag has_dropdown cart_btn">
+                                                                                        <div class="cart_icon">
+                                                                                                <div class="cart_items"><?php echo $counts; ?></div>
+                                                                                                <i class="fa fa-shopping-bag"></i></div>
+                                                                                        <span class="bag_title">Shopping Bag </span><span class="amount">(<i class="fa fa-rupee"></i>2500)</span>
+                                                                                        <div class="laksyah_dropdown  cart_box" id="cart_box">
 
-                                                                                </ul>
-                                                                            </div>
-                                                                        </li>-->
+                                                                                        </div>
+                                                                                </li>
 
-                                                                        <li class="shopping_bag has_dropdown cart_btn">
-                                                                                <div class="cart_icon">
-                                                                                        <div class="cart_items"><?php echo $counts; ?></div>
-                                                                                        <i class="fa fa-shopping-bag"></i></div>
-                                                                                <span class="bag_title">Shopping Bag </span><span class="amount">(<i class="fa fa-rupee"></i>2500)</span>
-                                                                                <div class="laksyah_dropdown  cart_box" id="cart_box">
-
-                                                                                </div>
-                                                                        </li>
-
-                                                                        <li class="hidden-lg hidden-md hidden-sm"><div class="navbar-header">
-                                                                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                                                                                </div></li>
-                                                                <?php } ?>
-                                                        </ul>
-                                                        <!-- / User menu -->
-                                                        <div class="clearfix"></div>
+                                                                                <li class="hidden-lg hidden-md hidden-sm"><div class="navbar-header">
+                                                                                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                                                                                        </div></li>
+                                                                        <?php } ?>
+                                                                </ul>
+                                                                <!-- / User menu -->
+                                                                <div class="clearfix"></div>
+                                                        </div>
                                                 </div>
                                         </div>
                                 </div>
-                        </div>
-                        <!-- /Logo Bar-->
-                        <div class="container">
-                                <div class="navbar" role="navigation">
+                                <!-- /Logo Bar-->
+                                <div class="container">
+                                        <div class="navbar" role="navigation">
 
-                                        <div class="collapse navbar-collapse">
-                                                <ul class="nav navbar-nav main-nav">
-                                                        <li class="active"><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/women">WOMEN</a></li>
-                                                        <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                        <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/celeb-style">CELEB STYLE</a></li>
-                                                        <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                        <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/new-look">NEW LOOK</a></li>
-                                                        <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                        <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/festive">FESTIVE</a></li>
-                                                        <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                        <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/daily-wear">DAILY WEAR </a></li>
-                                                        <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                        <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/deal">DEAL of the day</a></li>
-                                                        <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                        <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/GiftCard">Laksyah Gift Cards</a></li>
-                                                </ul>
+                                                <div class="collapse navbar-collapse">
+                                                        <ul class="nav navbar-nav main-nav">
+                                                                <li class="active"><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/women">WOMEN</a></li>
+                                                                <li class="seperator"><i class="fa fa-circle"></i></li>
+                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/celeb-style">CELEB STYLE</a></li>
+                                                                <li class="seperator"><i class="fa fa-circle"></i></li>
+                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/new-look">NEW LOOK</a></li>
+                                                                <li class="seperator"><i class="fa fa-circle"></i></li>
+                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/festive">FESTIVE</a></li>
+                                                                <li class="seperator"><i class="fa fa-circle"></i></li>
+                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/daily-wear">DAILY WEAR </a></li>
+                                                                <li class="seperator"><i class="fa fa-circle"></i></li>
+                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/deal">DEAL of the day</a></li>
+                                                                <li class="seperator"><i class="fa fa-circle"></i></li>
+                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/GiftCard">Laksyah Gift Cards</a></li>
+                                                        </ul>
+                                                </div>
+                                                <!--/.nav-collapse -->
                                         </div>
-                                        <!--/.nav-collapse -->
                                 </div>
                         </div>
 

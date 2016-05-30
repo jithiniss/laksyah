@@ -302,7 +302,7 @@ class SiteController extends Controller {
                         'order' => 'DOC DESC',
                     ),
                     'pagination' => array(
-                        'pageSize' => 2,
+                        'pageSize' => 4,
                     ),
                         )
                 );
