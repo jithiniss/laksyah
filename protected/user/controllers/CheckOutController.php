@@ -620,9 +620,9 @@ class CheckOutController extends Controller {
                 $shiping_charge = ShippingCharges::model()->findByPk($user_address->country);
                 $order_details = OrderProducts::model()->findAllByAttributes(array('order_id' => $order->id));
 
-                //$this->SendMail($order);
-                //$this->adminmail($order);
-
+                $this->SendMail($order);
+                $this->adminmail($order);
+                exit;
                 unset(yii::app()->session['orderid']);
                 $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
                 Yii::app()->session['user'] = $user;
@@ -652,12 +652,14 @@ class CheckOutController extends Controller {
                 $headers .= 'From: <no-reply@lakshya.com>' . "\r\n";
                 //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
                 echo $message;
-                // exit();
+
                 //  mail($to, $subject, $message, $headers);
         }
 
         public function Adminmail($order) {
                 $order = Order::model()->findByPk(yii::app()->session['orderid']);
+
+
                 $user_address = UserAddress::model()->findByPk($order->ship_address_id);
 
                 $bill_address = UserAddress::model()->findByPk($order->bill_address_id);
