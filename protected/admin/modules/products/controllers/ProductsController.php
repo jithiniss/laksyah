@@ -68,15 +68,24 @@ class ProductsController extends Controller {
 
                 $model = new Products('create');
 
+
+
                 // Uncomment the following line if AJAX validation is needed
                 // $this->performAjaxValidation($model);
 
                 if (isset($_POST['Products'])) {
+
+
+
+
                         $this->performAjaxValidation($model);
                         $model->attributes = $_POST['Products'];
                         $image = CUploadedFile::getInstance($model, 'main_image');
                         $hover_image = CUploadedFile::getInstance($model, 'hover_image');
                         $video = CUploadedFile::getInstance($model, 'video');
+
+//                        var_dump($video);
+//                        exit;
                         //$model->search_tag = $_POST['ProductCategory']['search_tag'];
                         if ($model->search_tag != "") {
                                 $model->search_tag = implode(",", $model->search_tag);

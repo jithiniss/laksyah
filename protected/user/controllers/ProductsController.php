@@ -86,6 +86,7 @@ class ProductsController extends Controller {
                 }
                 $model = new ProductEnquiry;
                 if (isset($_POST['ProductEnquiry'])) {
+
                         $model->attributes = $_POST['ProductEnquiry'];
                         if ($model->validate()) {
                                 $model->save();
@@ -98,6 +99,24 @@ class ProductsController extends Controller {
                         $this->redirect(array('Site/Error'));
                 }
         }
+
+//        public function actionEnquiry() {
+//
+//                $model = new ProductEnquiry;
+//
+//
+//                if (isset($_POST['ProductEnquiry'])) {
+//                        if ($model->validate()) {
+//
+//
+//                                $model->save(FALSE);
+//
+//
+//
+//                                Yii::app()->user->setFlash('enuirysuccess', "Your Enquiry Send Successfully ");
+//                        }
+//                }
+//        }
 
         public function actionWishlist($id) {
                 if (Yii::app()->session['user'] != '' && Yii::app()->session['user'] != NULL) {

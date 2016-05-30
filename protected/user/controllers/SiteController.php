@@ -26,7 +26,7 @@ class SiteController extends Controller {
          */
         public function actionIndex() {
                 $model = Testimonial::model()->findAllByAttributes(array('status' => 1));
-                $blog = Blog::model()->findAllByAttributes(array('status' => 1), array('limit' => 4));
+                $blog = Blog::model()->findAllByAttributes(array('status' => 1));
                 $slider = Slider::model()->findAllByAttributes(array('status' => 1));
                 $this->render('index', array('model' => $model, 'blog' => $blog, 'slider' => $slider));
         }
@@ -176,6 +176,7 @@ class SiteController extends Controller {
          * Displays the login page
          */
         public function actionLogin() {
+
                 if (isset(Yii::app()->session['user'])) {
                         $this->redirect($this->createUrl('index'));
                 } else {
@@ -190,11 +191,10 @@ class SiteController extends Controller {
 
                                         if ($_POST['gift_id'] != '') {
 
-//                                                $this->redirect(array('giftcard/address'));
                                                 $this->redirect($this->createUrl('/giftcard/index', array('card_id' => $_POST['gift_id'])));
                                         }
                                         if (isset(Yii::app()->session['temp_user'])) {
-//  Cart::model()->deleteAllByAttributes(array("user_id" => $modell->id));
+
 
                                                 Cart::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
 
@@ -210,11 +210,10 @@ class SiteController extends Controller {
                                         } else {
                                                 unset(Yii::app()->session['wishlist_user']);
                                                 $this->redirect(Yii::app()->request->urlReferrer);
-//                                                $this->redirect($this->createUrl('/site/index'));
                                         }
                                 } else {
 
-//                                        $model->addError('password', 'invalid username or password');
+
                                         Yii::app()->user->setFlash('login_list', "Username or password invalid");
                                 }
                         }
@@ -223,7 +222,9 @@ class SiteController extends Controller {
                                 Yii::app()->user->setFlash('wishlist_user', "Dear, You must login to see Wishlist Items");
                         }
 
-                        $this->redirect(Yii::app()->request->urlReferrer);
+                        //$this->redirect(Yii::app()->request->urlReferrer);
+
+                        $this->render('login_new', array('model' => $model));
                 }
         }
 
@@ -294,55 +295,25 @@ class SiteController extends Controller {
                 $this->render('giftcard', array('model' => $model));
         }
 
-        public function actionBlog() {
-                $dataProvider = new CActiveDataProvider('Blog', array(
-                    'criteria' => array(
-                        'condition' => 'status=1',
-                        'order' => 'DOC DESC',
-                    ),
-                    'pagination' => array(
-                        'pageSize' => 4,
-                    ),
-                        )
-                );
-                $this->render('blogs', array('dataProvider' => $dataProvider));
+        public function actionBlotg() {
+
         }
 
-        public function actionBlogDetails($blog) {
-                $model = Blog::model()->findByPk($blog);
-                $last_id = Blog::model()->find(array('order' => 'id DESC'));
-                $first_id = Blog::model()->find(array('order' => 'id ASC'));
-                $this->render('blog_details', array('model' => $model, 'last_id' => $last_id, 'first_id' => $first_id));
-        }
+        public function actionnew_Login() {
 
-        public function actionBlogDetailsPrevious($currentId) {
-                $prevId = $this->getNextOrPrevId($currentId, 'prev');
-                $model = Blog::model()->findByPk($prevId);
-                $this->render('blog_details', array('model' => $model));
-        }
+                $model = new UserDetails();
+                if (isset($_POST['UserDetails'])) {
 
-        public function actionBlogDetailsNext($currentId) {
-                $nextId = $this->getNextOrPrevId($currentId, 'next');
-                $model = Blog::model()->findByPk($nextId);
-                $this->render('blog_details', array('model' => $model));
-        }
+                        $model = UserDetails::model()->findByAttributes(array('email' => $_POST['UserDetails']['email'], 'password' => $_POST['UserDetails']['password'], 'status' => 1));
 
-        public static function getNextOrPrevId($currentId, $nextOrPrev) {
-                $records = NULL;
-                if ($nextOrPrev == "prev")
-                        $order = "id DESC";
-                if ($nextOrPrev == "next")
-                        $order = "id ASC";
+                        if ($model) {
+                                $this->redirect(Yii::app()->request->baseUrl . '/index.php');
+                        } else {
+                                $this->redirect(Yii::app()->request->urlReferrer);
+                        }
+                }
 
-                $records = Blog::model()->findAll(
-                        array('select' => 'id', 'order' => $order)
-                );
-
-                foreach ($records as $i => $r)
-                        if ($r->id == $currentId)
-                                return $records[$i + 1]->id ? $records[$i + 1]->id : NULL;
-
-                return NULL;
+                $this->render('login_new', array('model' => $model));
         }
 
 }

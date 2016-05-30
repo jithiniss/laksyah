@@ -3,7 +3,7 @@
 class UploadFile extends CApplicationComponent {
 
         public function folderName($min, $max, $id) {
-                if($id > $min && $id < $max) {
+                if ($id > $min && $id < $max) {
                         return $max;
                 } else {
                         $xy = $this->folderName($min + 1000, $max + 1000, $id);
@@ -13,7 +13,7 @@ class UploadFile extends CApplicationComponent {
 
         public function fileExists($path, $name, $file, $sufix) {
 
-                if(file_exists($path . $name)) {
+                if (file_exists($path . $name)) {
                         $name = basename($path . $file->name, '.' . $file->extensionName) . '_' . $sufix . '.' . $file->extensionName;
                         return $this->fileExists($path, $name, $file, $sufix + 1);
                 } else {
@@ -23,34 +23,34 @@ class UploadFile extends CApplicationComponent {
 
         public function uploadHoverImage($uploadfile, $id, $foldername = false, $dimensions = array()) {
 
-                if($foldername) {
+                if ($foldername) {
                         $folder = $this->folderName(0, 1000, $id) . '/';
                 } else {
                         $folder = "";
                 }
 
-                if(isset($uploadfile)) {
-                        if(Yii::app()->basePath . '/../uploads/products') {
+                if (isset($uploadfile)) {
+                        if (Yii::app()->basePath . '/../uploads/products') {
                                 chmod(Yii::app()->basePath . '/../uploads/products', 0777);
-                                if($foldername) {
-                                        if(!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder))
+                                if ($foldername) {
+                                        if (!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder))
                                                 mkdir(Yii::app()->basePath . '/../uploads/products/' . $folder);
                                         chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/', 0777);
 
-                                        if(!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id))
+                                        if (!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id))
                                                 mkdir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id);
                                         chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/', 0777);
 
-                                        if(!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover'))
+                                        if (!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover'))
                                                 mkdir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover');
                                         chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . 'hover/', 0777);
                                 }
-                                if($uploadfile->saveAs(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover/hover.' . $uploadfile->extensionName)) {
+                                if ($uploadfile->saveAs(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover/hover.' . $uploadfile->extensionName)) {
                                         chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover/hover.' . $uploadfile->extensionName, 0777);
                                         $this->WaterMark(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover/hover.' . $uploadfile->extensionName, '/../images/watermark.png');
                                         $file = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover/hover.' . $uploadfile->extensionName;
                                         $path = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover';
-                                        if(!empty($dimensions)) {
+                                        if (!empty($dimensions)) {
 
                                                 $this->Resize($file, $dimensions['width'], $dimensions['height'], $dimensions['name'], $path, $uploadfile->extensionName);
                                         }
@@ -61,32 +61,32 @@ class UploadFile extends CApplicationComponent {
 
         public function uploadImage($uploadfile, $id, $foldername = false, $dimensions = array()) {
 
-                if($foldername) {
+                if ($foldername) {
                         $folder = $this->folderName(0, 1000, $id) . '/';
                 } else {
                         $folder = "";
                 }
 
-                if(isset($uploadfile)) {
-                        if(Yii::app()->basePath . '/../uploads/products') {
+                if (isset($uploadfile)) {
+                        if (Yii::app()->basePath . '/../uploads/products') {
                                 chmod(Yii::app()->basePath . '/../uploads/products', 0777);
-                                if($foldername) {
-                                        if(!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder))
+                                if ($foldername) {
+                                        if (!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder))
                                                 mkdir(Yii::app()->basePath . '/../uploads/products/' . $folder);
                                         chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/', 0777);
 
-                                        if(!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id))
+                                        if (!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id))
                                                 mkdir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id);
                                         chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/', 0777);
                                 }
-                                if($uploadfile->saveAs(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . $id . '.' . $uploadfile->extensionName)) {
+                                if ($uploadfile->saveAs(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . $id . '.' . $uploadfile->extensionName)) {
                                         chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . $id . '.' . $uploadfile->extensionName, 0777);
                                         $this->WaterMark(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . $id . '.' . $uploadfile->extensionName, '/../images/watermark.png');
 
                                         $file = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . $id . '.' . $uploadfile->extensionName;
                                         $path = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id;
-                                        if(!empty($dimensions)) {
-                                                foreach($dimensions as $dimension) {
+                                        if (!empty($dimensions)) {
+                                                foreach ($dimensions as $dimension) {
                                                         $this->Resize($file, $dimension['width'], $dimension['height'], $dimension['name'], $path, $uploadfile->extensionName);
                                                 }
                                         }
@@ -97,25 +97,25 @@ class UploadFile extends CApplicationComponent {
 
         public function uploadMultipleImage($uploadfile, $id, $foldername = false, $dimensions = array()) {
 
-                if($foldername) {
+                if ($foldername) {
                         $folder = $this->folderName(0, 1000, $id) . '/';
                 } else {
                         $folder = "";
                 }
-                foreach($uploadfile as $upload) {
-                        if(isset($upload)) {
-                                if(Yii::app()->basePath . '/../uploads/products') {
+                foreach ($uploadfile as $upload) {
+                        if (isset($upload)) {
+                                if (Yii::app()->basePath . '/../uploads/products') {
                                         chmod(Yii::app()->basePath . '/../uploads/products', 0777);
-                                        if($foldername) {
-                                                if(!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder))
+                                        if ($foldername) {
+                                                if (!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder))
                                                         mkdir(Yii::app()->basePath . '/../uploads/products/' . $folder);
                                                 chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/', 0777);
 
-                                                if(!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id))
+                                                if (!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id))
                                                         mkdir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id);
                                                 chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/', 0777);
 
-                                                if(!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/gallery/'))
+                                                if (!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/gallery/'))
                                                         mkdir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/gallery/');
                                                 chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/gallery/', 0777);
                                         }
@@ -124,19 +124,19 @@ class UploadFile extends CApplicationComponent {
                                         $picname = $this->fileExists($path, $upload->name, $upload, 1);
 
 
-                                        if($upload->saveAs(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/gallery/' . $picname)) {
+                                        if ($upload->saveAs(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/gallery/' . $picname)) {
                                                 chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . $id . '/gallery/' . $picname, 0777);
                                                 $this->WaterMark(Yii::app()->basePath . '/../uploads/products/' . $folder . $id . '/gallery/' . $picname, '/../images/watermark.png');
                                                 $file = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/gallery/' . $picname;
 
 
 
-                                                if(!empty($dimensions)) {
+                                                if (!empty($dimensions)) {
 
 
 
-                                                        foreach($dimensions as $dimension) {
-                                                                if(!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . '/gallery/' . $dimension['name']))
+                                                        foreach ($dimensions as $dimension) {
+                                                                if (!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . '/gallery/' . $dimension['name']))
                                                                         mkdir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . '/gallery/' . $dimension['name']);
 
                                                                 $path = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . '/gallery/' . $dimension['name'];
@@ -188,33 +188,35 @@ class UploadFile extends CApplicationComponent {
 
         public function uploadVideo($video, $id, $foldername = false, $dimensions = array()) {
 
-                if($foldername) {
+
+
+                if ($foldername) {
                         $folder = $this->folderName(0, 1000, $id) . '/';
                 } else {
                         $folder = "";
                 }
 
 
-                if(isset($video)) {
+                if (isset($video)) {
 
-                        if(Yii::app()->basePath . '/../uploads/products') {
+                        if (Yii::app()->basePath . '/../uploads/products') {
                                 chmod(Yii::app()->basePath . '/../uploads/products', 0777);
-                                if($foldername) {
+                                if ($foldername) {
 
 
-                                        if(!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder))
+                                        if (!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder))
                                                 mkdir(Yii::app()->basePath . '/../uploads/products/' . $folder);
                                         chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/', 0777);
 
-                                        if(!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id))
+                                        if (!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id))
                                                 mkdir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id);
                                         chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/', 0777);
 
-                                        if(!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/videos'))
+                                        if (!is_dir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/videos'))
                                                 mkdir(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/videos');
                                         chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . 'videos/', 0777);
                                 }
-                                if($video->saveAs(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/videos/video.' . $video->extensionName)) {
+                                if ($video->saveAs(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/videos/video.' . $video->extensionName)) {
 
 
 
