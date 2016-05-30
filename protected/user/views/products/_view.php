@@ -55,7 +55,16 @@
             <h3><?php echo $data->product_name; ?></h3>
             <h4><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Products/Detail/name/<?php echo $data->canonical_name; ?>">Saree</a></h4>
 <!--                        <p><i class="fa fa-rupee"></i> <?php echo $data->price; ?></p>-->
-            <p><?php echo Yii::app()->Discount->Discount($data); ?></p>
+            <?php
+            $category_check = Products::model()->findByAttributes(array('canonical_name' => $data->canonical_name));
+
+            $cat_ids = explode(',', $category_check->category_id);
+            if (in_array("4", $cat_ids)) {
+                    ?>
+
+            <?php } else { ?>
+                    <p><?php echo Yii::app()->Discount->Discount($data); ?></p>
+            <?php } ?>
         </div>
     </div>
 </div>

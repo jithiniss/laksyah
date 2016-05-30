@@ -264,7 +264,7 @@ class ProductsController extends Controller {
                                                 }
                                                 ?>
                                                 <label class="<?php echo $disabled; ?>" id="<?php echo $size->size_id; ?>"><?php echo $size_name->size; ?>
-                                                        <input type = "radio" name = "size_selector_<?php echo $size_name->id; ?>" value = "<?php echo $size_name->id; ?>" id = "size_selector_<?php echo $size_name->id; ?>">
+                                                    <input type = "radio" name = "size_selector_<?php echo $size_name->id; ?>" value = "<?php echo $size_name->id; ?>" id = "size_selector_<?php echo $size_name->id; ?>">
                                                 </label>
                                                 <?php
                                         }

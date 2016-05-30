@@ -179,4 +179,17 @@ class MenuCategory extends CApplicationComponent {
                 return $return;
         }
 
+        public function findParent($parent) {
+                $master = ProductCategory::model()->findByPk($parent);
+                if ($master != '') {
+                        if ($master->id == $master->parent) {
+                                return $master->id;
+                        } else {
+                                return $this->findParent($master->parent);
+                        }
+                } else {
+                        return $parent;
+                }
+        }
+
 }

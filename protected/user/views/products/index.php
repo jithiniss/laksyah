@@ -32,23 +32,28 @@
                     </div>
 
                 </div>
+                <?php
+                $parent = Yii::app()->Menu->findParent($get_cat_name->id);
+                if ($parent != 4) {
+                        ?>
+                        <div class="size_filter">
+                            <h4>Size</h4>
+                            <div class="size_selector">
 
-                <div class="size_filter">
-                    <h4>Size</h4>
-                    <div class="size_selector">
+                                <?php
+                                $sizes = OptionCategory::model()->findAllByAttributes(array('option_type_id' => 2));
+                                foreach ($sizes as $size) {
+                                        ?>
+                                        <label for="small" class="" id="<?= $size->id ?>"><?= $size->size; ?>
+                                            <input type="radio" name="size_selector" value="<?= $size->id ?>" >
+                                        </label>
+        <?php } ?>
+                                <input type="hidden" value="" id="selected_size" name="selected_size"/>
 
-                        <?php
-                        $sizes = OptionCategory::model()->findAllByAttributes(array('option_type_id' => 2));
-                        foreach ($sizes as $size) {
-                                ?>
-                                <label for="small" class="" id="<?= $size->id ?>"><?= $size->size; ?>
-                                    <input type="radio" name="size_selector" value="<?= $size->id ?>" >
-                                </label>
-                        <?php } ?>
-                        <input type="hidden" value="" id="selected_size" name="selected_size"/>
+                            </div>
+                        </div>
+<?php } ?>
 
-                    </div>
-                </div>
             </form>
         </div>
         <!-- / Sidebar-->
