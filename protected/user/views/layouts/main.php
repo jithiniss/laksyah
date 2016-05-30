@@ -100,7 +100,7 @@ if (Yii::app()->user->hasFlash('login_list')):
                         <div class="col-sm-5 col-md-6 mobile-inline">
                             <ul>
                                 <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/BookAppointment"><i class="fa fa-calendar"></i> <span class="hidden-xs">Make an </span>Appointment</a></li>
-                                <li  class="hidden-mobile"><a href="#"><i class="fa fa-map-marker"></i> Location</a></li>
+                                <li  class="hidden-mobile"><a href="<?= Yii::app()->baseUrl; ?>/index.php/site/contactUs"><i class="fa fa-map-marker"></i> Location</a></li>
                             </ul>
                         </div>
                         <!-- / End Top Left-->

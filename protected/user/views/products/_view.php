@@ -57,12 +57,9 @@
 <!--                        <p><i class="fa fa-rupee"></i> <?php echo $data->price; ?></p>-->
             <?php
             $category_check = Products::model()->findByAttributes(array('canonical_name' => $data->canonical_name));
-
             $cat_ids = explode(',', $category_check->category_id);
-            if (in_array("4", $cat_ids)) {
+            if (!in_array("4", $cat_ids)) {
                     ?>
-
-            <?php } else { ?>
                     <p><?php echo Yii::app()->Discount->Discount($data); ?></p>
             <?php } ?>
         </div>
