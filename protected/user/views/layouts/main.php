@@ -76,7 +76,9 @@ if (Yii::app()->user->hasFlash('login_list')):
                                                                         <input class="form-control" type="text" name="UserDetails[email]" autocomplete="off" />
                                                                         <label>Password</label>
                                                                         <input class="form-control" type="password" name="UserDetails[password]" autocomplete="off" />
-                                                                        <p><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/forgotPassword/" class="forgot">Forgot Password?</a></p>
+                                                                        <p>
+                                                                                <?php // echo CHtml::link('Forgot Password?', array('forgotPassword/index'), array('class' => 'forgot')); ?>
+                                                                                <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/forgotPassword/" class="forgot">Forgot Password?</a></p>
                                                                         <input type="submit"  class ="btn-primary btn-full" value="SIGN IN" />
                                                                 </form>
                                                         </div>
@@ -98,14 +100,15 @@ if (Yii::app()->user->hasFlash('login_list')):
                                         <div class="row">
                                                 <div class="col-sm-5 col-md-6 mobile-inline">
                                                         <ul>
-                                                                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/BookAppointment"><i class="fa fa-calendar"></i> <span class="hidden-xs">Make an </span>Appointment</a></li>
-                                                                <li  class="hidden-mobile"><a href="<?= Yii::app()->baseUrl; ?>/index.php/site/contactUs"><i class="fa fa-map-marker"></i> Location</a></li>
+                                                                <li> <?php echo CHtml::link('<i class="fa fa-calendar"></i> <span class="hidden-xs">Make an </span>Appointment', array('site/BookAppointment')); ?></li>
+                                                                <li  class="hidden-mobile">
+                                                                        <?php echo CHtml::link('<i class="fa fa-map-marker"></i> Location', array('site/contactUs')); ?></li>
                                                         </ul>
                                                 </div>
                                                 <!-- / End Top Left-->
                                                 <div class="col-sm-7 text-right col-md-6 mobile-inline">
                                                         <ul>
-                                                                <li class="hidden-mobile"><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/contactUs"><i class="fa fa-envelope"></i><span class="hidden-xs">LEAVE A </span>MESSAGE </a></li>
+                                                                <li class="hidden-mobile"> <?php echo CHtml::link('<i class="fa fa-envelope"></i><span class="hidden-xs">LEAVE A </span>MESSAGE', array('site/contactUs')); ?></li>
                                                                 <li><a href="#"><i class="fa fa-mobile-phone"></i> MOBILE APP</a></li>
 
                                                                 <li class="has_dropdown"><a href="#" class="active_currency">
@@ -123,7 +126,8 @@ if (Yii::app()->user->hasFlash('login_list')):
 
                                                                                         foreach ($currencies as $currency) {
                                                                                                 ?>
-                                                                                                <li><a href="<?php echo Yii::app()->baseUrl; ?>/index.php/Site/CurrencyChange/id/<?= $currency->id; ?>" class="currency" code="<?= $currency->id; ?>">
+                                                                                                <li>
+                                                                                                        <a href="<?php echo Yii::app()->baseUrl; ?>/index.php/Site/CurrencyChange/id/<?= $currency->id; ?>" class="currency" code="<?= $currency->id; ?>">
                                                                                                                 <i class="fa currency_symbol"><img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/currency/<?= $currency->id; ?>.<?= $currency->image; ?>" width="16" height="11" alt=""/></i><?= $currency->currency_code; ?></a></li>
                                                                                         <?php } ?>
 
@@ -168,7 +172,6 @@ if (Yii::app()->user->hasFlash('login_list')):
                                                                 <ul class="user_nav">
 
                                                                         <?php if (isset(Yii::app()->session['user'])) { ?>
-
                                                                                 <a href="<?php echo Yii::app()->baseUrl; ?>/index.php/CreditHistory" style="color: #414042;">  <li class="my_credit">
                                                                                                 <div class="wallet_icon"></div>
                                                                                                 <div class="wallet_item">
@@ -182,14 +185,14 @@ if (Yii::app()->user->hasFlash('login_list')):
                                                                                         <div class="laksyah_dropdown">
                                                                                                 <ul class="drop_menu">
                                                                                                         <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount" class="currency" >My Account</a></li>
-                                                                                                        <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Profile" class="currency" >Settings</a></li>
-                                                                                                        <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/Logout" class="currency" >Log Out</a></li>
-                                                            <!--                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
-                                                                                                        <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Myordernew" class="currency" >My Orders</a></li>
-                                                                                                        <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/SizeChartType" class="currency" >My Size Chart</a>
-                                                                                                        <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Addressbook" class="currency" >Address Book</a></li>
-                                                                                                        <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/cart/Mycart" class="currency" >My Cart</a></li>
-                                                                                                        <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Myaccount/Makepayment" class="currency" >Make A Payment</a></li>-->
+                                                                                                        <li><?php echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency')); ?></li>
+                                                                                                        <li><?php echo CHtml::link('Log Out', array('site/Logout'), array('class' => 'currency')); ?></li>
+                                                    <!--                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
+                                                                                                <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Myordernew" class="currency" >My Orders</a></li>
+                                                                                                <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/SizeChartType" class="currency" >My Size Chart</a>
+                                                                                                <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Addressbook" class="currency" >Address Book</a></li>
+                                                                                                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/cart/Mycart" class="currency" >My Cart</a></li>
+                                                                                                <li><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Myaccount/Makepayment" class="currency" >Make A Payment</a></li>-->
 
 
                                                                                                 </ul>
@@ -256,19 +259,19 @@ if (Yii::app()->user->hasFlash('login_list')):
 
                                                 <div class="collapse navbar-collapse">
                                                         <ul class="nav navbar-nav main-nav">
-                                                                <li class="active"><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/women">WOMEN</a></li>
+                                                                <li class="active"><?php echo CHtml::link('WOMEN', array('products/category', 'name' => 'women')); ?></li>
                                                                 <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/celeb-style">CELEB STYLE</a></li>
+                                                                <li><?php echo CHtml::link('CELEB STYLE', array('products/category', 'name' => 'celeb-style')); ?></li>
                                                                 <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/new-look">NEW LOOK</a></li>
+                                                                <li><?php echo CHtml::link('NEW LOOK', array('products/category', 'name' => 'new-look')); ?></li>
                                                                 <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/festive">FESTIVE</a></li>
+                                                                <li><?php echo CHtml::link('FESTIVE', array('products/category', 'name' => 'festive')); ?></li>
                                                                 <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/category/name/daily-wear">DAILY WEAR </a></li>
+                                                                <li><?php echo CHtml::link('DAILY WEAR', array('products/category', 'name' => 'daily-wear')); ?>
                                                                 <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/products/deal">DEAL of the day</a></li>
+                                                                <li><?php echo CHtml::link('DEAL of the day', array('products/category', 'name' => 'deal')); ?></li>
                                                                 <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/GiftCard">Laksyah Gift Cards</a></li>
+                                                                <li><?php echo CHtml::link('Laksyah Gift Cards', array('site/GiftCard')); ?></li>
                                                         </ul>
                                                 </div>
                                                 <!--/.nav-collapse -->
@@ -316,7 +319,7 @@ if (Yii::app()->user->hasFlash('login_list')):
                                                                                 <div class="clearfix visible-xs"></div>
                                                                                 <div class="col-md-4 col-sm-4  footer-follow">
                                                                                         <h4>Follow Us<span class="footer-bdr"></span></h4>
-                                                                                        <p><a href="#">www.laksyah.com</a> </p>
+                                                                                        <p><?php echo CHtml::link('www.laksyah.com', array('url' => 'www.laksyah.com'), array('target' => '_blank')); ?></p>
                                                                                         <ul class="social-icons">
                                                                                                 <?php
                                                                                                 $inst = SocialMedia::model()->findByPk(4);
@@ -325,12 +328,12 @@ if (Yii::app()->user->hasFlash('login_list')):
                                                                                                 $twi = SocialMedia::model()->findByPk(3);
                                                                                                 $pin = SocialMedia::model()->findByPk(5);
                                                                                                 ?>
-                                                                                                <li><a href="<?php echo $inst->link; ?>" target="_blank" class="instagram"><i class="fa fa-instagram"></i></a> </li>
-                                                                                                <li><a href="<?php echo $you->link; ?>" target="_blank" class="youtube"><i class="fa fa-youtube"></i></a> </li>
-                                                                                                <li><a href="<?php echo $face->link; ?>" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a> </li>
-                                                                                                <li><a href="<?php echo $twi->link; ?>" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a> </li>
-                                                                                                <li><a href="<?php echo $pin->link; ?>" target="_blank" class="pinterest"><i class="fa fa-pinterest-p"></i></a> </li>
-                                                                                                <!--<li><a href="https://plus.google.com/u/0/116336234211963787309/posts" class="google-plus"><i class="fa fa-google-plus"></i></a></li>-->
+                                                                                                <li><?php echo CHtml::link('<i class="fa fa-instagram"></i>', $inst->link, array('target' => '_blank'), array('class' => 'instagram')); ?></li>
+                                                                                                <li><?php echo CHtml::link('<i class="fa fa-youtube"></i>', $you->link, array('target' => '_blank'), array('class' => 'youtube')); ?></li>
+                                                                                                <li><?php echo CHtml::link('<i class="fa fa-facebook"></i>', $face->link, array('target' => '_blank'), array('class' => 'facebook')); ?></li>
+                                                                                                <li><?php echo CHtml::link('<i class="fa fa-twitter"></i>', $twi->link, array('target' => '_blank'), array('class' => 'twitter')); ?></li>
+                                                                                                <li><?php echo CHtml::link('<i class="fa fa-pinterest-p"></i>', $pin->link, array('target' => '_blank'), array('class' => 'pinterest')); ?></li>
+
                                                                                         </ul>
                                                                                 </div>
                                                                         </div>
