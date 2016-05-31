@@ -311,7 +311,7 @@ if (Yii::app()->user->hasFlash('login_list')):
                                                                                         <p>The Design House, <br>
                                                                                                 C-3, GCDA House, Mavelipuram,<br>
                                                                                                 Kakkanad, kochi <br>
-                                                                                                <a class="google-map-tag" target="_blank">Google Map</a> </p>
+                                                                                                <a  class="google-map-tag" href="https://www.google.com/maps?ll=10.01837,76.343789&z=15&t=m&hl=en-US&gl=IN&mapclient=embed&cid=6012272874496110969" target="_blank">Google Map</a> </p>
                                                                                 </div>
                                                                                 <div class="clearfix visible-xs"></div>
                                                                                 <div class="col-md-4 col-sm-4  footer-follow">
@@ -345,14 +345,14 @@ if (Yii::app()->user->hasFlash('login_list')):
                                         <div class="footer-menu">
                                                 <div class="container">
                                                         <ul>
-                                                                <li><a href="#">About Us</a>|</li>
-                                                                <li><a href="#">Contact Us</a>|</li>
+                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/AboutUs">About Us</a>|</li>
+                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/ContactLaksyah">Contact Us</a>|</li>
                                                                 <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/Blog">Blog</a>|</li>
-                                                                <li><a href="#">Policies</a>|</li>
-                                                                <li><a href="#">Product Submission</a>|</li>
+                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/PrivacyPolicy">Policies</a>|</li>
+                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/ProductSubmission">Product Submission</a>|</li>
                                                                 <li><a href="#">Careers</a>|</li>
                                                                 <li><a href="#">Terms &amp; Condition</a>|</li>
-                                                                <li><a href="#">FAQ</a> </li>
+                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/Faq">FAQ</a> </li>
                                                         </ul>
                                                         <div id="back-to-top" style="display: block;"> <a class="back-to-top" style="display: block;"></a> </div>
                                                 </div>

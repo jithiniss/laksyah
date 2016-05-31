@@ -154,7 +154,7 @@ class ProductsController extends Controller {
                                                 $dimension[0] = array('width' => '116', 'height' => '155', 'name' => 'small');
                                                 $dimension[1] = array('width' => '263', 'height' => '408', 'name' => 'medium');
                                                 $dimension[2] = array('width' => '544', 'height' => '758', 'name' => 'big');
-                                                $dimension[2] = array('width' => '800', 'height' => '1060', 'name' => 'zoom');
+                                                $dimension[3] = array('width' => '800', 'height' => '1060', 'name' => 'zoom');
                                                 Yii::app()->Upload->uploadImage($image, $id, true, $dimension);
                                         }
 

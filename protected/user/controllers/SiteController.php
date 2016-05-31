@@ -295,25 +295,80 @@ class SiteController extends Controller {
                 $this->render('giftcard', array('model' => $model));
         }
 
-        public function actionBlotg() {
-
+        public function actionBlog() {
+                $dataProvider = new CActiveDataProvider('Blog', array(
+                    'criteria' => array(
+                        'condition' => 'status=1',
+                        'order' => 'DOC DESC',
+                    ),
+                    'pagination' => array(
+                        'pageSize' => 4,
+                    ),
+                        )
+                );
+                $this->render('blogs', array('dataProvider' => $dataProvider));
         }
 
-        public function actionnew_Login() {
+        public function actionBlogDetails($blog) {
+                $model = Blog::model()->findByPk($blog);
+                $last_id = Blog::model()->find(array('order' => 'id DESC'));
+                $first_id = Blog::model()->find(array('order' => 'id ASC'));
+                $this->render('blog_details', array('model' => $model, 'last_id' => $last_id, 'first_id' => $first_id));
+        }
 
-                $model = new UserDetails();
-                if (isset($_POST['UserDetails'])) {
+        public function actionBlogDetailsPrevious($currentId) {
+                $prevId = $this->getNextOrPrevId($currentId, 'prev');
+                $model = Blog::model()->findByPk($prevId);
+                $this->render('blog_details', array('model' => $model));
+        }
 
-                        $model = UserDetails::model()->findByAttributes(array('email' => $_POST['UserDetails']['email'], 'password' => $_POST['UserDetails']['password'], 'status' => 1));
+        public function actionBlogDetailsNext($currentId) {
+                $nextId = $this->getNextOrPrevId($currentId, 'next');
+                $model = Blog::model()->findByPk($nextId);
+                $this->render('blog_details', array('model' => $model));
+        }
 
-                        if ($model) {
-                                $this->redirect(Yii::app()->request->baseUrl . '/index.php');
-                        } else {
-                                $this->redirect(Yii::app()->request->urlReferrer);
-                        }
-                }
+        public function actionAboutUs() {
+                $model = '';
+                $this->render('about_us', array('model' => $model));
+        }
 
-                $this->render('login_new', array('model' => $model));
+        public function actionContactLakysah() {
+                $model = '';
+                $this->render('contact_us', array('model' => $model));
+        }
+
+        public function actionProductSubmission() {
+                $model = '';
+                $this->render('product_submission', array('model' => $model));
+        }
+
+        public function actionPrivacyPolicy() {
+                $model = '';
+                $this->render('privacy_policy', array('model' => $model));
+        }
+
+        public function actionFaq() {
+                $model = '';
+                $this->render('privacy_policy', array('model' => $model));
+        }
+
+        public static function getNextOrPrevId($currentId, $nextOrPrev) {
+                $records = NULL;
+                if ($nextOrPrev == "prev")
+                        $order = "id DESC";
+                if ($nextOrPrev == "next")
+                        $order = "id ASC";
+
+                $records = Blog::model()->findAll(
+                        array('select' => 'id', 'order' => $order)
+                );
+
+                foreach ($records as $i => $r)
+                        if ($r->id == $currentId)
+                                return $records[$i + 1]->id ? $records[$i + 1]->id : NULL;
+
+                return NULL;
         }
 
 }

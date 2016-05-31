@@ -392,7 +392,7 @@
                                                         ?>
                                                         <div class="col-1">
                                                                 <div class="gift_ticker">
-                                                                        <input type="checkbox" <?php if ($cart->gift_option == '1') { ?> checked="" disabled="" <?php } ?> cart_id="<?php echo $cart->id; ?>" option="<?php echo $cart->options; ?>" product_id="<?php echo $cart->product_id; ?>" <?php if (isset(Yii::app()->session['orderid'])) { ?> order_id="<?php echo Yii::app()->session['orderid']; ?>"  <?php } ?>  name="gift" id="<?php echo $cart->id; ?>" value="1" gift_status="<?php echo $gift_message; ?>" class="gift_options gift_ticker">
+                                                                        <input style="height: 20px; width: 20px;" type="checkbox" <?php if ($cart->gift_option == '1') { ?> checked="" disabled="" <?php } ?> cart_id="<?php echo $cart->id; ?>" option="<?php echo $cart->options; ?>" product_id="<?php echo $cart->product_id; ?>" <?php if (isset(Yii::app()->session['orderid'])) { ?> order_id="<?php echo Yii::app()->session['orderid']; ?>"  <?php } ?>  name="gift" id="<?php echo $cart->id; ?>" value="1" gift_status="<?php echo $gift_message; ?>" class="gift_options gift_ticker">
                                                                 </div>
                                                         </div>
 
