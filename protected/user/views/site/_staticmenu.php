@@ -1,19 +1,19 @@
 <div class="col-sm-3 sidebar">
         <div class="cat_nav">
                 <ul class="catmenu">
-                        <li class="active"><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/AboutUs">About Us</a></li>
-                        <li> <a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/ContactLaksyah">Contact Us</a></li>
-                        <li> <a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/BookAppointment">Make An Appointment</a></li>
-                        <li> <a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/productsubmission">Product Submission</a></li>
-                        <li> <a href="#">Support</a></li>
-                        <li> <a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/Support">FAQ</a></li>
-                        <li> <a href="#">Guarantees</a></li>
-                        <li> <a href="#">Shipping Policy</a></li>
-                        <li> <a href="#">Return Policy</a></li>
-                        <li> <a href="#">Public Pickup</a></li>
-                        <li> <a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/PrivacyPolicy">Privacy Policy</a></li>
-                        <li> <a href="#">Security</a></li>
-                        <li> <a href="#">Terms & Condition</a></li>
+                        <li class="active"><?php echo CHtml::link('About Us', array('site/AboutUs')); ?></li>
+                        <li> <?php echo CHtml::link('Contact  Us', array('site/ContactLakysah')); ?></li>
+                        <li> <?php echo CHtml::link('Make An Appointment', array('site/BookAppointment')); ?></li>
+                        <li> <?php echo CHtml::link('Product Submission', array('site/productsubmission')); ?></li>
+                        <li> <?php echo CHtml::link('Support', array('site/Support')); ?></li>
+                        <li> <?php echo CHtml::link('FAQ', array('site/Faq')); ?></li>
+                        <li> <?php echo CHtml::link('Guarantees', array('site/Guarantees')); ?></li>
+                        <li> <?php echo CHtml::link('Shipping Policy', array('site/ShippingPolicy')); ?></li>
+                        <li> <?php echo CHtml::link('Return Policy', array('site/ReturnPolicy')); ?></li>
+                        <li> <?php echo CHtml::link('Public Pickup', array('site/PublicPickup')); ?></li>
+                        <li> <?php echo CHtml::link('Privacy Policy', array('site/PrivacyPolicy')); ?></li>
+                        <li> <?php echo CHtml::link('Security', array('site/Security')); ?></li>
+                        <li> <?php echo CHtml::link('Terms & Condition', array('site/Terms')); ?></li>
                 </ul>
         </div>
 </div>

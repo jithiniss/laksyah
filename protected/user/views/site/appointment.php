@@ -4,27 +4,9 @@
 /* @var $form CActiveForm */
 ?>
 <div class="container main_container inner_pages ">
-        <div class="breadcrumbs"> <a href="<?php echo Yii::app()->baseUrl ?>">HOME</a> <span>/</span> <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/myaccount/profile">My Account</a> <span>/</span> Make an Appointment </div>
+        <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?>  <span>/</span> <?php echo CHtml::link('My Account', array('Myaccount/index')); ?> <span>/</span> Make an Appointment </div>
         <div class="row">
-                <div class="col-sm-3 sidebar">
-                        <div class="cat_nav">
-                                <ul class="catmenu">
-                                        <li class="active"><a href="#">About Us</a></li>
-                                        <li> <a href="#">Contact Us</a></li>
-                                        <li> <a href="#">Make An Appointment</a></li>
-                                        <li> <a href="#">Product Submission</a></li>
-                                        <li> <a href="#">Support</a></li>
-                                        <li> <a href="#">FAQ</a></li>
-                                        <li> <a href="#">Guarantees</a></li>
-                                        <li> <a href="#">Shipping Policy</a></li>
-                                        <li> <a href="#">Return Policy</a></li>
-                                        <li> <a href="#">Public Pickup</a></li>
-                                        <li> <a href="#">Privacy Policy</a></li>
-                                        <li> <a href="#">Security</a></li>
-                                        <li> <a href="#">Terms & Condition</a></li>
-                                </ul>
-                        </div>
-                </div>
+                <?php echo $this->renderPartial('_staticmenu'); ?>
                 <div class="col-sm-9 user_content">
                         <h1>Make An Appointment</h1>
                         <!--<div class="alert alert-success alert-dismissible" role="alert">

@@ -353,6 +353,41 @@ class SiteController extends Controller {
                 $this->render('privacy_policy', array('model' => $model));
         }
 
+        public function actionSupport() {
+                $model = '';
+                $this->render('support', array('model' => $model));
+        }
+
+        public function actionGuarantees() {
+                $model = '';
+                $this->render('Guarantees', array('model' => $model));
+        }
+
+        public function actionShippingPolicy() {
+                $model = '';
+                $this->render('Shipping_Policy', array('model' => $model));
+        }
+
+        public function actionReturnPolicy() {
+                $model = '';
+                $this->render('Return_Policy', array('model' => $model));
+        }
+
+        public function actionPublicPickup() {
+                $model = '';
+                $this->render('Public_Pickup', array('model' => $model));
+        }
+
+        public function actionSecurity() {
+                $model = '';
+                $this->render('Security', array('model' => $model));
+        }
+
+        public function actionTerms() {
+                $model = '';
+                $this->render('Terms', array('model' => $model));
+        }
+
         public static function getNextOrPrevId($currentId, $nextOrPrev) {
                 $records = NULL;
                 if ($nextOrPrev == "prev")

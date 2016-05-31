@@ -1,10 +1,10 @@
 <div class="container main_container inner_pages ">
-        <div class="breadcrumbs"> <a href="#">HOME</a> <span>/</span> <a href="#">Contact Us</a>  </div>
+        <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?> <span>/</span> <a href="#">Contact Us</a>  </div>
         <div class="row">
                 <?php echo $this->renderPartial('_staticmenu'); ?>
-                <!-- / Sidebar-->
+                <!-- / Side <?php echo $this->renderPartial('_staticmenu'); ?>bar-->
                 <div class="col-sm-9 user_content">
-                        <h1>About Us</h1>
+                        <h1>Contact Us</h1>
                         <!--<div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 Success </div>-->
