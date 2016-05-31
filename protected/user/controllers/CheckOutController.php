@@ -424,9 +424,12 @@ class CheckOutController extends Controller {
                                 }
                                 $this->render('checkout', array('carts' => $cart, 'deafult_shipping' => $deafult_shipping, 'addresss' => $addresss, 'shipping' => $shipping, 'orderid' => $order_id, 'billing' => $billing));
                         } else {
+                                $this->redirect(array('Cart/Mycart'));
+
 //todo render a cart empty page here
                         }
                 } else {
+                        $this->redirect(array('site/login'));
 //todo invalid user message
                 }
         }

@@ -591,7 +591,7 @@
                         type: "POST",
                         cache: 'false',
                         async: false,
-                        url: baseurl + 'Checkout/currencyconvert',
+                        url: baseurl + 'CheckOut/currencyconvert',
                         data: {total: total}
                 }).done(function (data) {
 
@@ -608,7 +608,7 @@
                         type: "POST",
                         cache: 'false',
                         async: false,
-                        url: baseurl + 'Checkout/totalcalculate',
+                        url: baseurl + 'CheckOut/totalcalculate',
                         data: {wallet: wallet, grant: grant, country: country}
                 }).done(function (data) {
 
@@ -641,7 +641,7 @@
                         type: "POST",
                         cache: 'false',
                         async: false,
-                        url: baseurl + 'Checkout/Getshippingmethod',
+                        url: baseurl + 'CheckOut/Getshippingmethod',
                         data: {country: country}
                 }).done(function (data) {
                         $("#shipping_method").html(data);
@@ -656,7 +656,7 @@
                         type: "POST",
                         cache: 'false',
                         async: false,
-                        url: baseurl + 'Checkout/Getshippingcharge',
+                        url: baseurl + 'CheckOut/Getshippingcharge',
                         data: {country: value}
                 }).done(function (data) {
                         var obj = jQuery.parseJSON(data);
@@ -675,7 +675,7 @@
                         type: "POST",
                         cache: 'false',
                         async: false,
-                        url: baseurl + 'Checkout/Getcountry',
+                        url: baseurl + 'CheckOut/Getcountry',
                         data: {country: country}
                 }).done(function (data) {
 
@@ -690,7 +690,7 @@
                         type: "POST",
                         cache: 'false',
                         async: false,
-                        url: baseurl + 'Checkout/Getcountry',
+                        url: baseurl + 'CheckOut/Getcountry',
                         data: {country: country}
                 }).done(function (data) {
 

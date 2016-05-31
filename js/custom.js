@@ -1,6 +1,6 @@
 $(document).ready(function () {
-        
-        
+
+
         $("#logreg").hide();
         $("#logregs").hide();
         getcartcount();
@@ -23,7 +23,7 @@ $(document).ready(function () {
                 var canname = $(this).attr('canname');
                 removecart(cartid, canname);
 
-                location.reload();
+
         });
 });
 
@@ -37,7 +37,7 @@ function getcartcount() {
                 type: "POST",
                 cache: 'false',
                 async: false,
-                url: baseurl + 'cart/Getcartcount',
+                url: baseurl + 'Cart/Getcartcount',
                 data: {}
         }).done(function (data) {
                 $(".cart_items").html(data);
@@ -50,7 +50,7 @@ function getcarttotal() {
                 type: "POST",
                 cache: 'false',
                 async: false,
-                url: baseurl + 'cart/Getcarttotal',
+                url: baseurl + 'Cart/Getcarttotal',
                 data: {}
         }).done(function (data) {
                 $(".amount").html(data);
@@ -63,13 +63,18 @@ function removecart(cartid, canname) {
                 type: "POST",
                 cache: 'false',
                 async: false,
-                url: baseurl + 'cart/Removecart',
+                url: baseurl + 'Cart/Removecart',
                 data: {cartid: cartid, cano_name: canname}
         }).done(function (data) {
                 getcartcount();
                 getcarttotal();
                 $(".cart_box").html(data);
-
+                //alert(data);
+                if (data == 'Cart box is Empty') {
+                        window.location.href = baseurl + "Cart/Mycart";
+                } else {
+                        location.reload();
+                }
                 hideLoader();
         });
 }
@@ -79,7 +84,7 @@ function getcartdata() {
                 type: "POST",
                 cache: 'false',
                 async: false,
-                url: baseurl + 'cart/Selectcart',
+                url: baseurl + 'Cart/Selectcart',
                 data: {}
         }).done(function (data) {
                 $(".cart_box").html(data);

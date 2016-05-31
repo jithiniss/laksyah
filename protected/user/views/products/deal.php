@@ -8,37 +8,38 @@
                 ?>
                 <?php echo $this->renderPartial('_bread_crumb', array('category_name' => $category_name)); ?><span> / Deal
         </div>
-        <div class="deal_header">
-                <h2>Deal of the Day</h2>
-                <h4>Rush to grab sensational deals on exquisite outfits   </h4>
-                <div class="clearfix"></div>
-                <div class="deal_timer">
-                        <div class="deal_title">Deal Ends in:</div>
-                        <div class="deal_time">
-                                <div class="" id="clock"></div>
-                        </div>
+        <?php if (!empty($dataprovider) || $dataProvider != '') { ?>
+                <div class="deal_header">
+                        <h2>Deal of the Day</h2>
+                        <h4>Rush to grab sensational deals on exquisite outfits   </h4>
                         <div class="clearfix"></div>
-                </div>
-        </div>
-        <div >
-
-                <div class="product_list">
-                        <div class="row">
-                                <?php
-                                if (!empty($dataprovider) || $dataProvider != '') {
-                                        $this->widget('zii.widgets.CListView', array(
-                                            'dataProvider' => $dataProvider,
-                                            'itemView' => '_dealview',
-                                        ));
-                                } else {
-
-                                }
-                                ?>
-
+                        <div class="deal_timer">
+                                <div class="deal_title">Deal Ends in:</div>
+                                <div class="deal_time">
+                                        <div class="" id="clock"></div>
+                                </div>
+                                <div class="clearfix"></div>
                         </div>
+                </div>
+        <?php } ?>
+
+        <div class="product_list">
+                <div class="row">
+                        <?php
+                        if (!empty($dataprovider) || $dataProvider != '') {
+                                $this->widget('zii.widgets.CListView', array(
+                                    'dataProvider' => $dataProvider,
+                                    'itemView' => '_dealview',
+                                ));
+                        } else {
+
+                        }
+                        ?>
+
                 </div>
         </div>
 </div>
+
 
 
 <script>

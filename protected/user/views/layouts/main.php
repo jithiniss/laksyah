@@ -165,13 +165,18 @@ if (Yii::app()->user->hasFlash('login_list')):
                                                                         $cart_items = Cart::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
                                                                         $counts = count($cart_items);
                                                                 } else {
-                                                                        $cart_items = Cart::model()->findAllByAttributes(array('session_id' => Yii::app()->session['temp_user']));
-                                                                        $counts = count($cart_items);
+                                                                        if (isset(Yii::app()->session['temp_user'])) {
+                                                                                $cart_items = Cart::model()->findAllByAttributes(array('session_id' => Yii::app()->session['temp_user']));
+                                                                                $counts = count($cart_items);
+                                                                        } else {
+                                                                                $counts = 0;
+                                                                        }
                                                                 }
                                                                 ?>
                                                                 <ul class="user_nav">
 
                                                                         <?php if (isset(Yii::app()->session['user'])) { ?>
+
                                                                                 <a href="<?php echo Yii::app()->baseUrl; ?>/index.php/CreditHistory" style="color: #414042;">  <li class="my_credit">
                                                                                                 <div class="wallet_icon"></div>
                                                                                                 <div class="wallet_item">
@@ -234,9 +239,9 @@ if (Yii::app()->user->hasFlash('login_list')):
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php echo $counts; ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;   ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
-                                                                                        <span class="bag_title">Shopping Bag </span><span class="amount">(<i class="fa fa-rupee"></i>2500)</span>
+                                                                                        <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">
 
                                                                                         </div>

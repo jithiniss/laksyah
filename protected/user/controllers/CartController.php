@@ -20,9 +20,9 @@ class CartController extends Controller {
                 } else {
                         if (!isset(Yii::app()->session['temp_user'])) {
                                 Yii::app()->session['temp_user'] = microtime(true);
+                                Cart::model()->deleteAllByAttributes(array(), array('condition' => 'date < subdate(now(), 1)'));
+                                $sessonid = Yii::app()->session['temp_user'];
                         }
-                        Cart::model()->deleteAllByAttributes(array(), array('condition' => 'date < subdate(now(), 1)'));
-                        $sessonid = Yii::app()->session['temp_user'];
                 }
                 if (isset($user_id)) {
 
@@ -60,8 +60,12 @@ class CartController extends Controller {
                         $cart_items = Cart::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
                         $counts = count($cart_items);
                 } else {
-                        $cart_items = Cart::model()->findAllByAttributes(array('session_id' => Yii::app()->session['temp_user']));
-                        $counts = count($cart_items);
+                        if (isset(Yii::app()->session['temp_user'])) {
+                                $cart_items = Cart::model()->findAllByAttributes(array('session_id' => Yii::app()->session['temp_user']));
+                                $counts = count($cart_items);
+                        } else {
+                                $counts = 0;
+                        }
                 }
                 echo $counts;
         }
@@ -82,15 +86,19 @@ class CartController extends Controller {
                                 echo Yii::app()->Currency->convert(0);
                         }
                 } else {
-                        $cart_items = Cart::model()->findAllByAttributes(array('session_id' => Yii::app()->session['temp_user']));
+                        if (isset(Yii::app()->session['temp_user'])) {
+                                $cart_items = Cart::model()->findAllByAttributes(array('session_id' => Yii::app()->session['temp_user']));
 
-                        if (!empty($cart_items)) {
-                                foreach ($cart_items as $cart_item) {
-                                        $product = Products::model()->findByPk($cart_item->product_id);
-                                        $ptotal = $product->price * $cart_item->quantity;
-                                        $carttotal += $ptotal;
+                                if (!empty($cart_items)) {
+                                        foreach ($cart_items as $cart_item) {
+                                                $product = Products::model()->findByPk($cart_item->product_id);
+                                                $ptotal = $product->price * $cart_item->quantity;
+                                                $carttotal += $ptotal;
+                                        }
+                                        echo Yii::app()->Currency->convert($carttotal);
+                                } else {
+                                        echo Yii::app()->Currency->convert(0);
                                 }
-                                echo Yii::app()->Currency->convert($carttotal);
                         } else {
                                 echo Yii::app()->Currency->convert(0);
                         }
@@ -609,42 +617,46 @@ class CartController extends Controller {
 
         public function actionTotal() {
 
-                if (Yii::app()->session['user'] != '' && Yii::app()->session['user'] != NULL) {
+                if (Yii::app()->session['user']['id'] != '' && Yii::app()->session['user']['id'] != NULL) {
                         $id = Yii::app()->session['user']['id'];
                         $cart_items = Cart::model()->findAllByAttributes(array('user_id' => $id));
-                } else {
+                } else if (Yii::app()->session['temp_user'] != '') {
                         $temp_id = Yii::app()->session['temp_user'];
                         $cart_items = Cart::model()->findAllByAttributes(array('session_id' => $temp_id));
+                } else {
+                        $total = 0;
                 }
                 $total = 0;
+                if (!empty($cart_items)) {
+                        foreach ($cart_items as $items) {
+                                if (Yii::app()->session['currency'] != "") {
 
-                foreach ($cart_items as $items) {
-                        if (Yii::app()->session['currency'] != "") {
-
-                                $product = Products::model()->findByAttributes(array('id' => $items->product_id));
-                                if ($product->discount) {
-                                        $prod_price1 = $product->price - $product->discount;
-                                        $prod_price = round($prod_price1 * Yii::app()->session['currency']->rate, 2);
+                                        $product = Products::model()->findByAttributes(array('id' => $items->product_id));
+                                        if ($product->discount) {
+                                                $prod_price1 = $product->price - $product->discount;
+                                                $prod_price = round($prod_price1 * Yii::app()->session['currency']->rate, 2);
+                                        } else {
+                                                $prod_price1 = $product->price;
+                                                $prod_price = round($prod_price1 * Yii::app()->session['currency']->rate, 2);
+                                        }
                                 } else {
-                                        $prod_price1 = $product->price;
-                                        $prod_price = round($prod_price1 * Yii::app()->session['currency']->rate, 2);
-                                }
-                        } else {
 
-                                $product = Products::model()->findByAttributes(array('id' => $items->product_id));
-                                if ($product->discount) {
-                                        $prod_price = $product->price - $product->discount;
-                                } else {
-                                        $prod_price = $product->price;
+                                        $product = Products::model()->findByAttributes(array('id' => $items->product_id));
+                                        if ($product->discount) {
+                                                $prod_price = $product->price - $product->discount;
+                                        } else {
+                                                $prod_price = $product->price;
+                                        }
                                 }
-                        }
 
-                        $price = ($prod_price) * ($items->quantity);
-                        if ($price < Yii::app()->session['gift_rate']['value']) {
-                                $price = $price + $items->rate;
+                                $price = ($prod_price) * ($items->quantity);
+                                if ($price < Yii::app()->session['gift_rate']['value']) {
+                                        $price = $price + $items->rate;
+                                }
+                                $total+= $price;
                         }
-                        $total+= $price;
                 }
+
                 if (Yii::app()->request->isAjaxRequest) {
                         echo $total;
                 } else {
@@ -654,7 +666,7 @@ class CartController extends Controller {
 
         public function actionProceed() {
 
-                if (Yii::app()->session['user'] != '' && Yii::app()->session['user'] != NULL) {
+                if (Yii::app()->session['user']['id'] != '' && Yii::app()->session['user']['id'] != NULL) {
                         if (Yii::app()->session['orderid'] == '') {
 
                                 $cart = Cart::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
@@ -665,8 +677,10 @@ class CartController extends Controller {
                                         Yii::app()->session['orderid'] = $order_id;
                                         $this->orderProducts($order_id, $cart);
                                         $this->updatecoupenhistory($order_id);
+                                        $this->redirect(array('CheckOut/CheckOut'));
+                                } else {
+                                        $this->redirect(array('Cart/Mycart'));
                                 }
-                                $this->redirect(array('CheckOut/CheckOut'));
                         } else {
                                 $cart = Cart::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
                                 if (!empty($cart)) {
@@ -676,9 +690,13 @@ class CartController extends Controller {
                                         $order_id = Yii::app()->session['orderid'];
                                         $this->updatecoupenhistory($order_id1);
                                         $this->orderProducts($order_id, $cart);
+                                        $this->redirect(array('CheckOut/CheckOut'));
+                                } else {
+                                        $this->redirect(array('Cart/Mycart'));
                                 }
-                                $this->redirect(array('CheckOut/CheckOut'));
                         }
+                } else {
+                        $this->redirect(array('site/login'));
                 }
         }
 
