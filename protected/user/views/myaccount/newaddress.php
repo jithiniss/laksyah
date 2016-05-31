@@ -4,7 +4,7 @@
 /* @var $form CActiveForm */
 ?>
 <div class="container main_container inner_pages ">
-        <div class="breadcrumbs"> <a href="<?php echo Yii::app()->baseUrl ?>">HOME</a> <span>/</span> <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/myaccount/profile">My Account</a> <span>/</span> Make an Appointment </div>
+        <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?> <span>/</span> <?php echo CHtml::link('My Account', array('Myaccount/index')); ?> <span>/</span> New Address Book </div>
         <div class="row">
                 <?php echo $this->renderPartial('_menu'); ?>
                 <div class="col-sm-9 user_content">

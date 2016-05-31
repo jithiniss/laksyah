@@ -124,8 +124,8 @@ class MyaccountController extends Controller {
                         if (isset($_POST['UserSizechart'])) {
 
                                 $sizechart->attributes = $_POST['UserSizechart'];
-                                $sizechart->product_name = $model->product_name;
-                                $sizechart->product_code = $model->product_code;
+                                $sizechart->product_name = $_POST['UserSizechart']['product_name'];
+                                $sizechart->product_code = $_POST['UserSizechart']['product_code'];
                                 $sizechart->type = $model->type;
                                 if ($sizechart->type == 1) {
                                         $sizechart->unit = 2;
@@ -284,15 +284,17 @@ class MyaccountController extends Controller {
                         $model->attributes = $_POST['MakePayment'];
                         $model->userid = Yii::app()->session['user']['id'];
                         $model->date = date('Y-m-d');
-                        if ($model->validate()) {
-                                if ($model->save()) {
-                                        if ($model->amount <= $_POST['wallet_amt']) {
+
+                        if ($model->save()) {
+                                if ($model->validate()) {
+                                        if ($model->amount >= $_POST['wallet_amt']) {
                                                 $wallet_add = new WalletHistory;
                                                 $wallet_add->user_id = Yii::app()->session['user']['id'];
                                                 $wallet_add->type_id = 3;
                                                 $wallet_add->amount = $_POST['wallet_amt'];
                                                 $wallet_add->entry_date = date('Y-m-d');
                                                 $wallet_add->credit_debit = 2;
+                                                $wallet_add->payment_method = $_POST['MakePayment']['pay_method'];
                                                 $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
                                                 $wallet_amount = $user->wallet_amt;
                                                 $wallet_add->balance_amt = $wallet_amount - $wallet_add->amount;
@@ -323,7 +325,7 @@ class MyaccountController extends Controller {
 
 
                 $this->render('make_payment', array(
-                    'model' => $model, 'payment' => $payment
+                    'model' => $model,
                 ));
         }
 

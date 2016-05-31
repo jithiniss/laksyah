@@ -1,5 +1,5 @@
 <div class="container main_container inner_pages ">
-        <div class="breadcrumbs"> <a href="#">HOME</a> <span>/</span> <a href="#">My Account</a> <span>/</span> Make a Payment </div>
+        <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?> <span>/</span> <?php echo CHtml::link('My Account', array('Myaccount/index')); ?><span>/</span> Address Book </div>
         <div class="row">
                 <?php echo $this->renderPartial('_menu'); ?>
                 <!-- / Sidebar-->
@@ -33,7 +33,7 @@
                                                                                                                 <?php echo $country->country_name; ?><br>
                                                                                         </tr>
                                                                                         <tr>
-                                                                                                <td class="cart_action action_link"><a href="<?php echo Yii::app()->baseUrl; ?>/index.php/Myaccount/EditAddress/<?php echo $address->id; ?>">Edit</a> | <a href="<?php echo Yii::app()->baseUrl; ?>/index.php/Myaccount/Newaddress">New Address</a> | <a href="<?php echo Yii::app()->baseUrl; ?>/index.php/Myaccount/DeleteAddress/<?php echo $address->id; ?>">Delete</a> </td>
+                                                                                                <td class="cart_action action_link"><?php echo CHtml::link('Edit', array('Myaccount/EditAddress', 'id' => CHtml::encode($address->id))); ?> | <?php echo CHtml::link('New Address', array('Myaccount/Newaddress', 'id' => CHtml::encode($address->id))); ?> | <?php echo CHtml::link('Delete', array('Myaccount/DeleteAddress', 'id' => CHtml::encode($address->id))); ?></td>
                                                                                         </tr>
                                                                                 <?php } else { ?>
                                                                                         <tr>
@@ -49,7 +49,7 @@
 
                                                                                         </tr>
                                                                                         <tr>
-                                                                                                <td class="cart_action action_link"><a href="<?php echo Yii::app()->baseUrl; ?>/index.php/Myaccount/EditAddress/<?php echo $address->id; ?>">Edit</a> | <a href="<?php echo Yii::app()->baseUrl; ?>/index.php/Myaccount/DeleteAddress/<?php echo $address->id; ?>">Delete</a> </td>
+                                                                                                <td class="cart_action action_link"><?php echo CHtml::link('Edit', array('Myaccount/EditAddress', 'id' => CHtml::encode($address->id))); ?> | <?php echo CHtml::link('Delete', array('Myaccount/DeleteAddress', 'id' => CHtml::encode($address->id))); ?></td>
                                                                                         </tr>
 
                                                                                 <?php } ?>
@@ -74,7 +74,7 @@
                                                                                                                 <?php echo $country->country_name; ?><br>
                                                                                         </tr>
                                                                                         <tr>
-                                                                                                <td class="cart_action action_link"><a href="<?php echo Yii::app()->baseUrl; ?>/index.php/Myaccount/EditAddress/<?php echo $address->id; ?>">Edit</a> | <a href="<?php echo Yii::app()->baseUrl; ?>/index.php/Myaccount/Newaddress">New Address</a>| <a href="<?php echo Yii::app()->baseUrl; ?>/index.php/Myaccount/DeleteAddress/<?php echo $address->id; ?>">Delete</a> </td>
+                                                                                                <td class="cart_action action_link"><?php echo CHtml::link('Edit', array('Myaccount/EditAddress', 'id' => CHtml::encode($address->id))); ?> | <?php echo CHtml::link('New Address', array('Myaccount/Newaddress', 'id' => CHtml::encode($address->id))); ?> | <?php echo CHtml::link('Delete', array('Myaccount/DeleteAddress', 'id' => CHtml::encode($address->id))); ?></td>
                                                                                         </tr>
                                                                                 <?php } else { ?>
                                                                                         <tr>

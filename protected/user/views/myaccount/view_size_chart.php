@@ -1,327 +1,319 @@
-<div class="container">
+<div class="container main_container inner_pages ">
+        <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?> <span>/</span> <?php echo CHtml::link('My Account', array('Myaccount/index')); ?> <span>/</span> Measurement </div>
         <div class="row">
-                <div class="col-xs-12 col-sm-8">
-                        <h5>Product Name: <?php echo $model->product_name; ?></h5>
-                        <h5>Product Code: <?php echo $model->product_code; ?></h5>
-                        <h5>Measurement Type: <?= $model->type == 1 ? 'Standerd' : 'Custom'; ?></h5>
-                        <?php if ($model->type == 1) { ?>
-                                <h5>Unit: Cm</h5>
-                                <h5>Standerd: <?php
-                                        if ($model->standerd == 1) {
-                                                echo 'Small';
-                                        } else if ($model->standerd == 2) {
-                                                echo 'Medium';
-                                        } else if ($model->standerd == 3) {
-                                                echo 'Large';
-                                        }
-                                        ?></h5>
-                        <?php } else if ($model->type == 2) { ?>
-                                <h5>Unit: <?= $model->unit == 1 ? 'In' : 'Cm'; ?></h5>
-                        <?php } ?>
 
-                        <table width="100%">
-                                <tr>
-                                        <th colspan="5" class="text-center" style="font-size: 18px; text-decoration: underline;">Measurements</th>
+                <?php echo $this->renderPartial('_menu'); ?>
+
+
+                <!-- / Sidebar-->
+                <div class="col-sm-9 user_content">
+                        <?php echo CHtml::link('View Measurements', array('myaccount/SizeChartList'), array('class' => 'account_link pull-right')); ?>
+                        <h1>Add New Measurement</h1>
+                        <?php if (Yii::app()->user->hasFlash('meas_success')): ?>
+                                <div class="alert alert-success mesage">
+                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                        <strong>Success!</strong><?php echo Yii::app()->user->getFlash('meas_success'); ?>
+                                </div>
+                        <?php endif; ?>
+
+
+                        <div class="form">
+
+                                <?php
+                                $form = $this->beginWidget('CActiveForm', array(
+                                    'id' => 'user-sizechart-form',
+                                    // Please note: When you enable ajax validation, make sure the corresponding
+                                    // controller action is handling ajax validation correctly.
+                                    // There is a call to performAjaxValidation() commented in generated controller code.
+                                    // See class documentation of CActiveForm for details on this.
+                                    'enableAjaxValidation' => false,
+                                ));
+                                ?>
+
+
+                                <?php echo $form->errorSummary($model); ?>
+                                <div class="registration_form two_col_form">
+                                        <div class="row">
+
+                                                <div class="col-md-2 col-sm-3"> <label><strong>Product Name*</strong></label></div>
+                                                <div class="col-sm-7 col-md-6"><?php echo $form->textField($model, 'product_name', array('size' => 60, 'maxlength' => 250, 'class' => 'form-control ')); ?>
+                                                        <?php echo $form->error($model, 'product_name'); ?></div>
+
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-md-2 col-sm-3">
+                                                        <label><strong>Product Code*</strong></label>
+                                                </div>
+                                                <div class="col-sm-7 col-md-6">
+                                                        <?php echo $form->textField($model, 'product_code', array('size' => 60, 'maxlength' => 250, 'class' => 'form-control')); ?>
+                                                        <?php echo $form->error($model, 'product_code'); ?></div>
+                                        </div>
+
+                                        <div id="custmm" class="custom_measurementm">
+
+                                                <p>
+                                                        <?php // echo CHtml::link('Download Measurement Form', array('download' => 'images/thumb_big2.jpg'), array('class' => 'text_link')); ?>
+                                                        <a href="<?php echo Yii::app()->request->baseUrl; ?>/images/thumb_big2.jpg" download class="text_link">Download Measurement Form</a></p>
+                                                <div>
+                                                        <label> </label>
+
+                                                        <div class="price_group radio_buttons">
+                                                                <?php $model->unit = 2; ?>
+                                                                <p class="pull-left padd-right-25">Measurement Unit :</p>
+                                                                <label class="radio_group ">
+                                                                        <?php echo $form->radioButton($model, 'unit', array('value' => 1, 'uncheckValue' => null, 'hidden' => 'true')); ?>
+                                                                </label>
+                                                                <span class="radio_label pull-left"><strong>Inches</strong></span>
+                                                                <label class="radio_group active">
+                                                                        <?php echo $form->radioButton($model, 'unit', array('value' => 2, 'uncheckValue' => null, 'hidden' => 'true')); ?>
+                                                                </label>
+                                                                <span class="radio_label pull-left"> <strong>Centimeters</strong></span>
+                                                                <?php echo $form->error($model, 'unit'); ?>
+                                                                <div class="clearfix"></div>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                </div>
+                                                <div class="row">
+                                                        <div class="col-xs-6">
+                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered measurement_table custm">
+                                                                        <tbody>
+                                                                                <tr>
+                                                                                        <th class="col_slno"></th>
+                                                                                        <th class="col_measure">Measurement</th>
+                                                                                        <th class="col_value">Value</th>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                        <td class="col_slno">1</td>
+                                                                                        <td class="col_measure">Around Neck:</td>
+                                                                                        <td class="col_value"> <?php echo $form->textField($model, 'around_neck', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'around_neck'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">2</td>
+                                                                                        <td class="col_measure">Neck Depth Front/ Back:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'neck_depth', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'neck_depth'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">3</td>
+                                                                                        <td class="col_measure">Around Upper Chest:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'around_upper_chest', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'around_upper_chest'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">4</td>
+                                                                                        <td class="col_measure">Around Chest:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'around_chest', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'around_chest'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">5</td>
+                                                                                        <td class="col_measure">Around Lower Bust:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'around_lower_chest', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'around_lower_chest'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">6</td>
+                                                                                        <td class="col_measure">Shoulder to Bustpoint:</td>
+                                                                                        <td class="col_value"> <?php echo $form->textField($model, 'shoulder_to_breastpoint', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'shoulder_to_breastpoint'); ?></td>
+                                                                                        </div>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">7</td>
+                                                                                        <td class="col_measure">Around Waist:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'around_waist', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'around_waist'); ?></td>
+                                                                                        </div>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">8</td>
+                                                                                        <td class="col_measure">shoulder to waist:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'shoulder_to_waist', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'shoulder_to_waist'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">9</td>
+                                                                                        <td class="col_measure">Around Armhole:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'around_armhole', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'around_armhole'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">10</td>
+                                                                                        <td class="col_measure">Sleeve Length:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'sleeve_length', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'sleeve_length'); ?></td>
+                                                                                        </div>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">11</td>
+                                                                                        <td class="col_measure">Arm Length:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'arm_length', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'arm_length'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">12</td>
+                                                                                        <td class="col_measure">Around Upper Arm:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'around_upper_arm', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'around_upper_arm'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">13</td>
+                                                                                        <td class="col_measure">Around Elbow:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'around_elbow', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'around_elbow'); ?></td>
+                                                                                        </div>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">14</td>
+                                                                                        <td class="col_measure">Around Wrist:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'around_wrist', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'around_wrist'); ?></td>
+                                                                                        </div>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">15</td>
+                                                                                        <td class="col_measure">Length Upper Garment:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'length_upper_garment', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'length_upper_garment'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">16</td>
+                                                                                        <td class="col_measure">Shoulder Width:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'shoulder_width', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'shoulder_width'); ?></td>
+                                                                                </tr>
+
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">17</td>
+                                                                                        <td class="col_measure">Around Lower Waist:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'around_lower_waist', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'around_lower_waist'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">18</td>
+                                                                                        <td class="col_measure">Waist To Ankle:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'waist_to_ankle', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'waist_to_ankle'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">19</td>
+                                                                                        <td class="col_measure">Inseam To Ankle:</td>
+                                                                                        <td class="col_value"><?php echo $form->textField($model, 'inseam_to_ankle', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'inseam_to_ankle'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">20</td>
+                                                                                        <td class="col_measure">Around Hip:</td>
+                                                                                        <td class="col_value"> <?php echo $form->textField($model, 'around_hip', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'around_hip'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">21</td>
+                                                                                        <td class="col_measure">Around Tigh:</td>
+                                                                                        <td class="col_value"> <?php echo $form->textField($model, 'around_tigh', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'around_tigh'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">22</td>
+                                                                                        <td class="col_measure">Around Knee:</td>
+                                                                                        <td class="col_value"> <?php echo $form->textField($model, 'around_knee', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'around_knee'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">23</td>
+                                                                                        <td class="col_measure">Around Calf:</td>
+                                                                                        <td class="col_value"> <?php echo $form->textField($model, 'around_calf', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'around_calf'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">24</td>
+                                                                                        <td class="col_measure">Around Ankle:</td>
+                                                                                        <td class="col_value"> <?php echo $form->textField($model, 'around_ankle', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'around_ankle'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">25</td>
+                                                                                        <td class="col_measure">Skirt Length:</td>
+                                                                                        <td class="col_value"> <?php echo $form->textField($model, 'skirt_length', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'skirt_length'); ?></td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                        <td class="col_slno">25</td>
+                                                                                        <td class="col_measure">Gown Full Length:</td>
+                                                                                        <td class="col_value">  <?php echo $form->textField($model, 'gown_full_length', array('class' => 'form-control')); ?>
+                                                                                                <?php echo $form->error($model, 'gown_full_length'); ?></td>
+                                                                                </tr>
+                                                                        </tbody>
+                                                                </table>
+                                                        </div>
+                                                        <div class="col-xs-6"><img src="images/measurement_units.jpg" alt=""/></div>
+                                                </div>
+                                        </div>
+
+                                        <?php $this->endWidget(); ?>
+
+                                </div><!-- form -->
 
-                                </tr>
-                                <?php if ($model->type == 1) { ?>
 
-
-
-                                        <?php if ($model->standerd == 1) { ?>
-                                                <tbody>
-                                                        <tr>
-                                                                <th>Chest </th>
-                                                                <th>34</th>
-
-                                                        </tr>
-                                                        <tr>
-                                                                <th>Waist </th>
-                                                                <th>28</th>
-
-                                                        </tr>
-
-                                                        <tr>
-                                                                <th>Hip </th>
-                                                                <th>38</th>
-
-                                                        </tr>
-                                                        <tr>
-                                                                <th>Shoulder </th>
-                                                                <th>15</th>
-
-                                                        </tr>
-                                                        <tr>
-                                                                <th>Neck </th>
-                                                                <th>7</th>
-
-                                                        </tr>
-
-                                                        <tr>
-                                                                <th>Skirt Length</th>
-                                                                <th>43</th>
-
-                                                        </tr>
-
-
-                                                </tbody>
-
-                                        <?php } else if ($model->standerd == 2) { ?>
-                                                <tbody>
-                                                        <tr>
-                                                                <th>Chest </th>
-
-                                                                <th>36</th>
-
-                                                        </tr>
-                                                        <tr>
-                                                                <th>Waist </th>
-
-                                                                <th>30</th>
-
-                                                        </tr>
-
-                                                        <tr>
-                                                                <th>Hip </th>
-
-                                                                <th>40</th>
-
-                                                        </tr>
-                                                        <tr>
-                                                                <th>Shoulder </th>
-
-                                                                <th>15</th>
-
-                                                        </tr>
-                                                        <tr>
-                                                                <th>Neck </th>
-
-                                                                <th>7.5</th>
-
-                                                        </tr>
-
-                                                        <tr>
-                                                                <th>Skirt Length</th>
-
-                                                                <th>43</th>
-
-                                                        </tr>
-
-
-                                                </tbody>
-                                        <?php } else if ($model->standerd == 2) { ?>
-                                                <tbody>
-                                                        <tr>
-                                                                <th>Chest </th>
-
-                                                                <th>38</th>
-                                                        </tr>
-                                                        <tr>
-                                                                <th>Waist </th>
-
-                                                                <th>34</th>
-                                                        </tr>
-
-                                                        <tr>
-                                                                <th>Hip </th>
-
-                                                                <th>42</th>
-                                                        </tr>
-                                                        <tr>
-                                                                <th>Shoulder </th>
-
-                                                                <th>15.5</th>
-                                                        </tr>
-                                                        <tr>
-                                                                <th>Neck </th>
-
-                                                                <th>8</th>
-                                                        </tr>
-
-                                                        <tr>
-                                                                <th>Skirt Length</th>
-
-                                                                <th>43</th>
-                                                        </tr>
-
-
-                                                </tbody>
-                                        <?php } ?>
-
-                                <?php } else if ($model->type == 2) { ?>
-
-
-                                        <tbody>
-                                                <tr>
-                                                        <th>Around neck</th>
-
-                                                        <th><?php echo $model->around_neck; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Neck depth</th>
-
-                                                        <th><?php echo $model->neck_depth; ?></th>
-                                                </tr>
-
-                                                <tr>
-                                                        <th>Around upper chest </th>
-
-                                                        <th><?php echo $model->around_upper_chest; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Around chest </th>
-
-                                                        <th><?php echo $model->around_chest; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Around lower chest </th>
-
-                                                        <th><?php echo $model->around_lower_chest; ?></th>
-                                                </tr>
-
-                                                <tr>
-                                                        <th>Shoulder to breastpoint</th>
-
-                                                        <th><?php echo $model->shoulder_to_breastpoint; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Around waist</th>
-
-                                                        <th><?php echo $model->around_waist; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Shoulder to waist</th>
-
-                                                        <th><?php echo $model->shoulder_to_waist; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Around armhole</th>
-
-                                                        <th><?php echo $model->around_armhole; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Sleeve length</th>
-
-                                                        <th><?php echo $model->sleeve_length; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Arm length</th>
-
-                                                        <th><?php echo $model->arm_length; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Around upper arm</th>
-
-                                                        <th><?php echo $model->around_upper_arm; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Around elbow</th>
-
-                                                        <th><?php echo $model->around_elbow; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Around wrist</th>
-
-                                                        <th><?php echo $model->around_wrist; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Length upper garment</th>
-
-                                                        <th><?php echo $model->length_upper_garment; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Shoulder width</th>
-
-                                                        <th><?php echo $model->shoulder_width; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Around lower waist</th>
-
-                                                        <th><?php echo $model->around_lower_waist; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Waist to ankle</th>
-
-                                                        <th><?php echo $model->waist_to_ankle; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Inseam to ankle</th>
-
-                                                        <th><?php echo $model->inseam_to_ankle; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Around hip</th>
-
-                                                        <th><?php echo $model->around_hip; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Around tigh</th>
-
-                                                        <th><?php echo $model->around_tigh; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Around knee</th>
-
-                                                        <th><?php echo $model->around_knee; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Around calf</th>
-
-                                                        <th><?php echo $model->around_calf; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Around ankle</th>
-
-                                                        <th><?php echo $model->around_ankle; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Skirt length</th>
-
-                                                        <th><?php echo $model->skirt_length; ?></th>
-                                                </tr>
-                                                <tr>
-                                                        <th>Gown full length</th>
-
-                                                        <th><?php echo $model->gown_full_length; ?></th>
-                                                </tr>
-
-
-                                        </tbody>
-                                <?php } ?>
-
-                        </table>
-                        <br />
-                        <br />
-                        <br />
-                        <br /> <br />
-                        <br />
-                        <br />
-                        <br /> <br />
-                        <br />
-                        <br />
-                        <br />
-                </div>
-                <div class="col-xs-12 col-sm-4">
-                        <div class="view_chart">
-                                <br />
-                                <br />
-                                <br />
-                                <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/myaccount/SizeChartList" class="btn btn-danger">
-                                        View Your Measurement List
-                                </a>
                         </div>
-                </div>
 
+
+                </div>
         </div>
 </div>
 
-<!--<script>
-        function ConfirmDelete()
-        {
-                var x = confirm("Are you sure you want to delete?");
-                if (x)
-                        return true;
-                else
-                        return false;
-        }
-</script>-->
+<script>
+        $(document).ready(function () {
+
+//                $('#custm').hide();
+                $('.chekbx').click(function () {
+                        var std_value = $(".chekbx:checked").val();
+                        var code2 = 2;
+                        var code1 = 1;
+                        if (std_value == code2) {
+                                $('#custm').show();
+                                $('#std').hide();
+
+                        }
+                        if (std_value == code1) {
+                                $('#std').show();
+                                $('#custm').hide();
+                        }
+                });
+//                $("#UserSizechart_type").on('change', function () {
+//                        alert("hf");
+//                        if ($(".stnd").is(":checked")) {
+//                                $('#std').show();
+//                                $('#custm').hide();
+//
+//                        }
+//                        else if ($("#UserSizechart_type_1").is(":checked")) {
+//                                $('#custm').show();
+//                                $('#std').hide();
+//
+//                        }
+//                });
+        });
+
+</script>

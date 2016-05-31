@@ -12,10 +12,11 @@
 
 
 
-        <div class="breadcrumbs"> <a href="#">HOME</a> <span>/</span> <a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount">My Account</a> <span>/</span> Make a Payment </div>
+        <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?>  <span>/</span> <?php echo CHtml::link('My Account', array('Myaccount/index')); ?> <span>/</span> Make a Payment </div>
         <div class="row">
                 <?php echo $this->renderPartial('_menu'); ?>
-                <div class="col-sm-9 user_content"> <a class="account_link pull-right" href="#">Credit History</a>
+                <div class="col-sm-9 user_content">
+                        <?php echo CHtml::link('Credit History', array('MyWallet/CreditHistory'), array('class' => 'account_link pull-right')); ?>
                         <h1>Make Payment</h1>
                         <?php
                         $form = $this->beginWidget('CActiveForm', array(
@@ -133,7 +134,7 @@
                                         <div class="col-sm-6">
                                                 <div class="price_group payment_method">
 
-                                                        <label class="radio_group active"><?php echo $form->radioButtonList($model, 'pay_method', array('1' => ''), array('uncheckValue' => null, 'hidden' => 'true')); ?></label>
+                                                        <label class="radio_group"><?php echo $form->radioButtonList($model, 'pay_method', array('1' => ''), array('uncheckValue' => null, 'hidden' => 'true')); ?></label>
                                                         <strong class="radio_label pull-left">CREDIT/DEBIT/NET BANKING </strong>
                                                         <label class="radio_group "><?php echo $form->radioButtonList($model, 'pay_method', array('2' => ''), array('uncheckValue' => null, 'hidden' => 'true')); ?></label>
                                                         <strong class="radio_label pull-left">PAYPAL</strong>
