@@ -27,6 +27,16 @@
                             'enableAjaxValidation' => false,
                         ));
                         ?>
+                        <?php if (Yii::app()->user->hasFlash('success')): ?>
+                                <div class="alert alert-success normal">
+                                        <strong>Success!</strong> <?php echo Yii::app()->user->getFlash('success'); ?>
+                                </div>
+                        <?php endif; ?>
+                        <?php if (Yii::app()->user->hasFlash('error')): ?>
+                                <div class="alert alert-danger">
+                                        <strong>Danger!</strong> <?php echo Yii::app()->user->getFlash('error'); ?>
+                                </div>
+                        <?php endif; ?>
                         <div class="registration_form">
                                 <div class="row">
                                         <div class="col-sm-3">
@@ -113,19 +123,7 @@
 
                                         </div>
                                 </div>
-                                <div class="row">
-                                        <div class="col-sm-3">
 
-                                        </div>
-                                        <div class="col-md-6 col-sm-8">
-                                                <div class="price_group">
-                                                        <?= $payment->price ?>
-                                                        <input type="hidden" id="balance_price" name="balance_price" value="<?= $payment->price ?>"/>
-                                                        Total amount to pay :<span id="balance_"></span>
-                                                </div>
-
-                                        </div>
-                                </div>
 
 
                                 <div class="row">
@@ -198,17 +196,17 @@
                                 var balance = wallet_amt - cred;
                                 document.getElementById("balance").innerHTML = balance;
                         }
-                        var product_code = $("#MakePayment_product_code").val();
-                        alert(product_code);
-                        $.ajax({
-                                url: baseurl + 'Myaccount/MakepaymentProduct',
-                                type: "POST",
-                                data: {product_code: product_code},
-                                success: function (response)
-                                {
-                                        $('#balance_price').html(response);
-                                }
-                        });
+//                        var product_code = $("#MakePayment_product_code").val();
+//                        $.ajax({
+//                                url: baseurl + 'Myaccount/MakepaymentProduct',
+//                                type: "POST",
+//                                data: {product_code: product_code},
+//                                success: function (response)
+//                                {
+//                                        $('#balance_price').html(response);
+//                                }
+//                        });
+//                        document.getElementById("balance_").innerHTML = product_code;
                 });
         });
 </script>

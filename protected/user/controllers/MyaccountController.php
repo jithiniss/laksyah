@@ -305,7 +305,6 @@ class MyaccountController extends Controller {
                                         } else {
                                                 $this->redirect('Makepayment_debit');
                                         }
-
 //                                                $to = 'shahana@intersmart.in,$user->email';
 //                                                $subject = "Product Availability";
 //
@@ -326,13 +325,6 @@ class MyaccountController extends Controller {
                 $this->render('make_payment', array(
                     'model' => $model, 'payment' => $payment
                 ));
-        }
-
-        public function actionMakepaymentProduct() {
-                $product_code = $_REQUEST['product_code'];
-                $payment = Products::model()->findByAttributes(array('product_code' => $model->product_code));
-                var_dump($payment);
-                exit;
         }
 
         public function actionMakepayment_debit() {
