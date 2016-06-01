@@ -376,7 +376,7 @@ class ProductsController extends Controller {
          * If deletion is successful, the browser will be redirected to the 'admin' page.
          * @param integer $id the ID of the model to be deleted
          */
-        public function actionDelete() {
+        public function actionDelete($id) {
 
                 $model = $this->loadModel($id);
                 $folder = Yii::app()->Upload->folderName(0, 1000, $model->id);

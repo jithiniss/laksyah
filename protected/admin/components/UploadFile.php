@@ -47,7 +47,7 @@ class UploadFile extends CApplicationComponent {
                                 }
                                 if ($uploadfile->saveAs(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover/hover.' . $uploadfile->extensionName)) {
                                         chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover/hover.' . $uploadfile->extensionName, 0777);
-                                        $this->WaterMark(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover/hover.' . $uploadfile->extensionName, '/../images/watermark.png');
+                                        // $this->WaterMark(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover/hover.' . $uploadfile->extensionName, '/../images/watermark.png');
                                         $file = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover/hover.' . $uploadfile->extensionName;
                                         $path = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover';
                                         if (!empty($dimensions)) {
@@ -81,7 +81,7 @@ class UploadFile extends CApplicationComponent {
                                 }
                                 if ($uploadfile->saveAs(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . $id . '.' . $uploadfile->extensionName)) {
                                         chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . $id . '.' . $uploadfile->extensionName, 0777);
-                                        $this->WaterMark(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . $id . '.' . $uploadfile->extensionName, '/../images/watermark.png');
+                                        //$this->WaterMark(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . $id . '.' . $uploadfile->extensionName, '/../images/watermark.png');
 
                                         $file = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/' . $id . '.' . $uploadfile->extensionName;
                                         $path = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id;
@@ -126,7 +126,7 @@ class UploadFile extends CApplicationComponent {
 
                                         if ($upload->saveAs(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/gallery/' . $picname)) {
                                                 chmod(Yii::app()->basePath . '/../uploads/products/' . $folder . $id . '/gallery/' . $picname, 0777);
-                                                $this->WaterMark(Yii::app()->basePath . '/../uploads/products/' . $folder . $id . '/gallery/' . $picname, '/../images/watermark.png');
+                                                // $this->WaterMark(Yii::app()->basePath . '/../uploads/products/' . $folder . $id . '/gallery/' . $picname, '/../images/watermark.png');
                                                 $file = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/gallery/' . $picname;
 
 
