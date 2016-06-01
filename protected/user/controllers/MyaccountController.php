@@ -364,16 +364,73 @@ class MyaccountController extends Controller {
                 }
         }
 
-        public function actionCardToWallet() {
-                if (isset($_POST['card_submit'])) {
-                        $data = UserGiftscardHistory::model()->findByAttributes(array('unique_code' => $_POST['card_id']), array('condition' => 'status = 1'));
-                        if (!empty($data)) {
-                                $this->render('addmoney_confirmation', array('data' => $data));
+//        public function actionCardToWallet() {
+//                if (isset($_POST['card_submit'])) {
+//                        $data = UserGiftscardHistory::model()->findByAttributes(array('unique_code' => $_POST['card_id']), array('condition' => 'status = 1'));
+//                        if (!empty($data)) {
+//                                $this->render('addmoney_confirmation', array('data' => $data));
+//                        } else {
+//                                Yii::app()->user->setFlash('notice', 'Card is invalid or it may be already used');
+//                        }
+//                } else {
+//                        $this->render('addmoney');
+//                }
+//        }
+//
+//        public function actionAddToWallet($id) {
+//                $data = UserGiftscardHistory::model()->findByPk($id);
+//                $model = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+//                if (!empty($model)) {
+//                        $wallet_amount = $model->wallet_amt;
+//                        $wallet_add = new WalletHistory('addWallet');
+//                        if (!empty($data)) {
+//                                $entry_amount = $data->amount;
+//                                $wallet_add->user_id = $model->id;
+//                                $wallet_add->entry_date = date('Y-m-d H:i:s');
+//                                $wallet_add->credit_debit = 1;
+//                                $wallet_add->balance_amt = $wallet_amount + $entry_amount;
+//
+//
+//                                if ($wallet_add->validate()) {
+//                                        if ($wallet_add->save()) {
+//
+//                                                $this->redirect(array('Success', 'user_id' => $model->id, 'wallet_id' => $wallet_add->id));
+//
+//                                                // $this->redirect(array('Error', 'wallet_id' => $wallet_add->id));
+//                                                $wallet_add->unsetAttributes();
+//                                        }
+//                                }
+//                        }
+//                        $this->render('index', array('wallet_add' => $wallet_add));
+//                }
+//        }       
+
+        public function actionSuccess($user_id, $wallet_id) {
+                if (!empty($user_id) && !empty($wallet_id) && $user_id != '' && $wallet_id != '') {
+                        $user_wallet = UserDetails::model()->findByPk($user_id);
+                        $wallet_history = WalletHistory::model()->findByPk($wallet_id);
+
+
+                        $amount = $user_wallet->wallet_amt + $wallet_history->amount;
+                        $user_wallet->wallet_amt = $amount;
+                        $wallet_history->field2 = 1; //success
+                        if ($wallet_history->save()) {
+                                if ($user_wallet->save()) {
+                                        Yii::app()->session['user'] = $user_wallet;
+                                        Yii::app()->user->setFlash('wallet_success', "Money Added Successfully");
+                                        //$this->SendMail($user_wallet, $wallet_history);
+                                        // $this->adminmail($user_wallet, $wallet_history);
+                                        $this->redirect(array('Index'));
+                                } else {
+                                        $wallet_history->delete();
+                                }
                         } else {
-                                Yii::app()->user->setFlash('notice', 'Card is invalid or it may be already used');
+                                Yii::app()->user->setFlash('wallet_error', "Oops some error occured.Transaction rejected.");
+                                $this->redirect(array('AddToWallet'));
                         }
                 } else {
-                        $this->render('addmoney');
+                        Yii::app()->user->setFlash('wallet_error', "Oops some error occured.Transaction rejected.");
+                        $this->redirect(array('AddToWallet'));
                 }
         }
 
