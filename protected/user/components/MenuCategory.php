@@ -14,8 +14,13 @@
 class MenuCategory extends CApplicationComponent {
 
         public function MenuCategories($cats, $parent, $categ, $min_, $max_, $size) {
-                $min = $this->currencychange($min_);
-                $max = $this->currencychange($max_);
+                if (Yii::app()->session['currency'] != "") {
+                        $min = $this->currencychange($min_);
+                        $max = $this->currencychange($max_);
+                } else {
+                        $min = $min_;
+                        $max = $max_;
+                }
                 if (!empty($cats) || $cats != '') {
                         $find_ids = $this->ids($cats, $parent, $categ);
                 }
