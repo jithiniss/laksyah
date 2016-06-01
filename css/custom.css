@@ -232,12 +232,25 @@ input#email {
 .chnge_passwrd{
         margin-top: 20px;
 }
-
 .scrolled {
-
         z-index: 1000;
+        -moz-box-shadow: 1px 3px 7px #000000;
+        /* -webkit-box-shadow: 1px 3px 7px #000000; */
+        /* box-shadow: 1px 3px 7px #000000; */
+        -moz-box-shadow: -1px -1px 18px #000000;
+        -webkit-box-shadow: -1px -1px 18px #000000;
+        box-shadow: -1px -1px 18px #000000;
 }
 
 .errorMessage {
         color: #E61E2E;
+}
+
+span.empty {
+        margin: 0px;
+        padding: 0px;
+        font-size: 15px;
+        color: #d2730e;
+        font-weight: bold;
+        margin-bottom: 5px;
 }

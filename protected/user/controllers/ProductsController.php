@@ -44,7 +44,10 @@ class ProductsController extends Controller {
                     )
                         )
                 );
-
+                if (empty($dataProvider)) {
+                        $this->render('ProductNotfound');
+                        return FALSE;
+                }
                 $this->render('deal', array('dataProvider' => $dataProvider));
         }
 

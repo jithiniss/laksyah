@@ -12,7 +12,7 @@
                                                 <div class="row">
                                                         <div class="col-xs-6 row-borderd text-right empty_image"><img src="<?php echo Yii::app()->baseUrl ?>/images/laksyah_log.jpg" alt=""/></div>
                                                         <div class="col-xs-6 empty_message">
-                                                                <h3 class="fournotfour">Address Not Found</h3>
+                                                                <h3 class="fournotfour">Address Book Not Found</h3>
 
                                                                 <?php echo CHtml::link('New Address', array('Myaccount/Newaddress', 'id' => CHtml::encode($address->id)), array('class' => 'btn-dark')); ?>
                                                         </div>
