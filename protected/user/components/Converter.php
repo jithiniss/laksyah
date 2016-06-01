@@ -11,6 +11,15 @@ class Converter extends CApplicationComponent {
                 return $result;
         }
 
+        public function convertPrice($price) {
+                if (Yii::app()->session['currency'] != "") {
+                        $result = round(Yii::app()->session['currency']->rate * $price, 2);
+                } else {
+                        $result = $price;
+                }
+                return $result;
+        }
+
 }
 ?>
 

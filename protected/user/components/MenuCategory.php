@@ -13,7 +13,9 @@
  */
 class MenuCategory extends CApplicationComponent {
 
-        public function MenuCategories($cats, $parent, $categ, $min, $max, $size) {
+        public function MenuCategories($cats, $parent, $categ, $min_, $max_, $size) {
+                $min = $this->currencychange($min_);
+                $max = $this->currencychange($max_);
                 if (!empty($cats) || $cats != '') {
                         $find_ids = $this->ids($cats, $parent, $categ);
                 }
@@ -189,6 +191,14 @@ class MenuCategory extends CApplicationComponent {
                         }
                 } else {
                         return $parent;
+                }
+        }
+
+        public function currencychange($price) {
+                if (Yii::app()->session['currency']->rate < 1) {
+                        return $price / Yii::app()->session['currency']->rate;
+                } else {
+                        return $price * Yii::app()->session['currency']->rate;
                 }
         }
 

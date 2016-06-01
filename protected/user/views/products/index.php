@@ -47,12 +47,12 @@
                                         <label for="small" class="" id="<?= $size->id ?>"><?= $size->size; ?>
                                             <input type="radio" name="size_selector" value="<?= $size->id ?>" >
                                         </label>
-        <?php } ?>
+                                <?php } ?>
                                 <input type="hidden" value="" id="selected_size" name="selected_size"/>
 
                             </div>
                         </div>
-<?php } ?>
+                <?php } ?>
 
             </form>
         </div>
@@ -146,10 +146,13 @@
 
 
         $(document).ready(function () {
+            var min = <?php echo Yii::app()->Currency->convertPrice(100); ?>;
+            var max = <?php echo Yii::app()->Currency->convertPrice(5000); ?>;
+            //alert(test);
             $("#slider-range").slider({range: true,
-                min: 100,
-                max: 50000,
-                values: [100, 50000],
+                min: min,
+                max: max,
+                values: [min, max],
                 slide: function (event, ui) {
                     var min_amount = $("#amount").val(ui.values[ 0 ]);
                     var max_amount = $("#amount1").val(ui.values[ 1 ]);
@@ -158,8 +161,8 @@
 //                    {
 //                        pricerange();
 //                    }
-                    $(".min_value").html("<i class='fa fa-rupee'></i> " + ui.values[ 0 ]);
-                    $(".max_value").html("<i class='fa fa-rupee'></i> " + ui.values[ 1 ]);
+                    $(".min_value").html("<i class='fa <?= Yii::app()->session['currency']->symbol; ?>'></i> " + ui.values[ 0 ]);
+                    $(".max_value").html("<i class='fa <?= Yii::app()->session['currency']->symbol; ?>'></i> " + ui.values[ 1 ]);
                 },
                 stop: function (event, ui) {
                     showLoader();
@@ -172,8 +175,8 @@
 //            $("#amount1").val("$" + $("#slider-range").slider("values", 1));
             $("#amount").val($("#slider-range").slider("values", 0));
             $("#amount1").val($("#slider-range").slider("values", 1));
-            $(".min_value").html("<i class='fa fa-rupee'></i> " + $("#slider-range").slider("values", 0));
-            $(".max_value").html("<i class='fa fa-rupee'></i> " + $("#slider-range").slider("values", 1));
+            $(".min_value").html("<i class='fa <?= Yii::app()->session['currency']->symbol; ?>'></i> " + $("#slider-range").slider("values", 0));
+            $(".max_value").html("<i class='fa <?= Yii::app()->session['currency']->symbol; ?>'></i> " + $("#slider-range").slider("values", 1));
             $(".add_to_cart").click(function () {
                 var id = $(this).attr('id');
                 var canname = $("#cano_name_" + id).val();
