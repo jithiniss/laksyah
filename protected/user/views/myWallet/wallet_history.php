@@ -4,7 +4,7 @@
         <?php echo $this->renderPartial('//myaccount/_menu'); ?>
         <!-- / Sidebar-->
         <div class="col-sm-9 user_content">
-<!--            <?php echo //CHtml::link('Add Card Money', array('Myaccount/CardToWallet'), array('class' => 'account_link pull-right'));  ?><br>-->
+            <!--            <?php echo //CHtml::link('Add Card Money', array('Myaccount/CardToWallet'), array('class' => 'account_link pull-right'));   ?>-->
             <?php echo CHtml::link(' <span class="account_link pull-right">Add Credit Money</span>', array('MyWallet/index')); ?>
             <h1>My Credit <span><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></span></h1>
             <!--<div class="alert alert-success alert-dismissible" role="alert">
