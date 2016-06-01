@@ -7,8 +7,10 @@
  * @property integer $id
  * @property integer $giftcard_id
  * @property integer $user_id
+ * @property integer $bill_address_id
  * @property string $amount
  * @property string $unique_code
+ * @property integer $status
  * @property string $date
  */
 class UserGiftscardHistory extends CActiveRecord {
@@ -27,12 +29,12 @@ class UserGiftscardHistory extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
-                    //array('giftcard_id, user_id, amount, unique_code, date', 'required'),
-                    array('giftcard_id, user_id', 'numerical', 'integerOnly' => true),
+                    //array('giftcard_id, user_id, bill_address_id, amount, unique_code, status, date', 'required'),
+                    array('giftcard_id, user_id, bill_address_id, status', 'numerical', 'integerOnly' => true),
                     array('amount, unique_code', 'length', 'max' => 225),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, giftcard_id, user_id, amount, unique_code, date', 'safe', 'on' => 'search'),
+                    array('id, giftcard_id, user_id, bill_address_id, amount, unique_code, status, date', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -54,8 +56,10 @@ class UserGiftscardHistory extends CActiveRecord {
                     'id' => 'ID',
                     'giftcard_id' => 'Giftcard',
                     'user_id' => 'User',
+                    'bill_address_id' => 'Bill Address',
                     'amount' => 'Amount',
                     'unique_code' => 'Unique Code',
+                    'status' => 'Status',
                     'date' => 'Date',
                 );
         }
@@ -80,8 +84,10 @@ class UserGiftscardHistory extends CActiveRecord {
                 $criteria->compare('id', $this->id);
                 $criteria->compare('giftcard_id', $this->giftcard_id);
                 $criteria->compare('user_id', $this->user_id);
+                $criteria->compare('bill_address_id', $this->bill_address_id);
                 $criteria->compare('amount', $this->amount, true);
                 $criteria->compare('unique_code', $this->unique_code, true);
+                $criteria->compare('status', $this->status);
                 $criteria->compare('date', $this->date, true);
 
                 return new CActiveDataProvider($this, array(

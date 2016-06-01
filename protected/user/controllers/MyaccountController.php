@@ -124,8 +124,8 @@ class MyaccountController extends Controller {
                         if (isset($_POST['UserSizechart'])) {
 
                                 $sizechart->attributes = $_POST['UserSizechart'];
-                                $sizechart->product_name = $_POST['UserSizechart']['product_name'];
-                                $sizechart->product_code = $_POST['UserSizechart']['product_code'];
+                                $sizechart->product_name = $model->product_name;
+                                $sizechart->product_code = $model->product_code;
                                 $sizechart->type = $model->type;
                                 if ($sizechart->type == 1) {
                                         $sizechart->unit = 2;
@@ -285,9 +285,9 @@ class MyaccountController extends Controller {
                         $model->userid = Yii::app()->session['user']['id'];
                         $model->date = date('Y-m-d');
 
-                        if ($model->save()) {
-                                if ($model->validate()) {
-                                        if ($model->amount >= $_POST['wallet_amt']) {
+                        if ($model->validate()) {
+                                if ($model->save()) {
+                                        if ($model->amount <= $_POST['wallet_amt']) {
                                                 $wallet_add = new WalletHistory;
                                                 $wallet_add->user_id = Yii::app()->session['user']['id'];
                                                 $wallet_add->type_id = 3;
@@ -361,6 +361,19 @@ class MyaccountController extends Controller {
                         }
                 } else {
                         $this->render('changepassword', array('model' => $model));
+                }
+        }
+
+        public function actionCardToWallet() {
+                if (isset($_POST['card_submit'])) {
+                        $data = UserGiftscardHistory::model()->findByAttributes(array('unique_code' => $_POST['card_id']), array('condition' => 'status = 1'));
+                        if (!empty($data)) {
+                                $this->render('addmoney_confirmation', array('data' => $data));
+                        } else {
+                                Yii::app()->user->setFlash('notice', 'Card is invalid or it may be already used');
+                        }
+                } else {
+                        $this->render('addmoney');
                 }
         }
 

@@ -14,7 +14,7 @@ class GiftcardController extends Controller {
                         if (isset($_POST['giftsubmit'])) {
                                 if ($_REQUEST['bill_address'] == 0) {
                                         if (isset($_POST['UserAddress']['bill'])) {
-                                                $billing_address = $this->addAddress($billing, $_POST['UserAddress']['bill']);
+                                                $billing_address = $this->addAddress($addresss, $billing, $_POST['UserAddress']['bill']);
                                                 $bill_address_id = $billing_address;
                                                 $this->AddCard($bill_address_id);
                                                 $this->redirect('Payment');
@@ -32,7 +32,7 @@ class GiftcardController extends Controller {
                 }
         }
 
-        public function addAddress($model, $data) {
+        public function addAddress($addresss, $model, $data) {
 
                 $model->attributes = $data;
                 $model->address_1 = $data['address_1'];
@@ -49,7 +49,8 @@ class GiftcardController extends Controller {
                                 return false;
                         }
                 } else {
-                        return false;
+                        $this->render('bill_address', array('addresss' => $addresss, 'billing' => $model));
+                        exit;
                 }
         }
 
@@ -103,9 +104,11 @@ class GiftcardController extends Controller {
         public function AddCard($bill_address_id) {
                 $new_card = new UserGiftscardHistory;
                 $new_card->user_id = Yii::app()->session['user']['id'];
+                $new_card->bill_address_id = $bill_address_id;
                 $new_card->giftcard_id = Yii::app()->session['gift_card_detail'];
                 $card_details = GiftCard::model()->findByPk(Yii::app()->session['gift_card_detail']);
                 $new_card->amount = $card_details->amount;
+                $new_card->status = 1;
                 $new_card->date = date('y-m-d');
                 if ($new_card->validate()) {
                         $new_card->save();

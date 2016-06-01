@@ -38,7 +38,7 @@ class UserDetails extends CActiveRecord {
                 // will receive user inputs.
                 return array(
                     //array('first_name, last_name, email, phone_no_1, phone_no_2, fax, password, confirm, newsletter, status, CB, UB, DOC', 'required'),
-                    array('newsletter, status, CB, UB', 'numerical', 'integerOnly' => true),
+                    array('newsletter, status, phone_no_1, phone_no_2,CB, UB', 'numerical', 'integerOnly' => true),
                     array('first_name, last_name, email, fax', 'length', 'max' => 100),
                     array('password, confirm', 'length', 'max' => 225),
                     array('DOU', 'safe'),
