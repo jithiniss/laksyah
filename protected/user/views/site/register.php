@@ -158,7 +158,7 @@ Last Name*', array('class' => '')); ?>
                 echo $form->checkBox($model, 'newsletter', array('class' => 'subscrib'));
                 ?>
                 <?php echo $form->error($model, 'newsletter'); ?>
-                <label><span></span>Please add me to the Subcriber email list. <a href="#">See Privacy Policy</a></label>
+                <label><span></span>Please add me to the Subcriber email list. <?php echo CHtml::link('See Privacy Policy', array('site/Terms'), array('target' => '_blank')); ?></label>
 
             </div>
         </div>
