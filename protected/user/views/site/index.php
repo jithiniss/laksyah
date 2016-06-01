@@ -58,7 +58,7 @@
                                 <div class="section_title design_house_title">
                                         <h2>The Design House</h2>
                                         <h4>Bridal couture & consultancy</h4>
-                                        <a class="btn-dark" href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/site/BookAppointment">BOOK AN APPOINTMENT</a> </div>
+                                        <?php echo CHtml::link('BOOK AN APPOINTMENT', array('site/BookAppointment'), array('class' => 'btn-dark')); ?></div>
                         </div>
                 </div>
         </div>
@@ -99,7 +99,7 @@
                                 <div class="section_title gift_title">
                                         <h2>Gift with Love</h2>
                                         <h4>Free Gift Packing and personalized message card</h4>
-                                        <a class="btn-dark" href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/products/order_giftoption">ORDER NOW</a> </div>
+                                        <?php echo CHtml::link('ORDER NOW', array('products/order_giftoption'), array('class' => 'btn-dark')); ?></div>
                         </div>
                 </div>
         </div>
@@ -124,7 +124,7 @@
 
                         </div>
                 </div>
-                <a class="btn btn-skel" href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/Blog">READ MORE</a> </div>
+                <?php echo CHtml::link('READ MORE', array('site/Blog'), array('class' => 'btn btn-skel')); ?></div>
         <!-- / End Blog-->
         <div class="testimonials_section">
                 <h2>Testimonials</h2>

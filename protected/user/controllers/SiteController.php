@@ -350,7 +350,7 @@ class SiteController extends Controller {
 
         public function actionFaq() {
                 $model = '';
-                $this->render('privacy_policy', array('model' => $model));
+                $this->render('faq', array('model' => $model));
         }
 
         public function actionSupport() {

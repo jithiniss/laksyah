@@ -1,5 +1,5 @@
 <div class="container main_container inner_pages ">
-        <div class="breadcrumbs"> <a href="#">HOME</a> <span>/</span> <a href="#">FAQ</a> </div>
+        <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?> <span>/</span>FAQ </div>
         <div class="row">
                 <?php echo $this->renderPartial('_staticmenu'); ?>
                 <!-- / Sidebar-->

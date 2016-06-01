@@ -1,5 +1,5 @@
 <div class="container main_container product_archive">
-        <div class="breadcrumbs"> <a href="#">HOME</a> <span>/</span> WOOMEN </div>
+        <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?>  <span>/</span> WOMEN </div>
         <div class="row">
                 <div class="col-sm-3 sidebar">
                         <h3><i class="fa fa-align-justify "></i>Category</h3>

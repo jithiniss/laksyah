@@ -239,7 +239,7 @@ if (Yii::app()->user->hasFlash('login_list')):
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;   ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;    ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">
@@ -353,14 +353,14 @@ if (Yii::app()->user->hasFlash('login_list')):
                                         <div class="footer-menu">
                                                 <div class="container">
                                                         <ul>
-                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/AboutUs">About Us</a>|</li>
-                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/ContactLaksyah">Contact Us</a>|</li>
-                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/Blog">Blog</a>|</li>
-                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/PrivacyPolicy">Policies</a>|</li>
-                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/ProductSubmission">Product Submission</a>|</li>
+                                                                <li><?php echo CHtml::link('About Us', array('site/AboutUs')); ?> | </li>
+                                                                <li><?php echo CHtml::link('Contact  Us', array('site/ContactLakysah')); ?> | </li>
+                                                                <li><?php echo CHtml::link('Make An Appointment', array('site/BookAppointment')); ?> | </li>
+                                                                <li><?php echo CHtml::link('Policies', array('site/ShippingPolicy')); ?> | </li>
+                                                                <li><?php echo CHtml::link('Product Submission', array('site/productsubmission')); ?> | </li>
                                                                 <li><a href="#">Careers</a>|</li>
-                                                                <li><a href="#">Terms &amp; Condition</a>|</li>
-                                                                <li><a href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/Faq">FAQ</a> </li>
+                                                                <li><?php echo CHtml::link('Terms & Condition', array('site/Terms')); ?> | </li>
+                                                                <li><?php echo CHtml::link('FAQ', array('site/Faq')); ?></li>
                                                         </ul>
                                                         <div id="back-to-top" style="display: block;"> <a class="back-to-top" style="display: block;"></a> </div>
                                                 </div>
