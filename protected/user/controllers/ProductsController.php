@@ -6,6 +6,7 @@ class ProductsController extends Controller {
                 $parent = ProductCategory::model()->findByAttributes(array('canonical_name' => $name));
                 if (empty($parent)) {
                         $this->render('ProductNotfound');
+                        return FALSE;
                 }
                 $category = ProductCategory::model()->findAllByAttributes(array('parent' => $parent->parent));
                 $cats = ProductCategory::model()->findAllByattributes(array('parent' => $parent->id), array('condition' => "id != $parent->id"));
@@ -283,7 +284,7 @@ class ProductsController extends Controller {
                                                 }
                                                 ?>
                                                 <label class="<?php echo $disabled; ?>" id="<?php echo $size->size_id; ?>"><?php echo $size_name->size; ?>
-                                                    <input type = "radio" name = "size_selector_<?php echo $size_name->id; ?>" value = "<?php echo $size_name->id; ?>" id = "size_selector_<?php echo $size_name->id; ?>">
+                                                        <input type = "radio" name = "size_selector_<?php echo $size_name->id; ?>" value = "<?php echo $size_name->id; ?>" id = "size_selector_<?php echo $size_name->id; ?>">
                                                 </label>
                                                 <?php
                                         }
