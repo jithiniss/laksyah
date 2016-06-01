@@ -147,7 +147,7 @@
 
         $(document).ready(function () {
             var min = <?php echo Yii::app()->Currency->convertPrice(100); ?>;
-            var max = <?php echo Yii::app()->Currency->convertPrice(5000); ?>;
+            var max = <?php echo Yii::app()->Currency->convertPrice(50000); ?>;
             //alert(test);
             $("#slider-range").slider({range: true,
                 min: min,
