@@ -102,13 +102,13 @@ if (Yii::app()->user->hasFlash('login_list')):
                                                         <ul>
                                                                 <li> <?php echo CHtml::link('<i class="fa fa-calendar"></i> <span class="hidden-xs">Make an </span>Appointment', array('site/BookAppointment')); ?></li>
                                                                 <li  class="hidden-mobile">
-                                                                        <?php echo CHtml::link('<i class="fa fa-map-marker"></i> Location', array('site/contactUs')); ?></li>
+                                                                        <?php echo CHtml::link('<i class="fa fa-map-marker"></i> Location', array('site/ContactLakysah')); ?></li>
                                                         </ul>
                                                 </div>
                                                 <!-- / End Top Left-->
                                                 <div class="col-sm-7 text-right col-md-6 mobile-inline">
                                                         <ul>
-                                                                <li class="hidden-mobile"> <?php echo CHtml::link('<i class="fa fa-envelope"></i><span class="hidden-xs">LEAVE A </span>MESSAGE', array('site/contactUs')); ?></li>
+                                                                <li class="hidden-mobile"> <?php echo CHtml::link('<i class="fa fa-envelope"></i><span class="hidden-xs">LEAVE A </span>MESSAGE', array('site/ContactLakysah')); ?></li>
                                                                 <li><a href="#"><i class="fa fa-mobile-phone"></i> MOBILE APP</a></li>
 
                                                                 <li class="has_dropdown"><a href="#" class="active_currency">
@@ -239,7 +239,7 @@ if (Yii::app()->user->hasFlash('login_list')):
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;       ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;        ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">
