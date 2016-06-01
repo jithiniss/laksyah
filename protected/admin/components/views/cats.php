@@ -10,8 +10,9 @@
     if ($this->field_val != '') {
             $arrs = explode(',', $this->field_val);
             foreach ($arrs as $val) {
+                    $cat = ProductCategory::model()->findByPk($val)->category_name;
                     if ($val != '')
-                            echo '<div class="' . $this->type . '_tagedd">' . $val . '<i class="fa fa-close ' . $this->type . '_closee"></i></div>';
+                            echo '<div class="' . $this->type . '_tagedd">' . $cat . '<i class="fa fa-close ' . $this->type . '_closee" id="' . $val . '"></i></div>';
             }
     }
     ?>
@@ -113,10 +114,10 @@
             });
 
             /* $('#category_tag_select').live('click',function(){
-             var cat= $('#<?php //echo $this->category_id;                                                  ?>').val();
+             var cat= $('#<?php //echo $this->category_id;                                                           ?>').val();
              if(cat==''){
              alert('Select a Category first.');
-             $('#<?php //echo $this->category_id;                                                  ?>').focus();
+             $('#<?php //echo $this->category_id;                                                           ?>').focus();
              }
 
              });*/
