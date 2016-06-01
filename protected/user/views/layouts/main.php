@@ -206,7 +206,7 @@ if (Yii::app()->user->hasFlash('login_list')):
                                                                                 <li class="shopping_bag has_dropdown">
                                                                                         <div class="cart_icon">
                                                                                                 <div class="cart_items"></div>
-                                                                                                <i class="fa fa-shopping-bag"></i></div><span class="bag_title">Shopping Bag </span><span class="amount"><?= $counts; ?></span>
+                                                                                                <i class="fa fa-shopping-bag"></i></div><span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">
                                                                                         </div>
                                                                                 </li>
@@ -239,7 +239,7 @@ if (Yii::app()->user->hasFlash('login_list')):
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;    ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;      ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">
@@ -259,30 +259,31 @@ if (Yii::app()->user->hasFlash('login_list')):
                                         </div>
                                 </div>
                                 <!-- /Logo Bar-->
-                                <div class="container">
-                                        <div class="navbar" role="navigation">
+                        </div>
+                        <div class="container">
+                                <div class="navbar" role="navigation">
 
-                                                <div class="collapse navbar-collapse">
-                                                        <ul class="nav navbar-nav main-nav">
-                                                                <li class="active"><?php echo CHtml::link('WOMEN', array('products/category', 'name' => 'women')); ?></li>
-                                                                <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                                <li><?php echo CHtml::link('CELEB STYLE', array('products/category', 'name' => 'celeb-style')); ?></li>
-                                                                <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                                <li><?php echo CHtml::link('NEW LOOK', array('products/category', 'name' => 'new-look')); ?></li>
-                                                                <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                                <li><?php echo CHtml::link('FESTIVE', array('products/category', 'name' => 'festive')); ?></li>
-                                                                <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                                <li><?php echo CHtml::link('DAILY WEAR', array('products/category', 'name' => 'daily-wear')); ?>
-                                                                <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                                <li><?php echo CHtml::link('DEAL of the day', array('products/category', 'name' => 'deal')); ?></li>
-                                                                <li class="seperator"><i class="fa fa-circle"></i></li>
-                                                                <li><?php echo CHtml::link('Laksyah Gift Cards', array('site/GiftCard')); ?></li>
-                                                        </ul>
-                                                </div>
-                                                <!--/.nav-collapse -->
+                                        <div class="collapse navbar-collapse">
+                                                <ul class="nav navbar-nav main-nav">
+                                                        <li class="active"><?php echo CHtml::link('WOMEN', array('products/category', 'name' => 'women')); ?></li>
+                                                        <li class="seperator"><i class="fa fa-circle"></i></li>
+                                                        <li><?php echo CHtml::link('CELEB STYLE', array('products/category', 'name' => 'celeb-style')); ?></li>
+                                                        <li class="seperator"><i class="fa fa-circle"></i></li>
+                                                        <li><?php echo CHtml::link('NEW LOOK', array('products/category', 'name' => 'new-look')); ?></li>
+                                                        <li class="seperator"><i class="fa fa-circle"></i></li>
+                                                        <li><?php echo CHtml::link('FESTIVE', array('products/category', 'name' => 'festive')); ?></li>
+                                                        <li class="seperator"><i class="fa fa-circle"></i></li>
+                                                        <li><?php echo CHtml::link('DAILY WEAR', array('products/category', 'name' => 'daily-wear')); ?>
+                                                        <li class="seperator"><i class="fa fa-circle"></i></li>
+                                                        <li><?php echo CHtml::link('DEAL of the day', array('products/category', 'name' => 'deal')); ?></li>
+                                                        <li class="seperator"><i class="fa fa-circle"></i></li>
+                                                        <li><?php echo CHtml::link('Laksyah Gift Cards', array('site/GiftCard')); ?></li>
+                                                </ul>
                                         </div>
+                                        <!--/.nav-collapse -->
                                 </div>
                         </div>
+
 
                 </header>
                 <!-- /End of Header -->

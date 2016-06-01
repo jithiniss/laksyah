@@ -147,8 +147,8 @@ input#email {
         z-index: 10000;
         position: absolute;
         display: none;
-        top: 72px;
-  width: 100%;
+        top: 40px;
+        width: 100%;
 }
 .li-style {
         background-color: rgba(255,255,255,0.1);
