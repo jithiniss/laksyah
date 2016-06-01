@@ -14,13 +14,11 @@
 class MenuCategory extends CApplicationComponent {
 
         public function MenuCategories($cats, $parent, $categ, $min_, $max_, $size) {
-                if (Yii::app()->session['currency'] != "") {
+                if (!empty($min_) && !empty($max_)) {
                         $min = $this->currencychange($min_);
                         $max = $this->currencychange($max_);
-                } else {
-                        $min = $min_;
-                        $max = $max_;
                 }
+
                 if (!empty($cats) || $cats != '') {
                         $find_ids = $this->ids($cats, $parent, $categ);
                 }
@@ -82,40 +80,40 @@ class MenuCategory extends CApplicationComponent {
                 }
         }
 
-        public function filterMenuProducts($products, $min, $max, $size_type) {
-
-                if (!empty($products) && !empty($min) && !empty($max) && !empty($size_type)) {
-
-                        $condition .= '(id  IN (SELECT product_id FROM option_details WHERE size_id = ' . $size_type . ')) AND (id  IN (' . $products . ')) AND (price > ' . $min . ' AND price <' . $max . ')';
-                        $order = '';
-                } elseif (!empty($products) && !empty($min) && !empty($max)) {
-                        $condition .= '(id  IN (' . $products . ')) AND  (price > ' . $min . ' AND price <' . $max . ')';
-                        $order = '';
-                }
-
-                if ($products != '') {
-
-                        return $dataProvider = new CActiveDataProvider('Products', array(
-                            'criteria' => array(
-                                'condition' => $condition,
-                                'order' => $order,
-                            ),
-                            'pagination' => array(
-                                'pageSize' => 1,
-                            ),
-                            'sort' => array(
-                                'defaultOrder' => $srt,
-                            // 'defaultOrder' => 'product_name RAND() ',
-                            )
-                                )
-                        );
-//                        var_dump($dataProvider);
-//                        exit;
-                } else {
-
-                        return $dataProvider = '';
-                }
-        }
+//        public function filterMenuProducts($products, $min, $max, $size_type) {
+//
+//                if (!empty($products) && !empty($min) && !empty($max) && !empty($size_type)) {
+//
+//                        $condition .= '(id  IN (SELECT product_id FROM option_details WHERE size_id = ' . $size_type . ')) AND (id  IN (' . $products . ')) AND (price > ' . $min . ' AND price <' . $max . ')';
+//                        $order = '';
+//                } elseif (!empty($products) && !empty($min) && !empty($max)) {
+//                        $condition .= '(id  IN (' . $products . ')) AND  (price > ' . $min . ' AND price <' . $max . ')';
+//                        $order = '';
+//                }
+//
+//                if ($products != '') {
+//
+//                        return $dataProvider = new CActiveDataProvider('Products', array(
+//                            'criteria' => array(
+//                                'condition' => $condition,
+//                                'order' => $order,
+//                            ),
+//                            'pagination' => array(
+//                                'pageSize' => 1,
+//                            ),
+//                            'sort' => array(
+//                                'defaultOrder' => $srt,
+//                            // 'defaultOrder' => 'product_name RAND() ',
+//                            )
+//                                )
+//                        );
+////                        var_dump($dataProvider);
+////                        exit;
+//                } else {
+//
+//                        return $dataProvider = '';
+//                }
+//        }
 
         public function ids($cats, $parent, $categ) {
                 $ids = array();
@@ -199,11 +197,44 @@ class MenuCategory extends CApplicationComponent {
                 }
         }
 
-        public function currencychange($price) {
-                if (Yii::app()->session['currency']->rate < 1) {
-                        return $price / Yii::app()->session['currency']->rate;
+        public function GiftOptionFilter($min, $max, $size_type) {
+
+                if (!empty($min) && !empty($max) && !empty($size_type)) {
+
+                        $condition = '(id  IN (SELECT product_id FROM option_details WHERE size_id = ' . $size_type . '))  AND (price > ' . $min . ' AND price <' . $max . ' AND gift_option = 1)';
+                        $order = '';
+                } elseif (!empty($min) && !empty($max)) {
+//                        echo "sdfgjkh";
+//                        exit;
+                        $condition = '(price > ' . $min . ' AND price <' . $max . '  AND gift_option = 1)';
+                        $order = '';
                 } else {
-                        return $price * Yii::app()->session['currency']->rate;
+
+                }
+                return $dataProvider = new CActiveDataProvider('Products', array(
+                    'criteria' => array(
+                        'condition' => $condition,
+                    //'order' => $order,
+                    ),
+                    'pagination' => array(
+                        'pageSize' => 20,
+                    ),
+                    'sort' => array(
+                    // 'defaultOrder' => 'product_name RAND() ',
+                    )
+                        )
+                );
+        }
+
+        public function currencychange($price) {
+                if (Yii::app()->session['currency'] != '') {
+                        if (Yii::app()->session['currency']['rate'] <= 1) {
+                                return $price / Yii::app()->session['currency']['rate'];
+                        } else {
+                                return $price * Yii::app()->session['currency']['rate'];
+                        }
+                } else {
+                        return $price;
                 }
         }
 
