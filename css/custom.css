@@ -254,3 +254,10 @@ span.empty {
         font-weight: bold;
         margin-bottom: 5px;
 }
+@media (max-width: 385px) {
+
+.user_nav li {
+      
+        margin-left: 13px;
+}
+}
