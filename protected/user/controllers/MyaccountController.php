@@ -304,17 +304,30 @@ class MyaccountController extends Controller {
                                                         $user->save();
                                                         $wallet_add->unsetAttributes();
                                                 }
-                                        } else {
-                                                $this->redirect('Makepayment_debit');
                                         }
-//                                                $to = 'shahana@intersmart.in,$user->email';
-//                                                $subject = "Product Availability";
-//
-//                                                $message = "sssssssssssssssssssssss";
-//                                                $headers = "MIME-Version: 1.0" . "\r\n";
-//                                                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-//                                                $headers .= 'From: <>' . "\r\n";
-//                                                mail($to, $subject, $message, $headers);
+//                                        else {
+//                                                $this->redirect('Makepayment_debit');
+//                                        }
+                                        $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+                                        $page_url = $_SERVER["HTTP_REFERER"];
+                                        $from = 'laksyah@intersmarthosting.in';
+                                        $to = $user->email;
+                                        $subject = 'Payment Information From ' . $from;
+
+
+
+                                        $message = $this->renderPartial('_ptoduct_info_mail', array('page_url' => $page_url, 'from' => $from));
+
+
+
+                                        $headers = "MIME-Version: 1.0" . "\r\n";
+                                        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                                        $headers .= 'From: <laksyah@intersmarthosting.in>' . "\r\n";
+
+                                        if (mail($to, $subject, $message, $headers)) {
+                                                Yii::app()->user->setFlash('success', " your email sent successfully..");
+                                                $this->redirect($page_url);
+                                        }
                                         Yii::app()->user->setFlash('success', "your amount has been  successfully added");
                                         $this->redirect('Makepayment');
                                 } else {
@@ -403,7 +416,7 @@ class MyaccountController extends Controller {
 //                        }
 //                        $this->render('index', array('wallet_add' => $wallet_add));
 //                }
-//        }       
+//        }
 
         public function actionSuccess($user_id, $wallet_id) {
                 if (!empty($user_id) && !empty($wallet_id) && $user_id != '' && $wallet_id != '') {
