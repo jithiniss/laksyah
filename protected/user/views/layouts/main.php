@@ -64,7 +64,7 @@ if (Yii::app()->user->hasFlash('login_list')):
                                                 <div class="tab-content">
                                                         <div role="tabpanel" class="tab-pane active login_popup " id="home">
                                                                 <h2>SIGN IN</h2>
-                                                                <h4>Sign in to proceed to Checkout</h4>
+                                                                <h4>Sign in information</h4>
                                                                 <?php if (Yii::app()->user->hasFlash('login_list')): ?>
                                                                         <div class="alert alert-danger mesage">
                                                                                 <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -239,7 +239,7 @@ if (Yii::app()->user->hasFlash('login_list')):
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;         ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;          ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">
