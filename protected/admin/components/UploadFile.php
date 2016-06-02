@@ -50,10 +50,10 @@ class UploadFile extends CApplicationComponent {
                                         // $this->WaterMark(Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover/hover.' . $uploadfile->extensionName, '/../images/watermark.png');
                                         $file = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover/hover.' . $uploadfile->extensionName;
                                         $path = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $id . '/hover';
-                                        if (!empty($dimensions)) {
-
-                                                $this->Resize($file, $dimensions['width'], $dimensions['height'], $dimensions['name'], $path, $uploadfile->extensionName);
-                                        }
+//                                        if (!empty($dimensions)) {
+//
+//                                                $this->Resize($file, $dimensions['width'], $dimensions['height'], 'hover', $path, $uploadfile->extensionName);
+//                                        }
                                 }
                         }
                 }
@@ -173,6 +173,8 @@ class UploadFile extends CApplicationComponent {
         }
 
         public function Resize($file, $width, $height, $name, $path, $extension) {
+//                var_dump($file);
+////                exit;
                 $resize = new EasyImage($file);
                 $resize->resize($width, $height);
                 $resize->save($path . '/' . $name . '.' . $extension);

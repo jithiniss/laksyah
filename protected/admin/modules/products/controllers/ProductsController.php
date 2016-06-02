@@ -152,23 +152,23 @@ class ProductsController extends Controller {
                                         if ($image != "") {
                                                 $id = $model->id;
                                                 $dimension[0] = array('width' => '116', 'height' => '155', 'name' => 'small');
-                                                $dimension[1] = array('width' => '263', 'height' => '408', 'name' => 'medium');
-                                                $dimension[2] = array('width' => '544', 'height' => '758', 'name' => 'big');
-                                                $dimension[3] = array('width' => '800', 'height' => '1060', 'name' => 'zoom');
+                                                $dimension[1] = array('width' => '322', 'height' => '500', 'name' => 'medium');
+                                                $dimension[2] = array('width' => '580', 'height' => '775', 'name' => 'big');
+                                                $dimension[3] = array('width' => '812', 'height' => '1085', 'name' => 'zoom');
                                                 Yii::app()->Upload->uploadImage($image, $id, true, $dimension);
                                         }
 
                                         if ($hover_image != "") {
                                                 $id = $model->id;
-                                                $dimensions[0] = array('width' => '263', 'height' => '408', 'name' => 'hover');
+                                                $dimensions[0] = array('width' => '322', 'height' => '500', 'name' => 'hover');
                                                 Yii::app()->Upload->uploadHoverImage($hover_image, $id, true, $dimensions);
                                         }
 
                                         if ($images != "") {
                                                 $id = $model->id;
                                                 $dimension[0] = array('width' => '116', 'height' => '155', 'name' => 'small');
-                                                $dimension[1] = array('width' => '544', 'height' => '758', 'name' => 'big');
-                                                $dimension[2] = array('width' => '800', 'height' => '1060', 'name' => 'zoom');
+                                                $dimension[1] = array('width' => '580', 'height' => '775', 'name' => 'big');
+                                                $dimension[2] = array('width' => '812', 'height' => '1085', 'name' => 'zoom');
 
                                                 Yii::app()->Upload->uploadMultipleImage($images, $id, true, $dimension);
                                         }
@@ -265,9 +265,9 @@ class ProductsController extends Controller {
                         if ($image != "") {
                                 $id = $model->id;
                                 $dimension[0] = array('width' => '116', 'height' => '155', 'name' => 'small');
-                                $dimension[1] = array('width' => '263', 'height' => '408', 'name' => 'medium');
-                                $dimension[2] = array('width' => '544', 'height' => '758', 'name' => 'big');
-                                $dimension[3] = array('width' => '800', 'height' => '1060', 'name' => 'zoom');
+                                $dimension[1] = array('width' => '322', 'height' => '500', 'name' => 'medium');
+                                $dimension[2] = array('width' => '580', 'height' => '775', 'name' => 'big');
+                                $dimension[3] = array('width' => '812', 'height' => '1085', 'name' => 'zoom');
                                 Yii::app()->Upload->uploadImage($image, $id, true, $dimension);
                         } else {
                                 $model->main_image = $image1;
@@ -277,7 +277,7 @@ class ProductsController extends Controller {
                         if ($h_image != "") {
                                 $id = $model->id;
 
-                                $dimensions[0] = array('width' => '280', 'height' => '310', 'name' => 'medium');
+                                $dimensions[0] = array('width' => '322', 'height' => '500', 'name' => 'hover');
 
                                 Yii::app()->Upload->uploadHoverImage($h_image, $id, true, $dimensions);
                         } else {
@@ -289,8 +289,8 @@ class ProductsController extends Controller {
                         if ($images != "") {
                                 $id = $model->id;
                                 $dimension[0] = array('width' => '116', 'height' => '155', 'name' => 'small');
-                                $dimension[1] = array('width' => '544', 'height' => '758', 'name' => 'big');
-                                $dimension[2] = array('width' => '800', 'height' => '1060', 'name' => 'zoom');
+                                $dimension[1] = array('width' => '580', 'height' => '775', 'name' => 'big');
+                                $dimension[2] = array('width' => '812', 'height' => '1085', 'name' => 'zoom');
                                 Yii::app()->Upload->uploadMultipleImage($images, $id, true, $dimension);
                         } else {
                                 $model->gallery_images = $image0;
