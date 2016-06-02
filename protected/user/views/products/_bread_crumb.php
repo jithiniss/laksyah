@@ -20,7 +20,7 @@ if ($action == 'category') {
                 $get_cat_name = ProductCategory::model()->findByAttributes(array('canonical_name' => $category_name));
                 if ($get_cat_name->id == $get_cat_name->parent) {
                         ?>
-                        <span>/</span> <?php echo $get_cat_name->category_name; ?>
+                        <?php echo $get_cat_name->category_name; ?>
                         <?php
                 } else {
                         $get_parent = ProductCategory::model()->findByPk($get_cat_name->parent);
