@@ -1,7 +1,7 @@
 <div class="container main_container product_archive">
     <?php
     $category_name = Yii::app()->request->getParam('name');
-    if($category_name != "") {
+    if ($category_name != "") {
             $get_cat_name = ProductCategory::model()->findByAttributes(array('canonical_name' => $category_name));
     }
     ?>
@@ -41,7 +41,7 @@
                     </div>
                     <?php
                     $parent = Yii::app()->Menu->findParent($get_cat_name->id);
-                    if($parent != 4) {
+                    if ($parent != 4) {
                             ?>
                             <div class="size_filter">
                                 <h4>Size</h4>
@@ -49,7 +49,7 @@
 
                                     <?php
                                     $sizes = OptionCategory::model()->findAllByAttributes(array('option_type_id' => 2));
-                                    foreach($sizes as $size) {
+                                    foreach ($sizes as $size) {
                                             ?>
                                             <label for="small" class="" id="<?= $size->id ?>"><?= $size->size; ?>
                                                 <input type="radio" name="size_selector" value="<?= $size->id ?>" >
@@ -112,7 +112,7 @@
                 <div class="row">
 
                     <?php
-                    if(!empty($dataprovider) || $dataProvider != '') {
+                    if (!empty($dataprovider) || $dataProvider != '') {
                             $this->widget('zii.widgets.CListView', array(
                                 'dataProvider' => $dataProvider,
                                 'itemView' => '_view',
@@ -169,9 +169,8 @@
 //                    if ($(".min_value").html("<i class='fa fa-rupee'></i> " + ui.values[ 0 ]) && $(".max_value").html("<i class='fa fa-rupee'></i> " + ui.values[ 1 ]))
 //                    {
 //                        pricerange();
-//                    }
-                    $(".min_value").html("<i class='fa <?= Yii::app()->session['currency']->symbol; ?>'></i> " + ui.values[ 0 ]);
-                    $(".max_value").html("<i class='fa <?= Yii::app()->session['currency']->symbol; ?>'></i> " + ui.values[ 1 ]);
+//                  $(".min_value").html("<i class='fa <?= Yii::app()->session['currency'] != '' ? Yii::app()->session['currency']->symbol : 'fa-inr'; ?>'></i> " + ui.values[ 0 ]);
+                    $(".max_value").html("<i class='fa <?= Yii::app()->session['currency'] != '' ? Yii::app()->session['currency']->symbol : 'fa-inr'; ?>'></i> " + ui.values[ 1 ]);
                 },
                 stop: function (event, ui) {
                     showLoader();
