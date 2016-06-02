@@ -304,13 +304,14 @@ class MyaccountController extends Controller {
                                                         $user->save();
                                                         $wallet_add->unsetAttributes();
                                                 }
-                                        } else {
-                                                $this->redirect('Makepayment_debit');
                                         }
+//                                        else {
+//                                                $this->redirect('Makepayment_debit');
+//                                        }
                                         $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
                                         $page_url = $_SERVER["HTTP_REFERER"];
                                         $from = 'laksyah@intersmarthosting.in';
-                                        $to = $user->email;
+                                        $to = 'shahana@intersmart.in';
                                         $subject = 'Payment Information From ' . $from;
 
 
