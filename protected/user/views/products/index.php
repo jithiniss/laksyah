@@ -1,7 +1,7 @@
 <div class="container main_container product_archive">
     <?php
     $category_name = Yii::app()->request->getParam('name');
-    if ($category_name != "") {
+    if($category_name != "") {
             $get_cat_name = ProductCategory::model()->findByAttributes(array('canonical_name' => $category_name));
     }
     ?>
@@ -22,7 +22,7 @@
                     <?php echo $this->renderPartial('left_menu', array('category' => $category, 'parent' => $parent)); ?>
 
                 </div>
-                <h3 class="hidden"><i class="fa fa-align-justify "></i>Filter</h3>
+                <h3 class="hidden-xs"><i class="fa fa-align-justify "></i>Filter</h3>
                 <div class="laksyah_filters">
                     <div class="price_filter">
                         <h4>Price</h4>
@@ -41,7 +41,7 @@
                     </div>
                     <?php
                     $parent = Yii::app()->Menu->findParent($get_cat_name->id);
-                    if ($parent != 4) {
+                    if($parent != 4) {
                             ?>
                             <div class="size_filter">
                                 <h4>Size</h4>
@@ -49,7 +49,7 @@
 
                                     <?php
                                     $sizes = OptionCategory::model()->findAllByAttributes(array('option_type_id' => 2));
-                                    foreach ($sizes as $size) {
+                                    foreach($sizes as $size) {
                                             ?>
                                             <label for="small" class="" id="<?= $size->id ?>"><?= $size->size; ?>
                                                 <input type="radio" name="size_selector" value="<?= $size->id ?>" >
@@ -112,7 +112,7 @@
                 <div class="row">
 
                     <?php
-                    if (!empty($dataprovider) || $dataProvider != '') {
+                    if(!empty($dataprovider) || $dataProvider != '') {
                             $this->widget('zii.widgets.CListView', array(
                                 'dataProvider' => $dataProvider,
                                 'itemView' => '_view',
