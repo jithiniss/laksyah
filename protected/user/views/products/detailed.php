@@ -104,9 +104,9 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                 <?php } ?>
                                 <div class="mobile_slider">
                                         <div class="laksyah_slider">
+                                                <?php if (file_exists($big) == false) { ?>
+                                                        <div class = "item"> <img src = "<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/big.<?= $product->main_image ?>" id = "laksyah_zoom" data-zoom-image = "<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/big.<?= $product->main_image ?>"></div>
                                                 <?php
-                                                if (file_exists($big) == false) {
-
                                                 } else {
                                                         $dir_contents = scandir($big);
                                                         $i = 0;
@@ -432,7 +432,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                 <div class="modal-header text-left">
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                         <h2 class="modal-title">Enquiry</h2>
-                                                                        <h4>Please fill out the following form.</h4>
+
                                                                 </div>
                                                                 <div class="modal-body">
 
@@ -449,7 +449,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                         // 'enableAjaxValidation' => true,
                                                                                 ));
                                                                                 ?>
-
+                                                                                <h4>Please fill out the following form.</h4>
                                                                                 <p class="note">Fields with <span class="required">*</span> are required.</p>
 
 

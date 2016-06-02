@@ -1929,6 +1929,14 @@ Modal
         font-family: Merriweather, serif;
         margin-bottom: 20px;
 }
+.modal-body h4{
+
+        font-size: 14px;
+        font-style: italic;
+        font-weight: normal;
+        font-family: Merriweather, serif;
+        margin-bottom: 20px;
+}
 .modal-footer{
         border:none;
         padding:0px;

@@ -12,50 +12,59 @@
     <div class="row">
         <div class="col-sm-3 sidebar">
             <form name="slide_rnge" id="slide_rnge" method="post" action="<?= Yii::app()->baseUrl; ?>/index.php/products/Category/name/<?= $category_name ?>">
-                <h3><i class="fa fa-align-justify "></i>Category</h3>
+
+                <div class="filter_buttons">
+                    <h3 class="hidden visible-xs pull-right side_filter_toggle"><i class="fa fa-align-justify "></i>Filter</h3>
+                    <h3 class="side_nav_toggle"><i class="fa fa-align-justify "></i>Category</h3>
+                    <div class="clearfix"></div>
+                </div>
                 <div class="cat_nav">
                     <?php echo $this->renderPartial('left_menu', array('category' => $category, 'parent' => $parent)); ?>
-                </div>
-                <h3><i class="fa fa-align-justify "></i>Filter</h3>
-                <div class="price_filter">
-                    <h4>Price</h4>
-                    <p>
-
-                        <input type="hidden" id="amount" name="amount" readonly=""  style="border:0; color:#f6931f; font-weight:bold;" />
-                        <input type="hidden" id="amount1" name="amount1"readonly=""  style="border:0; color:#f6931f; font-weight:bold;" />
-                        <input type="hidden" id="cat_name" name="cat_name" value="<?= $get_cat_name->id; ?>"/>
-
-                    </p>
-                    <div id="slider-range"></div>
-                    <div class="slider_values"> <span class="min_value"></span><span class="max_value"></span>
-                        <div class="clearfix"></div>
-                    </div>
 
                 </div>
-                <?php
-                $parent = Yii::app()->Menu->findParent($get_cat_name->id);
-                if ($parent != 4) {
-                        ?>
-                        <div class="size_filter">
-                            <h4>Size</h4>
-                            <div class="size_selector">
+                <h3 class="hidden"><i class="fa fa-align-justify "></i>Filter</h3>
+                <div class="laksyah_filters">
+                    <div class="price_filter">
+                        <h4>Price</h4>
+                        <p>
 
-                                <?php
-                                $sizes = OptionCategory::model()->findAllByAttributes(array('option_type_id' => 2));
-                                foreach ($sizes as $size) {
-                                        ?>
-                                        <label for="small" class="" id="<?= $size->id ?>"><?= $size->size; ?>
-                                            <input type="radio" name="size_selector" value="<?= $size->id ?>" >
-                                        </label>
-                                <?php } ?>
-                                <input type="hidden" value="" id="selected_size" name="selected_size"/>
+                            <input type="hidden" id="amount" name="amount" readonly=""  style="border:0; color:#f6931f; font-weight:bold;" />
+                            <input type="hidden" id="amount1" name="amount1"readonly=""  style="border:0; color:#f6931f; font-weight:bold;" />
+                            <input type="hidden" id="cat_name" name="cat_name" value="<?= $get_cat_name->id; ?>"/>
 
-                            </div>
+                        </p>
+                        <div id="slider-range"></div>
+                        <div class="slider_values"> <span class="min_value"></span><span class="max_value"></span>
+                            <div class="clearfix"></div>
                         </div>
-                <?php } ?>
 
+                    </div>
+                    <?php
+                    $parent = Yii::app()->Menu->findParent($get_cat_name->id);
+                    if ($parent != 4) {
+                            ?>
+                            <div class="size_filter">
+                                <h4>Size</h4>
+                                <div class="size_selector">
+
+                                    <?php
+                                    $sizes = OptionCategory::model()->findAllByAttributes(array('option_type_id' => 2));
+                                    foreach ($sizes as $size) {
+                                            ?>
+                                            <label for="small" class="" id="<?= $size->id ?>"><?= $size->size; ?>
+                                                <input type="radio" name="size_selector" value="<?= $size->id ?>" >
+                                            </label>
+                                    <?php } ?>
+                                    <input type="hidden" value="" id="selected_size" name="selected_size"/>
+
+                                </div>
+                            </div>
+                    <?php } ?>
+
+                </div>
             </form>
         </div>
+
         <!-- / Sidebar-->
         <div class="col-sm-9">
             <div class="section_sort">
@@ -160,9 +169,8 @@
 //                    if ($(".min_value").html("<i class='fa fa-rupee'></i> " + ui.values[ 0 ]) && $(".max_value").html("<i class='fa fa-rupee'></i> " + ui.values[ 1 ]))
 //                    {
 //                        pricerange();
-//                    }
-                    $(".min_value").html("<i class='fa <?= Yii::app()->session['currency']->symbol; ?>'></i> " + ui.values[ 0 ]);
-                    $(".max_value").html("<i class='fa <?= Yii::app()->session['currency']->symbol; ?>'></i> " + ui.values[ 1 ]);
+//                  $(".min_value").html("<i class='fa <?= Yii::app()->session['currency'] != '' ? Yii::app()->session['currency']->symbol : 'fa-inr'; ?>'></i> " + ui.values[ 0 ]);
+                    $(".max_value").html("<i class='fa <?= Yii::app()->session['currency'] != '' ? Yii::app()->session['currency']->symbol : 'fa-inr'; ?>'></i> " + ui.values[ 1 ]);
                 },
                 stop: function (event, ui) {
                     showLoader();
