@@ -276,13 +276,11 @@ $(document).ready(function () {
         if (documentWidths < 768) {
                 $('.side_nav_toggle').click(function (e) {
                         $('.cat_nav').slideToggle();
-                         $('.laksyah_filters').slideUp();
                 });
         }
 
         $('.side_filter_toggle').click(function () {
                 $('.laksyah_filters').slideToggle();
-                 $('.cat_nav').slideUp();
         });
 
 

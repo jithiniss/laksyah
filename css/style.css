@@ -1929,13 +1929,6 @@ Modal
         font-family: Merriweather, serif;
         margin-bottom: 20px;
 }
-.modal-body h4{
-        font-size: 14px;
-        font-style: italic;
-        font-weight: normal;
-        font-family: Merriweather, serif;
-        margin-bottom: 20px;
-}
 .modal-footer{
         border:none;
         padding:0px;
@@ -2666,16 +2659,15 @@ p.meta{
 }
 .search_box ul{
         list-style:none;
-        margin: -31px;
+        margin:0px;
         position:absolute;
         padding:0px;
         border:solid 1px #d5d5d7;
-        left: 31px;
+        left:-1px;
         right:-1px;
         box-shadow: 0px 2px 3px rgba(0,0,0,0.24);
         z-index:200;
         background:#fff;
-        width: 249px;
 }
 .search_box ul li{
         line-height:22px;
@@ -2706,6 +2698,7 @@ scrolled Menu
         min-height:inherit;
         padding-bottom:10px;
 }
+
 .scrolled .logo_col img {
         width: 100px;
 }
@@ -2718,7 +2711,6 @@ scrolled Menu
 .scrolled .user_nav{
         margin-top:10px;
 }
-
 /*------------------------
 Media Queries
 ------------------------*/
