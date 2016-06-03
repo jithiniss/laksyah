@@ -83,10 +83,10 @@ class Products extends CActiveRecord {
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
                     array('id, category_id, main_image,hover_image, gallery_images, description, meta_title, meta_description, meta_keywords, header_visibility, sort_order, price, quantity, subtract_stock,discount,discount_type,discount_rate, requires_shipping, dimensionl, dimensionw, dimensionh, dimension_class, weight, weight_class, status, related_products, CB, UB, DOC, DOU', 'safe', 'on' => 'search'),
-                    array('id, category_id, gallery_images, description, meta_title, meta_description, meta_keywords, header_visibility, sort_order, price, quantity, subtract_stock,discount,discount_type,discount_rate, requires_shipping, dimensionl, dimensionw, dimensionh, dimension_class, weight, weight_class, status, related_products, CB, UB, DOC, DOU', 'safe'),
+                    array('id, category_id, gallery_images, description,product_details, meta_title, meta_description, meta_keywords, header_visibility, sort_order, price, quantity, subtract_stock,discount,discount_type,discount_rate, requires_shipping, dimensionl, dimensionw, dimensionh, dimension_class, weight, weight_class, status, related_products, CB, UB, DOC, DOU', 'safe'),
                     // array('main_image', 'file', 'types' => 'jpg, gif, png', 'safe' => false, 'allowEmpty' => false, 'on' => 'create'),
                     //array('gallery_images', 'file', 'types' => 'jpg, gif, png', 'safe' => false, 'allowEmpty' => false, 'on' => 'create'),
-                    array('category_id,product_name,product_code,main_image,description', 'required', 'on' => 'create'),
+                    array('category_id,product_name,product_code,main_image,description,product_details', 'required', 'on' => 'create'),
                 );
         }
 
@@ -116,6 +116,7 @@ class Products extends CActiveRecord {
                     'gallery_images' => 'Gallery Images',
                     'video' => 'Video',
                     'description' => 'Description',
+                    'product_details' => 'Product Details',
                     'meta_title' => 'Meta Title',
                     'meta_description' => 'Meta Description',
                     'meta_keywords' => 'Meta Keywords',
@@ -184,6 +185,7 @@ class Products extends CActiveRecord {
                 $criteria->compare('gallery_images', $this->gallery_images, true);
                 $criteria->compare('video', $this->video, true);
                 $criteria->compare('description', $this->description, true);
+                $criteria->compare('product_details', $this->product_details, true);
                 $criteria->compare('meta_title', $this->meta_title, true);
                 $criteria->compare('meta_description', $this->meta_description, true);
                 $criteria->compare('meta_keywords', $this->meta_keywords, true);
