@@ -134,6 +134,8 @@
                                         <?php
                                         $m = 1;
                                         foreach ($model as $models) {
+                                                $testimonial = $models->content;
+                                                $test = substr($testimonial, 0, 186);
                                                 ?>
 
                                                 <div class="item<?php
@@ -141,7 +143,7 @@
                                                         echo " active";
                                                 }
                                                 ?>">
-                                                        <p><?php echo $models->content; ?></p>
+                                                        <p><?php echo $test; ?></p>
                                                         <h3><?php echo $models->name; ?>,<?php echo $models->position; ?></h3>
                                                 </div>
                                                 <?php

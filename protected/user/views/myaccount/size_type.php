@@ -151,7 +151,7 @@
                                                 </div>
                                                 <div class="row">
                                                         <div class="col-xs-6">
-                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered measurement_table custm">
+                                                                <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered measurement_table custom">
                                                                         <tbody>
                                                                                 <tr>
                                                                                         <th class="col_slno"></th>
@@ -347,7 +347,7 @@
                                                 </div>
                                         </div>
                                         <div class="form_button">
-                                                <?php echo CHtml::submitButton($model->isNewRecord ? 'ADD NEW MEASUREMENT' : 'Save', array('class' => 'btn btn-primary ')); ?>
+                                                <?php echo CHtml::submitButton($model->isNewRecord ? 'SAVE AND SUBMIT' : 'Save', array('class' => 'btn btn-primary ')); ?>
                                         </div>
 
                                         <?php $this->endWidget(); ?>
