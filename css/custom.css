@@ -286,3 +286,6 @@ span.empty {
 
 
 }
+.testimonial_carousel .slide .carousel-inner{
+        height: 79px;
+}
