@@ -186,11 +186,10 @@ if (Yii::app()->user->hasFlash('login_list')):
                                                                                                 </div>
                                                                                                 <div class="clearfix"></div>
                                                                                         </li> </a>
-                                                                                <li class="my_account has_dropdown"><span class="account_icon"><i class="fa fa-user"></i></span><span class="account_title">My Account</span> <i class="fa fa-angle-down"></i>
+                                                                                <li class="my_account has_dropdown"><span class="account_icon"><i class="fa fa-user"></i></span><span class="account_title">Hi <?php echo Yii::app()->session['user']['first_name']; ?></span> <i class="fa fa-angle-down"></i>
                                                                                         <div class="laksyah_dropdown">
                                                                                                 <ul class="drop_menu">
                                                                                                         <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount" class="currency" >My Account</a></li>
-                                                                                                        <li><?php echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency')); ?></li>
                                                                                                         <li><?php echo CHtml::link('Log Out', array('site/Logout'), array('class' => 'currency')); ?></li>
                                                     <!--                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
                                                                                                 <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Myordernew" class="currency" >My Orders</a></li>
@@ -239,7 +238,7 @@ if (Yii::app()->user->hasFlash('login_list')):
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;                                              ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;                                                   ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">
