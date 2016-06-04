@@ -4,7 +4,7 @@
                 <?php echo $this->renderPartial('_staticmenu'); ?>
                 <!-- / Side <?php echo $this->renderPartial('_staticmenu'); ?>bar-->
                 <div class="col-sm-9 user_content">
-                        <h1>Contact Us</h1>
+                        <h1>Leave Message</h1>
                         <!--<div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 Success </div>-->

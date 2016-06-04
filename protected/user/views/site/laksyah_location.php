@@ -4,38 +4,16 @@
                 <?php echo $this->renderPartial('_staticmenu'); ?>
                 <!-- / Side <?php echo $this->renderPartial('_staticmenu'); ?>bar-->
                 <div class="col-sm-9 user_content">
-                        <h1>Contact Us</h1>
+                        <h1>Location</h1>
                         <!--<div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 Success </div>-->
                         <article>
                                 <div class="row">
-
                                         <div class="col-sm-12">
-                                                <div class="registration_form contact_us">
-                                                        <p><strong><em>To contact us via email, complete the fields below:</em></strong></p>
-                                                        <div class="form-group">
-                                                                <label>First Name*:</label>
-                                                                <input type="text" class="form-control" placeholder="" value="">
-                                                        </div>
-                                                        <div class="form-group">
-                                                                <label>Email*:</label>
-                                                                <input type="text" class="form-control" placeholder="" value="">
-                                                        </div>
-                                                        <div class="form-group">
-                                                                <label>Telephone*:*</label>
-                                                                <input type="text" class="form-control" placeholder="" value="">
-                                                        </div>
-                                                        <div class="form-group">
-                                                                <label>Message*:</label>
-                                                                <textarea class="form-control"></textarea>
-                                                        </div>
-                                                        <div class="form_button"> <strong>
-                                                                        <button class="btn-primary">SUBMIT</button>
-                                                                </strong> </div>
-                                                </div>
-                                        </div>
+                                                <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script><div style="overflow:hidden;height:400px;width:900px;"><div id="gmap_canvas" style="height:400px;width:900px;"><style>#gmap_canvas img{max-width:none!important;background:none!important}</style><a class="google-map-code" href="http://www.themecircle.net/wordpress-bootstrap/" id="get-map-data">themecircle</a></div></div><script type="text/javascript"> function init_map(){var myOptions = {zoom:17, center:new google.maps.LatLng(10.017696097283306, 76.34255990544432), mapTypeId: google.maps.MapTypeId.ROADMAP}; map = new google.maps.Map(document.getElementById("gmap_canvas"), myOptions); marker = new google.maps.Marker({map: map, position: new google.maps.LatLng(10.017696097283306, 76.34255990544432)}); infowindow = new google.maps.InfoWindow({content:"<b>Laksya</b><br/>Mavelipuram, Kakkanad<br/>682030 kakkanad" }); google.maps.event.addListener(marker, "click", function(){infowindow.open(map, marker); }); infowindow.open(map, marker); }google.maps.event.addDomListener(window, 'load', init_map);</script>                                        </div>
                                 </div>
+
                                 <div class="contact_us_details">
                                         <h4><i class="fa fa-phone-square"></i> +91 914 220 2222 &nbsp;&nbsp; <i class="fa fa-whatsapp"></i> +91 9656 30 3333</h4>
                                 </div>

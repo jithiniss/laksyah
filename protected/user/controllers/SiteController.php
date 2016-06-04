@@ -336,6 +336,16 @@ class SiteController extends Controller {
                 $this->render('contact_us', array('model' => $model));
         }
 
+        public function actionLocationLakysah() {
+                $model = '';
+                $this->render('laksyah_location', array('model' => $model));
+        }
+
+        public function actionLeavemessage() {
+                $model = '';
+                $this->render('leave_message', array('model' => $model));
+        }
+
         public function actionProductSubmission() {
                 $model = '';
                 $this->render('product_submission', array('model' => $model));
