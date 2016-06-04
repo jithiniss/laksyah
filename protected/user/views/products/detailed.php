@@ -14,6 +14,7 @@ foreach ($ids as $id) {
 $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 ?>
 
+
 <div class="container main_container">
         <div class="breadcrumbs">
                 <?php
@@ -249,7 +250,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                         <h3>Watch Video</h3>
                                                         <div class="video_thumb">
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
                                                                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/video_thumb.jpg" alt=""/>
                                                                 <a class="video_link laksyah_video fancybox.iframe" href="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>"><i class="fa fa-play-circle-o"></i></a>
                                                         </div>
@@ -305,7 +306,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                         ?>
                                                         <input type="hidden" value="" name="option_size" id="option_size"/>
                                                         <div class = "product_size size_filter">
-                                                                <h3>Select Size<span><a href = "#" data-toggle = "modal" data-target = "#sizechartModal">SIZE CHART</a></span></h3>
+                                                                <h3>Select Size<span><a href = "#" data-toggle = "modal" data-target = "#sizechartModal">SIZE GUIDE</a></span></h3>
                                                                 <?php
                                                                 if (!empty($sizes)) {
                                                                         ?>
@@ -363,7 +364,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                 $(document).ready(function () {
 <?php if (Yii::app()->user->hasFlash('enuirysuccess')) { ?>
                                                                 $("#myModal").modal('show');
-                                                                $(".modal-body").html('Your Enquiry Submitted Successfully');
+
 <?php } ?>
                                                 });</script>
                                         <div class="modal fade" id="sizechartModal" tabindex="-1" role="dialog">
@@ -371,7 +372,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                         <div class="modal-content">
                                                                 <div class="modal-header text-center">
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                                        <h2 class="modal-title">Size Chart</h2>
+                                                                        <h2 class="modal-title">SIZE GUIDE</h2>
                                                                 </div>
                                                                 <div class="modal-body text-center">
 
@@ -432,10 +433,17 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                 <div class="modal-header text-left">
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                         <h2 class="modal-title">Enquiry</h2>
-
+                                                                        <hr style="background-color: " />
                                                                 </div>
                                                                 <div class="modal-body">
 
+
+                                                                        <?php if (Yii::app()->user->hasFlash('enuirysuccess')): ?>
+                                                                                <div class="alert alert-success">
+                                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                                                        <?php echo Yii::app()->user->getFlash('enuirysuccess'); ?>
+                                                                                </div>
+                                                                        <?php endif; ?>
                                                                         <div class="form">
 
                                                                                 <?php
@@ -449,8 +457,6 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                         // 'enableAjaxValidation' => true,
                                                                                 ));
                                                                                 ?>
-                                                                                <h4>Please fill out the following form.</h4>
-                                                                                <p class="note">Fields with <span class="required">*</span> are required.</p>
 
 
                                                                                 <div class="row">
@@ -462,7 +468,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                         </div>
                                                                                         <div class="col-sm-6">
 
-                                                                                                <?php echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control', 'placeholder' => 'Email', 'autocomplete' => 'off')); ?>
+                                                                                                <?php echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control hello_form', 'placeholder' => 'Email', 'autocomplete' => 'off')); ?>
                                                                                                 <span style="color:red;">  <?php echo $form->error($model, 'email'); ?></span>
                                                                                         </div>
                                                                                 </div>
@@ -474,16 +480,16 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                                 <span style="color:red;">  <?php echo $form->error($model, 'phone'); ?></span>
                                                                                         </div>
                                                                                         <div class="col-sm-6">
-                                                                                                <?php echo CHtml::activeDropDownList($model, 'country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
+                                                                                                <?php echo CHtml::activeDropDownList($model, 'country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select Country--', 'class' => 'form-control')); ?>
 
                                                                                                 <span style="color:red;"> <?php echo $form->error($model, 'country'); ?></span></div>
                                                                                 </div>
 
 
                                                                                 <div class="row">
-                                                                                        <div class="col-sm-12">
+                                                                                        <div class="col-sm-6">
 
-                                                                                                <?php echo CHtml::activeDropDownList($model, 'size', CHtml::listData(MasterSize::model()->findAll(), 'id', 'size'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
+                                                                                                <?php echo CHtml::activeDropDownList($model, 'size', CHtml::listData(MasterSize::model()->findAll(), 'id', 'size'), array('empty' => '--Select Size--', 'class' => 'form-control')); ?>
                                                                                                 <?php echo $form->error($model, 'size'); ?>
                                                                                         </div>
 
@@ -491,18 +497,28 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                 <div class="row">
 
                                                                                         <div class="col-sm-12">
-                                                                                                <?php
-//                                                                                                $this->widget('application.admin.extensions.eckeditor.ECKEditor', array(
-//                                                                                                    'model' => $model,
-//                                                                                                    'attribute' => 'requirement',
-//                                                                                                ));
-                                                                                                ?>
+
+                                                                                                <?php echo $form->textArea($model, 'requirement', array('maxlength' => 300, 'class' => 'form-control', 'placeholder' => 'Requirement')); ?>
                                                                                                 <?php echo $form->error($model, 'requirement'); ?></div>
+                                                                                </div>
+
+                                                                                <?php
+                                                                                //echo $this->widget('application.user.extensions.captcha.CaptchaExtendedAction', array(
+                                                                                //'model' => $model,
+                                                                                // 'attribute' => 'description',
+                                                                                // ));
+                                                                                ?>
+                                                                                <div class="col-sm-6">
+                                                                                        <?php $this->widget("CCaptcha", array('buttonLabel' => 'change one for me', 'buttonOptions' => array('style' => 'margin-bottom:20px;'))); ?>
+
+                                                                                        <?php echo $form->textField($model, 'verifyCode', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control', 'placeholder' => 'Phone Number', 'autocomplete' => 'off')); ?>
+
+                                                                                        <span style="color:red;">  <?php echo $form->error($model, 'verifyCode'); ?></span>
                                                                                 </div>
 
                                                                                 <div class="modal-footer">
                                                                                         <?php echo CHtml::submitButton($model->isNewRecord ? 'SUBMIT' : 'Save', array('class' => 'btn btn-primary')); ?>
-                                                                                        <?php echo CHtml::resetButton($model->isNewRecord ? 'Reset' : 'Save', array('class' => 'btn btn-default')); ?>
+                                                                                        <?php //echo CHtml::resetButton($model->isNewRecord ? 'Reset' : 'Save', array('class' => 'btn btn-default'));  ?>
 
                                                                                 </div>
                                                                                 <?php $this->endWidget(); ?>
@@ -789,7 +805,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                         <ul class="nav nav-tabs" role="tablist">
                                                                 <li role="presentation" class="active"><a href="#description" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
                                                                 <li role="presentation"><a href="#details" aria-controls="profile" role="tab" data-toggle="tab">Details</a></li>
-                                                                <li role="presentation"><a href="#sizechart" aria-controls="settings" role="tab" data-toggle="tab">Size Charts</a></li>
+                                                                <li role="presentation"><a href="#sizechart" aria-controls="settings" role="tab" data-toggle="tab">SIZE GUIDE</a></li>
                                                         </ul>
 
                                                         <!-- Tab panes -->
@@ -930,11 +946,15 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                 $(".buy_now").click(function () {
 
                         var id = $(this).attr('id');
-                        optionValidation(id);
+                        if (optionValidation(id) == false) {
+
+                        } else {
+                                setTimeout(function () {
+                                        window.location.replace(baseurl + "/cart/Mycart/");
+                                }, 1000);
+                        }
                         //  window.location.origin + baseurl + "cart/Mycart";
-                        setTimeout(function () {
-                                window.location.replace(baseurl + "/cart/Mycart/");
-                        }, 1000);
+
 
 
                 });
@@ -989,10 +1009,13 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                         if (option_color.length == 0 && option_size.length == 0) {
                                 $('.option_errors').html('<p>Product color required</p><p>Product size required</p>').show();
+                                return false;
                         } else if (option_color.length == 0) {
                                 $('.option_errors').html('<p>Product color required</p>').show();
+                                return false;
                         } else if (option_size.length == 0) {
                                 $('.option_errors').html('<p>Product size required</p>').show();
+                                return false;
                         } else {
                                 $('.option_errors').html("").hide();
                                 addtocart(canname, qty, option_color, option_size, master_option);
@@ -1001,6 +1024,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                         if (option_color.length == 0) {
                                 $('.option_errors').html('<p>Product color required</p>').show();
+                                return false;
                         } else {
                                 $('.option_errors').html("").hide();
                                 addtocart(canname, qty, option_color, option_size, master_option);
@@ -1008,6 +1032,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                 } else if (option_type == 2) {
                         if (option_size.length == 0) {
                                 $('.option_errors').html('<p>Product size required</p>').show();
+                                return false;
                         } else {
                                 $('.option_errors').html("").hide();
                                 addtocart(canname, qty, option_color, option_size, master_option);

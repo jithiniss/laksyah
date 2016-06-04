@@ -24,4 +24,12 @@ class Controller extends CController {
          */
         public $breadcrumbs = array();
 
+        public function init() {
+                // import class paths for captcha extended
+                Yii::$classMap = array_merge(Yii::$classMap, array(
+                    'CaptchaExtendedAction' => Yii::getPathOfAlias('ext.captchaExtended') . DIRECTORY_SEPARATOR . 'CaptchaExtendedAction.php',
+                    'CaptchaExtendedValidator' => Yii::getPathOfAlias('ext.captchaExtended') . DIRECTORY_SEPARATOR . 'CaptchaExtendedValidator.php'
+                ));
+        }
+
 }

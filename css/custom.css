@@ -233,7 +233,7 @@ input#email {
         margin-top: 20px;
 }
 .scrolled {
-        /*z-index: 1000;*/
+        z-index: 1049;
         -moz-box-shadow: 1px 3px 7px #000000;
         /* -webkit-box-shadow: 1px 3px 7px #000000; */
         /* box-shadow: 1px 3px 7px #000000; */
@@ -296,4 +296,8 @@ span.empty {
         font-weight: normal;
         font-family: Merriweather, serif;
         margin-bottom: 20px;
+}
+
+span.required {
+        color: red;
 }

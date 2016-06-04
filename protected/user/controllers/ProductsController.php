@@ -2,6 +2,14 @@
 
 class ProductsController extends Controller {
 
+        public function actions() {
+                return array(
+                    'captcha' => array(
+                        'class' => 'CCaptchaAction',
+                    ),
+                );
+        }
+
         public function actionCategory($name) {
                 $parent = ProductCategory::model()->findByAttributes(array('canonical_name' => $name));
                 if (empty($parent)) {
@@ -93,9 +101,17 @@ class ProductsController extends Controller {
                 if (isset($_POST['ProductEnquiry'])) {
 
                         $model->attributes = $_POST['ProductEnquiry'];
+                        $model->name = $_POST['ProductEnquiry']['name'];
+                        $model->requirement = $_POST['ProductEnquiry']['requirement'];
                         if ($model->validate()) {
-                                $model->save();
-                                Yii::app()->user->setFlash('enuirysuccess', "Your Enquiry Send Successfully ");
+                                if ($model->save()) {
+
+                                        Yii::app()->user->setFlash('enuirysuccess', "Your Enquiry Send Successfully ");
+
+
+                                        $this->ProductEnquiryMail($model);
+                                        $model->unsetAttributes();
+                                }
                         }
                 }
                 if (!empty($prduct)) {
@@ -103,6 +119,31 @@ class ProductsController extends Controller {
                 } else {
                         $this->redirect(array('Site/Error'));
                 }
+        }
+
+        public function ProductEnquiryMail($model) {
+
+                //$to = 'rejin@intersmart.in';
+                $to = $model->email;
+
+                $subject = 'Product Enquiry';
+                $message = $this->renderPartial('mail/_product_enquiry_mail_client', array('model' => $model), true);
+
+                $message1 = $this->renderPartial('mail/_product_enquiry_mail_admin', array('model' => $model), true);
+                echo $message;
+                echo $message1;
+                exit;
+                // Always set content-type when sending HTML email
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+                // More headers
+                $headers .= 'From: <store@intersmarthosting.in>' . "\r\n";
+                //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
+                //  echo $message;
+                //  exit();
+                mail($to, $subject, $message, $headers);
+                mail($to, $subject, $message1, $headers);
         }
 
 //        public function actionEnquiry() {

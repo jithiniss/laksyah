@@ -30,14 +30,16 @@ class ProductEnquiry extends CActiveRecord {
                 return 'product_enquiry';
         }
 
+        public $verifyCode;
+
         /**
          * @return array validation rules for model attributes.
          */
         public function rules() {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
-
                 return array(
+                    array('verifyCode', 'captcha', 'allowEmpty' => !extension_loaded('gd')),
                     array('name, email, phone, country,  product_id', 'required'),
                     array('country, size, product_id, user_id', 'numerical', 'integerOnly' => true),
                     array('name, email', 'length', 'max' => 250),

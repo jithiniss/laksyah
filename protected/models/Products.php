@@ -63,6 +63,8 @@ class Products extends CActiveRecord {
                 return 'products';
         }
 
+        //   public $verifyCode;
+
         /**
          * @return array validation rules for model attributes.
          */
@@ -70,6 +72,7 @@ class Products extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
+                    //   array('verifyCode', 'captcha', 'allowEmpty' => !extension_loaded('gd')),
                     //array('category_id, main_image, gallery_images, description, meta_title, meta_description, meta_keywords, header_visibility, sort_order, price, quantity, subtract_stock, requires_shipping, dimensionl, dimensionw, dimensionh, dimension_class, weight, weight_class, status, related_products, CB, UB, DOC', 'required'),
                     array('header_visibility, sort_order, quantity, subtract_stock, requires_shipping, dimension_class, weight_class, status, CB, UB', 'numerical', 'integerOnly' => true),
                     array('price, dimensionl, dimensionw, dimensionh, weight', 'numerical'),

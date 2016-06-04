@@ -6,6 +6,7 @@
 // CWebApplication properties can be configured here.
 $user = dirname(dirname(__FILE__));
 Yii::setPathOfAlias('user', $user);
+Yii::setPathOfAlias('captcha', dirname(__FILE__) . '/../extensions/captchaExtended-1.0.2');
 return array(
     'basePath' => dirname($user),
     'runtimePath' => $user . '/runtime',
@@ -21,6 +22,8 @@ return array(
         'user.components.*',
         'user.controllers.*',
         'user.views.*',
+        'user.extensions.captcha.CaptchaExtendedAction',
+        'user.extensions.captcha.CaptchaExtendedValidator',
     ),
     'modules' => array(
 // uncomment the following to enable the Gii tool
