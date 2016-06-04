@@ -239,7 +239,7 @@ if (Yii::app()->user->hasFlash('login_list')):
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;              ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;                                            ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">
@@ -351,12 +351,16 @@ if (Yii::app()->user->hasFlash('login_list')):
                                                         <div id="back-to-top" style="display: block;"> <a href="#top" class="back-to-top" style="display: block;"></a> </div>
                                                 </div>
                                         </div>
+                                        <?php
+                                        $measurement = MeasurementPdfs::model()->findByPk(1);
+                                        $file = "../uploads/measurement_pdf/" . $measurement->id . "." . $measurement->file;
+                                        ?>
                                         <div class="footer-menu">
                                                 <div class="container">
                                                         <ul>
                                                                 <li><?php echo CHtml::link('About Us', array('site/AboutUs')); ?> | </li>
                                                                 <li><?php echo CHtml::link('Contact  Us', array('site/ContactLakysah')); ?> | </li>
-                                                                <li><?php echo CHtml::link('Make An Appointment', array('site/BookAppointment')); ?> | </li>
+                                                                <li><?php echo CHtml::link('Download Measurement', array($file), array('download' => true)) ?> | </li>
                                                                 <li><?php echo CHtml::link('Policies', array('site/ShippingPolicy')); ?> | </li>
                                                                 <li><?php echo CHtml::link('Product Submission', array('site/productsubmission')); ?> | </li>
                                                                 <li><a href="#">Careers</a>|</li>

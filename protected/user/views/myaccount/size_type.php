@@ -127,14 +127,19 @@
                                                         <li>Please ensure the measure tape is held by the other person</li>
                                                         <li>Do give us your exact body measurements and allow us to keep the margins accordingly. </li>
                                                 </ul>
-                                                <p>
-                                                        <?php // echo CHtml::link('Download Measurement Form', array('download' => 'images/thumb_big2.jpg'), array('class' => 'text_link')); ?>
-                                                        <a href="<?php echo Yii::app()->request->baseUrl; ?>/images/thumb_big2.jpg" download class="text_link">Download Measurement Form</a></p>
+                                                <?php
+                                                $measurement = MeasurementPdfs::model()->findByPk(1);
+                                                $file = "../uploads/measurement_pdf/" . $measurement->id . "." . $measurement->file;
+                                                ?>
+                                                <p>  <?php
+                                                        echo CHtml::link('Download Measurement Form', array($file), array('download' => true, 'class' => 'text_link'));
+                                                        ?></p>
                                                 <div>
                                                         <label> </label>
 
-                                                        <div class="price_group radio_buttons">
-                                                                <?php $model->unit = 2; ?>
+                                                        <div class = "price_group radio_buttons">
+                                                                <?php $model->unit = 2;
+                                                                ?>
                                                                 <p class="pull-left padd-right-25">Measurement Unit :</p>
                                                                 <label class="radio_group ">
                                                                         <?php echo $form->radioButton($model, 'unit', array('value' => 1, 'uncheckValue' => null, 'hidden' => 'true')); ?>
