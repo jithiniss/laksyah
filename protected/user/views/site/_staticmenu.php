@@ -3,7 +3,7 @@
                 <ul class="catmenu">
                         <li class="active"><?php echo CHtml::link('About Us', array('site/AboutUs')); ?></li>
                         <li> <?php echo CHtml::link('Contact  Us', array('site/ContactLakysah')); ?></li>
-                        <li> <?php echo CHtml::link('Make An Appointment', array('site/BookAppointment')); ?></li>
+                        <li> <?php echo CHtml::link('Made to Measure', array('site/BookAppointment')); ?></li>
                         <li> <?php echo CHtml::link('Product Submission', array('site/productsubmission')); ?></li>
                         <li> <?php echo CHtml::link('Support', array('site/Support')); ?></li>
                         <li> <?php echo CHtml::link('Q&A', array('site/Faq')); ?></li>

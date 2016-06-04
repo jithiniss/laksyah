@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <meta charset="utf-8">
                 <meta http-equiv="X-UA-Compatible" content="IE=edge">
                 <title>laKsyah | Admin</title>
-                <!--<script src="<?php // echo Yii::app()->baseUrl                                                                                                                                                                                                                                                                                          ?>/admin-themes/plugins/jQuery/jQuery-2.1.4.min.js"></script>-->
+                <!--<script src="<?php // echo Yii::app()->baseUrl                                                                                                                                                                                                                                                                                                      ?>/admin-themes/plugins/jQuery/jQuery-2.1.4.min.js"></script>-->
                 <!-- Tell the browser to be responsive to screen width -->
                 <link rel="stylesheet" href="<?php echo Yii::app()->baseUrl; ?>/css/admin.css">
                 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -26,7 +26,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <link rel="stylesheet" href="<?php echo Yii::app()->baseUrl; ?>/css/admin.css">
 
                 <!-- Bootstrap 3.3.5 -->
-        <!--        <link rel="stylesheet" href="<?php //echo Yii::app()->baseUrl;                                                                                               ?>/admin-themes/bootstrap/css/bootstrap.min.css">-->
+        <!--        <link rel="stylesheet" href="<?php //echo Yii::app()->baseUrl;                                                                                                           ?>/admin-themes/bootstrap/css/bootstrap.min.css">-->
                 <!-- Font Awesome -->
                 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
                 <!-- Ionicons -->
@@ -248,6 +248,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                         $action235 = "active";
                                                         $actionn535 = "active";
                                                         break;
+                                                case "banner":
+                                                        $action245 = "active";
+                                                        $actionn545 = "active";
+                                                        break;
+
                                                 case "site":
                                                         if (Yii::app()->controller->action->id == "home") {
                                                                 $action18 = "active";
@@ -325,6 +330,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                                         <li class="<?php echo $action7 ?>"><a href="<?php echo Yii::app()->baseUrl ?>/admin.php/cms/HomeCategory/admin"><i class="fa fa-circle-o"></i> Home Category</a></li>
                                                                         <li class="<?php echo $action8 ?>"><a href="<?php echo Yii::app()->baseUrl ?>/admin.php/cms/HomeSubcategory/admin"><i class="fa fa-circle-o"></i> Home Sub category</a></li>
                                                                         <li class="<?php echo $action235 ?>"><a href="<?php echo Yii::app()->baseUrl ?>/admin.php/cms/MeasurementPdfs/admin"><i class="fa fa-circle-o"></i> Measurements Downloads</a></li>
+                                                                        <li class="<?php echo $action245 ?>"><a href="<?php echo Yii::app()->baseUrl ?>/admin.php/cms/Banner/admin"><i class="fa fa-circle-o"></i> Banner Images</a></li>
 
                                                                 </ul>
                                                         </li>
@@ -349,6 +355,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                                                         <i class="fa fa-at"></i><span>Email Templates</span>
                                                                 </a>
                                                         </li>
+
                                                 <?php } ?>
 
                                                 <?php if (isset(Yii::app()->session['post']['coupons']) && Yii::app()->session['post']['coupons'] == 1) { ?>
