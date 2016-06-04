@@ -135,17 +135,19 @@
                                         $m = 1;
                                         foreach ($model as $models) {
                                                 $testimonial = $models->content;
-                                                $test = substr($testimonial, 0, 186);
-                                                ?>
-
-                                                <div class="item<?php
-                                                if ($m == '1') {
-                                                        echo " active";
-                                                }
-                                                ?>">
-                                                        <p><?php echo $test; ?></p>
-                                                        <h3><?php echo $models->name; ?>,<?php echo $models->position; ?></h3>
-                                                </div>
+                                                $test = substr($testimonial, 0, 140);
+                                                if ($m == 1) {
+                                                        ?>
+                                                        <div class="item active ">
+                                                                <p><?php echo $test; ?></p>
+                                                                <h3><?php echo $models->name; ?>,<?php echo $models->position; ?></h3>
+                                                        </div>
+                                                <?php } else { ?>
+                                                        <div class="item ">
+                                                                <p><?php echo $test; ?></p>
+                                                                <h3><?php echo $models->name; ?>,<?php echo $models->position; ?></h3>
+                                                        </div>
+                                                <?php } ?>
                                                 <?php
                                                 $m = $m + 1;
                                         }

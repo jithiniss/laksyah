@@ -32,7 +32,8 @@ class Testimonial extends CActiveRecord {
                 return array(
                     array('name, position, content, status', 'required'),
                     array('status, cb, ub', 'numerical', 'integerOnly' => true),
-                    array('name, position', 'length', 'max' => 111),
+                    array('content', 'length', 'max' => 140),
+                    array('name, position', 'length', 'min' => 15, 'max' => 20),
                     //array('content', 'length', 'max' => 300),
                     array('dou', 'safe'),
                     // The following rule is used by search().
