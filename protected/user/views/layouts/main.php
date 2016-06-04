@@ -100,7 +100,7 @@ if (Yii::app()->user->hasFlash('login_list')):
                                         <div class="row">
                                                 <div class="col-sm-5 col-md-6 mobile-inline">
                                                         <ul>
-                                                                <li> <?php echo CHtml::link('<i class="fa fa-calendar"></i> <span class="hidden-xs">Make an </span>Appointment', array('site/BookAppointment')); ?></li>
+                                                                <li> <?php echo CHtml::link('<i class="fa fa-calendar"></i> <span class="hidden-xs">Made to </span>Measure', array('site/BookAppointment')); ?></li>
                                                                 <li  class="hidden-mobile">
                                                                         <?php echo CHtml::link('<i class="fa fa-map-marker"></i> Location', array('site/ContactLakysah')); ?></li>
                                                         </ul>
@@ -239,7 +239,7 @@ if (Yii::app()->user->hasFlash('login_list')):
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;          ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;           ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">

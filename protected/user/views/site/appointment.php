@@ -4,11 +4,11 @@
 /* @var $form CActiveForm */
 ?>
 <div class="container main_container inner_pages ">
-        <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?>  <span>/</span> <?php echo CHtml::link('My Account', array('Myaccount/index')); ?> <span>/</span> Make an Appointment </div>
+        <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?>  <span>/</span> <?php echo CHtml::link('My Account', array('Myaccount/index')); ?> <span>/</span> Made to Measure</div>
         <div class="row">
                 <?php echo $this->renderPartial('_staticmenu'); ?>
                 <div class="col-sm-9 user_content">
-                        <h1>Make An Appointment</h1>
+                        <h1>Made to Measure</h1>
                         <?php if (Yii::app()->user->hasFlash('success')): ?>
                                 <div class="alert alert-success normal">
                                         <strong>Success!</strong> <?php echo Yii::app()->user->getFlash('success'); ?>
