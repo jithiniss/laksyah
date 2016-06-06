@@ -47,17 +47,19 @@ if (Yii::app()->user->hasFlash('login_list')):
         ?>
                                         $("#login").modal('show');
 <?php endif; ?>
+<?php
+if (Yii::app()->user->hasFlash('newsletter')) {
+        ?>
+                                        $("#subscribeModal").modal('show');
+<?php }if (Yii::app()->user->hasFlash('error_newsletter')) { ?>
+                                        $("#subscribeModal").modal('show');
+<?php }if (Yii::app()->user->hasFlash('newslettererror')) { ?>
+                                        $("#subscribeModal").modal('show');
+<?php }if (Yii::app()->user->hasFlash('newslettererror1')) { ?>
+                                        $("#subscribeModal").modal('show');
+<?php } ?>
                         });</script>
-                <?php if (Yii::app()->user->hasFlash('success')): ?>
-                        <div class="alert alert-success normal">
-                                <strong>Success!</strong> <?php echo Yii::app()->user->getFlash('success'); ?>
-                        </div>
-                <?php endif; ?>
-                <?php if (Yii::app()->user->hasFlash('error')): ?>
-                        <div class="alert alert-danger">
-                                <strong>Danger!</strong> <?php echo Yii::app()->user->getFlash('error'); ?>
-                        </div>
-                <?php endif; ?>
+
                 <div class="modal" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -105,11 +107,37 @@ if (Yii::app()->user->hasFlash('login_list')):
                                                 <h2 class="modal-title">Sign up for newsletters</h2>
                                                 <h4>Please fill out the following form.</h4>
                                         </div>
+                                        <?php if (Yii::app()->user->hasFlash('newsletter')): ?>
+                                                <div class="alert alert-success mesage">
+                                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                                        <strong>success!</strong><?php echo Yii::app()->user->getFlash('newsletter'); ?>
+                                                </div>
+                                        <?php endif; ?>
+                                        <?php if (Yii::app()->user->hasFlash('error_newsletter')): ?>
+                                                <div class="alert alert-danger mesage">
+                                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                                        <strong>sorry!</strong><?php echo Yii::app()->user->getFlash('error_newsletter'); ?>
+                                                </div>
+                                        <?php endif; ?>
+                                        <?php if (Yii::app()->user->hasFlash('newslettererror')): ?>
+                                                <div class="alert alert-danger mesage">
+                                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                                        <strong>sorry!</strong><?php echo Yii::app()->user->getFlash('newslettererror'); ?>
+                                                </div>
+                                        <?php endif; ?>
+                                        <?php if (Yii::app()->user->hasFlash('newslettererror1')): ?>
+                                                <div class="alert alert-danger mesage">
+                                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                                        <strong>sorry!</strong><?php echo Yii::app()->user->getFlash('newslettererror1'); ?>
+                                                </div>
+                                        <?php endif; ?>
                                         <div class="modal-body">
                                                 <form  name="newsletters" id="login_form" action="<?= Yii::app()->baseUrl; ?>/index.php/Site/Newsletter" method="POST">
                                                         <div class="row">
-                                                                <div class="col-sm-6"><input class="form-control" type="text" name="name" placeholder="First Name" autocomplete="off"></div>
-                                                                <div class="col-sm-6"><input class="form-control" type="text" name="email" placeholder="Email Id" autocomplete="off"></div>
+                                                                <div class="col-sm-6"><input class="form-control" type="text" name="Newsletter[first_name]" placeholder="First Name" autocomplete="off"></div>
+
+                                                                <div class="col-sm-6"><input class="form-control" type="text" name="Newsletter[email]" placeholder="Email Id" autocomplete="off"></div>
+
                                                         </div>
 
                                                         <div class="modal-footer">
@@ -269,7 +297,7 @@ if (Yii::app()->user->hasFlash('login_list')):
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;                                                                    ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;                                                                                           ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">

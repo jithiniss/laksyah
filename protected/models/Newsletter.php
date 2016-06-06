@@ -30,6 +30,7 @@ class Newsletter extends CActiveRecord {
                     array('status', 'numerical', 'integerOnly' => true),
                     array('first_name', 'length', 'max' => 200),
                     array('email', 'length', 'max' => 225),
+                    array('email', 'email'),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
                     array('id, first_name, email, status, date', 'safe', 'on' => 'search'),

@@ -276,16 +276,22 @@ class SiteController extends Controller {
                 $model = new Newsletter;
                 if (isset($_POST['submit'])) {
                         $model->attributes = $_POST['submit'];
-                        $model->first_name = $_POST['name'];
-                        $model->email = $_POST['email'];
+                        $model->first_name = $_POST['Newsletter']['first_name'];
+                        $model->email = $_POST['Newsletter']['email'];
                         $model->status = 1;
                         $model->date = date('Y-m-d');
                         if ($model->validate()) {
                                 if ($model->save()) {
                                         // $this->SuccessMail();
-                                        Yii::app()->user->setFlash('success', " Your email send successfully");
+                                        Yii::app()->user->setFlash('newsletter', " Your email send successfully");
                                 } else {
-                                        Yii::app()->user->setFlash('error', "Error Occured");
+                                        Yii::app()->user->setFlash('error_newsletter', "Error Occured");
+                                }
+                        } else {
+                                if ($model->first_name != '' || $model->email != '') {
+                                        Yii::app()->user->setFlash('newslettererror', "Please Fill the Feilds in correct format");
+                                } else {
+                                        Yii::app()->user->setFlash('newslettererror1', "Please Fill the  Feilds");
                                 }
                         }
                         $this->redirect('Index');
