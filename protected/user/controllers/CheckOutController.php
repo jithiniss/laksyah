@@ -360,7 +360,7 @@ class CheckOutController extends Controller {
 
 
                                         if($wallet != $post_wallet || $total_balance_to_pay != $post_total_pay) {
-                                                Yii::app()->user->setFlash('checkout_error', "Ther an error found on checkout please fill carefully and check out again");
+                                                Yii::app()->user->setFlash('checkout_error', "There an error found on checkout please fill carefully and check out again");
                                                 $this->redirect(array('CheckOut/CheckOut'));
                                         }
                                         if($bill_address_id != '' && $ship_address_id != '') {
@@ -372,11 +372,28 @@ class CheckOutController extends Controller {
                                                 if($wallet > 0) {
 
                                                         $user->wallet_amt = $currentwallet - $wallet;
+
+                                                        /* wallet entry starts */
+
+                                                        $wallet_amount = new WalletHistory;
+                                                        $wallet_amount->user_id = Yii::app()->session['user']['id'];
+                                                        $wallet_amount->type_id = 4;
+                                                        $wallet_amount->amount = $wallet;
+                                                        $wallet_amount->entry_date = date('Y-m-d H:i:s');
+                                                        $wallet_amount->credit_debit = 2;
+                                                        $wallet_amount->balance_amt = $currentwallet - $wallet;
+                                                        $wallet_amount->ids = $order_id;
+                                                        $wallet_amount->field2 = 1;
+                                                        $wallet_amount->save(FALSE);
+
+                                                        /* wallet entry ends */
+
                                                         $gift_packing = $this->giftpack($order->id);
                                                         if($gift_packing > 0) {
                                                                 $order->gift_option = 1;
                                                                 $order->rate = $gift_packing;
                                                         }
+
                                                         $order->payment_mode = 1;
                                                         $order->payment_status = 1;
                                                         $order->bill_address_id = $bill_address_id;
@@ -392,6 +409,7 @@ class CheckOutController extends Controller {
                                                                         $this->updatecoupon($coupen);
                                                                 }
                                                                 $this->redirect(array('OrderSuccess'));
+                                                                // $this->redirect(array('OrderFailed'));
                                                         }
                                                 } else {
 
@@ -415,8 +433,8 @@ class CheckOutController extends Controller {
 
                                                                 $this->updateorderproduct($order->id);
                                                                 //$this->redirect(array('OrderHistory'));
-
                                                                 $this->redirect(array('OrderSuccess'));
+                                                                // $this->redirect(array('OrderFailed'));
                                                         }
 //
                                                 }
@@ -614,111 +632,116 @@ class CheckOutController extends Controller {
         /* mail send to admin and user */
 
         public function actionOrderSuccess() {
-                $order = Order::model()->findByPk(yii::app()->session['orderid']);
 
+                if(isset(Yii::app()->session['orderid']) && Yii::app()->session['user']['id'] != '') {
+                        $order = Order::model()->findByPk(Yii::app()->session['orderid']);
+                        $userdetails = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+                        if(!empty($order) && !empty($userdetails)) {
+                                $order->payment_status = 1;
+                                $order->status = 1;
+                                if($order->save()) {
 
-                $user_address = UserAddress::model()->findByPk($order->ship_address_id);
+                                        $this->SuccessMail();
 
-                $bill_address = UserAddress::model()->findByPk($order->bill_address_id);
-                $shiping_charge = ShippingCharges::model()->findByPk($user_address->country);
-                $order_details = OrderProducts::model()->findAllByAttributes(array('order_id' => $order->id));
-
-                $this->SendMail($order);
-                $this->adminmail($order);
-
-                unset(yii::app()->session['orderid']);
-                $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
-                Yii::app()->session['user'] = $user;
-                unset(yii::app()->session['orderid']);
-
-                $this->render('order_success');
+                                        Yii::app()->session['user'] = $userdetails;
+                                        unset(Yii::app()->session['orderid']);
+                                        $this->render('order_success');
+                                }
+                        } else {
+                                $order->payment_status = 2;
+                                $order->status = 3;
+                                if($order->save()) {
+                                        $this->render('order_failed');
+                                }
+                        }
+                } else {
+                        $this->render('site/error');
+                }
         }
 
-        public function SendMail($order) {
+        public function SuccessMail() {
                 $order = Order::model()->findByPk(yii::app()->session['orderid']);
-                $mail = UserDetails::model()->findByPk($order->user_id);
+                $userdetails = UserDetails::model()->findByPk($order->user_id);
                 $user_address = UserAddress::model()->findByPk($order->ship_address_id);
                 $bill_address = UserAddress::model()->findByPk($order->bill_address_id);
                 $order_details = OrderProducts::model()->findAllByAttributes(array('order_id' => $order->id));
                 $shiping_charge = ShippingCharges::model()->findByAttributes(array('country' => $user_address->country));
-                // var_dump($order);
-                //var_dump($shiping_charge);
-                //exit;
+                //$user = $userdetails->email;
+                $user = 'sibys09@gmail.com';
+                $user_subject = 'Order Confirmation - Your Order with laksyah.com [' . $order->id . '] has been successfully placed!';
+                $user_message = $this->renderPartial('_user_order_success_mail', array('order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge), true);
 
-                $to = $mail->email;
-                $subject = 'info_lakshya';
-                $message = $this->renderPartial('_user_order_mail', array('order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge, '$gift_rate' => $gift_rate));
+                $admin = 'sibys09@gmail.com';
+                $admin_subject = 'laksyah.com: New Order to admin # ' . $order->id;
+                $admin_message = $this->renderPartial('_admin_order_success_mail', array('userdetails' => $userdetails, 'order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge), true);
+
                 // Always set content-type when sending HTML email
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                 // More headers
-                $headers .= 'From: <no-reply@lakshya.com>' . "\r\n";
+                $headers .= 'From: <no-reply@intersmarthosting.in>' . "\r\n";
                 //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
-                // echo $message;
-
-                mail($to, $subject, $message, $headers);
-        }
-
-        public function Adminmail($order) {
-                $order = Order::model()->findByPk(yii::app()->session['orderid']);
-
-
-                $user_address = UserAddress::model()->findByPk($order->ship_address_id);
-
-                $bill_address = UserAddress::model()->findByPk($order->bill_address_id);
-
-                $order_details = OrderProducts::model()->findAllByAttributes(array('order_id' => $order->id));
-
-                $shiping_charge = ShippingCharges::model()->findByAttributes(array('country' => $user_address->country));
-
-
-                $to = 'rejin@intersmart.in';
-                $subject = 'info_lakshya';
-                $message = $this->renderPartial('_admin_order_mail', array('order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge));
-                // Always set content-type when sending HTML email
-                $headers = "MIME-Version: 1.0" . "\r\n";
-                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-
-                // More headers
-                $headers .= 'From: <no-reply@lakshya.com>' . "\r\n";
-                //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
-                //echo $message;
-
-                mail($to, $subject, $message, $headers);
+                // echo $user_message;
+                // echo $admin_message;
+                //unset(Yii::app()->session['orderid']);
+                // exit;
+                mail($user, $user_subject, $user_message, $headers);
+                mail($admin, $admin_subject, $admin_message, $headers);
         }
 
         /* Order Error Action */
 
-        public function actionOrderError() {
+        public function actionOrderFailed() {
+                if(isset(Yii::app()->session['orderid']) && Yii::app()->session['user']['id'] != '') {
+                        $order = Order::model()->findByPk(yii::app()->session['orderid']);
+                        $userdetails = UserDetails::model()->findByPk($order->user_id);
 
-                $order = Order::model()->findByPk(yii::app()->session['orderid']);
+                        $order->payment_status = 2;
+                        $order->status = 3;
+                        if($order->save()) {
 
-                $userdetails = UserDetails::model()->findByPk($order->user_id);
+                                $this->ErrorMail($userdetails);
 
-                //var_dump($userdetails->email);
-
-                $this->errorMail($userdetails);
-                exit;
+                                Yii::app()->session['user'] = $userdetails;
+                                unset(Yii::app()->session['orderid']);
+                                $this->render('order_failed');
+                        }
+                } else {
+                        $this->render('site/error');
+                }
         }
 
         /* ckeck out error mail  */
 
         public function ErrorMail($userdetails) {
+                $order = Order::model()->findByPk(Yii::app()->session['orderid']);
+                $user_address = UserAddress::model()->findByPk($order->ship_address_id);
+                $bill_address = UserAddress::model()->findByPk($order->bill_address_id);
+                $order_details = OrderProducts::model()->findAllByAttributes(array('order_id' => $order->id));
+                $shiping_charge = ShippingCharges::model()->findByAttributes(array('country' => $user_address->country));
+                // $user = $userdetails->email;
+                $user = 'sibys09@gmail.com';
+                $user_subject = 'laksyah.com: Order No. ' . $order->id . ' :: Transaction Failure';
+                $user_message = $this->renderPartial('_user_order_error_mail', array('order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge), true);
 
 
-                $to = $userdetails->email;
-                $subject = 'info_lakshya';
-                $message = $this->renderPartial('_error_checkout_mail', array('userdetails' => $userdetails));
+                $admin = 'sibys09@gmail.com';
+                $admin_subject = 'laksyah.com: Order No. ' . $order->id . ' :: Transaction Failure';
+                $admin_message = $this->renderPartial('_admin_order_error_mail', array('order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge), true);
+
                 // Always set content-type when sending HTML email
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
                 // More headers
-                $headers .= 'From: <no-reply@lakshya.com>' . "\r\n";
+                $headers .= 'From: <no-reply@intersmarthosting.in>' . "\r\n";
                 //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
-                //  echo $message;
-                // exit();
-                mail($to, $subject, $message, $headers);
+                // echo $user_message;
+                //  echo $admin_message;
+                //unset(Yii::app()->session['orderid']);
+                //  exit;
+                mail($user, $user_subject, $user_message, $headers);
+                mail($admin, $admin_subject, $admin_message, $headers);
         }
 
         public function actionDeletGift($id) {
@@ -865,6 +888,12 @@ class CheckOutController extends Controller {
                 if($model === null)
                         throw new CHttpException(404, 'The requested page does not exist.');
                 return $model;
+        }
+
+        public function siteURL() {
+                $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+                $domainName = $_SERVER['HTTP_HOST'] . '/laksyah';
+                return $protocol . $domainName;
         }
 
 }

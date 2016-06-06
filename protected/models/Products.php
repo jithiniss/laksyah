@@ -53,6 +53,7 @@
  * @property integer $UB
  * @property string $DOC
  * @property string $DOU
+ * @property string $sku
  */
 class Products extends CActiveRecord {
 
@@ -81,15 +82,16 @@ class Products extends CActiveRecord {
                     array('DOU', 'safe'),
                     array('product_code', 'unique'),
                     array('canonical_name', 'unique'),
+                    array('sku', 'unique'),
                     array('video', 'file', 'types' => 'mp4', 'allowEmpty' => true, 'on' => 'create'),
                     array('video', 'file', 'types' => 'mp4', 'allowEmpty' => true, 'on' => 'update'),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, category_id, main_image,hover_image, gallery_images, description, meta_title, meta_description, meta_keywords, header_visibility, sort_order, price, quantity, subtract_stock,discount,discount_type,discount_rate, requires_shipping, dimensionl, dimensionw, dimensionh, dimension_class, weight, weight_class, status, related_products, CB, UB, DOC, DOU', 'safe', 'on' => 'search'),
-                    array('id, category_id, gallery_images, description,product_details, meta_title, meta_description, meta_keywords, header_visibility, sort_order, price, quantity, subtract_stock,discount,discount_type,discount_rate, requires_shipping, dimensionl, dimensionw, dimensionh, dimension_class, weight, weight_class, status, related_products, CB, UB, DOC, DOU', 'safe'),
+                    array('id, category_id, main_image,hover_image, gallery_images, description, meta_title, meta_description, meta_keywords, header_visibility, sort_order, price, quantity, subtract_stock,discount,discount_type,discount_rate, requires_shipping, dimensionl, dimensionw, dimensionh, dimension_class, weight, weight_class, status, related_products, CB, UB, DOC, DOU,sku', 'safe', 'on' => 'search'),
+                    array('id, category_id, gallery_images, description,product_details, meta_title, meta_description, meta_keywords, header_visibility, sort_order, price, quantity, subtract_stock,discount,discount_type,discount_rate, requires_shipping, dimensionl, dimensionw, dimensionh, dimension_class, weight, weight_class, status, related_products, CB, UB, DOC, DOU,sku', 'safe'),
                     // array('main_image', 'file', 'types' => 'jpg, gif, png', 'safe' => false, 'allowEmpty' => false, 'on' => 'create'),
                     //array('gallery_images', 'file', 'types' => 'jpg, gif, png', 'safe' => false, 'allowEmpty' => false, 'on' => 'create'),
-                    array('category_id,product_name,product_code,main_image,description,product_details', 'required', 'on' => 'create'),
+                    array('category_id,product_name,product_code,main_image,description,product_details,sku', 'required', 'on' => 'create'),
                 );
         }
 
@@ -159,6 +161,7 @@ class Products extends CActiveRecord {
                     'UB' => 'Ub',
                     'DOC' => 'Doc',
                     'DOU' => 'Dou',
+                    'sku' => 'SKU',
                 );
         }
 
@@ -230,6 +233,7 @@ class Products extends CActiveRecord {
                 $criteria->compare('UB', $this->UB);
                 $criteria->compare('DOC', $this->DOC, true);
                 $criteria->compare('DOU', $this->DOU, true);
+                $criteria->compare('sku', $this->sku, true);
 
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
