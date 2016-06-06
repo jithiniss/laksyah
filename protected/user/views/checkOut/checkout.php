@@ -403,7 +403,7 @@
                     </div>
 
                 </div>
-                <div class="total_pay">
+                <div class="total_pay total_to_pay">
                     <div class="price_group">
 
                         <div class="pull-left">Total Amount to pay :</div>
@@ -426,7 +426,7 @@
                 </div>
 
                 <div class="cart_buttons">
-                    <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'PAY SECURELY NOW', array('class' => 'btn-primary btn-full')); ?>
+                    <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'PAY SECURELY NOW', array('class' => 'btn-primary btn-full', 'id' => 'laksyah_order_payment')); ?>
                 </div>
 
             </div>
@@ -621,6 +621,7 @@
                     $("#total_pay").html(obj.totalamounttopay);
                     $(".total_pay").val(obj.total);
                     $('.total_to_pay').hide();
+                    $('#laksyah_order_payment').val('CONFIRM ORDER');
 
 
                 } else {
@@ -628,6 +629,7 @@
                     $('.total_to_pay').show();
                     $("#total_pay").html(obj.totalamounttopay);
                     $(".total_pay").val(obj.total);
+                    $('#laksyah_order_payment').val('PAY SECURELY NOW');
                 }
 
                 //$(".wallet_amount").val(obj.wallet);

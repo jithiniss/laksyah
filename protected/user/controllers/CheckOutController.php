@@ -266,7 +266,7 @@ class CheckOutController extends Controller {
                                 $addresss = UserAddress::model()->findAllByAttributes(array('userid' => Yii::app()->session['user']['id']));
                                 $billing = new UserAddress;
                                 $shipping = new UserAddress;
-//                                $order = Order::model()->findbypk(Yii::app()->session['orderid']);
+//                              $order = Order::model()->findbypk(Yii::app()->session['orderid']);
                                 $address_id = '';
                                 if($_POST['yt0']) {
                                         $post_wallet = $_POST['wallet_amount'];
@@ -368,10 +368,10 @@ class CheckOutController extends Controller {
                                                 $order_id = Yii::app()->session['orderid'];
 
                                                 $this->addOrder($bill_address_id, $ship_address_id, $cart, $order_id);
-
+                                                $order->shipping_method = $_REQUEST['shipping_value'];
                                                 if($wallet > 0) {
 
-                                                        $user->wallet_amt = $currentwallet - $wallet;
+
 
                                                         /* wallet entry starts */
 
@@ -383,7 +383,7 @@ class CheckOutController extends Controller {
                                                         $wallet_amount->credit_debit = 2;
                                                         $wallet_amount->balance_amt = $currentwallet - $wallet;
                                                         $wallet_amount->ids = $order_id;
-                                                        $wallet_amount->field2 = 1;
+                                                        $wallet_amount->field2 = 0;
                                                         $wallet_amount->save(FALSE);
 
                                                         /* wallet entry ends */
@@ -393,12 +393,35 @@ class CheckOutController extends Controller {
                                                                 $order->gift_option = 1;
                                                                 $order->rate = $gift_packing;
                                                         }
+                                                        if($post_total_pay == 0) {
+                                                                $order->payment_mode = 1;
+                                                                $order->wallet = $wallet;
+                                                        } else {
+                                                                if($post_total_pay != 0 && $_POST['wallet_amount'] != 0) {
+                                                                        $order->payment_mode = 4;
 
-                                                        $order->payment_mode = 1;
-                                                        $order->payment_status = 1;
+                                                                        if($_POST['payment_method'] == 2) {
+                                                                                $order->netbanking = $post_total_pay;
+                                                                                $order->wallet = $wallet;
+                                                                        } else if($_POST['payment_method'] == 3) {
+                                                                                $order->paypal = $post_total_pay;
+                                                                                $order->wallet = $wallet;
+                                                                        }
+                                                                } else {
+                                                                        $order->payment_mode = $_POST['payment_method'];
+                                                                        if($_POST['payment_method'] == 2) {
+                                                                                $order->netbanking = $post_total_pay;
+                                                                        } else if($_POST['payment_method'] == 3) {
+                                                                                $order->paypal = $post_total_pay;
+                                                                        }
+                                                                }
+                                                        }
+
+
+                                                        //$order->payment_status = 1;
                                                         $order->bill_address_id = $bill_address_id;
                                                         $order->ship_address_id = $ship_address_id;
-                                                        $order->status = 1;
+                                                        $order->order_date = date('Y-m-d H:i:s');
                                                         if($order->save()) {
                                                                 Cart::model()->deleteAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
                                                                 $this->updateorderproduct($order->id);
@@ -424,17 +447,27 @@ class CheckOutController extends Controller {
                                                                 $this->updatecoupon($coupen);
                                                         }
                                                         $order->payment_mode = $_POST['payment_method'];
-                                                        $order->payment_status = 1;
+                                                        if($_POST['payment_method'] == 2) {
+                                                                $order->netbanking = $_REQUEST['total_pay'];
+                                                        } else if($_POST['payment_method'] == 3) {
+                                                                $order->paypal = $_REQUEST['total_pay'];
+                                                        }
+                                                        //  $order->payment_status = 1;
                                                         $order->bill_address_id = $bill_address_id;
                                                         $order->ship_address_id = $ship_address_id;
-                                                        $order->status = 1;
+                                                        //  $order->status = 1;
 
                                                         if($order->save()) {
 
                                                                 $this->updateorderproduct($order->id);
                                                                 //$this->redirect(array('OrderHistory'));
-                                                                $this->redirect(array('OrderSuccess'));
-                                                                // $this->redirect(array('OrderFailed'));
+                                                                if($post_total_pay != 0) {
+                                                                        /* payment action goes here */
+                                                                        $this->redirect(array('OrderSuccess'));
+                                                                        // $this->redirect(array('OrderFailed'));
+                                                                } else {
+                                                                        $this->redirect(array('OrderSuccess'));
+                                                                }
                                                         }
 //
                                                 }
@@ -557,7 +590,7 @@ class CheckOutController extends Controller {
                 $model1->status = 0;
                 $model1->coupen_id = $coupen->id;
                 $model1->discount_rate = $coupen->discount;
-                $model1->order_date = date('Y-m-d');
+                $model1->order_date = date('Y-m-d H:i:s');
                 $model1->DOC = date('Y-m-d');
 
                 if($model1->save()) {
@@ -636,23 +669,43 @@ class CheckOutController extends Controller {
                 if(isset(Yii::app()->session['orderid']) && Yii::app()->session['user']['id'] != '') {
                         $order = Order::model()->findByPk(Yii::app()->session['orderid']);
                         $userdetails = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+                        $check_product_option = OrderProducts::model()->findAllByAttributes(array('order_id' => $order->id, 'status' => 1));
+
+                        $wallet_history = WalletHistory::model()->findByAttributes(array('user_id' => Yii::app()->session['user']['id'], 'type_id' => 4, 'ids' => $order->id));
                         if(!empty($order) && !empty($userdetails)) {
+                                if($order->payment_mode == 1 || $order->payment_mode == 4) {
+                                        $userdetails->wallet_amt = $userdetails->wallet_amt - $order->wallet;
+                                        $wallet_history->field2 = 1;
+                                        $userdetails->save();
+                                        $wallet_history->save();
+                                }
+                                if(!empty($check_product_option)) {
+                                        foreach($check_product_option as $product_options) {
+
+                                                if($product_options->option_id == 0) {
+                                                        $product = Products::model()->findByPk($product_options->product_id);
+                                                        $product->quantity = $product->quantity - $product_options->quantity;
+                                                        $product->save(FALSE);
+                                                } else {
+                                                        $option_details = OptionDetails::model()->findByPk($product_options->option_id);
+                                                        $option_details->stock = $option_details->stock - $product_options->quantity;
+                                                        $option_details->save(FALSE);
+                                                }
+                                        }
+                                }
                                 $order->payment_status = 1;
                                 $order->status = 1;
                                 if($order->save()) {
 
                                         $this->SuccessMail();
+                                        $this->OrderHistory($order->id, 8, 'Order Placed');
 
                                         Yii::app()->session['user'] = $userdetails;
                                         unset(Yii::app()->session['orderid']);
                                         $this->render('order_success');
                                 }
                         } else {
-                                $order->payment_status = 2;
-                                $order->status = 3;
-                                if($order->save()) {
-                                        $this->render('order_failed');
-                                }
+                                $this->redirect(array('OrderFailed'));
                         }
                 } else {
                         $this->render('site/error');
@@ -694,14 +747,21 @@ class CheckOutController extends Controller {
         public function actionOrderFailed() {
                 if(isset(Yii::app()->session['orderid']) && Yii::app()->session['user']['id'] != '') {
                         $order = Order::model()->findByPk(yii::app()->session['orderid']);
-                        $userdetails = UserDetails::model()->findByPk($order->user_id);
+                        $userdetails = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+                        $wallet_history = WalletHistory::model()->findByAttributes(array('user_id' => Yii::app()->session['user']['id'], 'type_id' => 4, 'ids' => $order->id));
+
+                        if($order->payment_mode == 4) {
+
+                                $wallet_history->field2 = 0;
+                                $wallet_history->save();
+                        }
 
                         $order->payment_status = 2;
                         $order->status = 3;
                         if($order->save()) {
 
                                 $this->ErrorMail($userdetails);
-
+                                $this->OrderHistory($order->id, 9, 'Payment Failure');
                                 Yii::app()->session['user'] = $userdetails;
                                 unset(Yii::app()->session['orderid']);
                                 $this->render('order_failed');
@@ -709,6 +769,18 @@ class CheckOutController extends Controller {
                 } else {
                         $this->render('site/error');
                 }
+        }
+
+        public function OrderHistory($id, $status, $status_comment) {
+                $orderHistory = new OrderHistory;
+                $orderHistory->order_id = $id;
+                $orderHistory->order_status_comment = $status_comment;
+                $orderHistory->order_status = $status;
+                $orderHistory->shipping_type = 0;
+                $orderHistory->tracking_id = 0;
+                $orderHistory->date = date('Y-m-d H:i:s');
+                $orderHistory->status = 1;
+                $orderHistory->save(false);
         }
 
         /* ckeck out error mail  */

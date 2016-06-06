@@ -17,11 +17,15 @@
  * @property integer $currency_id
  * @property string $comment
  * @property string $payment_mode
+ *  * @property integer $wallet
+ * @property integer $paypal
+ * @property integer $netbanking
  *  @property string $admin_comment
  * @property integer $transaction_id
  * @property integer $payment_status
  * @property integer $admin_status
  * @property integer $status
+ *  * @property integer $shipping_method
  * @property string $DOC
  *
  * The followings are the available model relations:
@@ -47,11 +51,11 @@ class Order extends CActiveRecord {
                 // will receive user inputs.
                 return array(
                     //array('total_amount, order_date, comment, payment_mode', 'required'),
-                    array('total_amount,ship_address_id, bill_address_id, transaction_id, payment_status, status', 'numerical', 'integerOnly' => true),
+                    array('total_amount,ship_address_id, bill_address_id, transaction_id, payment_status, status, wallet, paypal, netbanking,shipping_method', 'numerical', 'integerOnly' => true),
                     array('payment_mode', 'length', 'max' => 100),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, user_id, total_amount, order_date, address_book_id, comment, payment_mode, admin_comment, transaction_id, payment_status, admin_status, status, DOC', 'safe', 'on' => 'search'),
+                    array('id, user_id, total_amount, order_date, address_book_id, comment, payment_mode, admin_comment, transaction_id, payment_status, admin_status, status, DOC, wallet,shipping_method, paypal, netbanking', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -86,11 +90,15 @@ class Order extends CActiveRecord {
                     'currency_id' => 'Currency',
                     'comment' => 'Comment',
                     'payment_mode' => 'Payment Mode',
+                    'wallet' => 'Wallet',
+                    'paypal' => 'Paypal',
+                    'netbanking' => 'Netbanking',
                     'admin_comment' => 'Admin Comment',
                     'transaction_id' => 'Transaction',
                     'payment_status' => 'Payment Status',
                     'admin_status' => 'Admin Status',
                     'status' => 'Status',
+                    'shipping_method' => 'Shipping Method',
                     'DOC' => 'Doc',
                 );
         }
@@ -125,11 +133,15 @@ class Order extends CActiveRecord {
                 $criteria->compare('currency_id', $this->currency_id);
                 $criteria->compare('comment', $this->comment, true);
                 $criteria->compare('payment_mode', $this->payment_mode, true);
+                $criteria->compare('wallet', $this->wallet);
+                $criteria->compare('paypal', $this->paypal);
+                $criteria->compare('netbanking', $this->netbanking);
                 $criteria->compare('admin_comment', $this->admin_comment, true);
                 $criteria->compare('transaction_id', $this->transaction_id);
                 $criteria->compare('payment_status', $this->payment_status);
                 $criteria->compare('admin_status', $this->admin_status);
                 $criteria->compare('status', $this->status);
+                $criteria->compare('shipping_method', $this->shipping_method);
                 $criteria->compare('DOC', $this->DOC, true);
 
                 return new CActiveDataProvider($this, array(
