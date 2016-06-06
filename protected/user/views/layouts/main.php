@@ -48,7 +48,16 @@ if (Yii::app()->user->hasFlash('login_list')):
                                         $("#login").modal('show');
 <?php endif; ?>
                         });</script>
-
+                <?php if (Yii::app()->user->hasFlash('success')): ?>
+                        <div class="alert alert-success normal">
+                                <strong>Success!</strong> <?php echo Yii::app()->user->getFlash('success'); ?>
+                        </div>
+                <?php endif; ?>
+                <?php if (Yii::app()->user->hasFlash('error')): ?>
+                        <div class="alert alert-danger">
+                                <strong>Danger!</strong> <?php echo Yii::app()->user->getFlash('error'); ?>
+                        </div>
+                <?php endif; ?>
                 <div class="modal" id="login" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -88,7 +97,29 @@ if (Yii::app()->user->hasFlash('login_list')):
                                 </div>
                         </div>
                 </div>
+                <div class="modal fade" id="subscribeModal" tabindex="-2" role="dialog">
+                        <div class="modal-dialog">
+                                <div class="modal-content">
+                                        <div class="modal-header text-left">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h2 class="modal-title">Sign up for newsletters</h2>
+                                                <h4>Please fill out the following form.</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                                <form  name="newsletters" id="login_form" action="<?= Yii::app()->baseUrl; ?>/index.php/Site/Newsletter" method="POST">
+                                                        <div class="row">
+                                                                <div class="col-sm-6"><input class="form-control" type="text" name="name" placeholder="First Name" autocomplete="off"></div>
+                                                                <div class="col-sm-6"><input class="form-control" type="text" name="email" placeholder="Email Id" autocomplete="off"></div>
+                                                        </div>
 
+                                                        <div class="modal-footer">
+                                                                <input type="submit"  class="btn btn-primary" name="submit" value="SUBMIT"/>
+                                                        </div>
+                                                </form>
+                                        </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                        </div>
+                </div>
                 <header>
                         <div class="top-bar">
                                 <div class="container">
@@ -238,7 +269,7 @@ if (Yii::app()->user->hasFlash('login_list')):
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;                                                   ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;                                                                    ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">

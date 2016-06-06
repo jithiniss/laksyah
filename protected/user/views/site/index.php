@@ -5,7 +5,7 @@
                         <h4><i class="fa fa-globe"></i> <span>We Ship Worldwide</span></h4>
                 </div>
                 <div class="col-sm-4 col-xs-4">
-                        <h4><i class="fa fa-envelope"></i> <span>Sign up to our newsletter</span></h4>
+                        <h4><i class="fa fa-envelope"></i> <span><a href="#" data-toggle="modal" data-target="#subscribeModal">Sign up to our newsletter</a></span></h4>
                 </div>
                 <div class="col-sm-4 col-xs-4">
                         <h4><i class="fa fa-truck"></i> <span>Free Shipping In India</span></h4>

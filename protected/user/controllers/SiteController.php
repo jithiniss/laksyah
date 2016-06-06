@@ -273,11 +273,21 @@ class SiteController extends Controller {
         }
 
         public function actionNewsLetter() {
+                $model = new Newsletter;
                 if (isset($_POST['submit'])) {
-                        $model = new Newsletter;
+                        $model->attributes = $_POST['submit'];
+                        $model->first_name = $_POST['name'];
                         $model->email = $_POST['email'];
+                        $model->status = 1;
                         $model->date = date('Y-m-d');
-                        $model->save();
+                        if ($model->validate()) {
+                                if ($model->save()) {
+                                        // $this->SuccessMail();
+                                        Yii::app()->user->setFlash('success', " Your email send successfully");
+                                } else {
+                                        Yii::app()->user->setFlash('error', "Error Occured");
+                                }
+                        }
                         $this->redirect('Index');
                 }
         }
@@ -305,6 +315,26 @@ class SiteController extends Controller {
                         )
                 );
                 $this->render('blogs', array('dataProvider' => $dataProvider));
+        }
+
+        public function SuccessMail() {
+
+                //$user = $model->email;
+                $user = 'shahana@intersmart.in';
+                $user_subject = 'News Letter Confirmation';
+                $user_message = 'Your Email added  successfully in our news letter!';
+
+                // Always set content-type when sending HTML email
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                // More headers
+                $headers .= 'From: <no-reply@intersmarthosting.in>' . "\r\n";
+                //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
+                // echo $user_message;
+                // echo $admin_message;
+                //unset(Yii::app()->session['orderid']);
+                // exit;
+                mail($user, $user_subject, $user_message, $headers);
         }
 
         public function actionBlogDetails($blog) {
