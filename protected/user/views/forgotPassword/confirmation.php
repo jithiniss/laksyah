@@ -20,7 +20,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
         Click this link if your details are correct=><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/ForgotPassword/mail/id/<?php echo $model->id; ?>"><input type="button" value="proceed" name="submit"></a>
         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/border.png" class="img-responsive design"/> </div>

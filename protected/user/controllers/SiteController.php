@@ -239,6 +239,8 @@ class SiteController extends Controller {
 
         public function actionBookAppointment() {
                 $model = new BookAppointment;
+                $measure = StaticPage::model()->findByPk(8);
+
                 if (isset($_POST['BookAppointment'])) {
                         $model->attributes = $_POST['BookAppointment'];
                         $model->date = date("Y-m-d");
@@ -251,7 +253,7 @@ class SiteController extends Controller {
                                 $this->redirect(array('site/BookAppointment'));
                         }
                 }
-                $this->render('appointment', array('model' => $model));
+                $this->render('appointment', array('model' => $model, 'measure' => $measure));
         }
 
         public function actioncontactUs() {
@@ -273,27 +275,11 @@ class SiteController extends Controller {
         }
 
         public function actionNewsLetter() {
-                $model = new Newsletter;
                 if (isset($_POST['submit'])) {
-                        $model->attributes = $_POST['submit'];
-                        $model->first_name = $_POST['Newsletter']['first_name'];
-                        $model->email = $_POST['Newsletter']['email'];
-                        $model->status = 1;
+                        $model = new Newsletter;
+                        $model->email = $_POST['email'];
                         $model->date = date('Y-m-d');
-                        if ($model->validate()) {
-                                if ($model->save()) {
-                                        // $this->SuccessMail();
-                                        Yii::app()->user->setFlash('newsletter', " Your email send successfully");
-                                } else {
-                                        Yii::app()->user->setFlash('error_newsletter', "Error Occured");
-                                }
-                        } else {
-                                if ($model->first_name != '' || $model->email != '') {
-                                        Yii::app()->user->setFlash('newslettererror', "Please Fill the Feilds in correct format");
-                                } else {
-                                        Yii::app()->user->setFlash('newslettererror1', "Please Fill the  Feilds");
-                                }
-                        }
+                        $model->save();
                         $this->redirect('Index');
                 }
         }
@@ -363,7 +349,7 @@ class SiteController extends Controller {
         }
 
         public function actionAboutUs() {
-                $model = '';
+                $model = StaticPage::model()->findByPk(2);
                 $this->render('about_us', array('model' => $model));
         }
 
@@ -383,52 +369,53 @@ class SiteController extends Controller {
         }
 
         public function actionProductSubmission() {
-                $model = '';
+                $model = StaticPage::model()->findByPk(6);
                 $this->render('product_submission', array('model' => $model));
         }
 
         public function actionPrivacyPolicy() {
-                $model = '';
+                $model = StaticPage::model()->findByPk(13);
                 $this->render('privacy_policy', array('model' => $model));
         }
 
         public function actionFaq() {
-                $model = '';
+                $model = QAndA::model()->findByPk(1);
                 $this->render('faq', array('model' => $model));
         }
 
         public function actionSupport() {
-                $model = '';
+                $model = StaticPage::model()->findByPk(7);
                 $this->render('support', array('model' => $model));
         }
 
         public function actionGuarantees() {
-                $model = '';
+                $model = StaticPage::model()->findByPk(9);
                 $this->render('Guarantees', array('model' => $model));
         }
 
         public function actionShippingPolicy() {
-                $model = '';
+                $model = StaticPage::model()->findByPk(11);
                 $this->render('Shipping_Policy', array('model' => $model));
         }
 
         public function actionReturnPolicy() {
-                $model = '';
+                $model = StaticPage::model()->findByPk(10);
                 $this->render('Return_Policy', array('model' => $model));
         }
 
         public function actionPublicPickup() {
-                $model = '';
+                $model = StaticPage::model()->findByPk(12);
                 $this->render('Public_Pickup', array('model' => $model));
         }
 
         public function actionSecurity() {
-                $model = '';
+                $model = StaticPage::model()->findByPk(5);
                 $this->render('Security', array('model' => $model));
         }
 
         public function actionTerms() {
-                $model = '';
+                $model = StaticPage::model()->findByPk(4);
+
                 $this->render('Terms', array('model' => $model));
         }
 
@@ -448,6 +435,11 @@ class SiteController extends Controller {
                                 return $records[$i + 1]->id ? $records[$i + 1]->id : NULL;
 
                 return NULL;
+        }
+
+        public function actionCareers() {
+                $model = StaticPage::model()->findByPk(14);
+                $this->render('careers', array('model' => $model));
         }
 
 }

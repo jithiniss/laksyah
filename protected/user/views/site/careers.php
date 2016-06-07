@@ -1,5 +1,5 @@
 <div class="container main_container inner_pages ">
-    <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?> <span>/</span> <?php echo CHtml::link('My Account', array('Myaccount/index')); ?>  <span>/</span> Guarantees </div>
+    <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?> <span>/</span> <?php echo CHtml::link('careers', array('site/careers')); ?><span>/</span> Careers  </div>
     <div class="row">
         <?php echo $this->renderPartial('_staticmenu'); ?>
 
@@ -11,14 +11,7 @@
     Success </div>-->
 
             <article>
-
-
-                <?php
-                echo $model->big_content;
-
-                echo $model->small_content;
-                ?>
-
+                <?php echo $model->big_content; ?>
             </article>
         </div>
     </div>
