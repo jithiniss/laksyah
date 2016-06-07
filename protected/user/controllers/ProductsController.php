@@ -105,12 +105,18 @@ class ProductsController extends Controller {
                         $model->requirement = $_POST['ProductEnquiry']['requirement'];
                         if ($model->validate()) {
                                 if ($model->save()) {
-
-                                        Yii::app()->user->setFlash('enuirysuccess', "Your Enquiry Send Successfully ");
-
-
-                                        $this->ProductEnquiryMail($model);
-                                        $model->unsetAttributes();
+                                        $celib_history = new CelibStyleHistory;
+                                        $celib_history->enq_id = $model->id;
+                                        $celib_history->status = 1;
+//                                        $celib_history->link = 0;
+                                        $celib_history->measurement_id = 0;
+                                        $celib_history->payment_id = 0;
+                                        $celib_history->pay_amount = 0;
+                                        if ($celib_history->save()) {
+                                                Yii::app()->user->setFlash('enuirysuccess', "Your Enquiry Send Successfully ");
+                                                $this->ProductEnquiryMail($model);
+                                                $model->unsetAttributes();
+                                        }
                                 }
                         }
                 }

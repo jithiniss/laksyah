@@ -15,7 +15,9 @@
  * @property string $doc
  * @property string $dou
  * @property integer $user_id
- *
+ * @property double $total_amount
+ * @property double $balance_to_pay
+ * @property integer $status
  * The followings are the available model relations:
  * @property ProductEnquiry $country0
  * @property ProductEnquiry[] $productEnquiries
@@ -39,7 +41,7 @@ class ProductEnquiry extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
-                    array('verifyCode', 'captcha', 'allowEmpty' => !extension_loaded('gd')),
+                    array('verifyCode', 'captcha', 'allowEmpty' => !extension_loaded('gd'), 'on' => 'create'),
                     array('name, email, phone, country,  product_id', 'required'),
                     array('country, size, product_id, user_id', 'numerical', 'integerOnly' => true),
                     array('name, email', 'length', 'max' => 250),
@@ -79,6 +81,9 @@ class ProductEnquiry extends CActiveRecord {
                     'doc' => 'Doc',
                     'dou' => 'Dou',
                     'user_id' => 'User',
+                    'total_amount' => 'Total Amount',
+                    'balance_to_pay' => 'Balance To Pay',
+                    'status' => 'Status',
                 );
         }
 
@@ -110,7 +115,9 @@ class ProductEnquiry extends CActiveRecord {
                 $criteria->compare('doc', $this->doc, true);
                 $criteria->compare('dou', $this->dou, true);
                 $criteria->compare('user_id', $this->user_id);
-
+                $criteria->compare('total_amount', $this->total_amount);
+                $criteria->compare('balance_to_pay', $this->balance_to_pay);
+                $criteria->compare('status', $this->status);
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
                 ));

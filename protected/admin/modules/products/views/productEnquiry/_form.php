@@ -47,16 +47,28 @@
                 </div>
                 <?php echo $form->error($model, 'phone'); ?>
         </div>
+        <div class="form-group">
+                <?php echo $form->labelEx($model, 'Total Product Amount', array('class' => 'col-sm-2 control-label')); ?>
+                <div class="col-sm-10"><?php echo $form->textField($model, 'total_amount', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control')); ?>
+                </div>
+                <?php echo $form->error($model, 'total_amount'); ?>
+        </div>
+        <div class="form-group">
+                <?php echo $form->labelEx($model, 'Balance To Pay', array('class' => 'col-sm-2 control-label')); ?>
+                <div class="col-sm-10"><?php echo $form->textField($model, 'balance_to_pay', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control', 'disabled' => true)); ?>
+                </div>
+                <?php echo $form->error($model, 'balance_to_pay'); ?>
+        </div>
 
         <div class="form-group">
                 <?php echo $form->labelEx($model, 'country', array('class' => 'col-sm-2 control-label')); ?>
-                <div class="col-sm-10"><?php echo CHtml::activeDropDownList($model, 'country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
+                <div class="col-sm-10"><?php echo CHtml::activeDropDownList($model, 'country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select Country--', 'class' => 'form-control')); ?>
                 </div>
                 <?php echo $form->error($model, 'country'); ?>
         </div>
         <div class="form-group">
                 <?php echo $form->labelEx($model, 'size', array('class' => 'col-sm-2 control-label')); ?>
-                <div class="col-sm-10"><?php echo CHtml::activeDropDownList($model, 'size', CHtml::listData(MasterSize::model()->findAll(), 'id', 'size'), array('empty' => '--Select--', 'class' => 'form-control')); ?>
+                <div class="col-sm-10"><?php echo CHtml::activeDropDownList($model, 'size', CHtml::listData(MasterSize::model()->findAll(), 'id', 'size'), array('empty' => '--Select Size--', 'class' => 'form-control')); ?>
                 </div>
                 <?php echo $form->error($model, 'size'); ?>
         </div>
@@ -71,6 +83,14 @@
                         ?>
                 </div>
                 <?php echo $form->error($model, 'requirement'); ?>
+        </div>
+
+
+        <div class="form-group">
+                <?php echo $form->labelEx($model, 'status', array('class' => 'col-sm-2 control-label')); ?>
+                <div class="col-sm-10"><?php echo $form->dropDownList($model, 'status', array('2' => "Measurement Initiate", '3' => "Payment Initiate", '1' => "Enquiry Placed"), array('class' => 'form-control')); ?>
+                </div>
+                <?php echo $form->error($model, 'status'); ?>
         </div>
 
         <div class="box-footer">

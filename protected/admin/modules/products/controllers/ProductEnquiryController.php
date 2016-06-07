@@ -93,6 +93,7 @@ class ProductEnquiryController extends Controller {
 
                 if (isset($_POST['ProductEnquiry'])) {
                         $model->attributes = $_POST['ProductEnquiry'];
+                        $model->total_amount = $_POST['ProductEnquiry']['total_amount'];
                         if ($model->save())
                                 $this->redirect(array('update', 'id' => $model->id));
                 }
