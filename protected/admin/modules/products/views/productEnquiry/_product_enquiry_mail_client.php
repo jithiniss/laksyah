@@ -1,6 +1,6 @@
 <html>
         <head>
-                <title>Product Enquiry (Celib Style) - <?php echo Products::model()->findByPk($model->product_id)->product_name; ?></title>
+                <title>Product Enquiry -Measurement Request</title>
                 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         </head>
         <style>
@@ -17,17 +17,17 @@
 
                                         </td></tr>
                                 <tr><td>
-                                                <h4 style="padding: 5px 9px 6px 9px;">Dear Admin,</h4>
-                                                <h5 style="padding: 5px 9px 6px 9px;">Your Received a  New Product Enquiry.</h5>
+                                                <h4 style="padding: 5px 9px 6px 9px;">Dear User,</h4>
+                                                <h5 style="padding: 5px 9px 6px 9px;">Your Enquiry Successfully Placed . Please Click the link to enter your measurement . <a target="new" href="<?php echo $model->link; ?>"><?php echo $model->link; ?></a></h5>
                                         </td></tr>
                                 <tr>
                                         <td>
                                                 <table cellspacing="0" cellpadding="0" border="0" width="776" style="    font-family: 'Open Sans',arial, sans-serif;font-size: 13px;">
                                                         <thead>
                                                                 <tr>
-                                                                        <th align="left" width="325" bgcolor="#EAEAEA" style="    font-family: 'Open Sans',arial, sans-serif;font-size:13px;padding:5px 9px 6px 9px;line-height:1em">Coustomor Details:</th>
+                                                                        <th align="left" width="325" bgcolor="#EAEAEA" style="    font-family: 'Open Sans',arial, sans-serif;font-size:13px;padding:5px 9px 6px 9px;line-height:1em">Your Order Details:</th>
                                                                         <th width="10"></th>
-                                                                        <th align="left" width="325" bgcolor="#EAEAEA" style="font-family:'Open Sans',arial, sans-serif;font-size:13px;padding:5px 9px 6px 9px;line-height:1em">Product: <?php echo Products::model()->findByPk($model->product_id)->product_name; ?> - <?php echo Products::model()->findByPk($model->product_id)->product_code; ?></th>
+                                                                        <th align="left" width="325" bgcolor="#EAEAEA" style="font-family:'Open Sans',arial, sans-serif;font-size:13px;padding:5px 9px 6px 9px;line-height:1em">Product: <?php echo Products::model()->findByPk($enq_data->product_id)->product_name; ?> - <?php echo Products::model()->findByPk($enq_data->product_id)->product_code; ?></th>
                                                                 </tr>
                                                         </thead>
                                                         <tbody>
@@ -46,7 +46,7 @@
                                                                         </td>
                                                                         <td valign="top" style="font-size:13px;padding:7px 9px 9px 9px;border-left:1px solid #eaeaea;border-bottom:1px solid #eaeaea;border-right:1px solid #eaeaea">
 
-                                                                                <?php echo $model->name; ?>
+                                                                                <?php echo $enq_data->name; ?>
 
 
                                                                         </td>
@@ -64,7 +64,7 @@
                                                                         </td>
                                                                         <td valign="top" style="font-size:13px;padding:7px 9px 9px 9px;border-left:1px solid #eaeaea;border-bottom:1px solid #eaeaea;border-right:1px solid #eaeaea">
 
-                                                                                <?php echo $model->email; ?>
+                                                                                <?php echo $enq_data->email; ?>
 
 
                                                                         </td>
@@ -82,7 +82,7 @@
                                                                         </td>
                                                                         <td valign="top" style="font-size:13px;padding:7px 9px 9px 9px;border-left:1px solid #eaeaea;border-bottom:1px solid #eaeaea;border-right:1px solid #eaeaea">
 
-                                                                                <?php echo $model->phone; ?>
+                                                                                <?php echo $enq_data->phone; ?>
 
 
                                                                         </td>
@@ -99,7 +99,7 @@
                                                                                 &nbsp;
                                                                         </td>
                                                                         <td valign="top" style="font-size:13px;padding:7px 9px 9px 9px;border-left:1px solid #eaeaea;border-bottom:1px solid #eaeaea;border-right:1px solid #eaeaea">
-                                                                                <?php echo Countries::model()->findByPk($model->country)->country_name; ?>
+                                                                                <?php echo Countries::model()->findByPk($enq_data->country)->country_name; ?>
 
 
 
@@ -118,7 +118,7 @@
                                                                         </td>
                                                                         <td valign="top" style="font-size:13px;padding:7px 9px 9px 9px;border-left:1px solid #eaeaea;border-bottom:1px solid #eaeaea;border-right:1px solid #eaeaea">
 
-                                                                                <?php echo $model->requirement; ?>
+                                                                                <?php echo $enq_data->requirement; ?>
 
 
                                                                         </td>
@@ -139,14 +139,7 @@
                                 </tr>
 
 
-<!--                                <tr>
 
-                                        <td>
-                                                <h4 style="padding: 5px 9px 6px 9px;">Measurement Link,</h4>
-                                                <h6 style="padding: 5px 9px 6px 9px;"><a href="<?= Yii::app()->request->baseUrl; ?>/index.php/Measurement"><?php echo Yii::app()->request->baseUrl; ?>/index.php/Measurement</a></h6>
-                                        </td>
-
-                                </tr>-->
                                 <tr>
                                         <td>
                                                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/emailer_03.jpg" width="776" height="47" alt=""></td>

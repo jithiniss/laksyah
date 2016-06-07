@@ -33,27 +33,48 @@
 
                                 <?php echo $form->errorSummary($model); ?>
                                 <div class="registration_form two_col_form">
-                                        <div class="row">
+                                        <?php if (isset(Yii::app()->session['enquiry_id']) && isset(Yii::app()->session['history_id'])) { ?>
+                                                <div class="row">
 
-                                                <div class="col-md-2 col-sm-3"> <label><strong>Product Name*</strong></label></div>
-                                                <div class="col-sm-7 col-md-6"><?php echo $form->textField($model, 'product_name', array('size' => 60, 'maxlength' => 250, 'class' => 'form-control ')); ?>
-                                                        <?php echo $form->error($model, 'product_name'); ?></div>
+                                                        <div class="col-md-2 col-sm-3"> <label><strong>Product Name*</strong></label></div>
+                                                        <div class="col-sm-7 col-md-6"><?php echo $form->textField($model, 'product_name', array('size' => 60, 'maxlength' => 250, 'class' => 'form-control ', 'value' => $product_details->product_name, 'readonly' => true)); ?>
+                                                                <?php echo $form->error($model, 'product_name'); ?></div>
 
-                                        </div>
-                                        <div class="row">
-                                                <div class="col-md-2 col-sm-3">
-                                                        <label><strong>Product Code*</strong></label>
                                                 </div>
-                                                <div class="col-sm-7 col-md-6">
-                                                        <?php echo $form->textField($model, 'product_code', array('size' => 60, 'maxlength' => 250, 'class' => 'form-control')); ?>
-                                                        <?php echo $form->error($model, 'product_code'); ?></div>
-                                        </div>
+
+                                                <div class="row">
+                                                        <div class="col-md-2 col-sm-3">
+                                                                <label><strong>Product Code*</strong></label>
+                                                        </div>
+                                                        <div class="col-sm-7 col-md-6">
+                                                                <?php echo $form->textField($model, 'product_code', array('size' => 60, 'maxlength' => 250, 'class' => 'form-control', 'value' => $product_details->product_code, 'readonly' => true)); ?>
+                                                                <?php echo $form->error($model, 'product_code'); ?></div>
+                                                </div>
+                                        <?php } else { ?>
+
+                                                <div class="row">
+
+                                                        <div class="col-md-2 col-sm-3"> <label><strong>Product Name*</strong></label></div>
+                                                        <div class="col-sm-7 col-md-6"><?php echo $form->textField($model, 'product_name', array('size' => 60, 'maxlength' => 250, 'class' => 'form-control ', 'value' => $product_details->product_name)); ?>
+                                                                <?php echo $form->error($model, 'product_name'); ?></div>
+
+                                                </div>
+
+                                                <div class="row">
+                                                        <div class="col-md-2 col-sm-3">
+                                                                <label><strong>Product Code*</strong></label>
+                                                        </div>
+                                                        <div class="col-sm-7 col-md-6">
+                                                                <?php echo $form->textField($model, 'product_code', array('size' => 60, 'maxlength' => 250, 'class' => 'form-control', 'value' => $product_details->product_code)); ?>
+                                                                <?php echo $form->error($model, 'product_code'); ?></div>
+                                                </div>
+                                        <?php } ?>
                                         <label><strong>Do you want our Standard fittings or Custom fittings?</strong></label>
 
                                         <div class="price_group radio_buttons" id="fitting">
                                                 <?php // $model->type = 1; ?>
                                                 <label class="radio_group active" id="UserSizechart_type_0" >
-                                                        <?php echo $form->radioButton($model, 'type', array('value' => 1, 'uncheckValue' => null, 'hidden' => 'true', 'class' => 'chekbx stand')); ?>
+                                                        <?php echo $form->radioButton($model, 'type', array('value' => 1, 'uncheckValue' => null, 'checked' => true, 'hidden' => 'true', 'class' => 'chekbx stand')); ?>
                                                 </label>
                                                 <span class="radio_label pull-left">Standard Fittings </span>
                                                 <label class="radio_group" id="UserSizechart_type_1" >
@@ -347,11 +368,15 @@
                                                                                 </tr>
                                                                         </tbody>
                                                                 </table>
+                                                                <?php echo $form->labelEx($model, 'comments', array('class' => 'control-label ')); ?>
+                                                                <?php echo $form->textarea($model, 'comments', array('class' => 'form-control')); ?>
                                                         </div>
-                                                        <div class="col-xs-6"><img src="images/measurement_units.jpg" alt=""/></div>
+                                                        <div class="col-xs-6"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/measurement_units.jpg" alt=""/></div>
                                                 </div>
                                         </div>
-                                        <div class="form_button">
+                                        <div class="form_button pull-right">
+                                                <?php echo $form->hiddenField($model, 'enq_id', array('class' => 'form-control', 'value' => $enquery->id)); ?>
+                                                <?php echo $form->hiddenField($model, 'enq_history_id', array('class' => 'form-control', 'value' => $history->id)); ?>
                                                 <?php echo CHtml::submitButton($model->isNewRecord ? 'SAVE AND SUBMIT' : 'Save', array('class' => 'btn btn-primary ')); ?>
                                         </div>
 
@@ -370,7 +395,7 @@
 <script>
         $(document).ready(function () {
 
-//                $('#custm').hide();
+                //                $('#custm').hide();
                 $('.chekbx').click(function () {
                         var std_value = $(".chekbx:checked").val();
                         var code2 = 2;
@@ -397,7 +422,7 @@
 //                                $('#std').hide();
 //
 //                        }
-//                });
+                //                });
         });
 
 </script>

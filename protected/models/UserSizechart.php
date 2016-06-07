@@ -38,7 +38,9 @@
  * @property integer $unit
  * @property integer $type
  * @property integer $standerd
-
+ * @property string $comments
+ * @property string $enq_id
+ * @property string $enq_history_id
  */
 class UserSizechart extends CActiveRecord {
 
@@ -114,6 +116,9 @@ class UserSizechart extends CActiveRecord {
                     'skirt_length' => 'Skirt Length',
                     'gown_full_length' => 'Dress/Gown Full Length',
                     'date' => 'Date',
+                    'comments' => 'Comments',
+                    'enq_id' => 'Enquiry Id',
+                    'enq_history_id' => 'Hitory Id',
                 );
         }
 
@@ -136,7 +141,7 @@ class UserSizechart extends CActiveRecord {
 
                 $criteria->compare('id', $this->id);
                 $criteria->compare('product_name', $this->product_name, true);
-                $criteria->compare('product_name', $this->product_name, true);
+                $criteria->compare('product_code', $this->product_code, true);
                 $criteria->compare('unit', $this->unit);
                 $criteria->compare('type', $this->type);
                 $criteria->compare('standerd', $this->standerd);
@@ -168,7 +173,9 @@ class UserSizechart extends CActiveRecord {
                 $criteria->compare('skirt_length', $this->skirt_length);
                 $criteria->compare('gown_full_length', $this->gown_full_length);
                 $criteria->compare('date', $this->date, true);
-
+                $criteria->compare('comments', $this->comments, true);
+                $criteria->compare('enq_id', $this->enq_id);
+                $criteria->compare('enq_history_id', $this->enq_history_id);
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
                 ));

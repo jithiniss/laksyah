@@ -131,7 +131,10 @@
         </div>
 </div>
 <!-- /.container -->
-
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.ui.touch-punch.min.js"></script>
+<script>
+                                                                        $('#widget').draggable();
+</script>
 <script>
         function products() {
                 document.getElementById("form_id").submit();

@@ -102,6 +102,7 @@ class ProductsController extends Controller {
 
                         $model->attributes = $_POST['ProductEnquiry'];
                         $model->name = $_POST['ProductEnquiry']['name'];
+                        $model->status = 1;
                         $model->requirement = $_POST['ProductEnquiry']['requirement'];
                         if ($model->validate()) {
                                 if ($model->save()) {

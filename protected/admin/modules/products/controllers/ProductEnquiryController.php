@@ -32,7 +32,7 @@ class ProductEnquiryController extends Controller {
         public function accessRules() {
                 return array(
                     array('allow', // allow all users to perform 'index' and 'view' actions
-                        'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete'),
+                        'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete', 'eroductenquiryeail'),
                         'users' => array('*'),
                     ),
                     array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -94,6 +94,22 @@ class ProductEnquiryController extends Controller {
                 if (isset($_POST['ProductEnquiry'])) {
                         $model->attributes = $_POST['ProductEnquiry'];
                         $model->total_amount = $_POST['ProductEnquiry']['total_amount'];
+
+                        if ($_POST['ProductEnquiry']['status'] == 2) {
+                                $celib_history = new CelibStyleHistory;
+                                $celib_history->enq_id = $model->id;
+                                $celib_history->status = 2;
+                                if ($celib_history->save()) {
+                                        $celib_history_update = CelibStyleHistory::model()->findByPk($celib_history->id);
+                                        $enc_enq_id = $model->id;
+                                        $enc_celib_history_id = $celib_history->id;
+                                        $celib_history_update->link = Yii::app()->request->baseUrl . '/index.php/Myaccount/SizeChartType/enquiry_id/' . $enc_enq_id . '/history_id/' . $enc_celib_history_id;
+                                        if ($celib_history_update->save()) {
+                                                $model->status = 2;
+                                                $this->ProductEnquiryMail($celib_history_update);
+                                        }
+                                }
+                        }
                         if ($model->save())
                                 $this->redirect(array('update', 'id' => $model->id));
                 }
@@ -101,6 +117,32 @@ class ProductEnquiryController extends Controller {
                 $this->render('update', array(
                     'model' => $model,
                 ));
+        }
+
+        public function ProductEnquiryMail($celib_history_update) {
+
+                //$to = 'rejin@intersmart.in';
+                $toclient = ProductEnquiry::model()->findByPk($celib_history_update->enq_id)->email;
+                $toadmin = AdminUser::model()->findByPk(4)->email;
+                $enq_data = ProductEnquiry::model()->findByPk($celib_history_update->enq_id);
+                $subject = 'Product Enquiry';
+                $message = $this->renderPartial('_product_enquiry_mail_client', array('model' => $celib_history_update, 'enq_data' => $enq_data), true);
+
+                $message1 = $this->renderPartial('_product_enquiry_mail_admin', array('model' => $celib_history_update, 'enq_data' => $enq_data), true);
+                echo $message;
+                echo $message1;
+                exit;
+                // Always set content-type when sending HTML email
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+                // More headers
+                $headers .= 'From: <store@intersmarthosting.in>' . "\r\n";
+                //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
+                //  echo $message;
+                //  exit();
+                mail($toclient, $subject, $message, $headers);
+                mail($toadmin, $subject, $message1, $headers);
         }
 
         /**
