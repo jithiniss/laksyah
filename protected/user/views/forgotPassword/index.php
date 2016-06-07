@@ -10,7 +10,7 @@
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                             Success </div>-->
             <div class="registration_form">
-                <form action="" method="post" id="form1" name="form1">
+                <form action="<?= Yii::app()->baseUrl; ?>/index.php/forgotPassword/index" method="post" id="form1" name="form1">
                     <div class="row">
                         <div class="col-sm-6 col-sm-offset-3">
 

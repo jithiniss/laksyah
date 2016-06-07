@@ -2744,16 +2744,7 @@ scrolled Menu
 		min-height:inherit;
 		padding-bottom:10px;
 	}
-.scrolled .logo_col img {
-    max-width: 130px;
-}
-.scrolled .search_box{
-		margin-top:0px;
-	}
-.scrolled .user_nav{
-		margin-top:10px;
-	}
- .top-bar .fa-calendar:before{
+.top-bar .fa-calendar:before{
 		content:'';
 		background-image:url(../images/made-for-measure.png);
 		    width: 7px;
