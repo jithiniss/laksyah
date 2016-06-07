@@ -21,10 +21,6 @@ class MyaccountController extends Controller {
                 }
         }
 
-        public function actionIndex() {
-                $this->render('myaccount');
-        }
-
         public function actionMywishlists() {
 
                 if (!isset(Yii::app()->session['user'])) {
@@ -122,6 +118,9 @@ class MyaccountController extends Controller {
                                 $enq_history_update = CelibStyleHistory::model()->findByAttributes(array('enq_id' => $model->enq_id, 'id' => $model->enq_history_id));
                                 $enq_history_update->measurement_id = $model->id;
                                 if ($enq_history_update->save()) {
+                                        unset(Yii::app()->session['history_id']);
+                                        unset(Yii::app()->session['enquiry_id']);
+                                        $this->ProductEnquiryMail($model, $enq_history_update);
 
                                         $this->ProductEnquiryMail($model, $enq_history_update);
                                         Yii::app()->user->setFlash('meas_success', "Your Measurement Successfully Saved");

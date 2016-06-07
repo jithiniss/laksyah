@@ -75,22 +75,26 @@
 
         <div class="form-group">
                 <?php echo $form->labelEx($model, 'requirement', array('class' => 'col-sm-2 control-label')); ?>
-                <div class="col-sm-10"><?php
-                        $this->widget('application.admin.extensions.eckeditor.ECKEditor', array(
-                            'model' => $model,
-                            'attribute' => 'requirement',
-                        ));
-                        ?>
+                <div class="col-sm-10">
+
+                        <?php echo $form->textarea($model, 'requirement', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control')); ?>
+
+
                 </div>
                 <?php echo $form->error($model, 'requirement'); ?>
         </div>
 
 
         <div class="form-group">
-                <?php echo $form->labelEx($model, 'status', array('class' => 'col-sm-2 control-label')); ?>
-                <div class="col-sm-10"><?php echo $form->dropDownList($model, 'status', array('2' => "Measurement Initiate", '3' => "Payment Initiate", '1' => "Enquiry Placed"), array('class' => 'form-control')); ?>
+                <?php echo $form->labelEx($model, 'status', array('class' => 'col-sm-2 control-label ')); ?>
+                <div class="col-sm-10"><?php echo $form->dropDownList($model, 'status', array('2' => "Measurement Initiate", '3' => "Payment Initiate", '1' => "Enquiry Placed"), array('class' => 'form-control enq_status')); ?>
                 </div>
                 <?php echo $form->error($model, 'status'); ?>
+        </div>
+        <div class="form-group amount" style="display: none">
+                <label class="col-sm-2 control-label" for="ProductEnquiry_Total_Product_Amount"> Amount to pay</label>
+                <div class="col-sm-10"><input size="60" maxlength="225" class="form-control" name="amount" id="ProductEnquiry_total_amount" type="text" >
+                </div>
         </div>
 
         <div class="box-footer">
@@ -99,3 +103,21 @@
         <?php $this->endWidget(); ?>
 
 </div><!-- form -->
+
+<script>
+        $(document).ready(function () {
+                $('.enq_status').on('change', function () {
+
+                        var value = $('.enq_status').val();
+
+                        if (value == 3) {
+                                alert(value);
+                                $(".amount").show();
+                        } else {
+                                $(".amount").hide();
+                        }
+                });
+
+        });
+
+</script>

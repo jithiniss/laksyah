@@ -22,6 +22,7 @@
  * @property ProductEnquiry $country0
  * @property ProductEnquiry[] $productEnquiries
  * @property Products $product
+
  */
 class ProductEnquiry extends CActiveRecord {
 
