@@ -15,7 +15,7 @@
                         <div class="col-sm-6 col-sm-offset-3">
 
                             <label>Please enter your email address*</label>
-                            <input type="email" class="form-contact" id="email" name="email" placeholder="Enter your email" autocomplete="off" required="required">
+                            <input type="email" class="form-contact" id="email" name="email" placeholder="   Enter your email" autocomplete="off" required="required">
                         </div>
                     </div>
                     <div class="text-center form_button">

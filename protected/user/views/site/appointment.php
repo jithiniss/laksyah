@@ -33,9 +33,6 @@
                 <p>&nbsp;
                 </p>
 
-
-
-
                 <?php
                 $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'book-appointment-appointment-form',

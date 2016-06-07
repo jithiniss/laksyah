@@ -30,7 +30,7 @@
                             <h2>SIGN IN</h2>
                             <h4>Sign in to proceed to Checkout</h4>
                             <div class="col-xs-12">
-                                <?php if(Yii::app()->user->hasFlash('passworderror1')): ?>
+                                <?php if (Yii::app()->user->hasFlash('passworderror1')): ?>
                                         <div class="alert alert-danger mesage">
                                             <a href="#" class="close" data-dismiss="alert">&times;</a>
                                             <strong>sorry!</strong><?php echo Yii::app()->user->getFlash('passworderror1'); ?>
@@ -81,7 +81,7 @@
                             <h2>REGISTRATION</h2>
                             <h4>Please fillout your profile information</h4>
                             <div class="col-xs-12 forward">
-                                <?php if(Yii::app()->user->hasFlash('feilderror1')): ?>
+                                <?php if (Yii::app()->user->hasFlash('feilderror1')): ?>
                                         <div class="alert alert-danger mesage">
                                             <a href="#" class="close" data-dismiss="alert">&times;</a>
                                             <strong>sorry!</strong><?php echo Yii::app()->user->getFlash('feilderror1'); ?>
@@ -207,13 +207,13 @@
 
 <div class="container main_container inner_pages">
     <h1>Shopping Bag</h1>
-    <?php if(Yii::app()->user->hasFlash('success')): ?>
+    <?php if (Yii::app()->user->hasFlash('success')): ?>
             <div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <strong>Success!</strong> <?php echo Yii::app()->user->getFlash('success'); ?>
             </div>
     <?php endif; ?>
-    <?php if(Yii::app()->user->hasFlash('error')): ?>
+    <?php if (Yii::app()->user->hasFlash('error')): ?>
             <div class="alert alert-danger  alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <strong></strong> <?php echo Yii::app()->user->getFlash('error'); ?>
@@ -259,6 +259,7 @@
                         <?php
                         $form = $this->beginWidget('CActiveForm', array(
                             'id' => 'temp-user-gifts-form',
+                            'action' => Yii::app()->baseUrl . '/index.php/cart/Mycart/',
                             // Please note: When you enable ajax validation, make sure the corresponding
                             // controller action is handling ajax validation correctly.
                             // There is a call to performAjaxValidation() commented in generated controller code.
@@ -269,7 +270,7 @@
 
                         <?php echo $form->errorSummary($gift_user); ?>
                         <br/>
-                        <?php if(Yii::app()->session['user'] != '' && Yii::app()->session['user'] != NULL) { ?>
+                        <?php if (Yii::app()->session['user'] != '' && Yii::app()->session['user'] != NULL) { ?>
                                 <div class="form-group">
                                     <?php echo $form->hiddenField($gift_user, 'user_id', array('class' => 'form-control', 'value' => Yii::app()->session['user']['id']));
                                     ?>
@@ -338,16 +339,16 @@
                     </div>
                     <!-- / Cart Table Header-->
                     <?php
-                    foreach($carts as $cart) {
+                    foreach ($carts as $cart) {
 
                             $prod_details = Products::model()->findByPk($cart->product_id);
                             $folder = Yii::app()->Upload->folderName(0, 1000, $prod_details->id);
                             $colors = OptionDetails::model()->findByPk($cart->options);
                             $sizes = OptionDetails::model()->findByPk($cart->options);
-                            if(!empty($colors)) {
+                            if (!empty($colors)) {
                                     $color_name = OptionCategory::model()->findByPk($colors->color_id);
                             }
-                            if(!empty($sizes)) {
+                            if (!empty($sizes)) {
                                     $size_name = OptionCategory::model()->findByPk($sizes->size_id);
                             }
                             ?>
@@ -360,14 +361,14 @@
 
                                     <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Products/Detail/name/<?php echo $prod_details->canonical_name; ?>"style="color: #333;text-decoration: none;">  <h3><?php echo $prod_details->product_name; ?></h3></a>
 
-                                    <?php if(!empty($color_name)) { ?>  <p><span>Color:</span>	<?php echo $color_name->color_name; ?></p> <?php } ?>
-                                    <?php if(!empty($size_name)) { ?> <p><span>Size:</span><?php echo $size_name->size; ?></p> <?php } ?>
+                                    <?php if (!empty($color_name)) { ?>  <p><span>Color:</span>	<?php echo $color_name->color_name; ?></p> <?php } ?>
+                                    <?php if (!empty($size_name)) { ?> <p><span>Size:</span><?php echo $size_name->size; ?></p> <?php } ?>
                                     <?php
                                     $trimstring = substr($prod_details->description, 0, 100);
                                     ?>
                                     <p><?= $trimstring; ?></p>
                                     <?php
-                                    if($prod_details->discount) {
+                                    if ($prod_details->discount) {
                                             $price = $prod_details->price - $prod_details->discount;
                                     } else {
                                             $price = $prod_details->price;
@@ -379,12 +380,12 @@
                                     ?>
                                 </div>
                                 <?php
-                                if(isset(Yii::app()->session['currency'])) {
+                                if (isset(Yii::app()->session['currency'])) {
                                         $currency_rate = Yii::app()->session['currency']->rate;
                                 } else {
                                         $currency_rate = 1;
                                 }
-                                if($currency_rate * $prod_details->price <= $currency_rate * 3000) {
+                                if ($currency_rate * $prod_details->price <= $currency_rate * 3000) {
                                         $gift_message = 0;
                                 } else {
                                         $gift_message = 1;
@@ -392,7 +393,7 @@
                                 ?>
                                 <div class="col-1">
                                     <div class="gift_ticker">
-                                        <input style="height: 20px; width: 20px;" type="checkbox" <?php if($cart->gift_option == '1') { ?> checked="" disabled="" <?php } ?> cart_id="<?php echo $cart->id; ?>" option="<?php echo $cart->options; ?>" product_id="<?php echo $cart->product_id; ?>" <?php if(isset(Yii::app()->session['orderid'])) { ?> order_id="<?php echo Yii::app()->session['orderid']; ?>"  <?php } ?>  name="gift" id="<?php echo $cart->id; ?>" value="1" gift_status="<?php echo $gift_message; ?>" class="gift_options gift_ticker">
+                                        <input style="height: 20px; width: 20px;" type="checkbox" <?php if ($cart->gift_option == '1') { ?> checked="" disabled="" <?php } ?> cart_id="<?php echo $cart->id; ?>" option="<?php echo $cart->options; ?>" product_id="<?php echo $cart->product_id; ?>" <?php if (isset(Yii::app()->session['orderid'])) { ?> order_id="<?php echo Yii::app()->session['orderid']; ?>"  <?php } ?>  name="gift" id="<?php echo $cart->id; ?>" value="1" gift_status="<?php echo $gift_message; ?>" class="gift_options gift_ticker">
                                     </div>
                                 </div>
 
@@ -413,7 +414,7 @@
                             </div>
                             <!-- / Cart items-->
                             <?php
-                            if($cart->gift_option == 1) {
+                            if ($cart->gift_option == 1) {
                                     ?>
                                     <?php $gift_user_details = TempUserGifts::model()->findByAttributes(array('cart_id' => $cart->id)); ?>
                                     <div class="cart_row gift_row" id="gift_cnt_<?php echo $cart->id; ?>">
@@ -451,13 +452,13 @@
                     ?>
 
                     <?php
-                    if(Yii::app()->session['user'] != '' && Yii::app()->session['user'] != NULL) {
+                    if (Yii::app()->session['user'] != '' && Yii::app()->session['user'] != NULL) {
 
-                            if(isset(Yii::app()->session['orderid'])) {
+                            if (isset(Yii::app()->session['orderid'])) {
 
                                     $coupons = CouponHistory::model()->findAllByAttributes(array('order_id' => Yii::app()->session['orderid']));
-                                    if(!empty($coupons)) {
-                                            foreach($coupons as $coupon) {
+                                    if (!empty($coupons)) {
+                                            foreach ($coupons as $coupon) {
                                                     $coupn_details = Coupons::model()->findByPk($coupon->coupon_id);
                                                     ?>
                                                     <!--                                                                        <div class="cart_row gift_row_coupon">
@@ -478,9 +479,9 @@
                                     }
                             }
                     } else {
-                            if(isset(Yii::app()->session['couponid'])) {
+                            if (isset(Yii::app()->session['couponid'])) {
                                     $coupons = explode(',', Yii::app()->session['couponid']);
-                                    foreach($coupons as $coupon) {
+                                    foreach ($coupons as $coupon) {
                                             $coupn_details = Coupons::model()->findByPk($coupon->coupon_id);
                                             ?>
                                             <!--                                                                <div class="cart_row gift_row_coupon">
@@ -546,7 +547,7 @@
                 <!-- / Order Amount-->
                 <div class="cart_buttons">
                     <a class="btn-continue" href="<?= Yii::app()->baseUrl; ?>/index.php">CONTINUE SHOPPING</a>
-                    <?php if(isset(Yii::app()->session['user']['id'])) { ?>
+                    <?php if (isset(Yii::app()->session['user']['id'])) { ?>
                             <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/cart/Proceed/<?php echo $prod->id; ?>"><button type="button" class="btn btn-big btn-primary cartpg">CHECKOUT&nbsp;<i class="fa fa-angle-right "></i> </button></a>
                     <?php } else { ?>
                             <a class="btn btn-big btn-primary" data-toggle="modal" data-target="#logreg">CHECKOUT&nbsp;<i class="fa fa-angle-right "></i> </a>
@@ -560,10 +561,10 @@
 
 <script>
         $(document).ready(function () {
-<?php if($gift_user->hasErrors()) { ?>
+<?php if ($gift_user->hasErrors()) { ?>
                     $("#giftpopup").modal('show');
 <?php } ?>
-<?php if($loginform->hasErrors()) { ?>
+<?php if ($loginform->hasErrors()) { ?>
 
                     $(".reg").removeClass('active');
                     $(".log").addClass('active');
@@ -571,7 +572,7 @@
                     $("#signin").addClass('active');
                     $("#logreg").modal('show');
 <?php } ?>
-<?php if($regform->hasErrors()) { ?>
+<?php if ($regform->hasErrors()) { ?>
                     $(".log").removeClass('active');
                     $(".reg").addClass('active');
                     $("#signin").removeClass('active');

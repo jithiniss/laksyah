@@ -250,7 +250,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                 <h3>Watch Video</h3>
                                 <div class="video_thumb">
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
                                     <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/video_thumb.jpg" alt=""/>
                                     <a class="video_link laksyah_video fancybox.iframe" href="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>"><i class="fa fa-play-circle-o"></i></a>
                                 </div>
@@ -523,370 +523,370 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal-dialog -->
-                </div><!-- /.modal -->
-            </div>
+                </div><!-- /.modal-->
+                <!--            </div>-->
 
 
 
 
-            <?php
+                <?php
 //check wheather sale or enquiry//
 
-            if ($product->enquiry_sale == 1) {
-                    //instock//
+                if ($product->enquiry_sale == 1) {
+                        //instock//
 
-                    if ($product->stock_availability == 1) {
-                            if (empty($option_exists)) {
-                                    $total_stock = $product->quantity;
-                                    if ($total_stock >= 1) {
-                                            ?>
+                        if ($product->stock_availability == 1) {
+                                if (empty($option_exists)) {
+                                        $total_stock = $product->quantity;
+                                        if ($total_stock >= 1) {
+                                                ?>
 
-                                            <?php if ($product->quantity <= 2) { ?>
-                                                    <div class="product_quantity">
-                                                        <h3>Quantity</h3>
-                                                        <div class="qunatity">
-                                                            <select class="qty" >
-                                                                <?php
-                                                                for ($i = 1; $i <= $product->quantity; $i++) {
-                                                                        ?>
-                                                                        <option value="<?= $i; ?>"><?= $i; ?></option>
-                                                                <?php } ?>
+                                                <?php if ($product->quantity <= 2) { ?>
+                                                        <div class="product_quantity">
+                                                            <h3>Quantity</h3>
+                                                            <div class="qunatity">
+                                                                <select class="qty" >
+                                                                    <?php
+                                                                    for ($i = 1; $i <= $product->quantity; $i++) {
+                                                                            ?>
+                                                                            <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                                    <?php } ?>
 
-                                                            </select>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                <?php } else { ?>
+
+                                                        <div class="product_quantity">
+                                                            <h3>Quantity</h3>
+                                                            <div class="qunatity">
+                                                                <select class="qty" >
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                <?php } ?>
+                                                <!-- / Quantity-->
+                                                <div class="shipping_info">
+                                                    <div class="row">
+                                                        <div class="col-md-6 col-xs-6">
+                                                            <h4><a ><i class="fa fa-globe"></i> <span>We Ship Worldwide</span></a></h4>
+                                                        </div>
+                                                        <div class="col-md-6 col-xs-6">
+                                                            <h4><a ><i class="fa fa-truck"></i> <span>Free Shipping In India</span></a></h4>
                                                         </div>
                                                     </div>
-                                            <?php } else { ?>
 
-                                                    <div class="product_quantity">
-                                                        <h3>Quantity</h3>
-                                                        <div class="qunatity">
-                                                            <select class="qty" >
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
+                                                    <p><a class="return_policies" style="cursor: pointer;" >View Shipping and Return Policies</a></p>
 
-                                                            </select>
+
+                                                </div>
+                                                <!-- / Shipping_ifo-->
+                                                <div class="product_button_group">
+                                                    <div class="row">
+                                                        <div class="col-md-7 col-xs-7">
+                                                            <button class="btn btn-skel add_to_cart" id="<?= $product->id; ?>"><i class="fa fa-shopping-bag"></i> ADD TO SHOPPING BAG</button>
+                                                            <input type = "hidden" id = "opt_id" name = "opt">
+                                                            <input type = "hidden" value = "<?= $product->canonical_name; ?>" id="cano_name_<?= $product->id; ?>" name="cano_name">
+                                                        </div>
+                                                        <div class="col-md-5 col-xs-5">
+                                                            <button type="button" class="btn btn-skel" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY</button>
                                                         </div>
                                                     </div>
-                                            <?php } ?>
-                                            <!-- / Quantity-->
-                                            <div class="shipping_info">
-                                                <div class="row">
-                                                    <div class="col-md-6 col-xs-6">
-                                                        <h4><a ><i class="fa fa-globe"></i> <span>We Ship Worldwide</span></a></h4>
-                                                    </div>
-                                                    <div class="col-md-6 col-xs-6">
-                                                        <h4><a ><i class="fa fa-truck"></i> <span>Free Shipping In India</span></a></h4>
-                                                    </div>
-                                                </div>
+                                                    <div class="row">
+                                                        <div class="col-md-7 col-xs-7">
+                                                            <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
 
-                                                <p><a class="return_policies" style="cursor: pointer;" >View Shipping and Return Policies</a></p>
-
-
-                                            </div>
-                                            <!-- / Shipping_ifo-->
-                                            <div class="product_button_group">
-                                                <div class="row">
-                                                    <div class="col-md-7 col-xs-7">
-                                                        <button class="btn btn-skel add_to_cart" id="<?= $product->id; ?>"><i class="fa fa-shopping-bag"></i> ADD TO SHOPPING BAG</button>
-                                                        <input type = "hidden" id = "opt_id" name = "opt">
-                                                        <input type = "hidden" value = "<?= $product->canonical_name; ?>" id="cano_name_<?= $product->id; ?>" name="cano_name">
-                                                    </div>
-                                                    <div class="col-md-5 col-xs-5">
-                                                        <button type="button" class="btn btn-skel" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY</button>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-7 col-xs-7">
-                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
-
-                                                    </div>
-                                                    <div class="col-md-5 col-xs-5">
-                                                        <button type="button" class="btn-primary buy_now" id="<?= $product->id; ?>" ><i class="fa fa-envelope"></i> BUY NOW</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-
-
-                                            <?php
-                                    } else {
-                                            ?>
-                                            <div class="product_button_group">
-
-                                                <div class="row">
-                                                    <div class="col-md-7 col-xs-7">
-                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
-
-                                                    </div>
-                                                    <div class="col-md-5 col-xs-5">
-                                                        <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
-                                                    </div>
-                                                </div>
-
-
-
-                                            </div>
-
-                                            <?php
-                                    }
-                            } else {
-
-                                    if ($total_stock >= 1) {
-                                            ?>
-
-                                            <?php if ($total_stock <= 2) { ?>
-                                                    <div class="product_quantity">
-                                                        <h3>Quantity</h3>
-                                                        <div class="qunatity">
-                                                            <select class="qty" >
-                                                                <?php
-                                                                for ($i = 1; $i <= $total_stock; $i++) {
-                                                                        ?>
-                                                                        <option value="<?= $i; ?>"><?= $i; ?></option>
-                                                                <?php } ?>
-
-                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-5 col-xs-5">
+                                                            <button type="button" class="btn-primary buy_now" id="<?= $product->id; ?>" ><i class="fa fa-envelope"></i> BUY NOW</button>
                                                         </div>
                                                     </div>
-                                            <?php } else { ?>
+                                                </div>
 
-                                                    <div class="product_quantity">
-                                                        <h3>Quantity</h3>
-                                                        <div class="qunatity">
-                                                            <select class="qty" >
-                                                                <option value="1">1</option>
-                                                                <option value="2">2</option>
-                                                                <option value="3">3</option>
 
-                                                            </select>
+
+
+                                                <?php
+                                        } else {
+                                                ?>
+                                                <div class="product_button_group">
+
+                                                    <div class="row">
+                                                        <div class="col-md-7 col-xs-7">
+                                                            <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
+
+                                                        </div>
+                                                        <div class="col-md-5 col-xs-5">
+                                                            <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
                                                         </div>
                                                     </div>
-                                            <?php } ?>
-                                            <!-- / Quantity-->
-                                            <div class="shipping_info">
-                                                <div class="row">
-                                                    <div class="col-md-6 col-xs-6">
-                                                        <h4><a><i class="fa fa-globe"></i> <span>We Ship Worldwide</span></a></h4>
+
+
+
+                                                </div>
+
+                                                <?php
+                                        }
+                                } else {
+
+                                        if ($total_stock >= 1) {
+                                                ?>
+
+                                                <?php if ($total_stock <= 2) { ?>
+                                                        <div class="product_quantity">
+                                                            <h3>Quantity</h3>
+                                                            <div class="qunatity">
+                                                                <select class="qty" >
+                                                                    <?php
+                                                                    for ($i = 1; $i <= $total_stock; $i++) {
+                                                                            ?>
+                                                                            <option value="<?= $i; ?>"><?= $i; ?></option>
+                                                                    <?php } ?>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                <?php } else { ?>
+
+                                                        <div class="product_quantity">
+                                                            <h3>Quantity</h3>
+                                                            <div class="qunatity">
+                                                                <select class="qty" >
+                                                                    <option value="1">1</option>
+                                                                    <option value="2">2</option>
+                                                                    <option value="3">3</option>
+
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                <?php } ?>
+                                                <!-- / Quantity-->
+                                                <div class="shipping_info">
+                                                    <div class="row">
+                                                        <div class="col-md-6 col-xs-6">
+                                                            <h4><a><i class="fa fa-globe"></i> <span>We Ship Worldwide</span></a></h4>
+                                                        </div>
+                                                        <div class="col-md-6 col-xs-6">
+                                                            <h4><a ><i class="fa fa-truck"></i> <span>Free Shipping In India</span></a></h4>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-6 col-xs-6">
-                                                        <h4><a ><i class="fa fa-truck"></i> <span>Free Shipping In India</span></a></h4>
+
+                                                    <p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>
+
+
+                                                </div>
+                                                <!-- / Shipping_ifo-->
+                                                <div class="product_button_group">
+                                                    <div class="row">
+                                                        <div class="col-md-7 col-xs-7">
+                                                            <button class="btn btn-skel add_to_cart" id="<?= $product->id; ?>"><i class="fa fa-shopping-bag"></i> ADD TO SHOPPING BAG</button>
+                                                            <input type = "hidden" id = "opt_id" name = "opt">
+                                                            <input type = "hidden" value = "<?= $product->canonical_name; ?>" id="cano_name_<?= $product->id; ?>" name="cano_name">
+                                                        </div>
+                                                        <div class="col-md-5 col-xs-5">
+                                                            <button type="button" class="btn btn-skel" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-7 col-xs-7">
+                                                            <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
+
+                                                        </div>
+                                                        <div class="col-md-5 col-xs-5">
+                                                            <button type="button" class="btn-primary buy_now" id="<?= $product->id; ?>" ><i class="fa fa-envelope"></i> BUY NOW</button>
+                                                        </div>
                                                     </div>
                                                 </div>
 
-                                                <p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>
 
 
-                                            </div>
-                                            <!-- / Shipping_ifo-->
-                                            <div class="product_button_group">
-                                                <div class="row">
-                                                    <div class="col-md-7 col-xs-7">
-                                                        <button class="btn btn-skel add_to_cart" id="<?= $product->id; ?>"><i class="fa fa-shopping-bag"></i> ADD TO SHOPPING BAG</button>
-                                                        <input type = "hidden" id = "opt_id" name = "opt">
-                                                        <input type = "hidden" value = "<?= $product->canonical_name; ?>" id="cano_name_<?= $product->id; ?>" name="cano_name">
+
+                                        <?php } else {
+                                                ?>
+
+
+
+                                                <div class="product_button_group">
+
+                                                    <div class="row">
+                                                        <div class="col-md-7 col-xs-7">
+                                                            <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
+
+                                                        </div>
+                                                        <div class="col-md-5 col-xs-5">
+                                                            <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-md-5 col-xs-5">
-                                                        <button type="button" class="btn btn-skel" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY</button>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-7 col-xs-7">
-                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
-
-                                                    </div>
-                                                    <div class="col-md-5 col-xs-5">
-                                                        <button type="button" class="btn-primary buy_now" id="<?= $product->id; ?>" ><i class="fa fa-envelope"></i> BUY NOW</button>
-                                                    </div>
-                                                </div>
-                                            </div>
 
 
 
-
-                                    <?php } else {
-                                            ?>
-
-
-
-                                            <div class="product_button_group">
-
-                                                <div class="row">
-                                                    <div class="col-md-7 col-xs-7">
-                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
-
-                                                    </div>
-                                                    <div class="col-md-5 col-xs-5">
-                                                        <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
-                                                    </div>
                                                 </div>
 
+                                        <?php }
+                                        ?>
 
+                                        <?php
+                                }
+                        }
+                        //out of stock//
+                        elseif ($product->stock_availability == 0) {
+                                ?>
+                                <div class="product_button_group">
 
-                                            </div>
+                                    <div class="row">
+                                        <div class="col-md-7 col-xs-7">
+                                            <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
 
-                                    <?php }
-                                    ?>
-
-                                    <?php
-                            }
-                    }
-                    //out of stock//
-                    elseif ($product->stock_availability == 0) {
-                            ?>
-                            <div class="product_button_group">
-
-                                <div class="row">
-                                    <div class="col-md-7 col-xs-7">
-                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
-
+                                        </div>
+                                        <div class="col-md-5 col-xs-5">
+                                            <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
+                                        </div>
                                     </div>
-                                    <div class="col-md-5 col-xs-5">
-                                        <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
-                                    </div>
+
+
                                 </div>
 
 
-                            </div>
-
-
-                            <?php
-                    } else {
-                            //other checking if availanle//
-                    }
-            }
+                                <?php
+                        } else {
+                                //other checking if availanle//
+                        }
+                }
 //enquiry//
-            else {
-                    ?>
-                    <div class="product_button_group">
-                        <div class="row">
-                            <div class="col-md-7 col-xs-7">
-                                <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
+                else {
+                        ?>
+                        <div class="product_button_group">
+                            <div class="row">
+                                <div class="col-md-7 col-xs-7">
+                                    <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
 
-                            </div>
-                            <div class="col-md-5 col-xs-5">
-                                <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
+                                </div>
+                                <div class="col-md-5 col-xs-5">
+                                    <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Modal -->
+                        <!-- Modal -->
 
-                    <?php
-            }
-            ?>
+                        <?php
+                }
+                ?>
 
-            <!--                                                        <div class="product_button_group">
-                                                                            <div class="row">
-                                                                                    <div class="col-md-7 col-xs-7">
-                                                                                            <button class="btn btn-skel"><i class="fa fa-shopping-bag"></i> ADD TO SHOPPING BAG</button>
-                                                                                    </div>
-                                                                                    <div class="col-md-5 col-xs-5">
-                                                                                            <button class="btn btn-skel" data-toggle="modal" data-target="#enquiryModal"><i class="fa fa-envelope"></i> ENQUIRY</button>
-                                                                                    </div>
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                    <div class="col-md-7 col-xs-7">
-                                                                                            <button class="btn btn-skel"><i class="fa fa-heart"></i> ADD TO WISHLIST</button>
-                                                                                    </div>
-                                                                                    <div class="col-md-5 col-xs-5">
-                                                                                            <button class="btn-primary"><i class="fa fa-envelope"></i> BUY NOW</button>
-                                                                                    </div>
-                                                                            </div>
-                                                                    </div>-->
-            <!--/Button Group-->
-            <div class="product_description">
-                <div>
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#description" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
-                        <li role="presentation"><a href="#details" aria-controls="profile" role="tab" data-toggle="tab">Details</a></li>
-                        <li role="presentation"><a href="#sizechart" aria-controls="settings" role="tab" data-toggle="tab">Size Charts</a></li>
-                    </ul>
+                <!--                                                        <div class="product_button_group">
+                                                                                <div class="row">
+                                                                                        <div class="col-md-7 col-xs-7">
+                                                                                                <button class="btn btn-skel"><i class="fa fa-shopping-bag"></i> ADD TO SHOPPING BAG</button>
+                                                                                        </div>
+                                                                                        <div class="col-md-5 col-xs-5">
+                                                                                                <button class="btn btn-skel" data-toggle="modal" data-target="#enquiryModal"><i class="fa fa-envelope"></i> ENQUIRY</button>
+                                                                                        </div>
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                        <div class="col-md-7 col-xs-7">
+                                                                                                <button class="btn btn-skel"><i class="fa fa-heart"></i> ADD TO WISHLIST</button>
+                                                                                        </div>
+                                                                                        <div class="col-md-5 col-xs-5">
+                                                                                                <button class="btn-primary"><i class="fa fa-envelope"></i> BUY NOW</button>
+                                                                                        </div>
+                                                                                </div>
+                                                                        </div>-->
+                <!--/Button Group-->
+                <div class="product_description">
+                    <div>
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li role="presentation" class="active"><a href="#description" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
+                            <li role="presentation"><a href="#details" aria-controls="profile" role="tab" data-toggle="tab">Details</a></li>
+                            <li role="presentation"><a href="#sizechart" aria-controls="settings" role="tab" data-toggle="tab">Size Charts</a></li>
+                        </ul>
 
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="description"><?= $product->description; ?> </div>
-                        <div role="tabpanel" class="tab-pane" id="details"> <?php echo CHtml::encode($product->product_details) ?></div>
-                        <div role="tabpanel" class="tab-pane" id="sizechart"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/sample.jpg" alt=""/></div>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="description"><?= $product->description; ?> </div>
+                            <div role="tabpanel" class="tab-pane" id="details"> <?php echo CHtml::encode($product->product_details) ?></div>
+                            <div role="tabpanel" class="tab-pane" id="sizechart"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/sample.jpg" alt=""/></div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- / End Product Details-->
-<!--/ Start Related Products-->
-<div class="relatd_products">
-    <div class="section_title">
-        <h2>Frequently Bought Together</h2>
-    </div>
-    <div class="related_itel_lists">
-        <div class="product_list ">
-            <div class="row related_list_slider">
-                <?php
-                if (!empty($recently) && $recently != '') {
-                        foreach ($recently as $recent) {
+    <!-- / End Product Details-->
+    <!--/ Start Related Products-->
+    <div class="relatd_products">
+        <div class="section_title">
+            <h2>Frequently Bought Together</h2>
+        </div>
+        <div class="related_itel_lists">
+            <div class="product_list ">
+                <div class="row related_list_slider">
+                    <?php
+                    if (!empty($recently) && $recently != '') {
+                            foreach ($recently as $recent) {
 
-                                $product_details = Products::model()->findByPk($recent->product_id);
-                                if (!empty($product_details)) {
-                                        ?>
-                                        <?php
-                                        $folder1 = Yii::app()->Upload->folderName(0, 1000, $product_details->id);
-                                        ?>
-                                        <div class="col-sm-2">
-                                            <div class="products_item"> <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Products/Detail/name/<?php echo $product_details->canonical_name; ?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder1 ?>/<?= $product_details->id ?>/medium.<?= $product_details->main_image ?>" alt=""/></a>
-                                                <div class="list_title">
-                                                    <h3><?= $product_details->product_name; ?></h3>
-                                                    <!--<h4>Saree</h4>-->
-                                                    <p><?= Yii::app()->Currency->convert($product_details->price); ?></p>
+                                    $product_details = Products::model()->findByPk($recent->product_id);
+                                    if (!empty($product_details)) {
+                                            ?>
+                                            <?php
+                                            $folder1 = Yii::app()->Upload->folderName(0, 1000, $product_details->id);
+                                            ?>
+                                            <div class="col-sm-2">
+                                                <div class="products_item"> <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Products/Detail/name/<?php echo $product_details->canonical_name; ?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder1 ?>/<?= $product_details->id ?>/medium.<?= $product_details->main_image ?>" alt=""/></a>
+                                                    <div class="list_title">
+                                                        <h3><?= $product_details->product_name; ?></h3>
+                                                        <!--<h4>Saree</h4>-->
+                                                        <p><?= Yii::app()->Currency->convert($product_details->price); ?></p>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <?php
-                                }
-                        }
-                }
-                ?>
+                                            <?php
+                                    }
+                            }
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+        <div class="section_title">
+            <h2>Related Products</h2>
+        </div>
+        <div class="related_itel_lists">
+            <div class="product_list ">
+                <div class="row related_list_slider">
+
+                    <?php
+                    if (!empty($related_products) && $related_products != '') {
+                            foreach ($related_products as $related_product) {
+
+                                    $product_details1 = Products::model()->findByPk($related_product);
+                                    if (!empty($product_details1)) {
+                                            ?>
+                                            <?php
+                                            $folder2 = Yii::app()->Upload->folderName(0, 1000, $product_details1->id);
+                                            ?>
+                                            <div class="col-sm-2">
+                                                <div class="products_item"> <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Products/Detail/name/<?php echo $product_details1->canonical_name; ?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder2 ?>/<?= $product_details1->id ?>/medium.<?= $product_details1->main_image ?>" alt=""/></a>
+                                                    <div class="list_title">
+                                                        <h3><?= $product_details1->product_name; ?></h3>
+                                                        <!--<h4>Saree</h4>-->
+                                                        <p><?= Yii::app()->Currency->convert($product_details1->price); ?></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <?php
+                                    }
+                            }
+                    }
+                    ?>
+                </div>
             </div>
         </div>
     </div>
-    <div class="section_title">
-        <h2>Related Products</h2>
-    </div>
-    <div class="related_itel_lists">
-        <div class="product_list ">
-            <div class="row related_list_slider">
-
-                <?php
-                if (!empty($related_products) && $related_products != '') {
-                        foreach ($related_products as $related_product) {
-
-                                $product_details1 = Products::model()->findByPk($related_product);
-                                if (!empty($product_details1)) {
-                                        ?>
-                                        <?php
-                                        $folder2 = Yii::app()->Upload->folderName(0, 1000, $product_details1->id);
-                                        ?>
-                                        <div class="col-sm-2">
-                                            <div class="products_item"> <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Products/Detail/name/<?php echo $product_details1->canonical_name; ?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder2 ?>/<?= $product_details1->id ?>/medium.<?= $product_details1->main_image ?>" alt=""/></a>
-                                                <div class="list_title">
-                                                    <h3><?= $product_details1->product_name; ?></h3>
-                                                    <!--<h4>Saree</h4>-->
-                                                    <p><?= Yii::app()->Currency->convert($product_details1->price); ?></p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <?php
-                                }
-                        }
-                }
-                ?>
-            </div>
-        </div>
-    </div>
-</div>
 </div>
 </div>
 
@@ -948,17 +948,17 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                 setTimeout(function () {
                     window.location.replace(baseurl + "/cart/Mycart/");
                 }, 1000);
-            }
-            //  window.location.origin + baseurl + "cart/Mycart";
+
+                //  window.location.origin + baseurl + "cart/Mycart";
 
 
 
             });
-                    /*
-                     * Product option
-                     */
-                    // Size Selector
-                    $('.size_selector').delegate('label', 'click', function () {
+            /*
+             * Product option
+             */
+            // Size Selector
+            $('.size_selector').delegate('label', 'click', function () {
 
                 $('#option_size').val('');
                 if ($(this).hasClass("disabled")) {
@@ -1058,25 +1058,25 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
         function addtocart(canname, qty, option_color = null, option_size = null, master_option = null) {
 
-        $.ajax({
-        type: "POST",
+            $.ajax({
+                type: "POST",
                 url: baseurl + 'cart/Buynow',
                 data: {cano_name: canname, qty: qty, option_color: option_color, option_size: option_size, master_option: master_option}
-        }).done(function (data) {
-            if (data == 9) {
+            }).done(function (data) {
+                if (data == 9) {
 
-                $('.option_errors').html('<p>Invalid Product.Please try again</p>').show();
-            } else {
+                    $('.option_errors').html('<p>Invalid Product.Please try again</p>').show();
+                } else {
 
-                $('.option_errors').html("").hide();
-                getcartcount();
-                getcarttotal();
-                $(".cart_box").show();
-                $(".cart_box").html(data);
-                $("html, body").animate({scrollTop: 0}, "slow");
-            }
-            hideLoader();
-        });
+                    $('.option_errors').html("").hide();
+                    getcartcount();
+                    getcarttotal();
+                    $(".cart_box").show();
+                    $(".cart_box").html(data);
+                    $("html, body").animate({scrollTop: 0}, "slow");
+                }
+                hideLoader();
+            });
         }
 
 

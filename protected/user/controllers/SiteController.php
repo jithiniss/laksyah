@@ -175,11 +175,16 @@ class SiteController extends Controller {
          */
         public function actionLogin() {
 
+
                 if (isset(Yii::app()->session['user'])) {
+
                         $this->redirect($this->createUrl('index'));
                 } else {
+
                         $model = new UserDetails();
                         if (isset($_REQUEST['UserDetails'])) {
+
+
 
                                 $modell = UserDetails::model()->findByAttributes(array('email' => $_REQUEST['UserDetails']['email'], 'password' => $_REQUEST['UserDetails']['password'], 'status' => 1));
 
@@ -374,13 +379,15 @@ class SiteController extends Controller {
         }
 
         public function actionPrivacyPolicy() {
-                $model = StaticPage::model()->findByPk(13);
-                $this->render('privacy_policy', array('model' => $model));
+                //$model = StaticPage::model()->findByPk(13);
+                //$this->render('privacy_policy', array('model' => $model));
+                $this->render('privacy_policy');
         }
 
         public function actionFaq() {
-                $model = QAndA::model()->findByPk(1);
-                $this->render('faq', array('model' => $model));
+//                $model = QAndA::model()->findByPk(1);
+//                $this->render('faq', array('model' => $model));
+                $this->render('faq');
         }
 
         public function actionSupport() {
@@ -414,9 +421,9 @@ class SiteController extends Controller {
         }
 
         public function actionTerms() {
-                $model = StaticPage::model()->findByPk(4);
-
-                $this->render('Terms', array('model' => $model));
+                //  $model = StaticPage::model()->findByPk(4);
+                //  $this->render('Terms', array('model' => $model));
+                $this->render('Terms');
         }
 
         public static function getNextOrPrevId($currentId, $nextOrPrev) {
