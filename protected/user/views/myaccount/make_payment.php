@@ -94,28 +94,17 @@
                                         <div class="col-md-6 col-sm-8">
                                                 <div class="row margin-normal">
                                                         <div class="col-xs-5">
-
-
-
                                                                 <?php echo $form->dropDownList($model, 'amount_type', array('2' => 'Advance Payment', '1' => 'Final', '0' => 'other'), array('class' => 'form-control')); ?>
                                                                 <?php echo $form->error($model, 'amount_type', array('style' => 'color:red')); ?>
-
-
-
-
-<!--                                <select class="form-control">
-
-                                                                <?php //echo $form->dropDownList($model, 'amount_type', array('2' => 'Advance Payment', '1' => 'Final', '0' => 'other')); ?>
-
-
-                                </select>-->
-
 
                                                         </div>
                                                         <div class="col-xs-2"><input type="text" class="form-control text-center" readonly placeholder="" value="₹"></div>
                                                         <div class="col-xs-5">
-                                                                <?php echo $form->textField($model, 'amount', array('size' => 60, 'class' => 'form-control')); ?>
-                                                                <?php echo $form->error($model, 'amount', array('style' => 'color:red')); ?>
+                                                                <?php if (!empty($celeb_history)) { ?>
+                                                                        <input type="text"  id="MakePayment_amount" readonly autocomplete="off" value="<?php echo $celeb_history->pay_amount; ?>" class="form-control" >
+                                                                <?php } else { ?>
+                                                                        <input type="text"  id="MakePayment_amount"  autocomplete="off"  class="form-control" >
+                                                                <?php } ?>
                                                         </div>
                                                 </div>
 
@@ -133,14 +122,24 @@
                                                                 $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
                                                                 ?>
                                                                 <input type="hidden" id="wallet_amt" value="<?php echo $user->wallet_amt; ?>">
-                                                                <input type="text" name="wallet_amt" autocomplete="off" id="credit" class="form-control" >
+                                                                <input type="text" name="MakePayment[amount]" autocomplete="off" id="credit" class="form-control" >
                                                         </div>
                                                         <div class="col-xs-7" style="padding-top:12px;"> <b>(Available Credit:<span id="balance">  </span>)</b></div>
                                                 </div>
 
                                         </div>
                                 </div>
+                                <div class="row">
+                                        <div class="col-sm-3">
 
+                                        </div>
+                                        <div class="col-md-6 col-sm-8">
+                                                <div class="price_group">
+                                                        Total amount to pay ₹ <span id="payment_blnc"></span>
+                                                </div>
+
+                                        </div>
+                                </div>
 
 
                                 <div class="row">
@@ -202,6 +201,8 @@
 <!--<script  src="http://code.jquery.com/jquery.min.js"></script>-->
 <script type="text/javascript">
         $(document).ready(function () {
+                var amount = $("#wallet_amt").val();
+                document.getElementById("balance").innerHTML = amount;
                 $('#credit').on('change', function () {
                         var credit = $("#credit").val();
                         var cred = credit
@@ -213,17 +214,8 @@
                                 var balance = wallet_amt - cred;
                                 document.getElementById("balance").innerHTML = balance;
                         }
-//                        var product_code = $("#MakePayment_product_code").val();
-//                        $.ajax({
-//                                url: baseurl + 'Myaccount/MakepaymentProduct',
-//                                type: "POST",
-//                                data: {product_code: product_code},
-//                                success: function (response)
-//                                {
-//                                        $('#balance_price').html(response);
-//                                }
-//                        });
-//                        document.getElementById("balance_").innerHTML = product_code;
+                        var payment_blnc = $("#MakePayment_amount").val() - $("#credit").val();
+                        document.getElementById("payment_blnc").innerHTML = payment_blnc;
                 });
         });
 </script>
