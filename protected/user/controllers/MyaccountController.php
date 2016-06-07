@@ -278,16 +278,27 @@ class MyaccountController extends Controller {
                 $this->redirect('addressbook');
         }
 
-        public function actionMakepayment() {
-                $model = new MakePayment;
-                if (isset($_POST['MakePayment'])) {
-                        $model->attributes = $_POST['MakePayment'];
-                        $model->userid = Yii::app()->session['user']['id'];
-                        $model->date = date('Y-m-d');
-
-                        if ($model->validate()) {
-                                if ($model->save()) {
-                                        if ($model->amount <= $_POST['wallet_amt']) {
+        public function actionMakepayment($enquiry_id, $history_id) {
+                if (isset(Yii::app()->session['user'])) {
+                        $enquiry = ProductEnquiry::model()->findByPk($enquiry_id);
+                        $enquiry_product = Products::model()->findByPk($enquiry->product_id);
+                        $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+                        $model = new MakePayment;
+                        if (isset($_POST['MakePayment'])) {
+                                $model->attributes = $_POST['MakePayment'];
+                                $model->userid = Yii::app()->session['user']['id'];
+                                $model->date = date('Y-m-d');
+                                $model->amount = $_POST['MakePayment']['amount'];
+                                $wallet_amount = $_POST['wallet_amt'];
+                                $product_price = $enquiry_product->price;
+                                $balance = $product_price - ($wallet_amount + $model->amount);
+                                if ($model->validate()) {
+                                        if ($model->save()) {
+                                                $enquiry->user_id = Yii::app()->session['user']['id'];
+                                                $enquiry->total_amount = $product_price;
+                                                $enquiry->balance_to_pay = $balance;
+                                                $enquiry->status = 2;
+                                                $enquiry->save();
                                                 $wallet_add = new WalletHistory;
                                                 $wallet_add->user_id = Yii::app()->session['user']['id'];
                                                 $wallet_add->type_id = 3;
@@ -295,7 +306,6 @@ class MyaccountController extends Controller {
                                                 $wallet_add->entry_date = date('Y-m-d');
                                                 $wallet_add->credit_debit = 2;
                                                 $wallet_add->payment_method = $_POST['MakePayment']['pay_method'];
-                                                $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
                                                 $wallet_amount = $user->wallet_amt;
                                                 $wallet_add->balance_amt = $wallet_amount - $wallet_add->amount;
                                                 if ($wallet_add->save()) {
@@ -304,42 +314,25 @@ class MyaccountController extends Controller {
                                                         $user->save();
                                                         $wallet_add->unsetAttributes();
                                                 }
-                                        }
+
 //                                        else {
 //                                                $this->redirect('Makepayment_debit');
 //                                        }
-                                        $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
-                                        $page_url = $_SERVER["HTTP_REFERER"];
-                                        $from = 'laksyah@intersmarthosting.in';
-                                        $to = 'shahana@intersmart.in';
-                                        $subject = 'Payment Information From ' . $from;
-
-
-
-                                        $message = $this->renderPartial('_ptoduct_info_mail', array('page_url' => $page_url, 'from' => $from));
-
-
-
-                                        $headers = "MIME-Version: 1.0" . "\r\n";
-                                        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-                                        $headers .= 'From: <laksyah@intersmarthosting.in>' . "\r\n";
-
-                                        if (mail($to, $subject, $message, $headers)) {
-                                                Yii::app()->user->setFlash('success', " your email sent successfully..");
-                                                $this->redirect($page_url);
+                                                Yii::app()->user->setFlash('success', "your amount has been  successfully added");
+                                                $this->redirect('Makepayment');
+                                        } else {
+                                                Yii::app()->user->setFlash('error', "Sorry! There is some error..");
                                         }
-                                        Yii::app()->user->setFlash('success', "your amount has been  successfully added");
-                                        $this->redirect('Makepayment');
-                                } else {
-                                        Yii::app()->user->setFlash('error', "Sorry! There is some error..");
                                 }
                         }
+
+
+                        $this->render('make_payment', array(
+                            'model' => $model, 'enquiry_product' => $enquiry_product,
+                        ));
+                } else {
+                        $this->redirect('Login');
                 }
-
-
-                $this->render('make_payment', array(
-                    'model' => $model,
-                ));
         }
 
         public function actionMakepayment_debit() {

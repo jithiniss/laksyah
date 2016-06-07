@@ -39,29 +39,45 @@
                                 </div>
                         <?php endif; ?>
                         <div class="registration_form">
-                                <div class="row">
-                                        <div class="col-sm-3">
-                                                <label>Product Name*</label>
+                                <?php if (!empty($enquiry_product)) { ?>
+                                        <div class="row">
+                                                <div class="col-sm-3">
+                                                        <label>Product Name*</label>
+                                                </div>
+                                                <div class="col-sm-8 col-md-6">
+
+                                                        <input type="text" name="MakePayment[product_name]" value="<?php echo $enquiry_product->product_name; ?>" readonly class="form-control"/>
+                                                </div>
                                         </div>
-                                        <div class="col-sm-8 col-md-6">
-
-                                                <?php echo $form->textField($model, 'product_name', array('size' => 60, 'height' => 60, 'class' => 'form-control')); ?>
-                                                <?php echo $form->error($model, 'product_name', array('style' => 'color:red')); ?>
+                                        <div class="row">
+                                                <div class="col-sm-3">
+                                                        <label>Product Code*</label>
+                                                </div>
+                                                <div class="col-sm-8 col-md-6">
+                                                        <input type="text" name="MakePayment[product_code]" value="<?php echo $enquiry_product->product_code; ?>" readonly class="form-control"/>
+                                                </div>
                                         </div>
-                                </div>
+                                <?php } else { ?>
+                                        <div class="row">
+                                                <div class="col-sm-3">
+                                                        <label>Product Name*</label>
+                                                </div>
+                                                <div class="col-sm-8 col-md-6">
 
-
-
-
-                                <div class="row">
-                                        <div class="col-sm-3">
-                                                <label>Product Code*</label>
+                                                        <input type="text" name="MakePayment[product_name]" class="form-control"/>
+                                                </div>
                                         </div>
-                                        <div class="col-sm-8 col-md-6">
-                                                <?php echo $form->textField($model, 'product_code', array('size' => 60, 'height' => 60, 'class' => 'form-control')); ?>
-                                                <?php echo $form->error($model, 'product_code', array('style' => 'color:red')); ?>
+                                        <div class="row">
+                                                <div class="col-sm-3">
+                                                        <label>Product Code*</label>
+                                                </div>
+                                                <div class="col-sm-8 col-md-6">
+                                                        <input type="text" name="MakePayment[product_code]"  class="form-control"/>
+                                                </div>
                                         </div>
-                                </div>
+
+
+                                <?php } ?>
                                 <div class="row">
                                         <div class="col-sm-3">
                                                 <label>Message</label>

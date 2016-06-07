@@ -11,13 +11,13 @@
         <h3 class="side_nav_toggle"><i class="fa fa-align-justify "></i><?php echo Yii::app()->session['user']['first_name']; ?> <?php echo Yii::app()->session['user']['last_name']; ?></h3>
         <div class="cat_nav">
                 <ul class="catmenu">
-                        <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Profile">My Profile</a></li>
-                        <li> <a href="<?= Yii::app()->baseUrl; ?>/index.php/CreditHistory">My Credit</a></li>
-                        <li> <a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Addressbook">Address Book</a></li>
-                        <li> <a href="<?= Yii::app()->baseUrl; ?>/index.php/OrderHistory">My Order</a></li>
-                        <li> <a href="<?= Yii::app()->baseUrl; ?>/index.php/Wishlists">My Wishlist</a></li>
-                        <li> <a href="<?= Yii::app()->baseUrl; ?>/index.php/Measurement">Measurement</a></li>
-                        <li> <a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Makepayment">Make a Payment</a></li>
+                        <li><?php echo CHtml::link('My Profile', array('Profile')); ?></li>
+                        <li><?php echo CHtml::link('My Credit', array('MyWallet/CreditHistory')); ?></li>
+                        <li><?php echo CHtml::link('Address Book', array('Myaccount/Addressbook')); ?></li>
+                        <li><?php echo CHtml::link('My Order', array('Myaccount/Myordernew')); ?></li>
+                        <li><?php echo CHtml::link('My Wishlist', array('Myaccount/Mywishlists')); ?></li>
+                        <li><?php echo CHtml::link('Measurement', array('Myaccount/SizeChartType')); ?></li>
+                        <li><?php echo CHtml::link('Make a Payment', array('Myaccount/Makepayment', 'enquiry_id' => 40, 'history_id' => 45)); ?></li>
                         <!--            <li> <a href="#">Track My Order</a></li>-->
                 </ul>
         </div>
