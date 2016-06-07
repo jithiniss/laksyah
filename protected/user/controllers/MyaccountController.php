@@ -478,8 +478,6 @@ class MyaccountController extends Controller {
                         $this->render('make_payment', array(
                             'model' => $model,
                         ));
-                } else {
-                        $this->redirect('Login');
                 }
         }
 
