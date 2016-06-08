@@ -35,12 +35,12 @@
                                 <div class="row">
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'First Name*', array('class' => '')); ?>
-                                                <?php echo $form->textField($model, 'first_name', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'First Name', 'class' => 'form-control')); ?>
+                                                <?php echo $form->textField($model, 'first_name', array('size' => 60, 'readOnly' => true, 'maxlength' => 100, 'placeholder' => 'First Name', 'class' => 'form-control')); ?>
                                                 <?php echo $form->error($model, 'first_name'); ?>
                                         </div>
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'Last Name*', array('class' => '')); ?>
-                                                <?php echo $form->textField($model, 'last_name', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Last Name', 'class' => 'form-control')); ?>
+                                                <?php echo $form->textField($model, 'last_name', array('size' => 60, 'readOnly' => true, 'maxlength' => 100, 'placeholder' => 'Last Name', 'class' => 'form-control')); ?>
                                                 <?php echo $form->error($model, 'last_name'); ?>
 
                                         </div>
@@ -67,6 +67,7 @@
                                                         'maxlength' => '10', // textField maxlength
                                                         'class' => 'form-control',
                                                         'placeholder' => 'Date Of Birth',
+                                                        'readOnly' => true,
                                                     ),
                                                 ));
                                                 ?>
@@ -74,19 +75,19 @@
                                         </div>
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'gender', array('class' => '')); ?>
-                                                <?php echo $form->dropDownList($model, 'gender', array('male' => "male", 'female' => "female"), array('class' => 'form-control')); ?>
+                                                <?php echo $form->dropDownList($model, 'gender', array('male' => "male", 'female' => "female"), array('class' => 'form-control', 'readOnly' => true)); ?>
                                                 <?php echo $form->error($model, 'gender'); ?>
                                         </div>
                                 </div>
                                 <div class="row">
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'email', array('class' => '')); ?>
-                                                <?php echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Email Address', 'class' => 'form-control')); ?>
+                                                <?php echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Email Address', 'class' => 'form-control', 'readOnly' => true)); ?>
                                                 <?php echo $form->error($model, 'email'); ?>
                                         </div>
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'phone', array('class' => '')); ?>
-                                                <?php echo $form->textField($model, 'phone_no_1', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'phone', 'class' => 'form-control')); ?>
+                                                <?php echo $form->textField($model, 'phone_no_1', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'phone', 'class' => 'form-control', 'readOnly' => true)); ?>
                                                 <?php echo $form->error($model, 'phone_no_1'); ?>
                                         </div>
                                 </div>
@@ -94,7 +95,7 @@
 
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'mobile', array('class' => '')); ?>
-                                                <?php echo $form->textField($model, 'phone_no_2', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'mobile', 'class' => 'form-control')); ?>
+                                                <?php echo $form->textField($model, 'phone_no_2', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'mobile', 'class' => 'form-control', 'readOnly' => true)); ?>
                                                 <?php echo $form->error($model, 'phone_no_2'); ?>
                                         </div>
                                 </div>
@@ -102,12 +103,12 @@
                                 <!--                <div class="row">
                                                     <div class="col-sm-6">
                                 <?php echo $form->labelEx($model, 'password', array('class' => '')); ?>
-                                <?php echo $form->passwordField($model, 'password', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Password', 'class' => 'form-control')); ?>
+                                <?php echo $form->passwordField($model, 'password', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Password', 'class' => 'form-control', 'readOnly' => true)); ?>
                                 <?php echo $form->error($model, 'password'); ?>
                                                     </div>
                                                     <div class="col-sm-6">
                                 <?php echo $form->labelEx($model, 'confirm', array('class' => '')); ?>
-                                <?php echo $form->passwordField($model, 'confirm', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Confirm Password', 'class' => 'form-control')); ?>
+                                <?php echo $form->passwordField($model, 'confirm', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Confirm Password', 'class' => 'form-control', 'readOnly' => true)); ?>
                                 <?php echo $form->error($model, 'confirm'); ?>
                                                     </div>
                                                 </div>-->
@@ -117,7 +118,7 @@
                                 <div class="confirm">
 
                                         <div class="custom_check">
-                                                <style>
+                                              <!--   <style>
                                                         .subscrib {
                                                                 border: solid 1px #d5d5d7;
                                                                 padding: 2px;
@@ -151,13 +152,15 @@
                                                 echo $form->checkBox($model, 'newsletter', array('class' => 'subscrib'));
                                                 ?>
                                                 <?php echo $form->error($model, 'newsletter'); ?>
-                                                <label><span></span>Please add me to the Subcriber email list. <a href="#">See Privacy Policy</a></label>
+                                             <label><span></span>Please add me to the Subcriber email list. <a href="#">See Privacy Policy</a></label>-->
 
                                         </div>
                                 </div>
                                 <div class="text-center form_button">
                                         <!--            <button class="btn-primary">Create an Acocunt</button>-->
-                                        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create an Acocunt' : 'Update', array('class' => 'btn btn-success pos text-center form_button btn-primary ',)); ?>
+                                        <!-- <?php echo CHtml::submitButton($model->isNewRecord ? 'Create an Acocunt' : 'Update', array('class' => 'btn btn-success pos text-center form_button btn-primary ',)); ?>-->
+                                        <a href="<?php echo Yii::app()->baseUrl; ?>/index.php/Myaccount/Profileedit" class="btn btn-success pos text-center form_button btn-primary">Edit Profile</a>
+
                                 </div>
                         </div>
                         <?php $this->endWidget(); ?>

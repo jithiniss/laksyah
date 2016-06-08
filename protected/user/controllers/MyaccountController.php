@@ -272,6 +272,11 @@ class MyaccountController extends Controller {
         }
 
         public function actionProfile() {
+                $model = UserDetails::model()->findByPk(array('id' => Yii::app()->session['user']['id']));
+                $this->render('myprofile', array('model' => $model));
+        }
+
+        public function actionProfileedit() {
                 if (!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
