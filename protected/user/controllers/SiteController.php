@@ -76,7 +76,6 @@ class SiteController extends Controller {
          */
         public function actionRegister() {
 
-
                 if (isset(Yii::app()->session['user'])) {
                         $this->redirect($this->createUrl('index'));
                 } else {
