@@ -106,13 +106,17 @@ class ProductEnquiryController extends Controller {
                                         $celib_history_update->link = Yii::app()->request->baseUrl . '/index.php/Myaccount/SizeChartType/enquiry_id/' . $enc_enq_id . '/history_id/' . $enc_celib_history_id;
                                         if ($celib_history_update->save()) {
                                                 $model->status = 2;
-                                                $this->ProductEnquiryMail($celib_history_update);
+                                                if ($model->save()) {
+
+                                                        $this->ProductEnquiryMail($celib_history_update);
+                                                }
                                         }
                                 }
                         } else if ($_POST['ProductEnquiry']['status'] == 3) {
                                 $celib_history = new CelibStyleHistory;
                                 $celib_history->enq_id = $model->id;
                                 $celib_history->status = 3;
+                                $celib_history->pay_amount = $_POST['amount'];
                                 if ($celib_history->save()) {
                                         $celib_history_update = CelibStyleHistory::model()->findByPk($celib_history->id);
                                         $enc_enq_id = $model->id;
@@ -120,8 +124,9 @@ class ProductEnquiryController extends Controller {
                                         $celib_history_update->link = Yii::app()->request->baseUrl . '/index.php/Myaccount/Makepayment/enquiry_id/' . $enc_enq_id . '/history_id/' . $enc_celib_history_id;
                                         if ($celib_history_update->save()) {
                                                 $model->status = 3;
-                                                $this->ProductEnquiryMail($celib_history_update);
-                                                $this->ProductEnquiryMail($celib_history_update);
+                                                if ($model->save()) {
+                                                        $this->ProductEnquiryMail($celib_history_update);
+                                                }
                                         }
                                 }
                         }

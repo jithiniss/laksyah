@@ -18,7 +18,7 @@
                                         </td></tr>
                                 <tr><td>
                                                 <h4 style="padding: 5px 9px 6px 9px;">Dear User,</h4>
-                                                <h5 style="padding: 5px 9px 6px 9px;">Your Enquiry Successfully Placed . Please Click the link to enter your measurement . <a target="new" href="<?php echo $model->link; ?>"><?php echo $model->link; ?></a></h5>
+                                                <h5 style="padding: 5px 9px 6px 9px;">Your Enquiry Successfully Placed . Please Click the link to make your <?= $model->status == 3 ? 'Payment' : 'Measurement'; ?> . <a target="new" href="<?php echo $model->link; ?>"><?php echo $model->link; ?></a></h5>
                                         </td></tr>
                                 <tr>
                                         <td>

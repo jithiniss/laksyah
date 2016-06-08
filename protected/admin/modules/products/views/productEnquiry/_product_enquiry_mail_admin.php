@@ -18,7 +18,7 @@
                                         </td></tr>
                                 <tr><td>
                                                 <h4 style="padding: 5px 9px 6px 9px;">Dear Admin,</h4>
-                                                <h5 style="padding: 5px 9px 6px 9px;">Successfully Send the Measurement Link to User. <a target="new" href="<?php echo $model->link; ?>"><?php echo $model->link; ?></a></h5>
+                                                <h5 style="padding: 5px 9px 6px 9px;">Successfully Send the <?= $model->status == 3 ? 'Payment' : 'Measurement'; ?> Link to User. <a target="new" href="<?php echo $model->link; ?>"><?php echo $model->link; ?></a></h5>
                                         </td></tr>
                                 <td>
                                         <table cellspacing="0" cellpadding="0" border="0" width="776" style="    font-family: 'Open Sans',arial, sans-serif;font-size: 13px;">

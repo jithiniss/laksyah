@@ -92,13 +92,50 @@
                 <?php echo $form->error($model, 'status'); ?>
         </div>
         <div class="form-group amount" style="display: none">
-                <label class="col-sm-2 control-label" for="ProductEnquiry_Total_Product_Amount"> Amount to pay</label>
-                <div class="col-sm-10"><input size="60" maxlength="225" class="form-control" name="amount" id="ProductEnquiry_total_amount" type="text" >
+                <div class="col-sm-2"></div>
+                <div class="col-sm-10">
+                        <?php $payment_details = CelibStyleHistory::model()->findAllByAttributes(array('enq_id' => $model->id, 'status' => 3)); ?>
+                        <table border = "1">
+                                <thead>
+                                        <tr>
+                                                <td><strong>Sl.No</strong></td>
+                                                <td><strong>Pay amount</strong></td>
+                                                <td><strong>Date</strong></td>
+                                                <td><strong>Transaction Id</strong></td>
+                                                <td><strong>Payment Status</strong></td>
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                        <?php
+                                        if (!empty($payment_details)) {
+                                                $i = 1;
+                                                foreach ($payment_details as $payment_detail) {
+                                                        ?>
+                                                        <tr>
+                                                                <td><?= $i; ?></td>
+                                                                <td><?= $payment_detail->pay_amount; ?></td>
+                                                                <td><?= $payment_detail->date; ?></td>
+                                                                <td><?= $payment_detail->payment_id; ?></td>
+                                                                <td><?= $payment_detail->payment_status == 1 ? 'paid' : 'Not Paid'; ?></td>
+                                                        </tr>
+                                                        <?php
+                                                        $i++;
+                                                }
+                                        }
+                                        ?>
+                                </tbody>
+                        </table>
+                        <br />
+                        <div class = "clearfix"></div>
+                </div>
+                <label class = "col-sm-2 control-label" for = "ProductEnquiry_Total_Product_Amount"> Amount to pay</label>
+                <div class = "col-sm-10"><input size = "60" maxlength = "225" class = "form-control" name = "amount" id = "ProductEnquiry_total_amount" type = "text" >
                 </div>
         </div>
 
-        <div class="box-footer">
-                <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class' => 'btn btn-laksyah pos')); ?>
+        <div class = "box-footer">
+                <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class' => 'btn btn-laksyah pos'));
+                ?>
         </div>
         <?php $this->endWidget(); ?>
 
@@ -106,12 +143,20 @@
 
 <script>
         $(document).ready(function () {
+                var val = $('.enq_status').val();
+
+                if (val == 3) {
+
+                        $(".amount").show();
+                } else {
+                        $(".amount").hide();
+                }
                 $('.enq_status').on('change', function () {
 
                         var value = $('.enq_status').val();
 
                         if (value == 3) {
-                                alert(value);
+
                                 $(".amount").show();
                         } else {
                                 $(".amount").hide();
