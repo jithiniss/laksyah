@@ -1,7 +1,7 @@
 <form name=paypal action='https://www.sandbox.paypal.com/cgi-bin/webscr' method='post'>
         <input type='hidden' name='cmd' value='_xclick'>
         <input type='hidden' name='business' value='laksyahowner@gmail.com'>
-        <input type='hidden' name='item_name' value='Laksyah Payment'>
+        <input type='hidden' name='item_name' value='Laksyah Products'>
         <input type='hidden' name='item_number' value=<?= $order; ?>>
         <input type='hidden' name='amount' value=<?= $totaltopay; ?>>
         <input type='hidden' name='no_shipping' value='1'>

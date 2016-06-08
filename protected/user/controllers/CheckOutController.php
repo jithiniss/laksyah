@@ -544,31 +544,31 @@ class CheckOutController extends Controller {
 
                                                                         if ($order->netbanking != '') {
                                                                                 $hdfc_details = array();
-                                                                                $hdfc_details->description = 'Laksya Products';
-                                                                                $hdfc_details->order = $order->id;
-                                                                                $hdfc_details->totaltopay = $order->netbanking;
-                                                                                $hdfc_details->bill_name = $order_billing_details->first_name . ' ' . $order_billing_details->last_name;
-                                                                                $hdfc_details->bill_address = $order_billing_details->address_1 . ' ' . $order_billing_details->address_2;
-                                                                                $hdfc_details->bill_city = $order_billing_details->city;
-                                                                                $hdfc_details->bill_state = $order_billing_details->state;
-                                                                                $hdfc_details->bill_postal_code = $order_billing_details->postal_code;
-                                                                                $hdfc_details->bill_country = Countries::model()->findbypk($order_billing_details->country)->country_name;
-                                                                                $hdfc_details->bill_email = Yii::app()->session['user']['email'];
-                                                                                $hdfc_details->bill_phone_number = Yii::app()->session['user']['phone_no_1'];
+                                                                                $hdfc_details['description'] = 'Laksyah Products';
+                                                                                $hdfc_details['order'] = $order->id;
+                                                                                $hdfc_details['totaltopay'] = $order->netbanking;
+                                                                                $hdfc_details['bill_name'] = $order_billing_details->first_name . ' ' . $order_billing_details->last_name;
+                                                                                $hdfc_details['bill_address'] = $order_billing_details->address_1 . ' ' . $order_billing_details->address_2;
+                                                                                $hdfc_details['bill_city'] = $order_billing_details->city;
+                                                                                $hdfc_details['bill_state'] = $order_billing_details->state;
+                                                                                $hdfc_details['bill_postal_code'] = $order_billing_details->postcode;
+                                                                                $hdfc_details['bill_country'] = Countries::model()->findbypk($order_billing_details->country)->country_name;
+                                                                                $hdfc_details['bill_email'] = Yii::app()->session['user']['email'];
+                                                                                $hdfc_details['bill_phone_number'] = Yii::app()->session['user']['phone_no_1'];
 
-                                                                                $hdfc_details->ship_name = $order_shipping_detils->first_name . ' ' . $order_shipping_detils->last_name;
-                                                                                $hdfc_details->ship_address = $order_shipping_detils->address_1 . ' ' . $order_shipping_detils->address_2;
-                                                                                $hdfc_details->ship_city = $order_shipping_detils->city;
-                                                                                $hdfc_details->ship_state = $order_shipping_detils->state;
-                                                                                $hdfc_details->ship_postal_code = $order_shipping_detils->postal_code;
-                                                                                $hdfc_details->ship_country = Countries::model()->findbypk($order_shipping_detils->country)->country_name;
-                                                                                $hdfc_details->ship_email = Yii::app()->session['user']['email'];
-                                                                                $hdfc_details->bill_phone_number = Yii::app()->session['user']['phone_no_1'];
+                                                                                $hdfc_details['ship_name'] = $order_shipping_detils->first_name . ' ' . $order_shipping_detils->last_name;
+                                                                                $hdfc_details['ship_address'] = $order_shipping_detils->address_1 . ' ' . $order_shipping_detils->address_2;
+                                                                                $hdfc_details['ship_city'] = $order_shipping_detils->city;
+                                                                                $hdfc_details['ship_state'] = $order_shipping_detils->state;
+                                                                                $hdfc_details['ship_postal_code'] = $order_shipping_detils->postcode;
+                                                                                $hdfc_details['ship_country'] = Countries::model()->findbypk($order_shipping_detils->country)->country_name;
+                                                                                $hdfc_details['ship_email'] = Yii::app()->session['user']['email'];
+                                                                                $hdfc_details['bill_phone_number'] = Yii::app()->session['user']['phone_no_1'];
                                                                                 $this->render('hdfcpay', array('hdfc_details' => $hdfc_details, 'aid' => '20951', 'sec' => 'b837f49de88e6be36f077b6928c43bf9'));
                                                                         } else if ($order->paypal != '') {
 
                                                                                 // $totaltopay = round(Currency::model()->findBypk(2)->rate * $order->paypal, 2);
-                                                                                $this->render('paypalpay', array('order' => $order->id, 'totaltopay' => $order->paypal, 'displayvalue' => $displayvalue));
+                                                                                $this->render('paypalpay', array('order' => $order->id, 'totaltopay' => $order->paypal));
                                                                         }
 
                                                                         // $this->redirect(array('OrderSuccess'));

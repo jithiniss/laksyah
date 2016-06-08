@@ -12,7 +12,7 @@
                           $symbol = "fa-inr";
                           } */
                         ?>
-                        <h3>Amount to be Paid <i class="fa fa-inr"></i> <?= $totaltopay; ?></h3>
+                        <h3>Amount to be Paid <i class="fa fa-inr"></i> <?= $hdfc_details['totaltopay']; ?></h3>
                         <button class="btn-primary" type="submit">PAY NOW</button> &nbsp;
                         <button class="btn-cancel" type="reset">CANCEL</button>
                 </div>
@@ -44,14 +44,14 @@
                 </tr>
                 <tr>
                         <td class="fieldName" width="50%"><span class="error">*</span> Sale Amount</td>
-                        <td  align="left" width="50%"> <input name="amount" type="text" value="<?= $totaltopay; ?>" /> <select name="currency" >
+                        <td  align="left" width="50%"> <input name="amount" type="text" value="<?= $hdfc_details['totaltopay']; ?>" /> <select name="currency" >
                                         <option value="INR">INR</option>
 
                                 </select></td>
                 </tr>
                 <tr>
                         <td class="fieldName"><span class="error">*</span> Description</td>
-                        <td align="left"><input name="description" type="text" value="Test Product" /></td>
+                        <td align="left"><input name="description" type="text" value="<?= $hdfc_details['description']; ?>" /></td>
                 </tr>
                 <tr>
                         <td class="fieldName"><span class="error">*</span> Return Url</td>
@@ -70,51 +70,51 @@
                 <tr>
                         <td class="fieldName"><span class="error">*</span> Name</td>
                         <td align="left">
-                                <input name="name" type="text" value="Test Name" /></td>
+                                <input name="name" type="text" value="<?= $hdfc_details['bill_name']; ?>" /></td>
                 </tr>
 
                 <tr>
 
                         <td class="fieldName"><span class="error">*</span>Address</td>
                         <td align="left">
-                                <textarea name="address">Test Address</textarea>            </td>
+                                <textarea name="address"><?= $hdfc_details['bill_address']; ?></textarea>            </td>
                 </tr>
 
                 <tr>
                         <td class="fieldName"><span class="error">*</span>City</td>
 
                         <td align="left">
-                                <input name="city" type="text" value="Mumbai" />            </td>
+                                <input name="city" type="text" value="<?= $hdfc_details['bill_city']; ?>" />            </td>
                 </tr>
 
                 <tr>
                         <td class="fieldName">State/Province</td>
                         <td align="left">
-                                <input name="state" type="text" value="MH" />            </td>
+                                <input name="state" type="text" value="<?= $hdfc_details['bill_state']; ?>" />            </td>
                 </tr>
 
                 <tr>
                         <td class="fieldName"><span class="error">*</span>ZIP/Postal Code</td>
                         <td align="left">
-                                <input name="postal_code" type="text" value="400069" />            </td>
+                                <input name="postal_code" type="text" value="<?= $hdfc_details['bill_postal_code']; ?>" />            </td>
                 </tr>
 
                 <tr>
                         <td class="fieldName"><span class="error">*</span>Country</td>
                         <td align="left">
-                                <input name="country" type="text" value="IND" />            </td>
+                                <input name="country" type="text" value="INR" />            </td>
                 </tr>
 
                 <tr>
                         <td class="fieldName"><span class="error">*</span>Email</td>
                         <td align="left">
-                                <input name="email" type="text" value="test@test.com" />            </td>
+                                <input name="email" type="text" value="<?= $hdfc_details['bill_email']; ?>" />            </td>
                 </tr>
 
                 <tr>
 
                         <td class="fieldName"><span class="error">*</span>Telephone</td>
-                        <td align="left"><input name="phone" type="text" value="2211112222" /></td>
+                        <td align="left"><input name="phone" type="text" value="<?= $hdfc_details['bill_phone_number']; ?>" /></td>
                 </tr>
 
                 <tr>
@@ -125,53 +125,49 @@
 
                         <td class="fieldName"> Name</td>
                         <td align="left">
-                                <input name="ship_name" type="text" value="Test Name" /></td>
+                                <input name="ship_name" type="text" value="<?= $hdfc_details['ship_name']; ?>" /></td>
                 </tr>
 
                 <tr>
                         <td class="fieldName">Address</td>
                         <td align="left">
 
-                                <input name="ship_address" type="text" value="Test Address" />            </td>
+                                <input name="ship_address" type="text" value="<?= $hdfc_details['ship_address']; ?>" />            </td>
                 </tr>
 
                 <tr>
                         <td class="fieldName">City</td>
                         <td align="left">
-                                <input name="ship_city" type="text" value="Mumbai" />            </td>
+                                <input name="ship_city" type="text" value="<?= $hdfc_details['ship_city']; ?>" />            </td>
                 </tr>
 
                 <tr>
                         <td class="fieldName">State/Province</td>
                         <td align="left">
-                                <input name="ship_state" type="text" value="MH" />            </td>
+                                <input name="ship_state" type="text" value="<?= $hdfc_details['ship_state']; ?>" />            </td>
                 </tr>
 
                 <tr>
                         <td class="fieldName">ZIP/Postal Code</td>
                         <td align="left">
-                                <input name="ship_postal_code" type="text" value="400069" />            </td>
+                                <input name="ship_postal_code" type="text" value="<?= $hdfc_details['ship_postal_code']; ?>" />            </td>
                 </tr>
 
                 <tr>
                         <td class="fieldName">Country</td>
 
-                        <td align="left"><input name="ship_country" type="text" value="IND" /></td>
+                        <td align="left"><input name="ship_country" type="text" value="INR" /></td>
                 </tr>
 
 
                 <tr>
                         <td class="fieldName">Telephone</td>
-                        <td align="left"><input name="ship_phone" type="text" value="2211112222" /></td>
+                        <td align="left"><input name="ship_phone" type="text" value="<?= $hdfc_details['bill_phone_number']; ?>" /></td>
                 </tr>
 
 
 
-                <tr>
-                        <td valign="top" align="center" colspan="2">
-                                <span class="error">*</span>
-                                <span>denotes required field</span>            </td>
-                </tr>
+
 
         </table>
 
