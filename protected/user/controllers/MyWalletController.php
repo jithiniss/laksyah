@@ -4,7 +4,7 @@ class MyWalletController extends Controller {
 
         public function init() {
                 date_default_timezone_set('Asia/Kolkata');
-                if(!isset(Yii::app()->session['user'])) {
+                if (!isset(Yii::app()->session['user'])) {
 
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 }
@@ -17,10 +17,10 @@ class MyWalletController extends Controller {
         public function actionIndex() {
                 $model = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
 
-                if(!empty($model)) {
+                if (!empty($model)) {
                         $wallet_amount = $model->wallet_amt;
                         $wallet_add = new WalletHistory('addWallet');
-                        if(isset($_POST['WalletHistory'])) {
+                        if (isset($_POST['WalletHistory'])) {
                                 $wallet_add->attributes = $_POST['WalletHistory'];
 
                                 $entry_amount = $_POST['WalletHistory']['amount'];
@@ -31,8 +31,8 @@ class MyWalletController extends Controller {
                                 $wallet_add->balance_amt = $wallet_amount + $entry_amount;
 
 
-                                if($wallet_add->validate()) {
-                                        if($wallet_add->save()) {
+                                if ($wallet_add->validate()) {
+                                        if ($wallet_add->save()) {
 
                                                 $this->redirect(array('Success', 'user_id' => $model->id, 'wallet_id' => $wallet_add->id));
 
@@ -50,7 +50,7 @@ class MyWalletController extends Controller {
          */
 
         public function actionSuccess($user_id, $wallet_id) {
-                if(!empty($user_id) && !empty($wallet_id) && $user_id != '' && $wallet_id != '') {
+                if (!empty($user_id) && !empty($wallet_id) && $user_id != '' && $wallet_id != '') {
                         $user_wallet = UserDetails::model()->findByPk($user_id);
                         $wallet_history = WalletHistory::model()->findByPk($wallet_id);
 
@@ -58,8 +58,8 @@ class MyWalletController extends Controller {
                         $amount = $user_wallet->wallet_amt + $wallet_history->amount;
                         $user_wallet->wallet_amt = $amount;
                         $wallet_history->field2 = 1; //success
-                        if($wallet_history->save()) {
-                                if($user_wallet->save()) {
+                        if ($wallet_history->save()) {
+                                if ($user_wallet->save()) {
                                         Yii::app()->session['user'] = $user_wallet;
                                         Yii::app()->user->setFlash('wallet_success', "Money Added Successfully");
                                         $this->SendMail($user_wallet, $wallet_history);
@@ -124,13 +124,13 @@ class MyWalletController extends Controller {
                 //   $username = UserDetails::model()->findByPk($wallet_history->user_id);
 
 
-                if(!empty($wallet_id) && $wallet_id != '') {
+                if (!empty($wallet_id) && $wallet_id != '') {
 
                         $wallet_history = WalletHistory::model()->findByPk($wallet_id);
 
                         $username = UserDetails::model()->findByPk($wallet_history->user_id);
 
-                        if(!empty($wallet_history)) {
+                        if (!empty($wallet_history)) {
                                 $this->errorMail($username, $wallet_history);
 
                                 exit();

@@ -5,6 +5,7 @@
     $form = $this->beginWidget('CActiveForm', array(
         'id' => 'user-address-form',
         'htmlOptions' => array('class' => 'form-group'),
+        'action' => Yii::app()->baseUrl . '/index.php/CheckOut/CheckOut/',
         // Please note: When you enable ajax validation, make sure the corresponding
         // controller action is handling ajax validation correctly.
         // There is a call to performAjaxValidation() commented in generated controller code.
@@ -14,14 +15,14 @@
     ?>
 
 
-    <?php if(Yii::app()->user->hasFlash('success')):
+    <?php if (Yii::app()->user->hasFlash('success')):
             ?>
             <div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <?php echo Yii::app()->user->getFlash('success'); ?>
             </div>
     <?php endif; ?>
-    <?php if(Yii::app()->user->hasFlash('checkout_error')): ?>
+    <?php if (Yii::app()->user->hasFlash('checkout_error')): ?>
             <div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <?php echo Yii::app()->user->getFlash('checkout_error'); ?>
@@ -43,10 +44,10 @@
                             <select  name="bill_address" class="select_bill_exist form-control" id="bill_exist">
                                 <option  value="0">New Address</option>
                                 <?php
-                                foreach($addresss as $address) {
+                                foreach ($addresss as $address) {
                                         ?>
                                         <option <?php
-                                        if($address->default_billing_address == 1) {
+                                        if ($address->default_billing_address == 1) {
                                                 echo 'selected';
                                         }
                                         ?>  value="<?php echo $address->id; ?>"><?php echo $address->first_name; ?> <?php echo $data->last_name; ?> ,   <?php echo $address->address_1; ?>
@@ -54,7 +55,7 @@
                                             <?php echo $address->state; ?> , <?php echo $address->country; ?>
                                             <?php echo $address->postcode; ?></option>
                                         <?php
-                                        if(isset($_GET['box'])) {
+                                        if (isset($_GET['box'])) {
                                                 echo "Success!";
                                         }
                                 }
@@ -145,14 +146,14 @@
                                 <select  name="ship_address" class="select_ship_exist form-control">
                                     <option  value="0">New Address</option>
                                     <?php
-                                    foreach($addresss as $address) {
+                                    foreach ($addresss as $address) {
                                             ?>
                                             <option  value="<?php echo $address->id; ?>"><?php echo $address->first_name; ?> <?php echo $data->last_name; ?> ,   <?php echo $address->address_1; ?>
                                                 <?php echo $address->address_2; ?> , <?php echo $address->city; ?> ,
                                                 <?php echo $address->state; ?> , <?php echo $address->country; ?>
                                                 <?php echo $address->postcode; ?></option>
                                             <?php
-                                            if(isset($_GET['box'])) {
+                                            if (isset($_GET['box'])) {
                                                     echo "Success!";
                                             }
                                     }
@@ -227,7 +228,7 @@
                         <h3>Shipping Method</h3>
                         <div class="row">
                             <div class="col-xs-12 col-sm-6">
-                                <?php if(Yii::app()->user->hasFlash('shipp_availability')): ?>
+                                <?php if (Yii::app()->user->hasFlash('shipp_availability')): ?>
                                         <div class="alert alert-danger fade in">
                                             <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
                                             <?php echo Yii::app()->user->getFlash('shipp_availability'); ?>
@@ -271,15 +272,15 @@
                     <div class="panel-body cart_products">
 
                         <?php
-                        foreach($carts as $cart) {
+                        foreach ($carts as $cart) {
                                 $prod_details = Products::model()->findByPk($cart->product_id);
                                 $folder = Yii::app()->Upload->folderName(0, 1000, $prod_details->id);
                                 $colors = OptionDetails::model()->findByPk($cart->options);
                                 $sizes = OptionDetails::model()->findByPk($cart->options);
-                                if(!empty($colors)) {
+                                if (!empty($colors)) {
                                         $color_name = OptionCategory::model()->findByPk($colors->color_id);
                                 }
-                                if(!empty($sizes)) {
+                                if (!empty($sizes)) {
                                         $size_name = OptionCategory::model()->findByPk($sizes->size_id);
                                 }
                                 ?>
@@ -290,7 +291,7 @@
 
 
                                     <h3><?php echo $prod_details->product_name; ?><span class="pull-right"><strong><?php
-                                                if(isset(Yii::app()->session['currency'])) {
+                                                if (isset(Yii::app()->session['currency'])) {
                                                         $prod_price = round($prod_details->price, 2) * $cart->quantity;
                                                         echo Yii::app()->Currency->convert($prod_price);
                                                 } else {
@@ -301,8 +302,8 @@
                                             </strong></span>
                                     </h3>
 
-                                    <?php if(!empty($color_name)) { ?>  <p><span>Color:</span>	<?php echo $color_name->color_name; ?></p> <?php } ?>
-                                    <?php if(!empty($size_name)) { ?> <p><span>Size:</span><?php echo $size_name->size; ?></p> <?php } ?>
+                                    <?php if (!empty($color_name)) { ?>  <p><span>Color:</span>	<?php echo $color_name->color_name; ?></p> <?php } ?>
+                                    <?php if (!empty($size_name)) { ?> <p><span>Size:</span><?php echo $size_name->size; ?></p> <?php } ?>
                                     <p><span>Qty:</span><?php echo $cart->quantity; ?></p>
                                     <div class="clearfix"></div>
 
@@ -310,7 +311,7 @@
                                 <div class="cart_product_detail">
 
                                     <?php
-                                    if($cart->gift_option != 0) {
+                                    if ($cart->gift_option != 0) {
                                             ?>
 
                                             <?php $gift_user_details = TempUserGifts::model()->findByAttributes(array('cart_id' => $cart->id)); ?>
@@ -348,7 +349,7 @@
                     $minutes = floor(($diff_seconds % 3600) / 60) + ($hours * 60);
                     ?>
                     <?php $subtotal = $gift + $product_price - $giftvoucher->discount; ?>
-                    <?php if($minutes < 30) { ?>
+                    <?php if ($minutes < 30) { ?>
                             <?php $giftvoucher = Coupons::model()->findByPk($coupon->coupon_id); ?>
                             <div class="panel-body gift_card_details">
                                 <h4>GIFT VOUCHER / GIFT CARD CODE</h4>
@@ -389,14 +390,14 @@
                     </div>
                     <div class="price_group apply_credit">
 
-                        <?php if(Yii::app()->session['user']['wallet_amt'] != 0) { ?>
+                        <?php if (Yii::app()->session['user']['wallet_amt'] != 0) { ?>
                                 <div class="pull-left">My Credit</div>
                                 <div class="pull-right"><input type="number" class="wallet_amount" value="" /></div>
                                 <input type="hidden" class="wallet_amount" name="wallet_amount"  />
                                 <div class="clearfix"></div>
                                 <p class="text-right">Available Credit: <strong>  <span id="wallet_total"><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></span></strong></p>
                         <?php } ?>
-                        <?php if(Yii::app()->session['user']['wallet_amt'] > 0) { ?>
+                        <?php if (Yii::app()->session['user']['wallet_amt'] > 0) { ?>
                                 <p class="text-right">Current Credit Balance: <strong>   <span id="wallet_total1"><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></span></strong></p>
                         <?php } ?>
 
@@ -503,7 +504,7 @@
             $('.ship_form').show();
 
         }
-<?php if($shipping->hasErrors()) { ?>
+<?php if ($shipping->hasErrors()) { ?>
                 $('.bill_same').prop('checked', false);
                 $('.ship_form').show();
 <?php } ?>

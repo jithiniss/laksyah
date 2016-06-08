@@ -14,7 +14,6 @@ class SearchingController extends Controller {
                 if (Yii::app()->request->isAjaxRequest) {
 
                         if (isset($_REQUEST['SearchValue'])) {
-
                                 $model = ProductCategory::model()->findAll(array('select' => 'category_name', 'limit' => 10,
                                     "condition" => "category_name LIKE '" . $_REQUEST['SearchValue'] . "%'"));
 
@@ -28,6 +27,7 @@ class SearchingController extends Controller {
         }
 
         public function actionSearchList() {
+
                 if (isset($_REQUEST['Keyword'])) {
                         $searchterm = $_REQUEST['Keyword'];
 
@@ -52,7 +52,11 @@ class SearchingController extends Controller {
         }
 
         public function actionPriceRange() {
+
+
+
                 if (Yii::app()->request->isAjaxRequest) {
+
                         $min = $_REQUEST['min'];
                         $max = $_REQUEST['max'];
                         $cat = $_REQUEST['cat'];

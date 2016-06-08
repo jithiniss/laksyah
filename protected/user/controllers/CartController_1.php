@@ -47,41 +47,41 @@ class CartController extends Controller {
                                         ?>
 
                                         <div class="cart_item">
-                                                <a class="cart_close" canname="<?php echo $prod_details->canonical_name; ?>" cartid="<?php echo $cart_content->id; ?>"><i class="fa fa-times-circle"></i></a>
-                                                <div class="cart_image">
+                                            <a class="cart_close" canname="<?php echo $prod_details->canonical_name; ?>" cartid="<?php echo $cart_content->id; ?>"><i class="fa fa-times-circle"></i></a>
+                                            <div class="cart_image">
+                                                <?php
+                                                if ($cart_content->options != 0) {
+                                                        $option = Options::model()->findByPk($cart_content->options)
+                                                        ?>
+                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/options/<?= $option->id; ?>/small.<?php echo $option->image; ?>" />
                                                         <?php
-                                                        if ($cart_content->options != 0) {
-                                                                $option = Options::model()->findByPk($cart_content->options)
-                                                                ?>
-                                                                <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/options/<?= $option->id; ?>/small.<?php echo $option->image; ?>" />
-                                                                <?php
-                                                        } else {
-                                                                ?>
-                                                                <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/small.<?php echo $prod_details->main_image; ?>" />
-                                                        <?php } ?>
+                                                } else {
+                                                        ?>
+                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/small.<?php echo $prod_details->main_image; ?>" />
+                                                <?php } ?>
 
 
-                                                </div>
-                                                <table>
-                                                        <thead><b><?php echo $prod_details->product_name; ?></b></thead>
-                                                        <tr>
-                                                                <td>Color :</td>
-                                                                <td>Doiskin :</td>
-                                                        </tr>
-                                                        <tr>
-                                                                <td>Size :</td>
-                                                                <td>S :</td>
-                                                        </tr>
-                                                        <tr>
-                                                                <td>Qty :</td>
-                                                                <td><?php echo $cart_content->quantity; ?> :</td>
-                                                        </tr><tr>
-                                                                <td>Price :</td>
-                                                                <td><?php echo $total; ?> :</td>
-                                                        </tr>
+                                            </div>
+                                            <table>
+                                                <thead><b><?php echo $prod_details->product_name; ?></b></thead>
+                                                <tr>
+                                                    <td>Color :</td>
+                                                    <td>Doiskin :</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Size :</td>
+                                                    <td>S :</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Qty :</td>
+                                                    <td><?php echo $cart_content->quantity; ?> :</td>
+                                                </tr><tr>
+                                                    <td>Price :</td>
+                                                    <td><?php echo $total; ?> :</td>
+                                                </tr>
 
 
-                                                </table>
+                                            </table>
 
                                         </div>
                                         <?php
@@ -138,43 +138,43 @@ class CartController extends Controller {
                                 ?>
 
                                 <div class="cart_item">
-                                        <a  class="cart_close" canname="<?php echo $prod_details->canonical_name; ?>" cartid="<?php echo $cart_content->id; ?>"><i class="fa fa-times-circle"></i></a>
-                                        <div class="cart_image">
+                                    <a  class="cart_close" canname="<?php echo $prod_details->canonical_name; ?>" cartid="<?php echo $cart_content->id; ?>"><i class="fa fa-times-circle"></i></a>
+                                    <div class="cart_image">
+                                        <?php
+                                        if ($cart_content->options != 0) {
+                                                $option = Options::model()->findByPk($cart_content->options)
+                                                ?>
+                                                <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/options/<?= $option->id; ?>/small.<?php echo $option->image; ?>" />
                                                 <?php
-                                                if ($cart_content->options != 0) {
-                                                        $option = Options::model()->findByPk($cart_content->options)
-                                                        ?>
-                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/options/<?= $option->id; ?>/small.<?php echo $option->image; ?>" />
-                                                        <?php
-                                                } else {
-                                                        ?>
-                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/small.<?php echo $prod_details->main_image; ?>" />
-                                                <?php } ?>
+                                        } else {
+                                                ?>
+                                                <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/small.<?php echo $prod_details->main_image; ?>" />
+                                        <?php } ?>
 
 
-                                        </div>
-                                        <table>
-                                                <thead><b><?php echo $prod_details->product_name; ?></b></thead>
-                                                <tr>
-                                                        <td>Color :</td>
-                                                        <td>Doiskin :</td>
-                                                </tr>
-                                                <tr>
-                                                        <td>Size :</td>
-                                                        <td>S :</td>
-                                                </tr>
-                                                <tr>
-                                                        <td>Qty :</td>
-                                                        <td><?php echo $cart_content->quantity; ?> :</td>
-                                                </tr><tr>
-                                                        <td>Price :</td>
-                                                        <td><?php echo $total; ?> :</td>
-                                                </tr>
+                                    </div>
+                                    <table>
+                                        <thead><b><?php echo $prod_details->product_name; ?></b></thead>
+                                        <tr>
+                                            <td>Color :</td>
+                                            <td>Doiskin :</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Size :</td>
+                                            <td>S :</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Qty :</td>
+                                            <td><?php echo $cart_content->quantity; ?> :</td>
+                                        </tr><tr>
+                                            <td>Price :</td>
+                                            <td><?php echo $total; ?> :</td>
+                                        </tr>
 
 
-                                        </table>
+                                    </table>
 
-                                        <hr>
+                                    <hr>
 
                                 </div>
                                 <?php
@@ -205,42 +205,42 @@ class CartController extends Controller {
                                         ?>
 
                                         <div class="cart_item">
-                                                <a  class="cart_close" canname="<?php echo $prod_details->canonical_name; ?>" cartid="<?php echo $cart_content->id; ?>"><i class="fa fa-times-circle"></i></a>
+                                            <a  class="cart_close" canname="<?php echo $prod_details->canonical_name; ?>" cartid="<?php echo $cart_content->id; ?>"><i class="fa fa-times-circle"></i></a>
 
-                                                <div class="cart_image">
+                                            <div class="cart_image">
+                                                <?php
+                                                if ($cart_content->options != 0) {
+                                                        $option = Options::model()->findByPk($cart_content->options)
+                                                        ?>
+                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/options/<?= $option->id; ?>/small.<?php echo $option->image; ?>" />
                                                         <?php
-                                                        if ($cart_content->options != 0) {
-                                                                $option = Options::model()->findByPk($cart_content->options)
-                                                                ?>
-                                                                <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/options/<?= $option->id; ?>/small.<?php echo $option->image; ?>" />
-                                                                <?php
-                                                        } else {
-                                                                ?>
-                                                                <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/small.<?php echo $prod_details->main_image; ?>" />
-                                                        <?php } ?>
+                                                } else {
+                                                        ?>
+                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/small.<?php echo $prod_details->main_image; ?>" />
+                                                <?php } ?>
 
 
-                                                </div>
-                                                <table>
-                                                        <tr>
-                                                                <td>Color :</td>
-                                                                <td>Doiskin :</td>
-                                                        </tr>
-                                                        <tr>
-                                                                <td>Size :</td>
-                                                                <td>S :</td>
-                                                        </tr>
-                                                        <tr>
-                                                                <td>Qty :</td>
-                                                                <td><?php echo $cart_content->quantity; ?> :</td>
-                                                        </tr><tr>
-                                                                <td>Price :</td>
-                                                                <td><?php echo $total; ?> :</td>
-                                                        </tr>
+                                            </div>
+                                            <table>
+                                                <tr>
+                                                    <td>Color :</td>
+                                                    <td>Doiskin :</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Size :</td>
+                                                    <td>S :</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Qty :</td>
+                                                    <td><?php echo $cart_content->quantity; ?> :</td>
+                                                </tr><tr>
+                                                    <td>Price :</td>
+                                                    <td><?php echo $total; ?> :</td>
+                                                </tr>
 
 
-                                                </table>
-                                                <hr>
+                                            </table>
+                                            <hr>
 
                                         </div>
                                         <?php
@@ -258,7 +258,6 @@ class CartController extends Controller {
         }
 
         public function actionMycart() {
-
 
                 $gift_options = Cart::model()->findAllByAttributes(array('gift_option' => 1));
 
@@ -443,50 +442,50 @@ class CartController extends Controller {
 
                         <div class="form">
 
-                                <?php
-                                $form = $this->beginWidget('CActiveForm', array(
-                                    'id' => 'temp-user-gifts-form',
+                            <?php
+                            $form = $this->beginWidget('CActiveForm', array(
+                                'id' => 'temp-user-gifts-form',
 //                                    'action' => '/laksyah/index.php/Cart/MyCart',
-                                    // Please note: When you enable ajax validation, make sure the corresponding
-                                    // controller action is handling ajax validation correctly.
-                                    // There is a call to performAjaxValidation() commented in generated controller code.
-                                    // See class documentation of CActiveForm for details on this.
-                                    'htmlOptions' => array('enctype' => 'multipart/form-data', 'action' => '/laksyah/index.php/Cart/MyCart'),
-                                    'enableAjaxValidation' => false,
-                                ));
-                                ?>
+                                // Please note: When you enable ajax validation, make sure the corresponding
+                                // controller action is handling ajax validation correctly.
+                                // There is a call to performAjaxValidation() commented in generated controller code.
+                                // See class documentation of CActiveForm for details on this.
+                                'htmlOptions' => array('enctype' => 'multipart/form-data', 'action' => '/laksyah/index.php/Cart/MyCart'),
+                                'enableAjaxValidation' => false,
+                            ));
+                            ?>
 
 
 
-                                <?php echo $form->errorSummary($gift_user); ?>
-                                <br/>
-                                <div class="form-group">
-                                        <?php echo $form->hiddenField($gift_user, 'session_id', array('class' => 'form-control', 'value' => Yii::app()->session['temp_user'])); ?>
-                                        <?php echo $form->error($gift_user, 'user_id'); ?>
-                                </div>
-                                <div class="form-group">
-                                        <?php echo $form->hiddenField($gift_user, 'cart_id', array('class' => 'form-control', 'id' => $cart_id)); ?>
-                                        <?php echo $form->error($gift_user, 'order_id'); ?>
-                                </div>
-                                <div class="form-group">
-                                        <?php echo $form->labelEx($gift_user, 'from'); ?>
-                                        <?php echo $form->textField($gift_user, 'from', array('size' => 60, 'maxlength' => 100, 'class' => 'form-control')); ?>
-                                        <?php echo $form->error($gift_user, 'from'); ?>
-                                </div>
-                                <div class="form-group">
-                                        <?php echo $form->labelEx($gift_user, 'to'); ?>
-                                        <?php echo $form->textField($gift_user, 'to', array('size' => 60, 'maxlength' => 100, 'class' => 'form-control')); ?>
-                                        <?php echo $form->error($gift_user, 'to'); ?>
-                                </div>
-                                <div class="form-group">
-                                        <?php echo $form->labelEx($gift_user, 'message'); ?>
-                                        <?php echo $form->textArea($gift_user, 'message', array('rows' => 6, 'cols' => 50, 'class' => 'form-control')); ?>
-                                        <?php echo $form->error($gift_user, 'message'); ?>
-                                </div>
-                                <div class="modal-footer">
-                                        <?php echo CHtml::submitButton($gift_user->isNewRecord ? 'Submit' : 'Save', array('class' => 'btn btn-primary')); ?>
-                                </div>
-                                <?php $this->endWidget(); ?>
+                            <?php echo $form->errorSummary($gift_user); ?>
+                            <br/>
+                            <div class="form-group">
+                                <?php echo $form->hiddenField($gift_user, 'session_id', array('class' => 'form-control', 'value' => Yii::app()->session['temp_user'])); ?>
+                                <?php echo $form->error($gift_user, 'user_id'); ?>
+                            </div>
+                            <div class="form-group">
+                                <?php echo $form->hiddenField($gift_user, 'cart_id', array('class' => 'form-control', 'id' => $cart_id)); ?>
+                                <?php echo $form->error($gift_user, 'order_id'); ?>
+                            </div>
+                            <div class="form-group">
+                                <?php echo $form->labelEx($gift_user, 'from'); ?>
+                                <?php echo $form->textField($gift_user, 'from', array('size' => 60, 'maxlength' => 100, 'class' => 'form-control')); ?>
+                                <?php echo $form->error($gift_user, 'from'); ?>
+                            </div>
+                            <div class="form-group">
+                                <?php echo $form->labelEx($gift_user, 'to'); ?>
+                                <?php echo $form->textField($gift_user, 'to', array('size' => 60, 'maxlength' => 100, 'class' => 'form-control')); ?>
+                                <?php echo $form->error($gift_user, 'to'); ?>
+                            </div>
+                            <div class="form-group">
+                                <?php echo $form->labelEx($gift_user, 'message'); ?>
+                                <?php echo $form->textArea($gift_user, 'message', array('rows' => 6, 'cols' => 50, 'class' => 'form-control')); ?>
+                                <?php echo $form->error($gift_user, 'message'); ?>
+                            </div>
+                            <div class="modal-footer">
+                                <?php echo CHtml::submitButton($gift_user->isNewRecord ? 'Submit' : 'Save', array('class' => 'btn btn-primary')); ?>
+                            </div>
+                            <?php $this->endWidget(); ?>
                         </div>
                         <?php
                 } else {
