@@ -137,7 +137,7 @@
                                         </div>
                                         <div class="col-md-6 col-sm-8">
                                                 <div class="price_group">
-                                                        Total amount to pay â‚¹ <span id="payment_blnc"></span>
+                                                        Total amount to pay . <span id="payment_blnc"></span>
                                                 </div>
 
                                         </div>

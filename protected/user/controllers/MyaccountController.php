@@ -497,6 +497,36 @@ class MyaccountController extends Controller {
                 }
         }
 
+        public function actionAddto_order($enq_id) {
+                $enquiry = ProductEnquiry::model()->findByPk($enq_id);
+                $celeb = CelibStyleHistory::model()->findByAttributes(array('enq_id' => $enq_id));
+                $enquiry->status = 4;
+                if ($enquiry->save()) {
+                        $order = new Order;
+                        $order->user_id = $enquiry->user_id;
+                        $order->total_amount = $enquiry->total_amount;
+                        $order->order_date = date('Y-m-d');
+                        $order->payment_status = 1;
+                        $order->status = 1;
+                        if ($order->save()) {
+                                $order_history = new OrderHistory;
+                                $order_history->order_id = $order->id;
+                                $order_history->order_status = 1;
+                                $order_history->date = date('Y-m-d');
+                                $order_history->cb = Yii::app()->session['user']['id'];
+                                if ($order_history->save()) {
+                                        $celeb->add_to_order = 1;
+                                        $celeb->save();
+                                        $this->redirect('Profile');
+                                        Yii::app()->user->setFlash('order', "your order has been  successfully added");
+                                } else {
+                                        $this->redirect('Profile');
+                                        Yii::app()->user->setFlash('notorder', "Error Occured");
+                                }
+                        }
+                }
+        }
+
         public function actionMyordernew() {
                 if (!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
