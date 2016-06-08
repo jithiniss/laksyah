@@ -76,13 +76,13 @@ class SiteController extends Controller {
          */
         public function actionRegister() {
 
+
+
                 if (isset(Yii::app()->session['user'])) {
                         $this->redirect($this->createUrl('index'));
                 } else {
                         $model = new UserDetails('create');
                         if (isset($_POST['UserDetails'])) {
-
-
                                 $model->attributes = $_POST['UserDetails'];
                                 $date1 = $_POST['UserDetails']['dob'];
                                 $newDate = date("Y-m-d", strtotime($date1));
