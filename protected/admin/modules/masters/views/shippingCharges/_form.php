@@ -23,12 +23,26 @@
         <?php echo $form->errorSummary($model); ?>
         <br/>
 
-        <div class="form-group">
-                <?php echo $form->labelEx($model, 'country', array('class' => 'col-sm-2 control-label')); ?>
+        <!--        <div class="form-group">
+        <?php echo $form->labelEx($model, 'country', array('class' => 'col-sm-2 control-label')); ?>
 
-                <div class="col-sm-10">   <?php echo $form->dropDownList($model, 'country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('class' => 'form-control')); ?>
+                        <div class="col-sm-10">   <?php echo $form->dropDownList($model, 'country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('class' => 'form-control')); ?>
+                        </div>
+        <?php echo $form->error($model, 'country'); ?>
+                </div>-->
+        <div class="form-group">
+                <?php echo $form->labelEx($model, 'zone', array('class' => 'col-sm-2 control-label')); ?>
+                <div class="col-sm-10"><?php echo $form->dropDownList($model, 'zone', array('1' => "1", '2' => "2", '3' => "3", '4' => "4", '5' => "5", '6' => "6", '7' => "7", '8' => "8", '9' => "9"), array('class' => 'form-control')); ?>
                 </div>
-                <?php echo $form->error($model, 'country'); ?>
+
+                <?php echo $form->error($model, 'zone'); ?>
+        </div>
+
+        <div class="form-group">
+                <?php echo $form->labelEx($model, 'weight', array('class' => 'col-sm-2 control-label')); ?>
+                <div class="col-sm-10"><?php echo $form->textField($model, 'weight', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control')); ?>
+                </div>
+                <?php echo $form->error($model, 'weight'); ?>
         </div>
         <div class="form-group">
                 <?php echo $form->labelEx($model, 'shipping_rate', array('class' => 'col-sm-2 control-label')); ?>
@@ -49,19 +63,7 @@
                 </div>
                 <?php echo $form->error($model, 'sort_order'); ?>
         </div>
-        <div class="form-group">
-                <?php echo $form->labelEx($model, 'zone', array('class' => 'col-sm-2 control-label')); ?>
-                <div class="col-sm-10"><?php echo $form->textField($model, 'zone', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control')); ?>
-                </div>
-                <?php echo $form->error($model, 'zone'); ?>
-        </div>
 
-        <div class="form-group">
-                <?php echo $form->labelEx($model, 'weight', array('class' => 'col-sm-2 control-label')); ?>
-                <div class="col-sm-10"><?php echo $form->textField($model, 'weight', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control')); ?>
-                </div>
-                <?php echo $form->error($model, 'weight'); ?>
-        </div>
 
 
         <div class="box-footer">

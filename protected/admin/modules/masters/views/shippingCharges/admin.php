@@ -53,14 +53,13 @@
                             'filter' => $model,
                             'columns' => array(
 //                                'id',
-
-                                array(
-                                    'name' => 'country',
-                                    'filter' => CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'),
-                                    'value' => function($data) {
-                                            return Countries::model()->findByPk($data->country)->country_name;
-                                    }
-                                ),
+//                                array(
+//                                    'name' => 'country',
+//                                    'filter' => CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'),
+//                                    'value' => function($data) {
+//                                            return Countries::model()->findByPk($data->country)->country_name;
+//                                    }
+//                                ),
                                 'zone',
                                 'weight',
                                 'shipping_rate',

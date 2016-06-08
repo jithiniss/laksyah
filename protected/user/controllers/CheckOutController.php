@@ -202,7 +202,34 @@ class CheckOutController extends Controller {
         public function actionGetshippingcharge() {
                 if (isset(Yii::app()->session['user']['id'])) {
                         $country = $_POST['country'];
-                        $shipping_charge = ShippingCharges::model()->findByAttributes(array('country' => $country));
+
+                        if ($country == 99) {
+                                $total_shipping_rate = 0;
+                        } else {
+                                $get_zone = Countries::model()->findByPk($country);
+                                $get_total_weight = $this->GetTotalWeight();
+                                $value = explode('.', $get_total_weight);
+                                if (strlen($value[1]) == 1) {
+                                        $value[1] = $value[1] . '0';
+                                }
+                                if ($value[1] <= 50) {
+                                        $total_weight = $value[0] + .5;
+                                } else {
+                                        $total_weight = $value[0] + 1;
+                                }
+                                /* 13% Fuel Charge and 15 % Service chARGE is applicable */
+                                $shipping_rate = ShippingCharges::model()->findByAttributes(array('zone' => $get_zone->zone, 'weight' => $total_weight));
+                                if (!empty($shipping_rate)) {
+                                        $fuel_charge = $shipping_rate->shipping_rate * .13;
+                                        $service_charge = ($shipping_rate + $fuel_charge) * .15;
+                                        $total_shipping_rate = ceil($shipping_rate + $fuel_charge + $service_charge);
+                                } else {
+                                        $total_shipping_rate = 0;
+                                }
+                        }
+
+
+
 
                         $carts = Cart::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
 
@@ -217,12 +244,12 @@ class CheckOutController extends Controller {
                         $subtotal = $gift + $product_price;
 
                         $discount = CouponHistory::model()->findByAttributes(array('order_id' => Yii::app()->session['orderid']));
-                        $grant_total = $subtotal + $shipping_charge->shipping_rate - $discount->total_amount;
-                        $totalpay = $subtotal + $shipping_charge->shipping_rate;
+                        $grant_total = ceil($subtotal + $total_shipping_rate - $discount->total_amount);
+                        $totalpay = $subtotal + $total_shipping_rate;
                         $grant_total = Yii::app()->Currency->convert($grant_total);
 
-                        if (!empty($shipping_charge)) {
-                                $ship_amount = Yii::app()->Currency->convert($shipping_charge->shipping_rate);
+                        if (!empty($shipping_rate)) {
+                                $ship_amount = Yii::app()->Currency->convert($total_shipping_rate);
                                 $array = array('granttotal' => $grant_total, 'totalpay' => $totalpay, 'shippingcharge' => $ship_amount, 'subtotal' => $sub_total);
                                 $json = CJSON::encode($array);
                                 echo $json;
@@ -235,20 +262,55 @@ class CheckOutController extends Controller {
                 }
         }
 
+        public function GetTotalWeight() {
+                $carts = Cart::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id'],));
+
+                foreach ($carts as $cart) {
+                        $prod_details = Products::model()->findByPk($cart->product_id);
+                        $tot = $prod_details->weight * $cart->quantity;
+
+                        $total_weight += $tot;
+                }
+                return $total_weight;
+        }
+
         public function actionGetShippingMethod() {
                 if (isset(Yii::app()->session['user']['id'])) {
                         $country = $_POST['country'];
-
-                        $shipping_charge = ShippingCharges::model()->findByAttributes(array('country' => $country));
-
-                        if (!empty($shipping_charge)) {
-                                if ($country == 4) {
-                                        $this->renderPartial('_shipping_indian', array('shipping_charge' => $shipping_charge));
-                                } else {
-                                        $this->renderPartial('_shipping_other', array('shipping_charge' => $shipping_charge));
-                                }
+                        if ($country == 99) {
+                                $total_shipping_rate = 0;
                         } else {
-                                echo 'Sorry, no quotes are available for this order at this time.';
+                                $get_zone = Countries::model()->findByPk($country);
+                                $get_total_weight = $this->GetTotalWeight();
+                                $value = explode('.', $get_total_weight);
+                                if (strlen($value[1]) == 1) {
+                                        $value[1] = $value[1] . '0';
+                                }
+                                if ($value[1] <= 50) {
+                                        $total_weight = $value[0] + .5;
+                                } else {
+                                        $total_weight = $value[0] + 1;
+                                }
+
+
+                                /* 13% Fuel Charge and 15 % Service chARGE is applicable */
+                                $shipping_rate = ShippingCharges::model()->findByAttributes(array('zone' => $get_zone->zone, 'weight' => $total_weight));
+                                if (!empty($shipping_rate)) {
+                                        $fuel_charge = $shipping_rate->shipping_rate * .13;
+                                        $service_charge = ($shipping_rate + $fuel_charge) * .15;
+                                        $total_shipping_rate = ceil($shipping_rate + $fuel_charge + $service_charge);
+                                } else {
+                                        $total_shipping_rate = 0;
+                                }
+                        }
+                        if ($country == 99) {
+                                $this->renderPartial('_shipping_indian', array('shipping_charge' => $total_shipping_rate));
+                        } else {
+                                if (!empty($shipping_rate)) {
+                                        $this->renderPartial('_shipping_other', array('shipping_charge' => $total_shipping_rate));
+                                } else {
+                                        echo 'Sorry, no quotes are available for this order at this time.';
+                                }
                         }
                 } else {
 //todo invalid user
