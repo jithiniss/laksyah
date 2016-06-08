@@ -65,6 +65,17 @@
                                                     echo "CREDIT/DEBIT CARD OR NET BANKING";
                                             } elseif($order->payment_mode == 3) {
                                                     echo "Paypal";
+                                            } elseif($order->payment_mode == 4) {
+                                                    $wallet_amt = $order->wallet;
+                                                    if($order->netbanking != '') {
+                                                            $payment_amt = $order->netbanking;
+                                                            $method = 'CREDIT/DEBIT CARD OR NET BANKING';
+                                                    } else if($order->paypal != '') {
+                                                            $payment_amt = $order->paypal;
+                                                            $method = 'Paypal';
+                                                    }
+                                                    echo "<br>Credit Amount = " . $wallet_amt;
+                                                    echo "<br>" . $method . " = " . $payment_amt;
                                             }
                                             ?></p>
 
