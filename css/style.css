@@ -12,6 +12,7 @@
         Footer Color:  		#f7f4f1
         Gray Border: 		#d5d5d7
 */
+
 ::-webkit-input-placeholder {
         color: #D1D1D1 !important;
 }
@@ -1936,6 +1937,10 @@ Account Pages
 /*
 Modal
 */
+.modal{
+  
+    z-index: 5000000000 !important;
+}
 .modal-content{
         padding: 30px;
         background-color: #fff;
