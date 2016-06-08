@@ -421,6 +421,8 @@ class MyaccountController extends Controller {
                 if (!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
+
+
                         $enquiry = ProductEnquiry::model()->findByPk($enquiry_id);
                         $celeb_history = CelibStyleHistory::model()->findByPk($history_id);
                         $enquiry_product = Products::model()->findByPk($enquiry->product_id);
@@ -433,8 +435,13 @@ class MyaccountController extends Controller {
                                 $model->amount = $_POST['MakePayment']['amount'];
                                 $product_payment_price = $celeb_history->pay_amount;
                                 $balance = $celeb_history->pay_amount - $model->amount;
+
                                 if ($model->validate()) {
+
+
+
                                         if ($model->save()) {
+
                                                 if ($celeb_history->pay_amount = $model->amount) {
                                                         $enquiry->user_id = Yii::app()->session['user']['id'];
                                                         $enquiry->total_amount = $celeb_history->pay_amount;
