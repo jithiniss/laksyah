@@ -94,6 +94,16 @@ class ProductEnquiryController extends Controller {
                 if (isset($_POST['ProductEnquiry'])) {
                         $model->attributes = $_POST['ProductEnquiry'];
                         $model->total_amount = $_POST['ProductEnquiry']['total_amount'];
+                        $total_amount_paids = CelibStyleHistory::model()->findAllByAttributes(array('enq_id' => $model->id, 'payment_status' => 1));
+                        if (!empty($total_amount_paids)) {
+                                foreach ($total_amount_paids as $total_amount_paid) {
+                                        $total_amt += $total_amount_paid->pay_amount;
+                                }
+                        } else {
+                                $total_amt = 0;
+                        }
+
+                        $model->balance_to_pay = $model->total_amount - $total_amt;
 
                         if ($_POST['ProductEnquiry']['status'] == 2) {
                                 $celib_history = new CelibStyleHistory;

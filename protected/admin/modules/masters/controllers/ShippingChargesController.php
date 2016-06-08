@@ -1,6 +1,6 @@
 <?php
 
-class CountriesController extends Controller {
+class ShippingChargesController extends Controller {
 
         /**
          * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -8,12 +8,9 @@ class CountriesController extends Controller {
          */
         public $layout = '//layouts/column2';
 
-        public function init() {
-                if (!isset(Yii::app()->session['admin']) || Yii::app()->session['post']['masters'] != 1) {
-                        $this->redirect(Yii::app()->request->baseUrl . '/admin.php/site/logOut');
-                }
-        }
-
+        /**
+         * @return array action filters
+         */
         public function filters() {
                 return array(
                     'accessControl', // perform access control for CRUD operations
@@ -21,6 +18,11 @@ class CountriesController extends Controller {
                 );
         }
 
+        /**
+         * Specifies the access control rules.
+         * This method is used by the 'accessControl' filter.
+         * @return array access control rules
+         */
         public function accessRules() {
                 return array(
                     array('allow', // allow all users to perform 'index' and 'view' actions
@@ -56,16 +58,17 @@ class CountriesController extends Controller {
          * If creation is successful, the browser will be redirected to the 'view' page.
          */
         public function actionCreate() {
-                $model = new Countries;
+                $model = new ShippingCharges;
 
-                // Uncomment the following line if AJAX validation is needed
-                // $this->performAjaxValidation($model);
+// Uncomment the following line if AJAX validation is needed
+// $this->performAjaxValidation($model);
 
-                if (isset($_POST['Countries'])) {
-                        $model->attributes = $_POST['Countries'];
-                        $model->zone = $_POST['Countries']['zone'];
+                if (isset($_POST['ShippingCharges'])) {
+                        $model->attributes = $_POST['ShippingCharges'];
+                        $model->weight = $_POST['ShippingCharges']['weight'];
+                        $model->zone = $_POST['ShippingCharges']['zone'];
                         if ($model->save())
-                                $this->redirect(array('admin', 'id' => $model->id));
+                                $this->redirect(array('admin'));
                 }
 
                 $this->render('create', array(
@@ -81,14 +84,15 @@ class CountriesController extends Controller {
         public function actionUpdate($id) {
                 $model = $this->loadModel($id);
 
-                // Uncomment the following line if AJAX validation is needed
-                // $this->performAjaxValidation($model);
+// Uncomment the following line if AJAX validation is needed
+// $this->performAjaxValidation($model);
 
-                if (isset($_POST['Countries'])) {
-                        $model->attributes = $_POST['Countries'];
-                        $model->zone = $_POST['Countries']['zone'];
+                if (isset($_POST['ShippingCharges'])) {
+                        $model->attributes = $_POST['ShippingCharges'];
+                        $model->weight = $_POST['ShippingCharges']['weight'];
+                        $model->zone = $_POST['ShippingCharges']['zone'];
                         if ($model->save())
-                                $this->redirect(array('admin', 'id' => $model->id));
+                                $this->redirect(array('update', 'id' => $model->id));
                 }
 
                 $this->render('update', array(
@@ -104,7 +108,7 @@ class CountriesController extends Controller {
         public function actionDelete($id) {
                 $this->loadModel($id)->delete();
 
-                // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
                 if (!isset($_GET['ajax']))
                         $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
@@ -113,7 +117,7 @@ class CountriesController extends Controller {
          * Lists all models.
          */
         public function actionIndex() {
-                $dataProvider = new CActiveDataProvider('Countries');
+                $dataProvider = new CActiveDataProvider('ShippingCharges');
                 $this->render('index', array(
                     'dataProvider' => $dataProvider,
                 ));
@@ -123,10 +127,10 @@ class CountriesController extends Controller {
          * Manages all models.
          */
         public function actionAdmin() {
-                $model = new Countries('search');
+                $model = new ShippingCharges('search');
                 $model->unsetAttributes();  // clear any default values
-                if (isset($_GET['Countries']))
-                        $model->attributes = $_GET['Countries'];
+                if (isset($_GET['ShippingCharges']))
+                        $model->attributes = $_GET['ShippingCharges'];
 
                 $this->render('admin', array(
                     'model' => $model,
@@ -137,11 +141,11 @@ class CountriesController extends Controller {
          * Returns the data model based on the primary key given in the GET variable.
          * If the data model is not found, an HTTP exception will be raised.
          * @param integer $id the ID of the model to be loaded
-         * @return Countries the loaded model
+         * @return ShippingCharges the loaded model
          * @throws CHttpException
          */
         public function loadModel($id) {
-                $model = Countries::model()->findByPk($id);
+                $model = ShippingCharges::model()->findByPk($id);
                 if ($model === null)
                         throw new CHttpException(404, 'The requested page does not exist.');
                 return $model;
@@ -149,10 +153,10 @@ class CountriesController extends Controller {
 
         /**
          * Performs the AJAX validation.
-         * @param Countries $model the model to be validated
+         * @param ShippingCharges $model the model to be validated
          */
         protected function performAjaxValidation($model) {
-                if (isset($_POST['ajax']) && $_POST['ajax'] === 'countries-form') {
+                if (isset($_POST['ajax']) && $_POST['ajax'] === 'shipping-charges-form') {
                         echo CActiveForm::validate($model);
                         Yii::app()->end();
                 }
