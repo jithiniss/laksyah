@@ -51,8 +51,9 @@ class Order extends CActiveRecord {
                 // will receive user inputs.
                 return array(
                     //array('total_amount, order_date, comment, payment_mode', 'required'),
-                    array('total_amount,ship_address_id, bill_address_id, transaction_id, payment_status, status, wallet, paypal, netbanking,shipping_method', 'numerical', 'integerOnly' => true),
+                    array('ship_address_id, bill_address_id, transaction_id, payment_status, status, shipping_method', 'numerical', 'integerOnly' => true),
                     array('payment_mode', 'length', 'max' => 100),
+                    array('total_amount, discount_rate, netbanking, paypal, wallet', 'length', 'max' => 10),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
                     array('id, user_id, total_amount, order_date, address_book_id, comment, payment_mode, admin_comment, transaction_id, payment_status, admin_status, status, DOC, wallet,shipping_method, paypal, netbanking', 'safe', 'on' => 'search'),

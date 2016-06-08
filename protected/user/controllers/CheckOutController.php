@@ -369,6 +369,7 @@ class CheckOutController extends Controller {
 
                                                 $this->addOrder($bill_address_id, $ship_address_id, $cart, $order_id);
                                                 $order->shipping_method = $_REQUEST['shipping_value'];
+
                                                 if ($wallet > 0) {
 
 
@@ -418,7 +419,7 @@ class CheckOutController extends Controller {
                                                         }
 
 
-                                                        //$order->payment_status = 1;
+//$order->payment_status = 1;
                                                         $order->bill_address_id = $bill_address_id;
                                                         $order->ship_address_id = $ship_address_id;
                                                         $order->order_date = date('Y-m-d H:i:s');
@@ -449,36 +450,73 @@ class CheckOutController extends Controller {
                                                         if ($discount_rate != 0) {
                                                                 $this->updatecoupon($coupen);
                                                         }
+
                                                         $order->payment_mode = $_POST['payment_method'];
                                                         if ($_POST['payment_method'] == 2) {
                                                                 $order->netbanking = $_REQUEST['total_pay'];
+                                                                $order->paypal = "";
                                                         } else if ($_POST['payment_method'] == 3) {
                                                                 $order->paypal = $_REQUEST['total_pay'];
+                                                                $order->netbanking = "";
                                                         }
-                                                        //  $order->payment_status = 1;
+
+//  $order->payment_status = 1;
                                                         $order->bill_address_id = $bill_address_id;
                                                         $order->ship_address_id = $ship_address_id;
-                                                        //  $order->status = 1;
+                                                        $order_billing_details = UserAddress::model()->findBypk($bill_address_id);
+                                                        $order_shipping_detils = UserAddress::model()->findBypk($ship_address_id);
+//  $order->status = 1;
 
                                                         if ($order->save()) {
 
                                                                 $this->updateorderproduct($order->id);
-                                                                //$this->redirect(array('OrderHistory'));
+//$this->redirect(array('OrderHistory'));
                                                                 if ($post_total_pay != 0) {
+
                                                                         /* payment action goes here */
+//                                                                        if (isset(Yii::app()->session['currency'])) {
+//                                                                                $order->netbanking = $order->netbanking / Yii::app()->session['currency']->rate;
+//                                                                        } else {
+//                                                                                $order->netbanking = $order->netbanking;
+//                                                                        }
 
-                                                                        if ($order->netbanking != '0') {
-                                                                                $this->render('hdfcpay', array('order' => $order->id, 'totaltopay' => $order->netbanking, 'aid' => '20951', 'sec' => 'b837f49de88e6be36f077b6928c43bf9'));
-                                                                        } else if ($order->paypal != '0' || $order->paypal != NULL) {
+                                                                        if ($order->netbanking != '') {
+                                                                                $hdfc_details = array();
+                                                                                $hdfc_details->description = 'Laksya Products';
+                                                                                $hdfc_details->order = $order->id;
+                                                                                $hdfc_details->totaltopay = $order->netbanking;
+                                                                                $hdfc_details->bill_name = $order_billing_details->first_name . ' ' . $order_billing_details->last_name;
+                                                                                $hdfc_details->bill_address = $order_billing_details->address_1 . ' ' . $order_billing_details->address_2;
+                                                                                $hdfc_details->bill_city = $order_billing_details->city;
+                                                                                $hdfc_details->bill_state = $order_billing_details->state;
+                                                                                $hdfc_details->bill_postal_code = $order_billing_details->postal_code;
+                                                                                $hdfc_details->bill_country = Countries::model()->findbypk($order_billing_details->country)->country_name;
+                                                                                $hdfc_details->bill_email = Yii::app()->session['user']['email'];
+                                                                                $hdfc_details->bill_phone_number = Yii::app()->session['user']['phone_no_1'];
 
-                                                                                $totaltopay = round(Currency::model()->findBypk(2)->rate * $order->paypal, 2);
-                                                                                $this->render('paypalpay', array('order' => $order->id, 'totaltopay' => $totaltopay));
+                                                                                $hdfc_details->ship_name = $order_shipping_detils->first_name . ' ' . $order_shipping_detils->last_name;
+                                                                                $hdfc_details->ship_address = $order_shipping_detils->address_1 . ' ' . $order_shipping_detils->address_2;
+                                                                                $hdfc_details->ship_city = $order_shipping_detils->city;
+                                                                                $hdfc_details->ship_state = $order_shipping_detils->state;
+                                                                                $hdfc_details->ship_postal_code = $order_shipping_detils->postal_code;
+                                                                                $hdfc_details->ship_country = Countries::model()->findbypk($order_shipping_detils->country)->country_name;
+                                                                                $hdfc_details->ship_email = Yii::app()->session['user']['email'];
+                                                                                $hdfc_details->bill_phone_number = Yii::app()->session['user']['phone_no_1'];
+                                                                                $this->render('hdfcpay', array('hdfc_details' => $hdfc_details, 'aid' => '20951', 'sec' => 'b837f49de88e6be36f077b6928c43bf9'));
+                                                                        } else if ($order->paypal != '') {
+
+                                                                                // $totaltopay = round(Currency::model()->findBypk(2)->rate * $order->paypal, 2);
+                                                                                $this->render('paypalpay', array('order' => $order->id, 'totaltopay' => $order->paypal, 'displayvalue' => $displayvalue));
                                                                         }
+
                                                                         // $this->redirect(array('OrderSuccess'));
                                                                         // $this->redirect(array('OrderFailed'));
                                                                 } else {
                                                                         $this->redirect(array('OrderSuccess'));
                                                                 }
+                                                        } else {
+                                                                var_dump($order->getErrors());
+                                                                exit;
                                                         }
 //
                                                 }
@@ -738,16 +776,16 @@ class CheckOutController extends Controller {
                 $admin_subject = 'laksyah.com: New Order to admin # ' . $order->id;
                 $admin_message = $this->renderPartial('_admin_order_success_mail', array('userdetails' => $userdetails, 'order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge), true);
 
-                // Always set content-type when sending HTML email
+// Always set content-type when sending HTML email
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-                // More headers
+// More headers
                 $headers .= 'From: <no-reply@intersmarthosting.in>' . "\r\n";
-                //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
-                // echo $user_message;
-                // echo $admin_message;
-                //unset(Yii::app()->session['orderid']);
-                // exit;
+//$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
+// echo $user_message;
+// echo $admin_message;
+//unset(Yii::app()->session['orderid']);
+// exit;
                 mail($user, $user_subject, $user_message, $headers);
                 mail($admin, $admin_subject, $admin_message, $headers);
         }
@@ -801,7 +839,7 @@ class CheckOutController extends Controller {
                 $bill_address = UserAddress::model()->findByPk($order->bill_address_id);
                 $order_details = OrderProducts::model()->findAllByAttributes(array('order_id' => $order->id));
                 $shiping_charge = ShippingCharges::model()->findByAttributes(array('country' => $user_address->country));
-                // $user = $userdetails->email;
+// $user = $userdetails->email;
                 $user = 'sibys09@gmail.com';
                 $user_subject = 'laksyah.com: Order No. ' . $order->id . ' :: Transaction Failure';
                 $user_message = $this->renderPartial('_user_order_error_mail', array('order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge), true);
@@ -811,17 +849,17 @@ class CheckOutController extends Controller {
                 $admin_subject = 'laksyah.com: Order No. ' . $order->id . ' :: Transaction Failure';
                 $admin_message = $this->renderPartial('_admin_order_error_mail', array('order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge), true);
 
-                // Always set content-type when sending HTML email
+// Always set content-type when sending HTML email
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-                // More headers
+// More headers
                 $headers .= 'From: <no-reply@intersmarthosting.in>' . "\r\n";
-                //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
-                // echo $user_message;
-                //  echo $admin_message;
-                //unset(Yii::app()->session['orderid']);
-                //  exit;
+//$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
+// echo $user_message;
+//  echo $admin_message;
+//unset(Yii::app()->session['orderid']);
+//  exit;
                 mail($user, $user_subject, $user_message, $headers);
                 mail($admin, $admin_subject, $admin_message, $headers);
         }
