@@ -4,7 +4,7 @@ class MyWalletController extends Controller {
 
         public function init() {
                 date_default_timezone_set('Asia/Kolkata');
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
 
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 }
@@ -17,10 +17,10 @@ class MyWalletController extends Controller {
         public function actionIndex() {
                 $model = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
 
-                if (!empty($model)) {
+                if(!empty($model)) {
                         $wallet_amount = $model->wallet_amt;
-                        $wallet_add = new WalletHistory('addWallet');
-                        if (isset($_POST['WalletHistory'])) {
+                        $wallet_add = new WalletHistory('addWallet1');
+                        if(isset($_POST['WalletHistory'])) {
                                 $wallet_add->attributes = $_POST['WalletHistory'];
 
                                 $entry_amount = $_POST['WalletHistory']['amount'];
@@ -31,8 +31,8 @@ class MyWalletController extends Controller {
                                 $wallet_add->balance_amt = $wallet_amount + $entry_amount;
 
 
-                                if ($wallet_add->validate()) {
-                                        if ($wallet_add->save()) {
+                                if($wallet_add->validate()) {
+                                        if($wallet_add->save()) {
 
                                                 $this->redirect(array('Success', 'user_id' => $model->id, 'wallet_id' => $wallet_add->id));
 
@@ -50,19 +50,17 @@ class MyWalletController extends Controller {
          */
 
         public function actionSuccess($user_id, $wallet_id) {
-                if (!empty($user_id) && !empty($wallet_id) && $user_id != '' && $wallet_id != '') {
+                if(!empty($user_id) && !empty($wallet_id) && $user_id != '' && $wallet_id != '') {
                         $user_wallet = UserDetails::model()->findByPk($user_id);
                         $wallet_history = WalletHistory::model()->findByPk($wallet_id);
-
-
                         $amount = $user_wallet->wallet_amt + $wallet_history->amount;
                         $user_wallet->wallet_amt = $amount;
                         $wallet_history->field2 = 1; //success
-                        if ($wallet_history->save()) {
-                                if ($user_wallet->save()) {
+                        if($wallet_history->save()) {
+                                if($user_wallet->save()) {
                                         Yii::app()->session['user'] = $user_wallet;
                                         Yii::app()->user->setFlash('wallet_success', "Money Added Successfully");
-                                        $this->SendMail($user_wallet, $wallet_history);
+                                        $this->SendMail($wallet_history->id);
                                         $this->adminmail($user_wallet, $wallet_history);
                                         $this->redirect(array('Index'));
                                 } else {
@@ -79,6 +77,32 @@ class MyWalletController extends Controller {
         }
 
         /*  send mail to admin and user */
+
+        public function SuccessMail($wallet_id) {
+                $user_wallet = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+                $wallet_history = WalletHistory::model()->findByPk($wallet_id);
+                //$user = $userdetails->email;
+                $user = 'sibys09@gmail.com';
+                $user_subject = 'laksyah.com : Credit Money has been successfully added!';
+                $user_message = $this->renderPartial('_user_order_success_mail', array('order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge), true);
+
+                $admin = 'sibys09@gmail.com';
+                $admin_subject = 'laksyah.com: New Order to admin # ' . $order->id;
+                $admin_message = $this->renderPartial('_admin_order_success_mail', array('userdetails' => $userdetails, 'order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge), true);
+
+                // Always set content-type when sending HTML email
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                // More headers
+                $headers .= 'From: <no-reply@intersmarthosting.in>' . "\r\n";
+                //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
+                // echo $user_message;
+                // echo $admin_message;
+                //unset(Yii::app()->session['orderid']);
+                // exit;
+                mail($user, $user_subject, $user_message, $headers);
+                mail($admin, $admin_subject, $admin_message, $headers);
+        }
 
         public function SendMail($user_wallet, $wallet_history) {
 
@@ -124,13 +148,13 @@ class MyWalletController extends Controller {
                 //   $username = UserDetails::model()->findByPk($wallet_history->user_id);
 
 
-                if (!empty($wallet_id) && $wallet_id != '') {
+                if(!empty($wallet_id) && $wallet_id != '') {
 
                         $wallet_history = WalletHistory::model()->findByPk($wallet_id);
 
                         $username = UserDetails::model()->findByPk($wallet_history->user_id);
 
-                        if (!empty($wallet_history)) {
+                        if(!empty($wallet_history)) {
                                 $this->errorMail($username, $wallet_history);
 
                                 exit();

@@ -9,7 +9,7 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     Success </div>-->
             <div class="registration_form">
-                <?php if (Yii::app()->user->hasFlash('wallet_success')): ?>
+                <?php if(Yii::app()->user->hasFlash('wallet_success')): ?>
                         <div class="row">
                             <div class="alert alert-success alert-dismissable" style="margin:0 auto;">
 
@@ -18,7 +18,7 @@
                             </div>
                         </div>
                 <?php endif; ?>
-                <?php if (Yii::app()->user->hasFlash('wallet_error')): ?>
+                <?php if(Yii::app()->user->hasFlash('wallet_error')): ?>
                         <div class="row">
                             <div class="alert alert-danger alert-dismissable" style="margin:0 auto;">
 
@@ -45,14 +45,14 @@
                     </div>
                     <div class="col-md-6 col-sm-8">
                         <div class="row margin-normal">
-                            <div class="col-xs-5">
-                                <?php echo $form->dropDownlist($wallet_add, 'type_id', CHtml::listData(MasterHistoryType::model()->findAllByAttributes(['credit_debit' => 2]), 'id', 'type'), array('empty' => 'Select Type', 'class' => 'form-control')); ?>
+                            <!--                            <div class="col-xs-5">
+                            <?php //echo $form->dropDownlist($wallet_add, 'type_id', CHtml::listData(MasterHistoryType::model()->findAllByAttributes(['credit_debit' => 2]), 'id', 'type'), array('empty' => 'Select Type', 'class' => 'form-control')); ?>
 
-                                <?php echo $form->error($wallet_add, 'type_id', array('style' => 'padding-left:0px;')); ?>
+                            <?php //echo $form->error($wallet_add, 'type_id', array('style' => 'padding-left:0px;')); ?>
 
-                            </div>
+                                                        </div>-->
                             <div class="col-xs-2"><input type="text" class="form-control text-center" readonly placeholder="" value="Rs."></div>
-                            <div class="col-xs-5">
+                            <div class="col-xs-10">
                                 <?php echo $form->textField($wallet_add, 'amount', array('size' => 60, 'maxlength' => 100, 'placeholder' => "0.00", 'class' => 'form-control text-right')); ?>
 
                                 <?php echo $form->error($wallet_add, 'amount', array('style' => 'padding-left:0px;')); ?>

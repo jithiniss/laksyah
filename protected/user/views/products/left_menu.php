@@ -2,7 +2,12 @@
     <?php
     $category_name = Yii::app()->request->getParam('name');
 //        $get_parant = ProductCategory::model()->
-    $main_cats = ProductCategory::model()->findAllByAttributes(array(), array('condition' => 'id = parent'));
+    if($category_name == "celeb-style") {
+            $main_cats = ProductCategory::model()->findAllByAttributes(array(), array('condition' => 'id = 4'));
+    } else {
+            $main_cats = ProductCategory::model()->findAllByAttributes(array(), array('condition' => 'id = parent'));
+    }
+    // $main_cats = ProductCategory::model()->findAllByAttributes(array(), array('condition' => 'id = parent'));
     foreach($main_cats as $main_cat) {
             $subcats = ProductCategory::model()->findAllByAttributes(array('parent' => $main_cat->id), array('condition' => 'id !=' . $main_cat->id));
             if(!empty($subcats)) {

@@ -41,6 +41,7 @@ class WalletHistory extends CActiveRecord {
                     array('field1', 'length', 'max' => 200),
                     array('amount,balance_amt', 'length', 'max' => 10),
                     array('amount,payment_method,type_id', 'required', 'on' => 'addWallet'),
+                    array('amount,payment_method,field1', 'required', 'on' => 'addWallet1'),
                     array('amount', 'numerical', 'integerOnly' => true, 'on' => 'addWallet'),
                     array('type_id,amount,field1', 'required', 'on' => 'redeemWallet'),
                     array('amount', 'numerical', 'integerOnly' => true, 'on' => 'redeemWallet'),
@@ -75,7 +76,7 @@ class WalletHistory extends CActiveRecord {
                     'credit_debit' => 'Credit / Debit',
                     'balance_amt' => 'Balance Amt',
                     'ids' => 'Purchase Id',
-                    'field1' => 'Comments',
+                    'field1' => 'Message',
                     'field2' => 'Field2',
                     'payment_method' => 'Payment Method',
                 );
