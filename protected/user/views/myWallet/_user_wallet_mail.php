@@ -11,18 +11,27 @@
                     <td><a href="http://laksyah.com"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/emailer_01.jpg" width="776" height="102" alt=""></a></td>
                 </tr>
                 <tr>
-                    <td style="padding:40px 20px; font-family:'Open Sans',arial, sans-serif; font-size:13px"><p>Hi <?php echo $user_wallet->first_name; ?><span>      <?php echo $user_wallet->last_name; ?></span>,</p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"></p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">        <?php echo Yii::app()->Currency->convert($wallet_history->amount); ?>              added successfully
-                            ON  <?php echo $newDate = date("d-m-Y", strtotime($user_wallet->DOC)); ?>  </p>
+                    <td style="padding:40px 20px; font-family:'Open Sans',arial, sans-serif; font-size:13px"><p>Hi <?php echo $user_wallet->first_name; ?><span>      <?php echo $user_wallet->last_name; ?>,</p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">You have added <b><?php echo Yii::app()->Currency->convert($wallet_history->amount); ?></b> to your Laksyah Credit Balance on <?php echo date("d-m-Y g:i a", strtotime($wallet_history->entry_date)); ?>.</p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><b>Your Message : </b><?php echo $wallet_history->field1; ?></p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><b>Payment Method : </b>
+                            <?php
+                            if($wallet_history->payment_method == 1) {
+                                    echo "Paid By Laksyah";
+                            } else if($wallet_history->payment_method == 2) {
+                                    echo "Credit/Debit Card or Netbanking";
+                            } else if($wallet_history->payment_method == 3) {
+                                    echo "Paypal";
+                            }
+                            ?></p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Your updated Laksyah Credit Balance is <b><?php echo Yii::app()->Currency->convert($user_wallet->wallet_amt); ?></b> .</p>
 
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Laksyah Credit Balance can be used  for shopping on Laksyah.</p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><a href="<?php echo Yii::app()->baseUrl . '/index.php/CreditHistory' ?>" style="text-transform: uppercase;background-color: #f47721;border-radius: 0;outline: none;border: none;height: 40px;line-height: 40px;padding: 0px 10px;padding-left: 30px;padding-right: 30px; color:#fff; text-decoration:none; display:inline-block;">VIEW MY ACCOUNT</a></p>
 
-
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Total amount is     <?php echo Yii::app()->Currency->convert($user_wallet->wallet_amt); ?></p>
-
-                        <hr style="border-color:#404241;">
                     </td>
                 </tr>
+
                 <tr>
                     <td>
                         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/emailer_03.jpg" width="776" height="47" alt=""></td>

@@ -11,19 +11,61 @@
                     <td><a href="http://laksyah.com"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/emailer_01.jpg" width="776" height="102" alt=""></a></td>
                 </tr>
                 <tr>
-                    <td style="padding:40px 20px; font-family:'Open Sans',arial, sans-serif; font-size:16px"><p>Hi Admin,</p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">
-                            <?php echo $user_wallet->first_name; ?><span>      <?php echo $user_wallet->last_name; ?></span>
-                            added  <?php echo Yii::app()->Currency->convert($wallet_history->amount); ?>  to his wallet      ON  <?php echo $newDate = date("d-m-Y", strtotime($user_wallet->DOC)); ?>
-                        </p>
+                    <td style="padding:40px 20px; font-family:'Open Sans',arial, sans-serif; font-size:13px"><p>Hi Admin,</p>
+                        <table id="Table_01"  border="0" cellpadding="0" cellspacing="0" align="left" style="padding:13px 0px; font-family:'Open Sans',arial, sans-serif; font-size:13px">
+                            <tr>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Customer Name</p></td>
+                                <td>:</td>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo $user_wallet->first_name; ?>  <?php echo $user_wallet->last_name; ?></p></td>
+                            </tr>
+                            <tr>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Paid Amount</p></td>
+                                <td>:</td>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo Yii::app()->Currency->convert($wallet_history->amount); ?></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Payment Method</p></td>
+                                <td>:</td>
+                                <td>
+                                    <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">
+                                        <?php
+                                        if($wallet_history->payment_method == 1) {
+                                                echo "Paid By Laksyah";
+                                        } else if($wallet_history->payment_method == 2) {
+                                                echo "Credit/Debit Card or Netbanking";
+                                        } else if($wallet_history->payment_method == 3) {
+                                                echo "Paypal";
+                                        }
+                                        ?>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Message</p></td>
+                                <td>:</td>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo $wallet_history->field1; ?></p></td>
+                            </tr>
+                            <tr>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Updated Credit Balance</p></td>
+                                <td>:</td>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo Yii::app()->Currency->convert($user_wallet->wallet_amt); ?></p></td>
+                            </tr>
+                            <tr>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Payment Status</p></td>
+                                <td>:</td>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php if($wallet_history->field2 == 1) {
+                                                echo 'Success';
+                                        } else {
+                                                echo 'Failed';
+                                        } ?></p></td>
+                            </tr>
+                        </table>
 
 
-
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Total amount is     <?php echo Yii::app()->Currency->convert($user_wallet->wallet_amt); ?></p>
-
-                        <hr style="border-color:#404241;">
                     </td>
                 </tr>
+
                 <tr>
                     <td>
                         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/emailer_03.jpg" width="776" height="47" alt=""></td>

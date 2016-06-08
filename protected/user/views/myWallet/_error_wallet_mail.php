@@ -11,16 +11,30 @@
                     <td><a href="http://laksyah.com"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/emailer_01.jpg" width="776" height="102" alt=""></a></td>
                 </tr>
                 <tr>
-                    <td style="padding:40px 20px; font-family:'Open Sans',arial, sans-serif; font-size:13px"><p>Hi <?php echo $username->first_name; ?><span>      <?php echo $username->last_name; ?></span>,</p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"></p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">  Oops some error occured.Transaction rejected.
+                    <td style="padding:40px 20px; font-family:'Open Sans',arial, sans-serif; font-size:13px"><p>Hi <?php echo $user_wallet->first_name; ?><span>      <?php echo $user_wallet->last_name; ?>,</p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"> We are unable to complete your payment towards laksyah credit money at http://www.laksyah.com due to Transaction Failure on <?php echo date("d-m-Y g:i a", strtotime($wallet_history->entry_date)); ?>.</p>
+                        <p style="font-size:13px;line-height:16px;text-align:left;">
+                            We invite you to visit tp://www.laksyah.com once more to add credit balance, using credit card or online bank account .
                         </p>
 
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><b>Your Message : </b><?php echo $wallet_history->field1; ?></p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><b>Payment Method : </b>
+                            <?php
+                            if($wallet_history->payment_method == 1) {
+                                    echo "Paid By Laksyah";
+                            } else if($wallet_history->payment_method == 2) {
+                                    echo "Credit/Debit Card or Netbanking";
+                            } else if($wallet_history->payment_method == 3) {
+                                    echo "Paypal";
+                            }
+                            ?></p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Your updated Laksyah Credit Balance is <b><?php echo Yii::app()->Currency->convert($user_wallet->wallet_amt); ?></b> .</p>
 
+                        <p style="font-size:13px;line-height:16px;text-align:left;">
+                            Thank you for your patronage.
+                        </p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><a href="<?php echo Yii::app()->baseUrl . '/index.php/CreditHistory' ?>" style="text-transform: uppercase;background-color: #f47721;border-radius: 0;outline: none;border: none;height: 40px;line-height: 40px;padding: 0px 10px;padding-left: 30px;padding-right: 30px; color:#fff; text-decoration:none; display:inline-block;">VIEW MY ACCOUNT</a></p>
 
-
-
-                        <hr style="border-color:#404241;">
                     </td>
                 </tr>
                 <tr>
