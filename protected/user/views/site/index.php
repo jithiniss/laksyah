@@ -17,8 +17,8 @@
                         <?php
                         foreach ($slider as $sliders) {
                                 ?>
-                                <div class="item"> <img src="<?php echo yii::app()->baseUrl; ?>/uploads/sliders/<?php echo $sliders->id; ?>.<?php echo $sliders->image_extension; ?>"> </div>
-                                <?php
+ <div class="item"> <img src="<?php echo yii::app()->baseUrl; ?>/uploads/sliders/<?php echo $sliders->id; ?>.<?php echo $sliders->image_extension; ?>"> </div>
+ <?php
                         }
                         ?>
                 </div>
@@ -120,10 +120,13 @@
                                 <?php
                                 foreach ($blog as $blogs) {
                                         ?>
-                                        <div class="col-sm-3 col-xs-6">
+ <div class="col-sm-3 col-xs-6">
                                                 <div class="blog_list_item"> <img src="<?php echo yii::app()->baseUrl; ?>/uploads/blog/<?php echo $blogs->id; ?>/small.<?php echo $blogs->small_image; ?>" alt=""/>
-                                                        <div class="list_title">
-                                                                <h4><?php echo $blogs->heading; ?></h4>
+ <div class="list_title">
+
+
+                                                                <h4><?php echo CHtml::link($blogs->heading, array('site/BlogDetails', 'blog' => $blogs->id), array('class' => '')); ?></h4>
+
                                                         </div>
                                                 </div>
                                         </div>
@@ -147,17 +150,17 @@
                                                 $test = substr($testimonial, 0, 140);
                                                 if ($m == 1) {
                                                         ?>
-                                                        <div class="item active ">
+ <div class="item active ">
                                                                 <p><?php echo $test; ?></p>
-                                                                <h3><?php echo $models->name; ?>,<?php echo $models->position; ?></h3>
-                                                        </div>
+ <h3><?php echo $models->name; ?>,<?php echo $models->position; ?></h3>
+ </div>
                                                 <?php } else { ?>
-                                                        <div class="item ">
+ <div class="item ">
                                                                 <p><?php echo $test; ?></p>
-                                                                <h3><?php echo $models->name; ?>,<?php echo $models->position; ?></h3>
-                                                        </div>
+ <h3><?php echo $models->name; ?>,<?php echo $models->position; ?></h3>
+ </div>
                                                 <?php } ?>
-                                                <?php
+ <?php
                                                 $m = $m + 1;
                                         }
                                         ?>

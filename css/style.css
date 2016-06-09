@@ -12,7 +12,6 @@
         Footer Color:  		#f7f4f1
         Gray Border: 		#d5d5d7
 */
-
 ::-webkit-input-placeholder {
         color: #D1D1D1 !important;
 }
@@ -405,6 +404,7 @@ Blog Section
         font-family: Merriweather, serif;
         font-size: 22px;
         font-weight: bold;
+        letter-spacing:1px;
 }
 .blog_section h2:after, .testimonials_section h2:after {
         height: 2px;
@@ -435,6 +435,13 @@ Blog Section
         color: #000;
         line-height: 18px;
 }
+.blog_list_item .list_title h4 a{
+        color: #414042;
+        text-decoration:none;
+}
+.blog_list_item .list_title h4 a:hover{
+        color:#000
+}
 .blog_list {
         margin-bottom: 30px;
 }
@@ -445,6 +452,7 @@ Blog Section
         color: #818182;
         padding: 10px 20px;
         transition:all 0.2s ease-in-out;
+        font-size: 13px;
 }
 .btn-skel:hover{
         background-color:#f7f4f1 !important;
@@ -594,6 +602,7 @@ a.google-map-tag {
         padding: 1px 0;
         border-radius: 6px;
         color: #fff;
+        text-decoration:none;
 }
 .col-card {
         margin-bottom: 10px;
@@ -613,11 +622,11 @@ a.google-map-tag {
         min-width: 150px;
         padding: 2px 10px;
         border: solid 2px #737179;
-        top: 99%;
+        top: 94%;
         box-shadow: 0px 0px 5px rgba(0,0,0,0.54);
         display: none;
         background: #fff;
-        z-index: 2;
+        z-index: 3000;
 }
 .laksyah_dropdown.active{
         display:block;
@@ -669,7 +678,7 @@ Category
 ------------------------
 */
 .main_container {
-        margin-top: 20px;
+        margin-top: 12px;
 }
 .main_container .row {
         margin-left: -25px;
@@ -702,7 +711,7 @@ Category
         color: #f47721;
         margin: 0px;
         padding: 0px;
-        padding-bottom: 30px;
+        padding-bottom: 25px;
         text-transform:uppercase;
 }
 .breadcrumbs a {
@@ -806,7 +815,8 @@ ul.catmenu > li.open ul{
         margin-top:0px;
 }
 .size_filter label{
-        width:30px;
+        min-width:30px;
+        padding:0px 4px;
         height:30px;
         border:solid 1px #d5d5d7;
         line-height:28px;
@@ -1937,10 +1947,6 @@ Account Pages
 /*
 Modal
 */
-.modal{
-  
-    z-index: 5000000000 !important;
-}
 .modal-content{
         padding: 30px;
         background-color: #fff;
@@ -2113,10 +2119,20 @@ Account Pages
 Credit Page
 -------------------
 */
+.check_out .border_box .box_content .form-control{
+        margin:0px;
+}
 .border_box .row{
         border-top:solid 1px #c0c0c0;
         margin:0px;
         display:flex;
+}
+.check_out .border_box .row{
+        margin-left:-25px;
+        margin-right:-25px;
+}
+.check_out .form_row{
+        margin-bottom:25px;
 }
 .border_box .row.header_row{
         border-top:none;
@@ -2126,7 +2142,7 @@ Credit Page
         border-right:solid 1px  #c0c0c0;
         padding:10px 15px;
 }
-.border_box .row > div:last-child{
+.border_box .row > div:last-child, .check_out .border_box .row > div, .check_out .border_box .row{
         border:none;
 }
 .border_box .row > div p{
@@ -3078,6 +3094,7 @@ Media Queries
         .mobile-inline{
                 display:inline-block;
                 padding-right:0px;
+                padding-left:0px;
         }
         .top-bar ul li{
                 margin-right:10px;
@@ -3266,6 +3283,9 @@ Media Queries
                 margin:auto;
                 line-height:65px;
         }
+        .scrolled .user_nav {
+                margin-top: 25px;
+        }
 }
 
 
@@ -3300,6 +3320,9 @@ Media Queries
         .main_container .row.dash_board{
                 margin-left:-10px;
                 margin-right:-10px;
+        }
+        .testimonial_carousel .slide .carousel-inner{
+                height:160px;
         }
 }
 @media (max-width: 500px){
@@ -3390,7 +3413,9 @@ Media Queries
                 font-size:12px;
                 text-align:center;
         }
-
+        .testimonial_carousel .slide .carousel-inner{
+                height:280px;
+        }
 
 }
 
@@ -3405,5 +3430,6 @@ Media Queries
                 top:0px;
                 bottom:0px;
         }
+
 
 }

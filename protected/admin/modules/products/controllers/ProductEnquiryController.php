@@ -159,9 +159,9 @@ class ProductEnquiryController extends Controller {
                 $message = $this->renderPartial('_product_enquiry_mail_client', array('model' => $celib_history_update, 'enq_data' => $enq_data), true);
 
                 $message1 = $this->renderPartial('_product_enquiry_mail_admin', array('model' => $celib_history_update, 'enq_data' => $enq_data), true);
-                echo $message;
-                echo $message1;
-                exit;
+//                echo $message;
+//                echo $message1;
+//                exit;
                 // Always set content-type when sending HTML email
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";

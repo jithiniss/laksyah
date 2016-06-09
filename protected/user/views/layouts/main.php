@@ -169,7 +169,7 @@ if (Yii::app()->user->hasFlash('newsletter')) {
                                                 <div class="col-sm-7 text-right col-md-6 mobile-inline">
                                                         <ul>
                                                                 <li class="hidden-mobile"> <?php echo CHtml::link('<i class="fa fa-envelope"></i><span class="hidden-xs">LEAVE A </span>MESSAGE', array('site/ContactUs')); ?></li>
-                                                                <li><a href="#"><i class="fa fa-mobile-phone"></i> MOBILE APP</a></li>
+                                                                <li class="hidden-mobile"><a href="#"><i class="fa fa-mobile-phone"></i> MOBILE APP</a></li>
 
                                                                 <li class="has_dropdown"><a href="#" class="active_currency">
                                                                                 <?php if (isset(Yii::app()->session['currency'])) { ?>
@@ -250,7 +250,7 @@ if (Yii::app()->user->hasFlash('newsletter')) {
                                                                                         <div class="laksyah_dropdown">
                                                                                                 <ul class="drop_menu">
                                                                                                         <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount" class="currency" >My Account</a></li>
-                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                                     ?></li>-->
+                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                                       ?></li>-->
                                                                                                         <li><?php echo CHtml::link('Log Out', array('site/Logout'), array('class' => 'currency')); ?></li>
                                                         <!--                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
                                                                                                 <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Myordernew" class="currency" >My Orders</a></li>
@@ -276,7 +276,7 @@ if (Yii::app()->user->hasFlash('newsletter')) {
                                                                                         </div></li>
                                                                         <?php } else { ?>
                                                                                 <li><a  data-toggle="modal" data-target="#login" class="currency lgn_main">Login</a></li>
-                                                                                <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/site/register" class="currency lgn_main" >Register</a></li>
+                                                                                <li class="hidden-mobile"><a href="<?= Yii::app()->baseUrl; ?>/index.php/site/register" class="currency lgn_main" >Register</a></li>
                                                                                 <!--                                                                        <li class="my_credit">
                                                                                                                                                                 <div class="wallet_icon"></div>
                                                                                                                                                                 <div class="wallet_item">
@@ -299,7 +299,7 @@ if (Yii::app()->user->hasFlash('newsletter')) {
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;                                              ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;                                                ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">

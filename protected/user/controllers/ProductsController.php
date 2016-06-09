@@ -42,16 +42,26 @@ class ProductsController extends Controller {
                 } else {
                         $categ = '';
                 }
-                $dataProvider = new CActiveDataProvider('Products', array(
-                    'criteria' => array(
-                        'condition' => 'deal_day_status = 1 and quantity > 0 and deal_day_date = "' . $date . '"',
-                    ),
-                    'sort' => array(
-//'defaultOrder' => 'price ASC',
-                        'defaultOrder' => $categ,
-                    )
-                        )
-                );
+                $prod_ids = DealProducts::model()->findByAttributes(array('date' => $date))->deal_products;
+                $ids = explode(',', $prod_ids);
+                foreach ($ids as $id) {
+                        if ($id != '') {
+                                $product_id .= "`id`= '$id' OR ";
+                        }
+                }
+                if (!empty($prod_ids)) {
+                        $product_id = rtrim($product_id, ' OR');
+                        $dataProvider = new CActiveDataProvider('Products', array(
+                            'criteria' => array(
+                                'condition' => '(status = 1)  and (' . $product_id . ')',
+                            ),
+//                    'sort' => array(
+////'defaultOrder' => 'price ASC',
+//                        'defaultOrder' => $categ,
+//                    )
+                                )
+                        );
+                }
 
                 if (empty($dataProvider)) {
                         $this->render('ProductNotfound');
@@ -137,9 +147,9 @@ class ProductsController extends Controller {
                 $message = $this->renderPartial('mail/_product_enquiry_mail_client', array('model' => $model), true);
 
                 $message1 = $this->renderPartial('mail/_product_enquiry_mail_admin', array('model' => $model), true);
-                echo $message;
-                echo $message1;
-                exit;
+//                echo $message;
+//                echo $message1;
+//                exit;
                 // Always set content-type when sending HTML email
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
@@ -326,7 +336,7 @@ class ProductsController extends Controller {
                                                 }
                                                 ?>
                                                 <label class="<?php echo $disabled; ?>" id="<?php echo $size->size_id; ?>"><?php echo $size_name->size; ?>
-                                                    <input type = "radio" name = "size_selector_<?php echo $size_name->id; ?>" value = "<?php echo $size_name->id; ?>" id = "size_selector_<?php echo $size_name->id; ?>">
+                                                        <input type = "radio" name = "size_selector_<?php echo $size_name->id; ?>" value = "<?php echo $size_name->id; ?>" id = "size_selector_<?php echo $size_name->id; ?>">
                                                 </label>
                                                 <?php
                                         }
