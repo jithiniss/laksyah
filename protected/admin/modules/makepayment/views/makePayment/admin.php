@@ -72,15 +72,15 @@
                                     }
                             },
                                 ),
-                                'amount',
-                                array('name' => 'pay_method',
-                                    'filter' => array('1' => 'CREDIT/DEBIT/NET BANKING', '2' => 'PAYPAL', '3' => 'VOUCHER'),
+                                'total_amount',
+                                array('name' => 'payment_mode',
+                                    'filter' => array('1' => 'WALLET', '2' => 'CREDIT/DEBIT/NET BANKING', '3' => 'PAYPAL', '4' => 'WALLET + CREDIT/DEBIT/NET BANKING'),
                                     'value' => function($data) {
-                                    if ($data->pay_method == '1') {
+                                    if ($data->payment_mode == '1') {
                                             return 'CREDIT/DEBIT/NET BANKING';
-                                    } elseif ($data->pay_method == '2') {
+                                    } elseif ($data->payment_mode == '2') {
                                             return 'PAYPAL';
-                                    } elseif ($data->pay_method == '3') {
+                                    } elseif ($data->payment_mode == '3') {
                                             return 'VOUCHER';
                                     } else {
                                             return 'Invalid';
