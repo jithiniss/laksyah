@@ -1,5 +1,5 @@
 
-<form  method="post" action="http://laksyah.com/hdfcpay/post.php" name="frmTransaction" id="frmTransaction" >
+<form  method="post" action="http://beta.laksyah.com/hdfcpay/post.php" name="frmTransaction" id="frmTransaction" >
 
 
         <div class="container main_container inner_pages centerd_page">
@@ -55,7 +55,7 @@
                 </tr>
                 <tr>
                         <td class="fieldName"><span class="error">*</span> Return Url</td>
-                        <td align="left"><input name="return_url" type="text" size="60" value="http://laksyah.com/hdfcpay/response.php" /></td>
+                        <td align="left"><input name="return_url" type="text" size="60" value="http://beta.laksyah.com/hdfcpay/response.php" /></td>
                 </tr>
                 <tr>
                         <td class="fieldName"><span class="error">*</span> Mode</td>
