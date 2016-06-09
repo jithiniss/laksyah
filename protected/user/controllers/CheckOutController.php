@@ -124,9 +124,32 @@ class CheckOutController extends Controller {
                         if ($wallet < 0) {
                                 $wallet = 0;
                         }
-                        $grant = $_POST['grant'];
+                        // $grant = $_POST['grant'];
                         $country = $_POST['country'];
-                        $shipping_charge = ShippingCharges::model()->findByAttributes(array('country' => $country));
+                        if ($country == 99) {
+                                $total_shipping_rate = 0;
+                        } else {
+                                $get_zone = Countries::model()->findByPk($country);
+                                $get_total_weight = $this->GetTotalWeight();
+                                $value = explode('.', $get_total_weight);
+                                if (strlen($value[1]) == 1) {
+                                        $value[1] = $value[1] . '0';
+                                }
+                                if ($value[1] <= 50) {
+                                        $total_weight = $value[0] + .5;
+                                } else {
+                                        $total_weight = $value[0] + 1;
+                                }
+                                /* 13% Fuel Charge and 15 % Service chARGE is applicable */
+                                $shipping_rate = ShippingCharges::model()->findByAttributes(array('zone' => $get_zone->zone, 'weight' => $total_weight));
+                                if (!empty($shipping_rate)) {
+                                        $fuel_charge = $shipping_rate->shipping_rate * .13;
+                                        $service_charge = ($shipping_rate + $fuel_charge) * .15;
+                                        $total_shipping_rate = ceil($shipping_rate + $fuel_charge + $service_charge);
+                                } else {
+                                        $total_shipping_rate = 0;
+                                }
+                        }
                         $carts = Cart::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
                         foreach ($carts as $cart) {
                                 $prod_details = Products::model()->findByPk($cart->product_id);
@@ -137,8 +160,8 @@ class CheckOutController extends Controller {
                                 $product_price += $producttotal;
                         }
                         $subtotal = $gift + $product_price;
-                        $grant_total = $subtotal + $shipping_charge->shipping_rate;
-                        $totalpay = $subtotal + $shipping_charge->shipping_rate;
+                        $grant_total = $subtotal + $total_shipping_rate;
+                        $totalpay = $subtotal + $total_shipping_rate;
                         if (isset(Yii::app()->session['currency'])) {
                                 $currency_rate = Yii::app()->session['currency']['rate'];
                         } else {
@@ -270,7 +293,7 @@ class CheckOutController extends Controller {
                                 if ($cart->options != 0) {
                                         $option_stock = OptionDetails::model()->findByPk($cart->options);
                                         if (!empty($option_stock)) {
-                                                if ($option_stock->quantity <= $cart->quantity) {
+                                                if ($option_stock->stock <= $cart->quantity) {
                                                         $quantity = $cart->quantity;
                                                 } else {
                                                         $quantity = 0;

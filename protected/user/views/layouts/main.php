@@ -173,9 +173,9 @@ if (Yii::app()->user->hasFlash('newsletter')) {
                                                                 <li class="has_dropdown"><a href="#" class="active_currency">
                                                                                 <?php if (isset(Yii::app()->session['currency'])) { ?>
                                                                                         <i class="fa currency_symbol"><img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/currency/<?php echo Yii::app()->session['currency']['id']; ?>.<?php echo Yii::app()->session['currency']['image']; ?>" width="16" height="11" alt=""/>
-                                                                                        </i> <?php echo Yii::app()->session['currency']['currency_code']; ?>
+                                                                                        </i> <i class="fa <?php echo Yii::app()->session['currency']['symbol']; ?>"></i><?php echo Yii::app()->session['currency']['currency_code']; ?>
                                                                                 <?php } else { ?>
-                                                                                        <i class="fa currency_symbol"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/india-home.jpg" width="16" height="11" alt=""/></i> INR
+                                                                                        <i class="fa currency_symbol"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/india-home.jpg" width="16" height="11" alt=""/></i> <i class="fa fa-inr"></i> INR
                                                                                 <?php } ?>
                                                                                 <i class="fa fa-angle-down"></i></a>
                                                                         <div class="laksyah_dropdown currency_drop">
@@ -217,7 +217,7 @@ if (Yii::app()->user->hasFlash('newsletter')) {
                                                                 </form>
 
                                                         </div>
-                                                        <div class="col-sm-2 logo_col col-xs-4"><a href="<?php echo Yii::app()->baseUrl; ?>"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" width="218" height="103" alt=""/></a></div>
+                                                        <div class="col-sm-2 logo_col col-xs-4"><a href="<?php echo Yii::app()->baseUrl; ?>/"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" width="218" height="103" alt=""/></a></div>
                                                         <div class="col-sm-5 col-xs-8">
                                                                 <?php
                                                                 if (isset(Yii::app()->session['user']['id'])) {
@@ -249,7 +249,7 @@ if (Yii::app()->user->hasFlash('newsletter')) {
                                                                                         <div class="laksyah_dropdown">
                                                                                                 <ul class="drop_menu">
                                                                                                         <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount" class="currency" >My Account</a></li>
-                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                 ?></li>-->
+                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                                  ?></li>-->
                                                                                                         <li><?php echo CHtml::link('Log Out', array('site/Logout'), array('class' => 'currency')); ?></li>
                                                         <!--                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
                                                                                                 <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Myordernew" class="currency" >My Orders</a></li>
@@ -298,7 +298,7 @@ if (Yii::app()->user->hasFlash('newsletter')) {
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;                          ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;                                           ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">

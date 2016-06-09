@@ -267,7 +267,7 @@
                                                                         </tbody>
                                                                 </table>
                                                         </div>
-                                                        <div class="col-xs-6"><img src="images/measurement_units.jpg" alt=""/></div>
+                                                        <div class="col-xs-6"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/measurement_units.jpg" alt=""/></div>
                                                 </div>
                                         </div>
 

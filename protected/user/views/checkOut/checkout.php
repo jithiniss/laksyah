@@ -107,12 +107,12 @@
                                                         <div class="row">
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($billing, '[bill]postcode', array('class' => 'control-label')); ?>
-                                                                        <?php echo $form->textField($billing, '[bill]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik postcode')); ?>
                                                                         <?php echo $form->error($billing, '[bill]postcode'); ?>
                                                                 </div>
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($billing, '[bill]country', array('class' => 'control-label')); ?>
-                                                                        <?php echo CHtml::activeDropDownList($billing, '[bill]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo CHtml::activeDropDownList($billing, '[bill]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik', 'options' => array(99 => array('selected' => 'selected')))); ?>
                                                                         <?php echo $form->error($billing, '[bill]country'); ?>
                                                                 </div>
                                                         </div>
@@ -209,7 +209,7 @@
                                                                 </div>
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($shipping, '[ship]country', array('class' => 'control-label')); ?>
-                                                                        <?php echo CHtml::activeDropDownList($shipping, '[ship]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik1 shipping_country')); ?>
+                                                                        <?php echo CHtml::activeDropDownList($shipping, '[ship]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select Country--', 'class' => 'form-control aik1 shipping_country', 'options' => array(99 => array('selected' => 'selected')))); ?>
 
                                                                         <?php echo $form->error($shipping, '[ship]country'); ?>
                                                                 </div>
@@ -605,12 +605,13 @@
         function totalcalculate(wallet, grant, country) {
 
                 showLoader();
+
                 $.ajax({
                         type: "POST",
                         cache: 'false',
                         async: false,
                         url: baseurl + 'CheckOut/totalcalculate',
-                        data: {wallet: wallet, grant: grant, country: country}
+                        data: {wallet: wallet, country: country}
                 }).done(function (data) {
 
                         var obj = jQuery.parseJSON(data);
