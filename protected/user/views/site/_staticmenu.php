@@ -2,7 +2,7 @@
         <div class="cat_nav">
                 <ul class="catmenu">
                         <li class="active"><?php echo CHtml::link('About Us', array('site/AboutUs')); ?></li>
-                        <li> <?php echo CHtml::link('Contact  Us', array('site/ContactLakysah')); ?></li>
+                        <li> <?php echo CHtml::link('Contact  Us', array('site/contactUs')); ?></li>
                         <li> <?php echo CHtml::link('Made to Measure', array('site/BookAppointment')); ?></li>
                         <li> <?php echo CHtml::link('Product Submission', array('site/productsubmission')); ?></li>
                         <li> <?php echo CHtml::link('Support', array('site/Support')); ?></li>

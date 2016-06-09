@@ -21,6 +21,7 @@
                         <?php
                         $form = $this->beginWidget('CActiveForm', array(
                             'id' => 'make-payment-form',
+                            'action' => Yii::app()->baseUrl . '/index.php/Myaccount/Makepayment/',
                             // Please note: When you enable ajax validation, make sure the corresponding
                             // controller action is handling ajax validation correctly.
                             // There is a call to performAjaxValidation() commented in generated controller code.
@@ -100,10 +101,12 @@
                                                                 <?php echo $form->error($model, 'amount_type', array('style' => 'color:red')); ?>
 
                                                         </div>
-                                                        <div class="col-xs-2"><input type="text" class="form-control text-center" readonly placeholder="" value="â‚¹"></div>
+                                                        <div class="col-xs-2"><input type="text" class="form-control text-center" readonly placeholder="" value="₹"></div>
                                                         <div class="col-xs-5">
                                                                 <?php if (!empty($celeb_history)) { ?>
-                                                                        <input type="text"  id="MakePayment_amount" readonly autocomplete="off" value="<?php echo $celeb_history->pay_amount; ?>" class="form-control" >
+
+                                                                        <input type="hidden"  id="MakePayment_amount1"  value='<?php echo Yii::app()->Currency->convert($celeb_history->pay_amount); ?>'/>
+                                                                        <input type="text"  id="MakePayment_amount" readonly autocomplete="off" value="<?php echo $celeb_history->pay_amount; ?>" class="form-control"/>
                                                                 <?php } else { ?>
                                                                         <input type="text"  id="MakePayment_amount"  autocomplete="off"  class="form-control" >
                                                                 <?php } ?>
@@ -124,7 +127,7 @@
                                                                 $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
                                                                 ?>
                                                                 <input type="hidden" id="wallet_amt" value="<?php echo $user->wallet_amt; ?>">
-                                                                <input type="text" name="MakePayment[amount]" autocomplete="off" id="credit" class="form-control" >
+                                                                <input type="text" name="total_amount" autocomplete="off" id="credit" class="form-control" >
                                                         </div>
                                                         <div class="col-xs-7" style="padding-top:12px;"> <b>(Available Credit:<span id="balance">  </span>)</b></div>
                                                 </div>
@@ -137,7 +140,7 @@
                                         </div>
                                         <div class="col-md-6 col-sm-8">
                                                 <div class="price_group">
-                                                        Total amount to pay . <span id="payment_blnc"></span>
+                                                        Total amount to pay  <span id="payment_blnc"></span>
                                                 </div>
 
                                         </div>
@@ -204,6 +207,9 @@
 <script type="text/javascript">
         $(document).ready(function () {
                 var amount = $("#wallet_amt").val();
+                if ($("#credit").val() == '') {
+                        document.getElementById("payment_blnc").innerHTML = $("#MakePayment_amount1").val();
+                }
                 document.getElementById("balance").innerHTML = amount;
                 $('#credit').on('change', function () {
                         var credit = $("#credit").val();
@@ -217,7 +223,8 @@
                                 document.getElementById("balance").innerHTML = balance;
                         }
                         var payment_blnc = $("#MakePayment_amount").val() - $("#credit").val();
-                        document.getElementById("payment_blnc").innerHTML = payment_blnc;
+                        $("#payment_blnc").html($("#MakePayment_amount").val() - $("#credit").val());
+
                 });
         });
 </script>

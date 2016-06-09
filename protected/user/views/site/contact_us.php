@@ -13,27 +13,55 @@
 
                                         <div class="col-sm-12">
                                                 <div class="registration_form contact_us">
+                                                        <?php
+                                                        $form = $this->beginWidget('CActiveForm', array(
+                                                            'id' => 'contact-us-contact-form',
+                                                            'action' => Yii::app()->baseUrl . '/index.php/site/contactUs/',
+                                                            // Please note: When you enable ajax validation, make sure the corresponding
+                                                            // controller action is handling ajax validation correctly.
+                                                            // See class documentation of CActiveForm for details on this,
+                                                            // you need to use the performAjaxValidation()-method described there.
+                                                            'enableAjaxValidation' => false,
+                                                        ));
+                                                        ?>
+                                                        <?php if (Yii::app()->user->hasFlash('success')): ?>
+                                                                <div class="alert alert-success normal">
+                                                                        <strong>Success!</strong> <?php echo Yii::app()->user->getFlash('success'); ?>
+                                                                </div>
+                                                        <?php endif; ?>
+                                                        <?php if (Yii::app()->user->hasFlash('error')): ?>
+                                                                <div class="alert alert-danger">
+                                                                        <strong>Danger!</strong> <?php echo Yii::app()->user->getFlash('error'); ?>
+                                                                </div>
+                                                        <?php endif; ?>
                                                         <p><strong><em>To contact us via email, complete the fields below:</em></strong></p>
                                                         <div class="form-group">
-                                                                <label>First Name*:</label>
-                                                                <input type="text" class="form-control" placeholder="" value="">
+                                                                <?php echo $form->labelEx($model, 'name'); ?>
+                                                                <?php echo $form->textField($model, 'name', array('size' => 60, 'class' => 'form-control')); ?>
+                                                                <?php echo $form->error($model, 'name', array('style' => 'color:red')); ?>
                                                         </div>
                                                         <div class="form-group">
-                                                                <label>Email*:</label>
-                                                                <input type="text" class="form-control" placeholder="" value="">
+                                                                <?php echo $form->labelEx($model, 'email'); ?>
+                                                                <?php echo $form->textField($model, 'email', array('size' => 60, 'class' => 'form-control')); ?>
+                                                                <?php echo $form->error($model, 'email', array('style' => 'color:red')); ?>
                                                         </div>
                                                         <div class="form-group">
-                                                                <label>Telephone*:*</label>
-                                                                <input type="text" class="form-control" placeholder="" value="">
+                                                                <?php echo $form->labelEx($model, 'phone'); ?>
+                                                                <?php echo $form->textField($model, 'phone', array('size' => 60, 'class' => 'form-control')); ?>
+                                                                <?php echo $form->error($model, 'phone', array('style' => 'color:red')); ?>
                                                         </div>
                                                         <div class="form-group">
                                                                 <label>Message*:</label>
-                                                                <textarea class="form-control"></textarea>
+                                                                <?php echo $form->textArea($model, 'comment', array('rows' => 5, 'cols' => 60, 'class' => 'form-control')); ?>
+                                                                <?php echo $form->error($model, 'comment', array('style' => 'color:red')); ?>
                                                         </div>
                                                         <div class="form_button"> <strong>
-                                                                        <button class="btn-primary">SUBMIT</button>
-                                                                </strong> </div>
+                                                                        <?php echo CHtml::submitButton('Submit', array('class' => 'btn-primary')); ?>
+                                                                </strong>
+                                                        </div>
+                                                        <?php $this->endWidget(); ?>
                                                 </div>
+
                                         </div>
                                 </div>
                                 <div class="contact_us_details">

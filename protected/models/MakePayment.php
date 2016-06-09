@@ -11,7 +11,6 @@
  * @property string $message
  * @property string $amount_type
  * @property string $amount
- * @property string $pay_method
  * @property string $date
  */
 class MakePayment extends CActiveRecord {
@@ -30,11 +29,11 @@ class MakePayment extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
-                    array('userid, product_name, product_code, message, amount_type, total_amount, payment_mode, netbanking,paypal,wallet,date', 'required'),
-                    array('userid,amount,pay_method', 'numerical', 'integerOnly' => true),
+                    array('userid, product_name, product_code, message, amount_type, total_amount, payment_mode,date', 'required'),
+                    array('userid,total_amount', 'numerical', 'integerOnly' => true),
                     array('product_name', 'length', 'max' => 200),
-                    array('product_code, amount_type, pay_method', 'length', 'max' => 15),
-                    array('amount', 'length', 'max' => 25),
+                    array('product_code, amount_type', 'length', 'max' => 15),
+                    array('total_amount', 'length', 'max' => 25),
                     array('netbanking, paypal, wallet', 'length', 'max' => 100),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.

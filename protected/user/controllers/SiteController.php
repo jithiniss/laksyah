@@ -267,7 +267,7 @@ class SiteController extends Controller {
                         $model->date = date("Y-m-d");
                         if ($model->validate()) {
                                 if ($model->save()) {
-                                        Yii::app()->user->setFlash('success', " Your email send successfully");
+                                        Yii::app()->user->setFlash('success', " Your email sent successfully");
                                 } else {
                                         Yii::app()->user->setFlash('error', "Error Occured");
                                 }
@@ -275,7 +275,7 @@ class SiteController extends Controller {
                                 $this->redirect(array('site/contactUs'));
                         }
                 }
-                $this->render('contact', array('model' => $model));
+                $this->render('contact_us', array('model' => $model));
         }
 
         public function actionNewsLetter() {
@@ -289,7 +289,7 @@ class SiteController extends Controller {
                         if ($model->validate()) {
                                 if ($model->save()) {
                                         // $this->SuccessMail();
-                                        Yii::app()->user->setFlash('newsletter', " Your email send successfully");
+                                        Yii::app()->user->setFlash('newsletter', " Your email sent successfully");
                                 } else {
                                         Yii::app()->user->setFlash('error_newsletter', "Error Occured");
                                 }
