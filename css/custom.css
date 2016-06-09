@@ -126,9 +126,9 @@ li.page.active a {
 .items{
         min-height: 510px;
 }
-.img_div_view {
+/*.img_div_view {
         height: 365px;
-}
+}*/
 
 .cart_row.gift_row_coupon{
         border-top:none;

@@ -26,7 +26,7 @@
                                 $parent = Yii::app()->Menu->findParent($get_cat_name->id);
                                 if ($parent != 4) {
                                         ?>
-                                        <h3 ><i class="fa fa-align-justify "></i>Filter</h3>
+                                        <h3 class="hidden-xs"><i class="fa fa-align-justify "></i>Filter</h3>
                                         <div class="laksyah_filters">
                                                 <div class="price_filter">
                                                         <h4>Price</h4>
@@ -71,7 +71,7 @@
                 <div class="col-sm-9">
                         <div class="section_sort">
                                 <div class="row">
-                                        <div class="col-sm-3 col-xs-6">
+                                        <div class="col-sm-5 col-xs-6">
                                                 <div class="form-group">
 
                                                 </div>
@@ -94,7 +94,7 @@
                                         </div>
 
 
-                                        <div class="col-sm-9 col-xs-6">
+                                        <div class="col-sm-7 col-xs-6">
                                                 <!-- Add class .pagination-lg for larger blocks or .pagination-sm for smaller blocks-->
                                                 <!--                                                <ul class="pagination">
                                                                                                         <li><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
@@ -131,10 +131,7 @@
         </div>
 </div>
 <!-- /.container -->
-<script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.ui.touch-punch.min.js"></script>
-<script>
-                                                                        $('#widget').draggable();
-</script>
+
 <script>
         function products() {
                 document.getElementById("form_id").submit();

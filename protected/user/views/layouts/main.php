@@ -36,6 +36,7 @@
                       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
                       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
                     <![endif]-->
+
         </head>
 
         <body>
@@ -249,7 +250,7 @@ if (Yii::app()->user->hasFlash('newsletter')) {
                                                                                         <div class="laksyah_dropdown">
                                                                                                 <ul class="drop_menu">
                                                                                                         <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount" class="currency" >My Account</a></li>
-                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                                  ?></li>-->
+                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                                     ?></li>-->
                                                                                                         <li><?php echo CHtml::link('Log Out', array('site/Logout'), array('class' => 'currency')); ?></li>
                                                         <!--                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
                                                                                                 <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Myordernew" class="currency" >My Orders</a></li>
@@ -298,7 +299,7 @@ if (Yii::app()->user->hasFlash('newsletter')) {
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;                                           ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;                                              ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">
@@ -445,6 +446,10 @@ if (Yii::app()->user->hasFlash('newsletter')) {
                 <!-- Placed at the end of the document so the pages load faster -->
 
                 <script src="<?php echo yii::app()->request->baseUrl; ?>/js/jquery-ui.min.js"></script>
+                <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.ui.touch-punch.min.js"></script>
+                <script>
+                        $('#widget').draggable();
+                </script>
                 <!--<script src="<?php echo yii::app()->request->baseUrl; ?>/js/bootstrap.min.js"></script>-->
                 <script src="<?php echo yii::app()->request->baseUrl; ?>/js/slick.min.js"></script>
                 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
