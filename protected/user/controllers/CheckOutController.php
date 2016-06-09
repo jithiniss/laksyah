@@ -264,14 +264,35 @@ class CheckOutController extends Controller {
 
         public function GetTotalWeight() {
                 $carts = Cart::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id'],));
+                if (!empty($carts)) {
+                        foreach ($carts as $cart) {
+                                $prod_details = Products::model()->findByPk($cart->product_id);
+                                if ($cart->options != 0) {
+                                        $option_stock = OptionDetails::model()->findByPk($cart->options);
+                                        if (!empty($option_stock)) {
+                                                if ($option_stock->quantity <= $cart->quantity) {
+                                                        $quantity = $cart->quantity;
+                                                } else {
+                                                        $quantity = 0;
+                                                }
+                                        }
+                                } else {
+                                        if ($prod_details->quantity <= $cart->quantity) {
 
-                foreach ($carts as $cart) {
-                        $prod_details = Products::model()->findByPk($cart->product_id);
-                        $tot = $prod_details->weight * $cart->quantity;
+                                                $quantity = $cart->quantity;
+                                        } else {
+                                                $quantity = 0;
+                                        }
+                                }
 
-                        $total_weight += $tot;
+                                $tot = $prod_details->weight * $quantity;
+
+                                $total_weight += $tot;
+                        }
+                        return $total_weight;
+                } else {
+                        return 0;
                 }
-                return $total_weight;
         }
 
         public function actionGetShippingMethod() {
