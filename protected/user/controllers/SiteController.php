@@ -175,11 +175,11 @@ class SiteController extends Controller {
         public function actionLogin() {
 
 
+
                 if (isset(Yii::app()->session['user'])) {
 
                         $this->redirect($this->createUrl('index'));
                 } else {
-
                         $model = new UserDetails();
                         if (isset($_REQUEST['UserDetails'])) {
 
@@ -204,6 +204,9 @@ class SiteController extends Controller {
                                                 ProductViewed::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
 
                                                 unset(Yii::app()->session['temp_user']);
+                                        }
+                                        if (Yii::app()->session['history_id'] != '' || Yii::app()->session['enquiry_id'] != '') {
+                                                $this->redirect($this->createUrl('/Myaccount/SizeChartType'));
                                         }
                                         if (Yii::app()->session['login_flag'] != '' && Yii::app()->session['login_flag'] == 1) {
                                                 unset(Yii::app()->session['login_flag']);
