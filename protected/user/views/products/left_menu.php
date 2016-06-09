@@ -1,8 +1,10 @@
 <ul class="catmenu">
     <?php
     $category_name = Yii::app()->request->getParam('name');
+    $parent = ProductCategory::model()->findByAttributes(array('canonical_name' => $category_name));
+
 //        $get_parant = ProductCategory::model()->
-    if($category_name == "celeb-style") {
+    if($parent->parent == 4) {
             $main_cats = ProductCategory::model()->findAllByAttributes(array(), array('condition' => 'id = 4'));
     } else {
             $main_cats = ProductCategory::model()->findAllByAttributes(array(), array('condition' => 'id = parent'));

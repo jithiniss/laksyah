@@ -76,7 +76,7 @@ class UserDetails extends CActiveRecord {
                     'gender' => 'Gender',
                     'email' => 'Email',
                     'phone_no_1' => 'Phone No 1',
-                    'phone_no_2' => 'Phone No 2',
+                    'phone_no_2' => 'Mobile No',
                     'fax' => 'Fax',
                     'password' => 'Password',
                     'confirm' => 'Confirm',

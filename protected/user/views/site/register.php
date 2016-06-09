@@ -82,30 +82,32 @@ Last Name*', array('class' => '')); ?>
                 <?php echo $form->error($model, 'email'); ?>
             </div>
             <div class="col-sm-6">
-                <?php echo $form->labelEx($model, 'fax', array('class' => '')); ?>
-                <?php echo $form->textField($model, 'fax', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Fax', 'class' => 'form-control')); ?>
-                <?php echo $form->error($model, 'fax'); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
                 <?php echo $form->labelEx($model, 'phone', array('class' => '')); ?>
                 <?php echo $form->textField($model, 'phone_no_1', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'phone', 'class' => 'form-control')); ?>
                 <?php echo $form->error($model, 'phone_no_1'); ?>
             </div>
+            <!--            <div class="col-sm-6">
+            <?php //echo $form->labelEx($model, 'fax', array('class' => '')); ?>
+            <?php //echo $form->textField($model, 'fax', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Fax', 'class' => 'form-control')); ?>
+            <?php //echo $form->error($model, 'fax'); ?>
+                        </div>-->
+        </div>
+        <div class="row">
+
             <div class="col-sm-6">
                 <?php echo $form->labelEx($model, 'mobile', array('class' => '')); ?>
                 <?php echo $form->textField($model, 'phone_no_2', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'mobile', 'class' => 'form-control')); ?>
                 <?php echo $form->error($model, 'phone_no_2'); ?>
             </div>
-        </div>
-
-        <div class="row">
             <div class="col-sm-6">
                 <?php echo $form->labelEx($model, 'password', array('class' => '')); ?>
                 <?php echo $form->passwordField($model, 'password', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Password', 'class' => 'form-control')); ?>
                 <?php echo $form->error($model, 'password'); ?>
             </div>
+        </div>
+
+        <div class="row">
+
             <div class="col-sm-6">
                 <?php echo $form->labelEx($model, 'confirm', array('class' => '')); ?>
                 <?php echo $form->passwordField($model, 'confirm', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Confirm Password', 'class' => 'form-control')); ?>

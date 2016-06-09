@@ -33,7 +33,7 @@ class SiteController extends Controller {
 
         public function actionError() {
                 $error = Yii::app()->errorHandler->error;
-                if ($error)
+                if($error)
                         $this->render('error', array('error' => $error));
                 else
                         throw new CHttpException(404, 'Page not found.');
@@ -45,9 +45,9 @@ class SiteController extends Controller {
         public function actionContact() {
                 $model = new ContactForm;
 
-                if (isset($_POST['ContactForm'])) {
+                if(isset($_POST['ContactForm'])) {
                         $model->attributes = $_POST['ContactForm'];
-                        if ($model->validate()) {
+                        if($model->validate()) {
                                 $name = ' = ?UTF-8?B?' . base64_encode($model->name) . '? = ';
                                 $subject = ' = ?UTF-8?B?' . base64_encode($model->subject) . '? = ';
                                 $headers = "From: $name <{$model->email}>\r\n" .
@@ -65,7 +65,7 @@ class SiteController extends Controller {
 
         public function actionMywishlists() {
 
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         Yii::app()->session['wishlist_user'] = 1;
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 }
@@ -78,11 +78,11 @@ class SiteController extends Controller {
 
 
 
-                if (isset(Yii::app()->session['user'])) {
+                if(isset(Yii::app()->session['user'])) {
                         $this->redirect($this->createUrl('index'));
                 } else {
                         $model = new UserDetails('create');
-                        if (isset($_POST['UserDetails'])) {
+                        if(isset($_POST['UserDetails'])) {
                                 $model->attributes = $_POST['UserDetails'];
                                 $date1 = $_POST['UserDetails']['dob'];
                                 $newDate = date("Y-m-d", strtotime($date1));
@@ -91,20 +91,20 @@ class SiteController extends Controller {
                                 $model->phone_no_1 = $_POST['UserDetails']['phone_no_1'];
                                 $model->phone_no_2 = $_POST['UserDetails']['phone_no_2'];
 
-                                if ($model->validate()) {
+                                if($model->validate()) {
                                         $model->status = 1;
                                         $model->CB = 1;
                                         $model->UB = 1;
                                         $model->DOC = date('Y-m-d');
 
-                                        if ($model->password == $model->confirm) {
-                                                if ($model->save()) {
+                                        if($model->password == $model->confirm) {
+                                                if($model->save()) {
 
-                                                        $this->SendMail($model);
-                                                        $this->adminmail($model);
+                                                        $this->RegisterMail($model);
+
                                                         Yii::app()->user->setFlash('success', "Dear, $model->first_name, your message has been sent successfully");
                                                         Yii::app()->session['user'] = $model;
-                                                        if (Yii::app()->session['temp_user'] != '') {
+                                                        if(Yii::app()->session['temp_user'] != '') {
 
                                                                 ProductViewed::model()->updateAll(array("user_id" => $model->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
                                                                 Cart::model()->updateAll(array("user_id" => $model->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
@@ -129,44 +129,27 @@ class SiteController extends Controller {
 
         /* mail to user and admin */
 
-        public function SendMail($model) {
+        public function RegisterMail($model) {
+//$user=$model->email;
+                $user = 'sibys09@gmail.com';
+                $user_subject = 'Welcome to laksyah.com!';
+                echo $user_message = $this->renderPartial('_register_user_mail', array('model' => $model), true);
 
-                //$to = 'rejin@intersmart.in';
-                $to = $model->email;
-
-                $subject = 'info_lakshya';
-                $message = $this->renderPartial(_user_mail, array('model' => $model));
+                $admin = 'sibys09@gmail.com';
+                $admin_subject = $model->first_name . ' registered with laksyah';
+                $admin_message = $this->renderPartial('_register_admin_mail', array('model' => $model), true);
                 // Always set content-type when sending HTML email
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-
                 // More headers
-                $headers .= 'From: <no-reply@lakshya.com>' . "\r\n";
+                $headers .= 'From: <no-reply@intersmarthosting.in>' . "\r\n";
                 //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
-                //  echo $message;
-                //  exit();
-                mail($to, $subject, $message, $headers);
-        }
-
-        public function Adminmail($model) {
-
-
-
-                $to = 'rejin@intersmart.in';
-                // $to = $model->email;
-
-                $subject = 'info_lakshya';
-                $message = $this->renderPartial('_admin_mail', array('model' => $model));
-                // Always set content-type when sending HTML email
-                $headers = "MIME-Version: 1.0" . "\r\n";
-                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-
-                // More headers
-                $headers .= 'From: <no-reply@lakshya.com>' . "\r\n";
-                //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
-                //  echo $message;
-                //   exit();
-                mail($to, $subject, $message, $headers);
+                // echo $user_message;
+                // echo $admin_message;
+                //unset(Yii::app()->session['orderid']);
+                exit;
+                mail($user, $user_subject, $user_message, $headers);
+                mail($admin, $admin_subject, $admin_message, $headers);
         }
 
         /**
@@ -176,26 +159,26 @@ class SiteController extends Controller {
 
 
 
-                if (isset(Yii::app()->session['user'])) {
+                if(isset(Yii::app()->session['user'])) {
 
                         $this->redirect($this->createUrl('index'));
                 } else {
                         $model = new UserDetails();
-                        if (isset($_REQUEST['UserDetails'])) {
+                        if(isset($_REQUEST['UserDetails'])) {
 
 
 
                                 $modell = UserDetails::model()->findByAttributes(array('email' => $_REQUEST['UserDetails']['email'], 'password' => $_REQUEST['UserDetails']['password'], 'status' => 1));
 
-                                if (!empty($modell)) {
+                                if(!empty($modell)) {
 
                                         Yii::app()->session['user'] = $modell;
 
-                                        if ($_POST['gift_id'] != '') {
+                                        if($_POST['gift_id'] != '') {
 
                                                 $this->redirect($this->createUrl('/giftcard/index', array('card_id' => $_POST['gift_id'])));
                                         }
-                                        if (isset(Yii::app()->session['temp_user'])) {
+                                        if(isset(Yii::app()->session['temp_user'])) {
 
 
                                                 Cart::model()->updateAll(array("user_id" => $modell->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
@@ -205,10 +188,10 @@ class SiteController extends Controller {
 
                                                 unset(Yii::app()->session['temp_user']);
                                         }
-                                        if (Yii::app()->session['history_id'] != '' || Yii::app()->session['enquiry_id'] != '') {
+                                        if(Yii::app()->session['history_id'] != '' || Yii::app()->session['enquiry_id'] != '') {
                                                 $this->redirect($this->createUrl('/Myaccount/SizeChartType'));
                                         }
-                                        if (Yii::app()->session['login_flag'] != '' && Yii::app()->session['login_flag'] == 1) {
+                                        if(Yii::app()->session['login_flag'] != '' && Yii::app()->session['login_flag'] == 1) {
                                                 unset(Yii::app()->session['login_flag']);
 
                                                 $this->redirect($this->createUrl('/Cart/Proceed'));
@@ -222,7 +205,7 @@ class SiteController extends Controller {
                                         Yii::app()->user->setFlash('login_list', "Username or password invalid");
                                 }
                         }
-                        if (isset(Yii::app()->session['wishlist_user'])) {
+                        if(isset(Yii::app()->session['wishlist_user'])) {
 
                                 Yii::app()->user->setFlash('wishlist_user', "Dear, You must login to see Wishlist Items");
                         }
@@ -248,11 +231,11 @@ class SiteController extends Controller {
                 $model = new BookAppointment;
                 $measure = StaticPage::model()->findByPk(8);
 
-                if (isset($_POST['BookAppointment'])) {
+                if(isset($_POST['BookAppointment'])) {
                         $model->attributes = $_POST['BookAppointment'];
                         $model->date = date("Y-m-d");
-                        if ($model->validate()) {
-                                if ($model->save()) {
+                        if($model->validate()) {
+                                if($model->save()) {
                                         Yii::app()->user->setFlash('success', " Your Appointment Booked successfully");
                                 } else {
                                         Yii::app()->user->setFlash('error', "Error Occured");
@@ -265,11 +248,11 @@ class SiteController extends Controller {
 
         public function actioncontactUs() {
                 $model = new ContactUs;
-                if (isset($_POST['ContactUs'])) {
+                if(isset($_POST['ContactUs'])) {
                         $model->attributes = $_POST['ContactUs'];
                         $model->date = date("Y-m-d");
-                        if ($model->validate()) {
-                                if ($model->save()) {
+                        if($model->validate()) {
+                                if($model->save()) {
                                         Yii::app()->user->setFlash('success', " Your email sent successfully");
                                 } else {
                                         Yii::app()->user->setFlash('error', "Error Occured");
@@ -283,21 +266,21 @@ class SiteController extends Controller {
 
         public function actionNewsLetter() {
                 $model = new Newsletter;
-                if (isset($_POST['submit'])) {
+                if(isset($_POST['submit'])) {
                         $model->attributes = $_POST['submit'];
                         $model->first_name = $_POST['Newsletter']['first_name'];
                         $model->email = $_POST['Newsletter']['email'];
                         $model->status = 1;
                         $model->date = date('Y-m-d');
-                        if ($model->validate()) {
-                                if ($model->save()) {
+                        if($model->validate()) {
+                                if($model->save()) {
                                         // $this->SuccessMail();
                                         Yii::app()->user->setFlash('newsletter', " Your email sent successfully");
                                 } else {
                                         Yii::app()->user->setFlash('error_newsletter', "Error Occured");
                                 }
                         } else {
-                                if ($model->first_name != '' || $model->email != '') {
+                                if($model->first_name != '' || $model->email != '') {
                                         Yii::app()->user->setFlash('newslettererror', "Please Fill the Feilds in correct format");
                                 } else {
                                         Yii::app()->user->setFlash('newslettererror1', "Please Fill the  Feilds");
@@ -446,17 +429,17 @@ class SiteController extends Controller {
 
         public static function getNextOrPrevId($currentId, $nextOrPrev) {
                 $records = NULL;
-                if ($nextOrPrev == "prev")
+                if($nextOrPrev == "prev")
                         $order = "id DESC";
-                if ($nextOrPrev == "next")
+                if($nextOrPrev == "next")
                         $order = "id ASC";
 
                 $records = Blog::model()->findAll(
                         array('select' => 'id', 'order' => $order)
                 );
 
-                foreach ($records as $i => $r)
-                        if ($r->id == $currentId)
+                foreach($records as $i => $r)
+                        if($r->id == $currentId)
                                 return $records[$i + 1]->id ? $records[$i + 1]->id : NULL;
 
                 return NULL;

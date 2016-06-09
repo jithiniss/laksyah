@@ -29,7 +29,7 @@ class MakePayment extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
-                    array('userid, product_name, product_code, message, amount_type, total_amount, payment_mode,date', 'required'),
+                    array('userid, product_name, product_code, amount_type, total_amount, payment_mode', 'required'),
                     array('userid,total_amount', 'numerical', 'integerOnly' => true),
                     array('product_name', 'length', 'max' => 200),
                     array('product_code, amount_type', 'length', 'max' => 15),
