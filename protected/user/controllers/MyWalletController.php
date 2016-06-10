@@ -35,7 +35,7 @@ class MyWalletController extends Controller {
                                         if ($wallet_add->save()) {
                                                 if ($wallet_add->payment_method == '2') {
                                                         $hdfc_details = array();
-                                                        $hdfc_details['description'] = 'Laksyah Products';
+                                                        $hdfc_details['description'] = 'Laksyah Wallet';
                                                         $hdfc_details['order'] = $model->id;
                                                         $hdfc_details['totaltopay'] = $wallet_add->balance_amt;
                                                         $hdfc_details['bill_name'] = $model->first_name . ' ' . $model->last_name;

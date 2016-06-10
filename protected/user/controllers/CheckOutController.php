@@ -819,7 +819,7 @@ class CheckOutController extends Controller {
 
         /* mail send to admin and user */
 
-        public function actionOrderSuccess() {
+        public function actionOrderSuccess($payid) {
                 if (isset(Yii::app()->session['orderid']) && Yii::app()->session['user']['id'] != '') {
                         $order = Order::model()->findByPk(Yii::app()->session['orderid']);
                         $userdetails = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
@@ -849,6 +849,7 @@ class CheckOutController extends Controller {
                                 }
                                 $order->payment_status = 1;
                                 $order->status = 1;
+                                $order->transaction_id = $payid;
                                 if ($order->save()) {
 
                                         $this->SuccessMail();
