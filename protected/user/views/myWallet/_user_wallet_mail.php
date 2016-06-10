@@ -8,7 +8,7 @@
         <div style="margin:auto; width:776px; border:solid 2px #404241; margin-top:40px; margin-bottom:40px;">
             <table id="Table_01" width="776" border="0" cellpadding="0" cellspacing="0" align="center">
                 <tr>
-                    <td><a href="http://laksyah.com"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/emailer_01.jpg" width="776" height="102" alt=""></a></td>
+                    <td><a href="http://laksyah.com"><img src="<?php echo $this->siteURL(); ?>/images/emailer_01.jpg" width="776" height="102" alt=""></a></td>
                 </tr>
                 <tr>
                     <td style="padding:40px 20px; font-family:'Open Sans',arial, sans-serif; font-size:13px"><p>Hi <?php echo $user_wallet->first_name; ?><span>      <?php echo $user_wallet->last_name; ?>,</p>
@@ -27,21 +27,21 @@
                         <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Your updated Laksyah Credit Balance is <b><?php echo Yii::app()->Currency->convert($user_wallet->wallet_amt); ?></b> .</p>
 
                         <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Laksyah Credit Balance can be used  for shopping on Laksyah.</p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><a href="<?php echo Yii::app()->baseUrl . '/index.php/CreditHistory' ?>" style="text-transform: uppercase;background-color: #f47721;border-radius: 0;outline: none;border: none;height: 40px;line-height: 40px;padding: 0px 10px;padding-left: 30px;padding-right: 30px; color:#fff; text-decoration:none; display:inline-block;">VIEW MY ACCOUNT</a></p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><a href="<?php echo $this->siteURL() . '/index.php/CreditHistory' ?>" style="text-transform: uppercase;background-color: #f47721;border-radius: 0;outline: none;border: none;height: 40px;line-height: 40px;padding: 0px 10px;padding-left: 30px;padding-right: 30px; color:#fff; text-decoration:none; display:inline-block;">VIEW MY ACCOUNT</a></p>
 
                     </td>
                 </tr>
 
                 <tr>
                     <td>
-                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/emailer_03.jpg" width="776" height="47" alt=""></td>
+                        <img src="<?php echo $this->siteURL(); ?>/images/emailer_03.jpg" width="776" height="47" alt=""></td>
                 </tr>
                 <tr>
                     <td style="background-color:#f7f4f1"><table width="100%" border="0" cellspacing="0" cellpadding="0">
                             <tbody>
 
                                 <tr>
-                                    <td width="250" align="center" style="border-right:solid 1px #d7d7d7;"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/emailer-footer.jpg" width="116" height="162" alt=""/></td>
+                                    <td width="250" align="center" style="border-right:solid 1px #d7d7d7;"><img src="<?php echo $this->siteURL(); ?>/images/emailer-footer.jpg" width="116" height="162" alt=""/></td>
                                     <td align="center" style="border-right:solid 1px #d7d7d7;">
                                         <h4 style=" font-family:'Open Sans',arial, sans-serif; font-size:16px; color:#414042; margin-bottom:10px;">Contact Us </h4>
                                         <p style="font-family:'Open Sans',arial, sans-serif; font-size:13px;">Tel: +91 914 220 2222 <br>

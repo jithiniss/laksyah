@@ -503,8 +503,10 @@ class MyaccountController extends Controller {
                                                         }
 
                                                         /* wallet entry ends */
+
+
                                                         $this->redirect(array('MakePaymentSuccess', 'enquiry_id' => $enquiry_id, 'history_id' => $history_id, 'payment_id' => $model->id));
-// $this->redirect(array('MakePaymentError', 'enquiry_id' => $enquiry_id, 'history_id' => $history_id));
+                                                        //  $this->redirect(array('MakePaymentError', 'enquiry_id' => $enquiry_id, 'history_id' => $history_id, 'payment_id' => $model->id));
                                                 } else {
                                                         Yii::app()->user->setFlash('error', "Oops some error occured.Transaction rejected.");
                                                 }
@@ -534,13 +536,21 @@ class MyaccountController extends Controller {
                         if(!empty($enquiry) && !empty($celeb_history) && !empty($user) && !empty($make_payment)) {
 
                                 $enquiry->user_id = $user->id;
+                                $total_paid_amt = CelibStyleHistory::model()->findAllByAttributes(array('enq_id' => $enquiry_id, 'payment_status' => 1, 'status' => 3));
+                                $tota_amount = '';
+                                foreach($total_paid_amt as $paid_amt) {
+                                        $tota_amount +=$paid_amt->pay_amount;
+                                }
 
-                                $enquiry->balance_to_pay = $enquiry->total_amount - $celeb_history->pay_amount;
+
+                                $enquiry->balance_to_pay = $enquiry->balance_to_pay - $tota_amount;
+
                                 $enquiry->status = 2;
-                                $enquiry->save();
+                                $enquiry->save(False);
+
                                 $celeb_history->payment_id = $make_payment->id;
                                 $celeb_history->payment_status = 1;
-                                $celeb_history->save();
+                                $celeb_history->save(False);
                                 if($make_payment->payment_mode == 1 || $make_payment->payment_mode == 4) {
                                         $wallet_history = WalletHistory::model()->findByAttributes(array('user_id' => Yii::app()->session['user']['id'], 'type_id' => 3, 'ids' => $payment_id));
                                         $user->wallet_amt = $user->wallet_amt - $make_payment->wallet;
@@ -551,12 +561,17 @@ class MyaccountController extends Controller {
 
 
                                 $make_payment->status = 1;
-                                if($make_payment->save()) {
+                                if($make_payment->save(FALSE)) {
+
                                         $this->PaymentSuccessMail($enquiry->id, $make_payment->id);
                                         Yii::app()->session['user'] = $user;
+                                        if($enquiry->balance_to_pay == 0) {
+
+                                                $this->redirect(array('AddToOrder', 'enq_id' => $enquiry->id));
+                                        }
                                 }
                         } else {
-                                $this->redirect(array('MakePaymentError'));
+                                $this->redirect(array('MakePaymentError', 'enquiry_id' => $enquiry_id, 'history_id' => $history_id, 'payment_id' => $model->id));
                         }
                 } else {
                         $this->render('//site/error');
@@ -574,7 +589,73 @@ class MyaccountController extends Controller {
 
                 $admin = 'sibys09@gmail.com';
                 $admin_subject = 'Payment of product ' . $payment->product_name . ' towards Enquiry #' . $enquiry->id . ' got received';
-                $admin_message = $this->renderPartial('mail/_admin_payment_success_mail', array('userdetails' => $userdetails, 'enquiry' => $enquiry, 'payment' => $payment), true);
+                $admin_message = $this->renderPartial('mail/_admin_payment_mail', array('userdetails' => $userdetails, 'enquiry' => $enquiry, 'payment' => $payment), true);
+
+// Always set content-type when sending HTML email
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+// More headers
+                $headers .= 'From: <no-reply@intersmarthosting.in>' . "\r\n";
+//$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
+// echo $user_message;
+// echo $admin_message;
+//unset(Yii::app()->session['orderid']);
+
+                mail($user, $user_subject, $user_message, $headers);
+                mail($admin, $admin_subject, $admin_message, $headers);
+        }
+
+        /*
+
+         * Make Payment Success Action         */
+
+        /* mail send to admin and user */
+
+        public function actionMakePaymentError($enquiry_id, $history_id, $payment_id) {
+                if(isset(Yii::app()->session['user']['id']) != '') {
+                        $enquiry = ProductEnquiry::model()->findByPk($enquiry_id);
+                        $celeb_history = CelibStyleHistory::model()->findByPk($history_id);
+                        $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+                        $make_payment = MakePayment::model()->findByPk($payment_id);
+                        if(!empty($enquiry) && !empty($celeb_history) && !empty($user) && !empty($make_payment)) {
+
+                                $enquiry->user_id = $user->id;
+                                $enquiry->balance_to_pay = $enquiry->total_amount - $celeb_history->pay_amount;
+                                $enquiry->save();
+
+                                $celeb_history->payment_id = $make_payment->id;
+                                $celeb_history->payment_status = 2;
+                                $celeb_history->save();
+                                if($make_payment->payment_mode == 1 || $make_payment->payment_mode == 4) {
+                                        $wallet_history = WalletHistory::model()->findByAttributes(array('user_id' => Yii::app()->session['user']['id'], 'type_id' => 3, 'ids' => $payment_id));
+                                        $wallet_history->delete();
+                                }
+
+
+                                $make_payment->status = 2;
+                                if($make_payment->save()) {
+                                        $this->PaymentErrorMail($enquiry->id, $make_payment->id);
+                                }
+                        } else {
+                                $this->redirect(array('MakePaymentError', 'enquiry_id' => $enquiry_id, 'history_id' => $history_id, 'payment_id' => $model->id));
+                        }
+                } else {
+                        $this->render('//site/error');
+                }
+        }
+
+        public function PaymentErrorMail($enquiry_id, $payment_id) {
+                $enquiry = ProductEnquiry::model()->findByPk($enquiry_id);
+                $payment = MakePayment::model()->findByPk($payment_id);
+                $userdetails = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+//$user = $userdetails->email;
+                $user = 'sibys09@gmail.com';
+                $user_subject = 'Payment Failure :Payment of product ' . $payment->product_name . ' with laksyah.com';
+                $user_message = $this->renderPartial('mail/_user_payment_error_mail', array('userdetails' => $userdetails, 'enquiry' => $enquiry, 'payment' => $payment), true);
+
+                $admin = 'sibys09@gmail.com';
+                $admin_subject = 'Payment Failure :Payment of product ' . $payment->product_name . '  towards Enquiry #' . $enquiry->id;
+                $admin_message = $this->renderPartial('mail/_admin_payment_mail', array('userdetails' => $userdetails, 'enquiry' => $enquiry, 'payment' => $payment), true);
 
 // Always set content-type when sending HTML email
                 $headers = "MIME-Version: 1.0" . "\r\n";
@@ -599,33 +680,39 @@ class MyaccountController extends Controller {
                 }
         }
 
-        public function actionAddto_order($enq_id) {
-                $enquiry = ProductEnquiry::model()->findByPk($enq_id);
-                $celeb = CelibStyleHistory::model()->findByAttributes(array('enq_id' => $enq_id));
-                $enquiry->status = 4;
-                if($enquiry->save()) {
-                        $order = new Order;
-                        $order->user_id = $enquiry->user_id;
-                        $order->total_amount = $enquiry->total_amount;
-                        $order->order_date = date('Y-m-d');
-                        $order->payment_status = 1;
-                        $order->status = 1;
-                        if($order->save()) {
-                                $order_history = new OrderHistory;
-                                $order_history->order_id = $order->id;
-                                $order_history->order_status = 1;
-                                $order_history->date = date('Y-m-d');
-                                $order_history->cb = Yii::app()->session['user']['id'];
-                                if($order_history->save()) {
-                                        $celeb->add_to_order = 1;
-                                        $celeb->save();
-                                        $this->redirect('Profile');
-                                        Yii::app()->user->setFlash('order', "your order has been  successfully added");
-                                } else {
-                                        $this->redirect('Profile');
-                                        Yii::app()->user->setFlash('notorder', "Error Occured");
+        public function actionAddToOrder($enq_id) {
+                if(!empty($enq_id) && $enq_id != '') {
+                        $enquiry = ProductEnquiry::model()->findByPk($enq_id);
+                        $celeb = CelibStyleHistory::model()->findByAttributes(array('enq_id' => $enq_id));
+                        $enquiry->status = 4;
+                        if($enquiry->save()) {
+                                $order = new Order;
+                                $order->user_id = $enquiry->user_id;
+                                $order->total_amount = $enquiry->total_amount;
+                                $order->order_date = date('Y-m-d');
+                                $order->payment_status = 1;
+                                //  $order->discount_rate = '0.00';
+                                $order->status = 1;
+                                if($order->save(false)) {
+                                        $order_history = new OrderHistory;
+                                        $order_history->order_id = $order->id;
+                                        $order_history->order_status = 1;
+                                        $order_history->date = date('Y-m-d');
+                                        $order_history->cb = Yii::app()->session['user']['id'];
+                                        if($order_history->save()) {
+                                                $celeb->add_to_order = 1;
+                                                $celeb->save();
+                                                $this->redirect('Profile');
+                                                Yii::app()->user->setFlash('order', "your Payment has been  successfully Completed");
+                                        } else {
+                                                $this->redirect('Profile');
+                                                Yii::app()->user->setFlash('notorder', "Error Occured");
+                                        }
                                 }
                         }
+                } else {
+                        $this->redirect('Profile');
+                        Yii::app()->user->setFlash('notorder', "Error Occured");
                 }
         }
 
@@ -755,7 +842,7 @@ class MyaccountController extends Controller {
 
         public function siteURL() {
                 $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-                $domainName = $_SERVER['HTTP_HOST'] . '/laksyah';
+                $domainName = $_SERVER['HTTP_HOST'];
                 return $protocol . $domainName;
         }
 

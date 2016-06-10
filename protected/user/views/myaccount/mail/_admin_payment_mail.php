@@ -16,46 +16,70 @@
                             <tr>
                                 <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Customer Name</p></td>
                                 <td>:</td>
-                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo $user_wallet->first_name; ?>  <?php echo $user_wallet->last_name; ?></p></td>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo $userdetails->first_name; ?>  <?php echo $userdetails->last_name; ?></p></td>
+                            </tr>
+                            <tr>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Enquiry ID</p></td>
+                                <td>:</td>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">#<?php echo $enquiry->id; ?></p></td>
+                            </tr>
+                            <tr>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Product Name</p></td>
+                                <td>:</td>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo $payment->product_name; ?></p></td>
+                            </tr>
+                            <tr>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Product Code</p></td>
+                                <td>:</td>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo $payment->product_code; ?></p></td>
                             </tr>
                             <tr>
                                 <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Paid Amount</p></td>
                                 <td>:</td>
-                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo Yii::app()->Currency->convert($wallet_history->amount); ?></p>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo Yii::app()->Currency->convert($payment->total_amount); ?></p>
                                 </td>
                             </tr>
                             <tr>
                                 <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Payment Method</p></td>
                                 <td>:</td>
-                                <td>
-                                    <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">
+                                <td>  <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">
                                         <?php
-                                        if($wallet_history->payment_method == 1) {
-                                                echo "Paid By Laksyah";
-                                        } else if($wallet_history->payment_method == 2) {
+                                        if($payment->payment_mode == 1) {
+                                                echo "Laksyah Credit Amount";
+                                        } else if($payment->payment_mode == 2) {
                                                 echo "Credit/Debit Card or Netbanking";
-                                        } else if($wallet_history->payment_method == 3) {
+                                        } else if($payment->payment_mode == 3) {
                                                 echo "Paypal";
+                                        } else if($payment->payment_mode == 4) {
+                                                $wallet_amt = $payment->wallet;
+                                                if($payment->netbanking != '') {
+                                                        $payment_amt = $payment->netbanking;
+                                                        echo $method = 'Laksyah Credit Amount + CREDIT/DEBIT CARD OR NET BANKING';
+                                                } else if($payment->paypal != '') {
+                                                        $payment_amt = $payment->paypal;
+                                                        echo $method = 'Laksyah Credit Amount + Paypal';
+                                                }
                                         }
-                                        ?>
-                                    </p>
-                                </td>
+                                        ?></p></td>
                             </tr>
+                            <?php if($payment->message != "") { ?>
+                                    <tr>
+                                        <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Message</p></td>
+                                        <td>:</td>
+                                        <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo $payment->message; ?></p></td>
+                                    </tr>
+                            <?php } ?>
+
                             <tr>
-                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Message</p></td>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Payment Date</p></td>
                                 <td>:</td>
-                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo $wallet_history->field1; ?></p></td>
-                            </tr>
-                            <tr>
-                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Updated Credit Balance</p></td>
-                                <td>:</td>
-                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo Yii::app()->Currency->convert($user_wallet->wallet_amt); ?></p></td>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo date("d-m-Y g:i a", strtotime($payment->date)); ?></p></td>
                             </tr>
                             <tr>
                                 <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Payment Status</p></td>
                                 <td>:</td>
                                 <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php
-                                        if($wallet_history->field2 == 1) {
+                                        if($payment->status == 1) {
                                                 echo 'Success';
                                         } else {
                                                 echo 'Failed';

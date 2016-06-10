@@ -4,7 +4,7 @@ class MyWalletController extends Controller {
 
         public function init() {
                 date_default_timezone_set('Asia/Kolkata');
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
 
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 }
@@ -17,10 +17,10 @@ class MyWalletController extends Controller {
         public function actionIndex() {
                 $model = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
                 $order_billing_details = UserAddress::model()->findAllByAttributes(array('userid' => Yii::app()->session['user']['id']));
-                if (!empty($model)) {
+                if(!empty($model)) {
                         $wallet_amount = $model->wallet_amt;
                         $wallet_add = new WalletHistory('addWallet1');
-                        if (isset($_POST['WalletHistory'])) {
+                        if(isset($_POST['WalletHistory'])) {
                                 $wallet_add->attributes = $_POST['WalletHistory'];
 
                                 $entry_amount = $_POST['WalletHistory']['amount'];
@@ -31,9 +31,9 @@ class MyWalletController extends Controller {
                                 $wallet_add->balance_amt = $wallet_amount + $entry_amount;
 
 
-                                if ($wallet_add->validate()) {
-                                        if ($wallet_add->save()) {
-                                                if ($wallet_add->payment_method == '2') {
+                                if($wallet_add->validate()) {
+                                        if($wallet_add->save()) {
+                                                if($wallet_add->payment_method == '2') {
                                                         $hdfc_details = array();
                                                         $hdfc_details['description'] = 'Laksyah Wallet';
                                                         $hdfc_details['order'] = $model->id;
@@ -56,7 +56,7 @@ class MyWalletController extends Controller {
                                                         $hdfc_details['ship_email'] = Yii::app()->session['user']['email'];
                                                         $hdfc_details['bill_phone_number'] = Yii::app()->session['user']['phone_no_1'];
                                                         $this->render('hdfcpay', array('hdfc_details' => $hdfc_details, 'aid' => '20951', 'sec' => 'b837f49de88e6be36f077b6928c43bf9'));
-                                                } else if ($wallet_add->payment_method == '3') {
+                                                } else if($wallet_add->payment_method == '3') {
 
                                                         // $totaltopay = round(Currency::model()->findBypk(2)->rate * $order->paypal, 2);
                                                         $this->render('paypalpay', array('wallet_id' => $wallet_add->id, 'totaltopay' => $wallet_add->balance_amt));
@@ -78,13 +78,13 @@ class MyWalletController extends Controller {
         public function actionCreditSuccess($user_id, $wallet_id) {
                 $user_wallet = UserDetails::model()->findByPk($user_id);
                 $wallet_history = WalletHistory::model()->findByPk($wallet_id);
-                if (!empty($user_id) && !empty($wallet_id)) {
+                if(!empty($user_id) && !empty($wallet_id)) {
 
                         $amount = $user_wallet->wallet_amt + $wallet_history->amount;
                         $user_wallet->wallet_amt = $amount;
                         $wallet_history->field2 = 1; //success
-                        if ($wallet_history->save()) {
-                                if ($user_wallet->save()) {
+                        if($wallet_history->save()) {
+                                if($user_wallet->save()) {
                                         Yii::app()->session['user'] = $user_wallet;
                                         Yii::app()->user->setFlash('wallet_success', "Money Added Successfully");
                                         $this->SuccessMail($wallet_history->id);
@@ -141,7 +141,7 @@ class MyWalletController extends Controller {
                 $wallet_history = WalletHistory::model()->findByPk($wallet_id);
 
                 $username = UserDetails::model()->findByPk($wallet_history->user_id);
-                if (!empty($wallet_history) && !empty($username)) {
+                if(!empty($wallet_history) && !empty($username)) {
 
                         $this->errorMail($wallet_history->id);
                         $wallet_history->delete();
@@ -168,7 +168,7 @@ class MyWalletController extends Controller {
                 $user_message = $this->renderPartial('_error_wallet_mail', array('user_wallet' => $user_wallet, 'wallet_history' => $wallet_history), true);
 
                 $admin = 'sibys09@gmail.com';
-                $admin_subject = 'laksyah.com : Credit Money ' . $credit_amount . ' has been successfully added to ' . $user_wallet->first_name;
+                $admin_subject = 'laksyah.com : Transaction Failure - Credit Money!';
                 $admin_message = $this->renderPartial('_admin_wallet_mail', array('user_wallet' => $user_wallet, 'wallet_history' => $wallet_history), true);
                 // Always set content-type when sending HTML email
                 $headers = "MIME-Version: 1.0" . "\r\n";
@@ -187,6 +187,12 @@ class MyWalletController extends Controller {
         public function actionCreditHistory() {
                 $history = WalletHistory::model()->findAllByAttributes(['user_id' => Yii::app()->session['user']['id']], ['order' => 'entry_date desc']);
                 $this->render('wallet_history', array('history' => $history));
+        }
+
+        public function siteURL() {
+                $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+                $domainName = $_SERVER['HTTP_HOST'];
+                return $protocol . $domainName;
         }
 
 }

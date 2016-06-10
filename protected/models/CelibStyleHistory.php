@@ -10,6 +10,7 @@
  * @property string $link
  * @property integer $measurement_id
  * @property integer $payment_id
+ * @property integer $add_to_order
  * @property double $pay_amount
  * @property string $date
  */
