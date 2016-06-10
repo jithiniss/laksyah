@@ -12,25 +12,30 @@
                 </tr>
                 <tr>
                     <td style="padding:40px 20px; font-family:'Open Sans',arial, sans-serif; font-size:13px"><p>Hi <?php echo $userdetails->first_name; ?><span>      <?php echo $userdetails->last_name; ?>,</p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">You have successfully paid <b><?php echo Yii::app()->Currency->convert($payment->total_amount); ?></b> as Advance payment for the product <b><?php echo $payment->product_name . ' (' . $payment->product_code . ')' ?></b> on <?php echo date("d-m-Y g:i a", strtotime($wallet_history->date)); ?>.</p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">You have successfully paid <b><?php echo Yii::app()->Currency->convert($payment->total_amount); ?></b> as Advance payment for the product <b><?php echo $payment->product_name . ' (' . $payment->product_code . ')' ?></b> on <?php echo date("d-m-Y g:i a", strtotime($payment->date)); ?>.</p>
                         <?php if($payment->message != "") { ?>
                                 <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><b>Your Message : </b><?php echo $payment->message; ?></p>
                         <?php } ?>
                         <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><b>Payment Method : </b>
                             <?php
-                            if($wallet_history->payment_method == 1) {
-                                    echo "Paid By Laksyah";
-                            } else if($wallet_history->payment_method == 2) {
+                            if($payment->payment_mode == 1) {
+                                    echo "Laksyah Credit Amount";
+                            } else if($payment->payment_mode == 2) {
                                     echo "Credit/Debit Card or Netbanking";
-                            } else if($wallet_history->payment_method == 3) {
+                            } else if($payment->payment_mode == 3) {
                                     echo "Paypal";
+                            } else if($payment->payment_mode == 4) {
+                                    $wallet_amt = $payment->wallet;
+                                    if($payment->netbanking != '') {
+                                            $payment_amt = $payment->netbanking;
+                                            echo $method = 'Laksyah Credit Amount + CREDIT/DEBIT CARD OR NET BANKING';
+                                    } else if($payment->paypal != '') {
+                                            $payment_amt = $payment->paypal;
+                                            echo $method = 'Laksyah Credit Amount + Paypal';
+                                    }
                             }
                             ?></p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Your updated Laksyah Credit Balance is <b><?php echo Yii::app()->Currency->convert($user_wallet->wallet_amt); ?></b> .</p>
-
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Laksyah Credit Balance can be used  for shopping on Laksyah.</p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><a href="<?php echo Yii::app()->baseUrl . '/index.php/CreditHistory' ?>" style="text-transform: uppercase;background-color: #f47721;border-radius: 0;outline: none;border: none;height: 40px;line-height: 40px;padding: 0px 10px;padding-left: 30px;padding-right: 30px; color:#fff; text-decoration:none; display:inline-block;">VIEW MY ACCOUNT</a></p>
-
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Have a nice day</p>
                     </td>
                 </tr>
 

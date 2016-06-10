@@ -570,7 +570,7 @@ class MyaccountController extends Controller {
 //$user = $userdetails->email;
                 $user = 'sibys09@gmail.com';
                 $user_subject = 'Payment of product ' . $payment->product_name . ' with laksyah.com  succesfully Completed';
-                echo $user_message = $this->renderPartial('mail/_user_payment_success_mail', array('userdetails' => $userdetails, 'enquiry' => $enquiry, 'payment' => $payment), true);
+                $user_message = $this->renderPartial('mail/_user_payment_success_mail', array('userdetails' => $userdetails, 'enquiry' => $enquiry, 'payment' => $payment), true);
 
                 $admin = 'sibys09@gmail.com';
                 $admin_subject = 'Payment of product ' . $payment->product_name . ' towards Enquiry #' . $enquiry->id . ' got received';
@@ -585,7 +585,7 @@ class MyaccountController extends Controller {
 // echo $user_message;
 // echo $admin_message;
 //unset(Yii::app()->session['orderid']);
-                exit;
+
                 mail($user, $user_subject, $user_message, $headers);
                 mail($admin, $admin_subject, $admin_message, $headers);
         }
