@@ -133,7 +133,7 @@ class ProductEnquiryController extends Controller {
                                         $enc_enq_id = $model->id;
                                         $enc_celib_history_id = $celib_history->id;
                                         $getToken1 = $this->encrypt_decrypt('encrypt', 'enquiry_id=' . $enc_enq_id . ',history_id=' . $enc_celib_history_id);
-                                        $celib_history_update->link = Yii::app()->request->baseUrl . '/index.php/Myaccount/Makepayment?p=' . $getToken;
+                                        $celib_history_update->link = Yii::app()->request->baseUrl . '/index.php/Myaccount/Makepayment?p=' . $getToken1;
                                         if($celib_history_update->save()) {
                                                 $model->status = 3;
                                                 if($model->save()) {
@@ -171,9 +171,9 @@ class ProductEnquiryController extends Controller {
                 // More headers
                 $headers .= 'From: <store@intersmarthosting.in>' . "\r\n";
                 //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
-                echo $message;
-                echo $message1;
-                exit();
+                //echo $message;
+                //echo $message1;
+                //exit();
                 mail($toclient, $subject, $message, $headers);
                 mail($toadmin, $subject, $message1, $headers);
         }

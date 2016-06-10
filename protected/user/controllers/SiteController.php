@@ -124,6 +124,9 @@ class SiteController extends Controller {
                                                         if(Yii::app()->session['measure_details'] != '') {
                                                                 $this->redirect($this->createUrl('/Myaccount/SizeChartType?m=' . Yii::app()->session['measure_details']));
                                                         }
+                                                        if(Yii::app()->session['make_paid'] != '') {
+                                                                $this->redirect($this->createUrl('/Myaccount/Makepayment?p=' . Yii::app()->session['make_paid']));
+                                                        }
                                                         if(Yii::app()->session['login_flag'] != '' && Yii::app()->session['login_flag'] == 1) {
                                                                 unset(Yii::app()->session['login_flag']);
 
@@ -213,6 +216,9 @@ class SiteController extends Controller {
                                         }
                                         if(Yii::app()->session['measure_details'] != '') {
                                                 $this->redirect($this->createUrl('/Myaccount/SizeChartType?m=' . Yii::app()->session['measure_details']));
+                                        }
+                                        if(Yii::app()->session['make_paid'] != '') {
+                                                $this->redirect($this->createUrl('/Myaccount/Makepayment?p=' . Yii::app()->session['make_paid']));
                                         }
                                         if(Yii::app()->session['login_flag'] != '' && Yii::app()->session['login_flag'] == 1) {
                                                 unset(Yii::app()->session['login_flag']);
