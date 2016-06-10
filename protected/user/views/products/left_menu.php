@@ -7,7 +7,7 @@
     if($parent->parent == 4) {
             $main_cats = ProductCategory::model()->findAllByAttributes(array(), array('condition' => 'id = 4'));
     } else {
-            $main_cats = ProductCategory::model()->findAllByAttributes(array(), array('condition' => 'id = parent'));
+            $main_cats = ProductCategory::model()->findAllByAttributes(array(), array('condition' => 'id = parent and id!=4'));
     }
     // $main_cats = ProductCategory::model()->findAllByAttributes(array(), array('condition' => 'id = parent'));
     foreach($main_cats as $main_cat) {

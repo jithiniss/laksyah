@@ -90,7 +90,7 @@ class SiteController extends Controller {
                                 $model->gender = $_POST['UserDetails']['gender'];
                                 $model->phone_no_1 = $_POST['UserDetails']['phone_no_1'];
                                 $model->phone_no_2 = $_POST['UserDetails']['phone_no_2'];
-
+                                $model->wallet_amt = '0.00';
                                 if($model->validate()) {
                                         $model->status = 1;
                                         $model->CB = 1;
@@ -100,18 +100,41 @@ class SiteController extends Controller {
                                         if($model->password == $model->confirm) {
                                                 if($model->save()) {
 
-                                                        $this->RegisterMail($model);
-
-                                                        Yii::app()->user->setFlash('success', "Dear, $model->first_name, your message has been sent successfully");
+                                                        // $this->RegisterMail($model);
+                                                        //Yii::app()->user->setFlash('success', "Dear, $model->first_name, your message has been sent successfully");
                                                         Yii::app()->session['user'] = $model;
-                                                        if(Yii::app()->session['temp_user'] != '') {
 
-                                                                ProductViewed::model()->updateAll(array("user_id" => $model->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
+
+
+
+                                                        if($_POST['gift_id'] != '') {
+
+                                                                $this->redirect($this->createUrl('/giftcard/index', array('card_id' => $_POST['gift_id'])));
+                                                        }
+                                                        if(isset(Yii::app()->session['temp_user'])) {
+
+
                                                                 Cart::model()->updateAll(array("user_id" => $model->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
 
                                                                 UserWishlist::model()->updateAll(array("user_id" => $model->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
+                                                                ProductViewed::model()->updateAll(array("user_id" => $model->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
+
                                                                 unset(Yii::app()->session['temp_user']);
                                                         }
+                                                        if(Yii::app()->session['measure_details'] != '') {
+                                                                $this->redirect($this->createUrl('/Myaccount/SizeChartType?m=' . Yii::app()->session['measure_details']));
+                                                        }
+                                                        if(Yii::app()->session['login_flag'] != '' && Yii::app()->session['login_flag'] == 1) {
+                                                                unset(Yii::app()->session['login_flag']);
+
+                                                                $this->redirect($this->createUrl('/Cart/Proceed'));
+                                                        } else {
+                                                                unset(Yii::app()->session['wishlist_user']);
+                                                                $this->redirect(Yii::app()->request->urlReferrer);
+                                                        }
+
+
+
                                                         //  $this->redirect('site/index');
                                                         $this->redirect(Yii::app()->request->baseUrl .
                                                                 '/index.php/site/index');
@@ -188,8 +211,8 @@ class SiteController extends Controller {
 
                                                 unset(Yii::app()->session['temp_user']);
                                         }
-                                        if(Yii::app()->session['history_id'] != '' || Yii::app()->session['enquiry_id'] != '') {
-                                                $this->redirect($this->createUrl('/Myaccount/SizeChartType'));
+                                        if(Yii::app()->session['measure_details'] != '') {
+                                                $this->redirect($this->createUrl('/Myaccount/SizeChartType?m=' . Yii::app()->session['measure_details']));
                                         }
                                         if(Yii::app()->session['login_flag'] != '' && Yii::app()->session['login_flag'] == 1) {
                                                 unset(Yii::app()->session['login_flag']);
@@ -223,7 +246,7 @@ class SiteController extends Controller {
 // Cart::model()->deleteAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
                 Yii::app()->user->logout();
                 unset(Yii::app()->session['user']);
-                unset($_SESSION);
+                // unset($_SESSION);
                 $this->redirect(Yii::app()->homeUrl);
         }
 

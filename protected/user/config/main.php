@@ -85,6 +85,7 @@ return array(
                 'Measurement' => 'Myaccount/SizeChartType',
                 'CreditHistory' => 'MyWallet/CreditHistory',
                 'AddCredit' => 'MyWallet/index',
+                'new-user' => 'site/register',
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',

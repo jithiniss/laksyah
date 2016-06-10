@@ -60,30 +60,40 @@ class MyaccountController extends Controller {
                 }
         }
 
-        public function actionSizeChartType($enquiry_id = NULL, $history_id = NULL) {
+        public function actionSizeChartType($m = '') {
 
+                $decrypt = $this->encrypt_decrypt('decrypt', $m);
+
+                $mstr = explode(",", $decrypt);
+                $a = array();
+                foreach($mstr as $nstr) {
+                        $narr = explode("=", $nstr);
+                        $narr[0] = str_replace("\x98", "", $narr[0]);
+                        $ytr[1] = $narr[1];
+                        $a[$narr[0]] = $ytr[1];
+                }
+                $enquiry_id = $a['enquiry_id'];
+                $history_id = $a['history_id'];
                 if(!isset(Yii::app()->session['user'])) {
-                        Yii::app()->session['enquiry_id'] = $enquiry_id;
-                        Yii::app()->session['history_id'] = $history_id;
 
+                        Yii::app()->session['measure_details'] = $m;
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
-                        if(isset(Yii::app()->session['enquiry_id'])) {
-                                Yii::app()->session['enquiry_id'] = Yii::app()->session['enquiry_id'];
+
+
+
+                        $enquery = ProductEnquiry::model()->findBypk($enquiry_id);
+                        $history = CelibStyleHistory::model()->findBypk($history_id);
+                        if(empty($enquery) && empty($history)) {
+
                         } else {
-                                Yii::app()->session['enquiry_id'] = $enquiry_id;
-                        }
-                        if(isset(Yii::app()->session['history_id'])) {
-                                Yii::app()->session['history_id'] = Yii::app()->session['history_id'];
-                        } else {
-                                Yii::app()->session['history_id'] = $history_id;
-                        }
-                        if(Yii::app()->session['enquiry_id'] != NULL && Yii::app()->session['history_id'] != NULL) {
-                                $enquery = ProductEnquiry::model()->findBypk(Yii::app()->session['enquiry_id']);
-                                $history = CelibStyleHistory::model()->findBypk(Yii::app()->session['history_id']);
+                                $enquery->user_id = Yii::app()->session['user']['id'];
+                                $enquery->save(FALSE);
                         }
                 }
+                //  if(Yii::app()->session['measure_details'] != "") {
                 $product_details = Products::model()->findByPk($enquery->product_id);
+                //  }
                 $model = new UserSizechart;
 
                 if(isset($_POST['UserSizechart'])) {
@@ -115,17 +125,17 @@ class MyaccountController extends Controller {
                         $model->comments = $_POST['UserSizechart']['comments'];
 
                         if($model->save()) {
-                                $enq_history_update = CelibStyleHistory::model()->findByAttributes(array('enq_id' => $model->enq_id, 'id' => $model->enq_history_id));
-                                $enq_history_update->measurement_id = $model->id;
-                                if($enq_history_update->save()) {
-                                        unset(Yii::app()->session['history_id']);
-                                        unset(Yii::app()->session['enquiry_id']);
-                                        $this->ProductEnquiryMail($model, $enq_history_update);
-
-                                        $this->ProductEnquiryMail($model, $enq_history_update);
-                                        Yii::app()->user->setFlash('meas_success', "Your Measurement Successfully Saved");
-                                        $this->redirect(array('myaccount/sizecharttype'));
+                                if(!empty($enquery) && !empty($history)) {
+                                        $enq_history_update = CelibStyleHistory::model()->findByAttributes(array('enq_id' => $model->enq_id, 'id' => $model->enq_history_id));
+                                        $enq_history_update->measurement_id = $model->id;
+                                        if($enq_history_update->save()) {
+                                                Yii::app()->session['measure_details'] = '';
+                                                unset(Yii::app()->session['measure_details']);
+                                                // $this->ProductEnquiryMail($model, $enq_history_update);
+                                        }
                                 }
+                                Yii::app()->user->setFlash('meas_success', " Your Measurement Successfully Saved");
+                                $this->redirect(array('Myaccount/SizeChartType'));
                         }
                         $this->render('size_type', array('model' => $model));
                 }
@@ -143,9 +153,9 @@ class MyaccountController extends Controller {
                 $message = $this->renderPartial('mail/_product_enquiry_mail_client', array('model' => $model, 'enq_data' => $enq_data), true);
 
                 $message1 = $this->renderPartial('mail/_product_enquiry_mail_admin', array('model' => $model, 'enq_data' => $enq_data), true);
-                echo $message;
-                echo $message1;
-                exit;
+                // echo $message;
+                // echo $message1;
+                // exit;
 // Always set content-type when sending HTML email
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
