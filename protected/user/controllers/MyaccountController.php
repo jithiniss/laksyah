@@ -116,18 +116,16 @@ class MyaccountController extends Controller {
 
                         if($model->save()) {
                                 $enq_history_update = CelibStyleHistory::model()->findByAttributes(array('enq_id' => $model->enq_id, 'id' => $model->enq_history_id));
-                                if($enq_history_update != '') {
-                                        $enq_history_update->measurement_id = $model->id;
-                                        if($enq_history_update->save()) {
-                                                unset(Yii::app()->session['history_id']);
-                                                unset(Yii::app()->session['enquiry_id']);
-                                                $this->ProductEnquiryMail($model, $enq_history_update);
+                                $enq_history_update->measurement_id = $model->id;
+                                if($enq_history_update->save()) {
+                                        unset(Yii::app()->session['history_id']);
+                                        unset(Yii::app()->session['enquiry_id']);
+                                        $this->ProductEnquiryMail($model, $enq_history_update);
 
-//                                                $this->ProductEnquiryMail($model, $enq_history_update);
-                                        }
+                                        $this->ProductEnquiryMail($model, $enq_history_update);
+                                        Yii::app()->user->setFlash('meas_success', "Your Measurement Successfully Saved");
+                                        $this->redirect(array('myaccount/sizecharttype'));
                                 }
-                                Yii::app()->user->setFlash('meas_success', "Your Measurement Successfully Saved");
-                                $this->redirect(array('myaccount/sizecharttype'));
                         }
                         $this->render('size_type', array('model' => $model));
                 }
@@ -135,7 +133,7 @@ class MyaccountController extends Controller {
         }
 
         public function ProductEnquiryMail($model, $enq_history_update) {
-                //$to = 'rejin@intersmart.in';
+//$to = 'rejin@intersmart.in';
 
                 $toclient = ProductEnquiry::model()->findByPk($enq_history_update->enq_id)->email;
                 $toadmin = AdminUser::model()->findByPk(4)->email;
@@ -148,15 +146,15 @@ class MyaccountController extends Controller {
                 echo $message;
                 echo $message1;
                 exit;
-                // Always set content-type when sending HTML email
+// Always set content-type when sending HTML email
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
-                // More headers
+// More headers
                 $headers .= 'From: <store@intersmarthosting.in>' . "\r\n";
-                //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
-                //  echo $message;
-                //  exit();
+//$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
+//  echo $message;
+//  exit();
                 mail($toclient, $subject, $message, $headers);
                 mail($toadmin, $subject, $message1, $headers);
         }
@@ -193,7 +191,7 @@ class MyaccountController extends Controller {
                 }
         }
 
-        public function inchToCm($model, $type = 0) {
+        public function inchToCm($model, $type = 1) {
                 if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
@@ -201,11 +199,11 @@ class MyaccountController extends Controller {
                                 if($attribute == 'id' || $attribute == 'user_id' || $attribute == 'date' || $attribute == 'product_name' || $attribute == 'product_code' || $attribute == 'type' || $attribute == 'unit' || $attribute == 'standerd') {
 
                                 } else {
-                                        if($key != '' && $key != 1) {
-                                                if($type == 1) {
-                                                        $val = $key * 2.54;
-                                                } else {
+                                        if($key != '' && $key != 0) {
+                                                if($type == 0) {
                                                         $val = $key / 2.54;
+                                                } else {
+                                                        $val = $key * 2.54;
                                                 }
                                                 $model->$attribute = $val;
                                         }
@@ -419,8 +417,9 @@ class MyaccountController extends Controller {
                 }
         }
 
-        public function actionMakepayment($enquiry_id = NULL, $history_id = NULL) {
+        public function actionMakepayment($enquiry_id = '', $history_id = '') {
                 if(!isset(Yii::app()->session['user'])) {
+                        Yii::app()->session['MakePayment'] = $enquiry_id . $history_id;
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
 
@@ -428,82 +427,167 @@ class MyaccountController extends Controller {
                         $celeb_history = CelibStyleHistory::model()->findByPk($history_id);
                         $enquiry_product = Products::model()->findByPk($enquiry->product_id);
                         $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
-                        $model = new MakePayment;
-                        if(isset($_POST['MakePayment'])) {
-                                $model->attributes = $_POST['MakePayment'];
-                                $model->userid = Yii::app()->session['user']['id'];
-                                $model->date = date('Y-m-d');
-                                $model->amount_type = $_POST['total_amount'];
-                                $balance = $celeb_history->pay_amount - $model->total_amount;
-                                if($celeb_history->pay_amount == $model->total_amount) {
-                                        /* wallet */
-                                        $model->payment_mode = 3;
-                                } else {
-                                        echo 'g';
-                                        exit;
-                                        if($_POST['total_amount'] != 0 && $_POST['wallet_amt'] != 0) {
-                                                $model->payment_mode = 4;
+                        if(!empty($enquiry) && !empty($celeb_history) && !empty($user) && !empty($enquiry_product)) {
+                                /* usetting makepayment session if logged users */
 
-                                                if($_POST['payment_mode'] == 2) {
-                                                        $model->netbanking = $post_total_pay;
-                                                        $model->wallet = $wallet;
-                                                } else if($_POST['payment_mode'] == 1) {
-                                                        $order->paypal = $post_total_pay;
-                                                        $order->wallet = $wallet;
+                                Yii::app()->session['MakePayment'] = '';
+                                unset(Yii::app()->session['MakePayment']);
+                                /*     end                    * ** */
+
+
+                                $model = new MakePayment;
+                                if(isset($_REQUEST['MakePayment'])) {
+
+                                        $model->attributes = $_POST['MakePayment'];
+                                        $model->userid = $user->id;
+                                        $model->date = date('Y-m-d H:i:s');
+                                        $wallet_amount = $_POST['MakePayment']['credit_amount'];
+
+                                        if(!empty($wallet_amount)) {
+                                                if($wallet_amount <= Yii::app()->session['user']['wallet_amt']) {
+                                                        if($wallet_amount == $celeb_history->pay_amount) {
+
+                                                                $model->payment_mode = 1;
+                                                                $model->wallet = $celeb_history->pay_amount;
+                                                                $model->netbanking = '';
+                                                                $model->paypal = '';
+                                                        } else {
+
+                                                                if($model->payment_mode == 2) {
+
+                                                                        $model->wallet = $wallet_amount;
+                                                                        $model->netbanking = $celeb_history->pay_amount - $wallet_amount;
+                                                                        $model->paypal = '';
+                                                                        $model->payment_mode = 4;
+                                                                } else if($model->payment_mode == 3) {
+
+                                                                        $model->wallet = $wallet_amount;
+                                                                        $model->paypal = $celeb_history->pay_amount - $wallet_amount;
+                                                                        $model->netbanking = '';
+                                                                        $model->payment_mode = 4;
+                                                                }
+                                                        }
+                                                } else {
+
+                                                        Yii::app()->user->setFlash('error', "Invalid data.Please try again");
+                                                        $this->redirect(array('Makepayment', 'enquiry_id' => $enquiry_id, 'history_id' => $history_id));
                                                 }
                                         } else {
-                                                $order->payment_mode = $_POST['payment_method'];
-                                                if($_POST['payment_method'] == 2) {
-                                                        $order->netbanking = $post_total_pay;
-                                                } else if($_POST['payment_method'] == 3) {
-                                                        $order->paypal = $post_total_pay;
+                                                $model->payment_mode = $_POST['MakePayment']['payment_mode'];
+                                                if($model->payment_mode == 2) {
+                                                        $model->netbanking = $celeb_history->pay_amount;
+                                                        $model->paypal = '';
+                                                } else if($model->payment_mode == 3) {
+                                                        $model->paypal = $celeb_history->pay_amount;
+                                                        $model->netbanking = '';
                                                 }
                                         }
-                                        $this->redirect('payment_gateway');
-                                }
-                                if($model->validate()) {
+                                        $model->total_amount = $celeb_history->pay_amount;
+                                        if($model->validate()) {
+                                                if($model->save()) {
+                                                        /* wallet entry starts */
+                                                        if($model->wallet != '') {
 
-                                        if($model->save()) {
-                                                $enquiry->user_id = Yii::app()->session['user']['id'];
-                                                $enquiry->total_amount = $celeb_history->pay_amount;
-                                                $enquiry->balance_to_pay = $balance;
-                                                $enquiry->status = 2;
-                                                if($enquiry->save()) {
-                                                        $celeb_history = new CelibStyleHistory;
-                                                        $celeb_history->enq_id = $enquiry_id;
-                                                        $celeb_history->status = 3;
-                                                        $celeb_history->payment_id = $model->id;
-                                                        $celeb_history->payment_status = 1;
-                                                        $celeb_history->save();
-                                                        $wallet_add = new WalletHistory;
-                                                        $wallet_add->user_id = Yii::app()->session['user']['id'];
-                                                        $wallet_add->type_id = 3;
-                                                        $wallet_add->amount = $_POST['wallet_amt'];
-                                                        $wallet_add->entry_date = date('Y-m-d');
-                                                        $wallet_add->credit_debit = 2;
-                                                        $wallet_add->payment_method = $_POST['MakePayment']['payment_mode'];
-                                                        $wallet_add->balance_amt = $model->total_amount - $wallet_add->amount;
-                                                        if($wallet_add->save()) {
-                                                                $amount = $model->total_amount - $wallet_add->amount;
-                                                                $user->wallet_amt = $amount;
-                                                                $user->save();
-                                                                $wallet_add->unsetAttributes();
+
+                                                                $wallet_amount = new WalletHistory;
+                                                                $wallet_amount->user_id = Yii::app()->session['user']['id'];
+                                                                $wallet_amount->type_id = 3;
+                                                                $wallet_amount->amount = $model->wallet;
+                                                                $wallet_amount->entry_date = date('Y-m-d H:i:s');
+                                                                $wallet_amount->credit_debit = 2;
+                                                                $wallet_amount->balance_amt = Yii::app()->session['user']['wallet_amt'] - $model->wallet;
+                                                                $wallet_amount->payment_method = 0;
+                                                                $wallet_amount->field2 = 0;
+                                                                $wallet_amount->ids = $model->id;
+                                                                $wallet_amount->save(FALSE);
                                                         }
+
+                                                        /* wallet entry ends */
+                                                        $this->redirect(array('MakePaymentSuccess', 'enquiry_id' => $enquiry_id, 'history_id' => $history_id, 'payment_id' => $model->id));
+// $this->redirect(array('MakePaymentError', 'enquiry_id' => $enquiry_id, 'history_id' => $history_id));
+                                                } else {
+                                                        Yii::app()->user->setFlash('error', "Oops some error occured.Transaction rejected.");
                                                 }
                                         }
-                                        Yii::app()->user->setFlash('success', "your amount has been  successfully added");
-                                        $this->redirect('Makepayment');
                                 }
+                                $this->render('make_payment', array(
+                                    'model' => $model, 'enquiry_product' => $enquiry_product, 'celeb_history' => $celeb_history, 'balance' => $balance,
+                                ));
                         } else {
-                                Yii::app()->user->setFlash('error', "Sorry! There is some error..");
+                                $this->render('//site/error');
                         }
                 }
+        }
+
+        /*
+
+         * Make Payment Success Action         */
+
+        /* mail send to admin and user */
+
+        public function actionMakePaymentSuccess($enquiry_id, $history_id, $payment_id) {
+                if(isset(Yii::app()->session['user']['id']) != '') {
+                        $enquiry = ProductEnquiry::model()->findByPk($enquiry_id);
+                        $celeb_history = CelibStyleHistory::model()->findByPk($history_id);
+                        $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+                        $make_payment = MakePayment::model()->findByPk($payment_id);
+                        if(!empty($enquiry) && !empty($celeb_history) && !empty($user) && !empty($make_payment)) {
+
+                                $enquiry->user_id = $user->id;
+
+                                $enquiry->balance_to_pay = $enquiry->total_amount - $celeb_history->pay_amount;
+                                $enquiry->status = 2;
+                                $enquiry->save();
+                                $celeb_history->payment_id = $make_payment->id;
+                                $celeb_history->payment_status = 1;
+                                $celeb_history->save();
+                                if($make_payment->payment_mode == 1 || $make_payment->payment_mode == 4) {
+                                        $wallet_history = WalletHistory::model()->findByAttributes(array('user_id' => Yii::app()->session['user']['id'], 'type_id' => 3, 'ids' => $payment_id));
+                                        $user->wallet_amt = $user->wallet_amt - $make_payment->wallet;
+                                        $wallet_history->field2 = 1;
+                                        $user->save();
+                                        $wallet_history->save();
+                                }
 
 
+                                $make_payment->status = 1;
+                                if($make_payment->save()) {
+                                        $this->PaymentSuccessMail($enquiry->id, $make_payment->id);
+                                        Yii::app()->session['user'] = $user;
+                                }
+                        } else {
+                                $this->redirect(array('MakePaymentError'));
+                        }
+                } else {
+                        $this->render('//site/error');
+                }
+        }
 
-                $this->render('make_payment', array(
-                    'model' => $model, 'enquiry_product' => $enquiry_product, 'celeb_history' => $celeb_history, 'balance' => $balance,
-                ));
+        public function PaymentSuccessMail($enquiry_id, $payment_id) {
+                $enquiry = ProductEnquiry::model()->findByPk($enquiry_id);
+                $payment = MakePayment::model()->findByPk($payment_id);
+                $userdetails = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+//$user = $userdetails->email;
+                $user = 'sibys09@gmail.com';
+                $user_subject = 'Payment of product ' . $payment->product_name . ' with laksyah.com  succesfully Completed';
+                echo $user_message = $this->renderPartial('mail/_user_payment_success_mail', array('userdetails' => $userdetails, 'enquiry' => $enquiry, 'payment' => $payment), true);
+
+                $admin = 'sibys09@gmail.com';
+                $admin_subject = 'Payment of product ' . $payment->product_name . ' towards Enquiry #' . $enquiry->id . ' got received';
+                $admin_message = $this->renderPartial('mail/_admin_payment_success_mail', array('userdetails' => $userdetails, 'enquiry' => $enquiry, 'payment' => $payment), true);
+
+// Always set content-type when sending HTML email
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+// More headers
+                $headers .= 'From: <no-reply@intersmarthosting.in>' . "\r\n";
+//$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
+// echo $user_message;
+// echo $admin_message;
+//unset(Yii::app()->session['orderid']);
+                exit;
+                mail($user, $user_subject, $user_message, $headers);
+                mail($admin, $admin_subject, $admin_message, $headers);
         }
 
         public function actionMakepayment_debit() {
@@ -645,8 +729,8 @@ class MyaccountController extends Controller {
                                         if($user_wallet->save()) {
                                                 Yii::app()->session['user'] = $user_wallet;
                                                 Yii::app()->user->setFlash('wallet_success', "Money Added Successfully");
-                                                //$this->SendMail($user_wallet, $wallet_history);
-                                                // $this->adminmail($user_wallet, $wallet_history);
+//$this->SendMail($user_wallet, $wallet_history);
+// $this->adminmail($user_wallet, $wallet_history);
                                                 $this->redirect(array('Index'));
                                         } else {
                                                 $wallet_history->delete();
@@ -668,4 +752,11 @@ class MyaccountController extends Controller {
 //                        throw new CHttpException(404, 'The requested page does not exist.');
 //                return $model;
 //        }
+
+        public function siteURL() {
+                $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+                $domainName = $_SERVER['HTTP_HOST'] . '/laksyah';
+                return $protocol . $domainName;
+        }
+
 }
