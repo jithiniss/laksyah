@@ -2119,10 +2119,8 @@ Account Pages
 Credit Page
 -------------------
 */
-.check_out .border_box .box_content .form-control{
-        margin:0px;
-}
-.border_box .row{
+
+.user_content .border_box .row{
         border-top:solid 1px #c0c0c0;
         margin:0px;
         display:flex;
@@ -2134,18 +2132,18 @@ Credit Page
 .check_out .form_row{
         margin-bottom:25px;
 }
-.border_box .row.header_row{
+.user_content .border_box .row.header_row{
         border-top:none;
         text-transform:uppercase;
 }
-.border_box .row > div{
+.user_content .border_box .row > div{
         border-right:solid 1px  #c0c0c0;
         padding:10px 15px;
 }
-.border_box .row > div:last-child, .check_out .border_box .row > div, .check_out .border_box .row{
+.user_content .border_box .row > div:last-child, .check_out .border_box .row > div, .check_out .border_box .row{
         border:none;
 }
-.border_box .row > div p{
+.user_content .border_box .row > div p{
         margin:0px;
         padding:0px;
 }

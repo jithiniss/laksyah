@@ -309,3 +309,21 @@ span.required {
         left: 0;
         z-index: 50000;
 }
+.gift_ticker {
+        position: relative;
+}
+.gift_ticker h6 {
+        position: absolute;
+        top: -3px;
+        left: 24px;
+}
+
+.agree_terms p a {
+
+        color: #414042;
+}
+
+.modal {
+
+        z-index: 1000000;
+}

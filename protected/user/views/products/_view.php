@@ -20,32 +20,65 @@
                                         </div>
                                 <?php } ?>
                         <?php } ?>
-
                         <?php
-                        if ($data->stock_availability == 0 || $data->quantity <= 0) {
-                                ?>
+                        if ($data->enquiry_sale == 1) {
+                                $option_exists = OptionDetails::model()->findAllByAttributes(array('product_id' => $data->id));
 
-                                <form action="<?= Yii::app()->baseUrl; ?>/index.php/products/ProductNotify/id/<?= $data->id; ?>" method="post" name="notify">
 
-                                        <div class="stock_notify">      <?php
-                                                if (isset(Yii::app()->session['user'])) {
-                                                        ?>
-                                                        <input class="form-control" type="text" placeholder="Email Address" id="email"  name="email" value="<?= Yii::app()->session['user']['email'] ?>">
-                                                        <?php
-                                                } else {
-                                                        ?>
-                                                        <input type="text"  class="form-control" placeholder="Email Address" id="email"  name="email" autocomplete="off">
-                                                        <?php
-                                                }
+                                if (empty($option_exists)) {
+
+                                        if ($data->stock_availability == 0 || $data->quantity <= 0) {
                                                 ?>
-                                                <input type="submit" class="btn btn-primary" href="#" value="Notify Me" style="margin-top: 8px;">
-                                        </div>
-                                </form>
+                                                <form action="<?= Yii::app()->baseUrl; ?>/index.php/products/ProductNotify/id/<?= $data->id; ?>" method="post" name="notify">
 
-                                <div class="out_of_stock">OUT OF STOCK</div>
-                        <?php } ?>
+                                                        <div class="stock_notify">      <?php
+                                                                if (isset(Yii::app()->session['user'])) {
+                                                                        ?>
+                                                                        <input class="form-control" type="text" placeholder="Email Address" id="email"  name="email" value="<?= Yii::app()->session['user']['email'] ?>">
+                                                                        <?php
+                                                                } else {
+                                                                        ?>
+                                                                        <input type="text"  class="form-control" placeholder="Email Address" id="email"  name="email" autocomplete="off">
+                                                                        <?php
+                                                                }
+                                                                ?>
+                                                                <input type="submit" class="btn btn-primary" href="#" value="Notify Me" style="margin-top: 8px;">
+                                                        </div>
+                                                </form>
 
+                                                <div class="out_of_stock">OUT OF STOCK</div>
+                                        <?php } ?>
 
+                                        <?php
+                                } else {
+
+                                        foreach ($option_exists as $option_exist) {
+                                                $total_stock += $option_exist->stock;
+                                                $out_stock +=$option_exist->status;
+                                        }
+                                        if ($total_stock == 0 || $out_stock == 0) {
+                                                ?>
+                                                <form action="<?= Yii::app()->baseUrl; ?>/index.php/products/ProductNotify/id/<?= $data->id; ?>" method="post" name="notify">
+                                                        <div class="stock_notify">      <?php
+                                                                if (isset(Yii::app()->session['user'])) {
+                                                                        ?>
+                                                                        <input class="form-control" type="text" placeholder="Email Address" id="email"  name="email" value="<?= Yii::app()->session['user']['email'] ?>">
+                                                                        <?php
+                                                                } else {
+                                                                        ?>
+                                                                        <input type="text"  class="form-control" placeholder="Email Address" id="email"  name="email" autocomplete="off">
+                                                                        <?php
+                                                                }
+                                                                ?>
+                                                                <input type="submit" class="btn btn-primary" href="#" value="Notify Me" style="margin-top: 8px;">
+                                                        </div>
+                                                </form>
+                                                <div class="out_of_stock">OUT OF STOCK</div>
+                                                <?php
+                                        }
+                                }
+                        }
+                        ?>
                         <!-- /Notifyme-->
 
                 </div><!-- /Product Image-->

@@ -52,7 +52,7 @@
                                                                         }
                                                                         ?>  value="<?php echo $address->id; ?>"><?php echo $address->first_name; ?> <?php echo $data->last_name; ?> ,   <?php echo $address->address_1; ?>
                                                                                 <?php echo $address->address_2; ?> , <?php echo $address->city; ?> ,
-                                                                                <?php echo $address->state; ?> , <?php echo $address->country; ?>
+                                                                                <?php echo $address->state; ?> , <?php echo Countries::model()->findByPk($address->country)->country_name; ?>
                                                                                 <?php echo $address->postcode; ?></option>
                                                                         <?php
                                                                         if (isset($_GET['box'])) {
@@ -150,7 +150,7 @@
                                                                                 ?>
                                                                                 <option  value="<?php echo $address->id; ?>"><?php echo $address->first_name; ?> <?php echo $data->last_name; ?> ,   <?php echo $address->address_1; ?>
                                                                                         <?php echo $address->address_2; ?> , <?php echo $address->city; ?> ,
-                                                                                        <?php echo $address->state; ?> , <?php echo $address->country; ?>
+                                                                                        <?php echo $address->state; ?> , <?php echo Countries::model()->findByPk($address->country)->country_name; ?>
                                                                                         <?php echo $address->postcode; ?></option>
                                                                                 <?php
                                                                                 if (isset($_GET['box'])) {
@@ -315,7 +315,7 @@
                                                                         ?>
 
                                                                         <?php $gift_user_details = TempUserGifts::model()->findByAttributes(array('cart_id' => $cart->id)); ?>
-                                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/laksyah_gift.jpg" class="img-responsive crt"  />
+                                                                        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/gift_image.jpg" class="img-responsive crt"  />
                                                                         <h3>GIFT PACK <span class="pull-right"><strong><?php echo Yii::app()->Currency->convert($cart->rate); ?>
                                                                                         </strong></span>
                                                                         </h3>
@@ -422,8 +422,7 @@
                                         </div>
                                 </div>
                                 <div class="agree_terms">
-                                        <p><input type="checkbox" required> By placing an order you agree to our Terms &
-                                                Conditions and  Privacy Policy</p>
+                                        <p><input type="checkbox" required> By placing an order you agree to our <?php echo CHtml::link('Terms', array('site/Terms')); ?> &amp; <?php echo CHtml::link('Policies', array('site/PrivacyPolicy')); ?></p>
                                 </div>
 
                                 <div class="cart_buttons">
