@@ -172,7 +172,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                                                 <div class="product_price"><span><?php echo Yii::app()->Discount->Discount($product); ?></span></div>
                                         <?php } ?>
-                                        <p class="tax_info"><em>Inclusive of all local taxes</em></p>
+                                        <p class="tax_info"></p>
 
                                         <?php if ($product->deal_day_status == 1 && $product->deal_day_date == date('Y-m-d')) { ?>
                                                 <div class="deal_timer">
@@ -194,6 +194,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                                                                 if ($product->quantity == 0) {
                                                                         ?>
+                                                                        <p class="tax_info"><em>Inclusive of all local taxes</em></p>
                                                                         <form action = "<?= Yii::app()->baseUrl; ?>/index.php/products/ProductNotify/id/<?= $product->id; ?>" method = "post" name = "notify">
 
                                                                                 <div class="sold_out_notify">
@@ -250,7 +251,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                         <h3>Watch Video</h3>
                                                         <div class="video_thumb">
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
                                                                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/video_thumb.jpg" alt=""/>
                                                                 <a class="video_link laksyah_video fancybox.iframe" href="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>"><i class="fa fa-play-circle-o"></i></a>
                                                         </div>
@@ -306,7 +307,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                         ?>
                                                         <input type="hidden" value="" name="option_size" id="option_size"/>
                                                         <div class = "product_size size_filter">
-                                                                <h3>Select Size<span><a href = "#" data-toggle = "modal" data-target = "#sizechartModal">SIZE CHART</a></span></h3>
+                                                                <h3>Select Size<span><a href = "#" data-toggle = "modal" data-target = "#sizechartModal">SIZE CHART (<?php echo $product->sizechartforwhat; ?>)</a></span></h3>
                                                                 <?php
                                                                 if (!empty($sizes)) {
                                                                         ?>
@@ -433,7 +434,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                 <div class="modal-header text-left">
                                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                         <h2 class="modal-title">Enquiry</h2>
-
+                                                                        <hr style="background-color: " />
                                                                 </div>
                                                                 <div class="modal-body">
 
@@ -449,7 +450,6 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                 <?php
                                                                                 $form = $this->beginWidget('CActiveForm', array(
                                                                                     'id' => 'product-enquiry-form',
-                                                                                    //'action' => Yii::app()->baseUrl . '/index.php/products/Detail/',
                                                                                     'htmlOptions' => array('class' => 'form-horizontal', 'enctype' => 'multipart/form-data'),
                                                                                         // Please note: When you enable ajax validation, make sure the corresponding
                                                                                         // controller action is handling ajax validation correctly.
@@ -458,27 +458,25 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                         // 'enableAjaxValidation' => true,
                                                                                 ));
                                                                                 ?>
-                                                                                <h4>Please fill out the following form.</h4>
-                                                                                <p class="note">Fields with <span class="required">*</span> are required.</p>
 
 
                                                                                 <div class="row">
                                                                                         <div class="col-sm-6">
 
                                                                                                 <?php echo $form->hiddenField($model, 'product_id', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control', 'value' => $product->id)); ?>
-                                                                                                <?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control', 'placeholder' => 'Name', 'autocomplete' => 'off')); ?>
+                                                                                                <?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control', 'placeholder' => 'Name')); ?>
                                                                                                 <span style="color:red;"> <?php echo $form->error($model, 'name'); ?></span>
                                                                                         </div>
                                                                                         <div class="col-sm-6">
 
-                                                                                                <?php echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control', 'placeholder' => 'Email', 'autocomplete' => 'off')); ?>
+                                                                                                <?php echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control hello_form', 'placeholder' => 'Email')); ?>
                                                                                                 <span style="color:red;">  <?php echo $form->error($model, 'email'); ?></span>
                                                                                         </div>
                                                                                 </div>
 
                                                                                 <div class="row">
                                                                                         <div class="col-sm-6">
-                                                                                                <?php echo $form->textField($model, 'phone', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control', 'placeholder' => 'Phone Number', 'autocomplete' => 'off')); ?>
+                                                                                                <?php echo $form->textField($model, 'phone', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control', 'placeholder' => 'Phone Number')); ?>
 
                                                                                                 <span style="color:red;">  <?php echo $form->error($model, 'phone'); ?></span>
                                                                                         </div>
@@ -490,7 +488,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
 
                                                                                 <div class="row">
-                                                                                        <div class="col-sm-12">
+                                                                                        <div class="col-sm-6">
 
                                                                                                 <?php echo CHtml::activeDropDownList($model, 'size', CHtml::listData(MasterSize::model()->findAll(), 'id', 'size'), array('empty' => '--Select Size--', 'class' => 'form-control')); ?>
                                                                                                 <?php echo $form->error($model, 'size'); ?>
@@ -506,24 +504,31 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                 </div>
 
                                                                                 <?php
-//                                                                                                $this->widget('application.admin.extensions.eckeditor.ECKEditor', array(
-//                                                                                                    'model' => $model,
-//                                                                                                    'attribute' => 'requirement',
-//                                                                                                ));
+                                                                                //echo $this->widget('application.user.extensions.captcha.CaptchaExtendedAction', array(
+                                                                                //'model' => $model,
+                                                                                // 'attribute' => 'description',
+                                                                                // ));
                                                                                 ?>
-                                                                                <?php echo $form->error($model, 'requirement'); ?></div>
-                                                                </div>
+                                                                                <div class="col-sm-6">
+                                                                                        <?php $this->widget("CCaptcha", array('buttonLabel' => 'change one for me', 'buttonOptions' => array('style' => 'margin-bottom:20px;'))); ?>
 
-                                                                <div class="modal-footer">
-                                                                        <?php echo CHtml::submitButton($model->isNewRecord ? 'SUBMIT' : 'Save', array('class' => 'btn btn-primary')); ?>
-                                                                        <?php echo CHtml::resetButton($model->isNewRecord ? 'Reset' : 'Save', array('class' => 'btn btn-default')); ?>
+                                                                                        <?php echo $form->textField($model, 'verifyCode', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control', 'placeholder' => 'Type the captcha shown above', 'autocomplete' => 'off')); ?>
 
-                                                                </div>
-                                                                <?php $this->endWidget(); ?>
-                                                        </div><!-- form -->
+                                                                                        <span style="color:red;">  <?php echo $form->error($model, 'verifyCode'); ?></span>
+                                                                                </div>
 
-                                                </div><!-- /.modal-content -->
-                                        </div><!-- /.modal-dialog -->
+                                                                                <div class="modal-footer">
+                                                                                        <?php echo CHtml::submitButton($model->isNewRecord ? 'SUBMIT' : 'Save', array('class' => 'btn btn-primary')); ?>
+                                                                                        <?php //echo CHtml::resetButton($model->isNewRecord ? 'Reset' : 'Save', array('class' => 'btn btn-default'));  ?>
+
+                                                                                </div>
+                                                                                <?php $this->endWidget(); ?>
+                                                                        </div><!-- form -->
+
+                                                                </div><!-- /.modal-content -->
+                                                        </div><!-- /.modal-dialog -->
+                                                </div><!-- /.modal -->
+                                        </div>
                                         <!-- /.modal-->
                                         <!--            </div>-->
 
@@ -581,7 +586,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                         </div>
                                                                                 </div>
 
-                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies" style="cursor: pointer;" >View Shipping and Return Policies</a></p>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies" style="cursor: pointer;" >View Shipping and Return Policies</a></p>-->
 
 
                                                                         </div>
@@ -615,6 +620,20 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                         <?php
                                                                 } else {
                                                                         ?>
+                                                                        <div class="shipping_info">
+                                                                                <div class="row">
+                                                                                        <div class="col-md-6 col-xs-6">
+                                                                                                <h4><a><i class="fa fa-globe"></i> <span>We Ship Worldwide</span></a></h4>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-xs-6">
+                                                                                                <h4><a ><i class="fa fa-truck"></i> <span>Free Shipping In India</span></a></h4>
+                                                                                        </div>
+                                                                                </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
+
+
+                                                                        </div>
                                                                         <div class="product_button_group">
 
                                                                                 <div class="row">
@@ -677,7 +696,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                         </div>
                                                                                 </div>
 
-                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
 
 
                                                                         </div>
@@ -711,7 +730,20 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                 <?php } else {
                                                                         ?>
 
+                                                                        <div class="shipping_info">
+                                                                                <div class="row">
+                                                                                        <div class="col-md-6 col-xs-6">
+                                                                                                <h4><a><i class="fa fa-globe"></i> <span>We Ship Worldwide</span></a></h4>
+                                                                                        </div>
+                                                                                        <div class="col-md-6 col-xs-6">
+                                                                                                <h4><a ><i class="fa fa-truck"></i> <span>Free Shipping In India</span></a></h4>
+                                                                                        </div>
+                                                                                </div>
 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
+
+
+                                                                        </div>
 
                                                                         <div class="product_button_group">
 
@@ -738,6 +770,20 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                 //out of stock//
                                                 elseif ($product->stock_availability == 0) {
                                                         ?>
+                                                        <div class="shipping_info">
+                                                                <div class="row">
+                                                                        <div class="col-md-6 col-xs-6">
+                                                                                <h4><a><i class="fa fa-globe"></i> <span>We Ship Worldwide</span></a></h4>
+                                                                        </div>
+                                                                        <div class="col-md-6 col-xs-6">
+                                                                                <h4><a ><i class="fa fa-truck"></i> <span>Free Shipping In India</span></a></h4>
+                                                                        </div>
+                                                                </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
+
+
+                                                        </div>
                                                         <div class="product_button_group">
 
                                                                 <div class="row">
@@ -762,6 +808,20 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 //enquiry//
                                         else {
                                                 ?>
+                                                <div class="shipping_info">
+                                                        <div class="row">
+                                                                <div class="col-md-6 col-xs-6">
+                                                                        <h4><a><i class="fa fa-globe"></i> <span>We Ship Worldwide</span></a></h4>
+                                                                </div>
+                                                                <div class="col-md-6 col-xs-6">
+                                                                        <h4><a ><i class="fa fa-truck"></i> <span>Free Shipping In India</span></a></h4>
+                                                                </div>
+                                                        </div>
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
+
+
+                                                </div>
                                                 <div class="product_button_group">
                                                         <div class="row">
                                                                 <div class="col-md-7 col-xs-7">
@@ -804,8 +864,8 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                         <!-- Nav tabs -->
                                                         <ul class="nav nav-tabs" role="tablist">
                                                                 <li role="presentation" class="active"><a href="#description" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
-                                                                <li role="presentation"><a href="#details" aria-controls="profile" role="tab" data-toggle="tab">Details</a></li>
-                                                                <li role="presentation"><a href="#sizechart" aria-controls="settings" role="tab" data-toggle="tab">Size Charts</a></li>
+                                                                <li role="presentation"><a href="#details" aria-controls="profile" role="tab" data-toggle="tab"><?= $product->enquiry_sale == 1 ? 'Details' : 'Description|Order Procedures'; ?></a></li>
+                                                                <?php if ($product->enquiry_sale == 1) { ?><li role="presentation"><a href="#sizechart" aria-controls="settings" role="tab" data-toggle="tab">Size Charts</a></li><?php } ?>
                                                         </ul>
 
                                                         <!-- Tab panes -->

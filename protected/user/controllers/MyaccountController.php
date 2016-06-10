@@ -14,7 +14,7 @@ class MyaccountController extends Controller {
 
         public function actionIndex() {
 
-                echo 'ssss';
+
                 if (!isset(Yii::app()->session['user'])) {
 
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');

@@ -8,7 +8,7 @@
 </div>-->
 
 <div class="col-sm-3 sidebar">
-        <h3 class="side_nav_toggle"><i class="fa fa-align-justify "></i><?php echo Yii::app()->session['user']['first_name']; ?> <?php echo Yii::app()->session['user']['last_name']; ?></h3>
+        <h3 class="side_nav_toggle"><i class="fa fa-align-justify "></i><?php echo Yii::app()->session['user']['first_name']; ?> <?php echo Yii::app()->session['user']['last_name']; ?>'s Account</h3>
         <div class="cat_nav">
                 <ul class="catmenu">
                         <li><?php echo CHtml::link('My Profile', array('Myaccount/Profile')); ?></li>
