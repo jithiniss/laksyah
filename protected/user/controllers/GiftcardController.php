@@ -10,6 +10,7 @@ class GiftcardController extends Controller {
         public function actionAddress() {
                 if (isset(Yii::app()->session['user'])) {
                         $billing = new UserAddress;
+                        $shipping = new UserAddress;
                         $addresss = UserAddress::model()->findAllByAttributes(array('userid' => Yii::app()->session['user']['id']));
                         if (isset($_POST['giftsubmit'])) {
                                 if ($_REQUEST['bill_address'] == 0) {
@@ -25,7 +26,7 @@ class GiftcardController extends Controller {
                                         $this->redirect('Payment');
                                 }
                         } else {
-                                $this->render('bill_address', array('addresss' => $addresss, 'billing' => $billing));
+                                $this->render('bill_address', array('addresss' => $addresss, 'billing' => $billing, 'shipping' => $shipping));
                         }
                 } else {
                         $this->redirect('Login');
