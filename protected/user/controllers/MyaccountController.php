@@ -536,14 +536,10 @@ class MyaccountController extends Controller {
                         if(!empty($enquiry) && !empty($celeb_history) && !empty($user) && !empty($make_payment)) {
 
                                 $enquiry->user_id = $user->id;
-                                $total_paid_amt = CelibStyleHistory::model()->findAllByAttributes(array('enq_id' => $enquiry_id, 'payment_status' => 1, 'status' => 3));
-                                $tota_amount = '';
-                                foreach($total_paid_amt as $paid_amt) {
-                                        $tota_amount +=$paid_amt->pay_amount;
-                                }
 
 
-                                $enquiry->balance_to_pay = $enquiry->balance_to_pay - $tota_amount;
+
+                                $enquiry->balance_to_pay = $enquiry->balance_to_pay - $make_payment->total_amount;
 
                                 $enquiry->status = 2;
                                 $enquiry->save(False);
@@ -563,7 +559,7 @@ class MyaccountController extends Controller {
                                 $make_payment->status = 1;
                                 if($make_payment->save(FALSE)) {
 
-                                        $this->PaymentSuccessMail($enquiry->id, $make_payment->id);
+                                        // $this->PaymentSuccessMail($enquiry->id, $make_payment->id);
                                         Yii::app()->session['user'] = $user;
                                         if($enquiry->balance_to_pay == 0) {
 
@@ -700,13 +696,13 @@ class MyaccountController extends Controller {
                                         $order_history->date = date('Y-m-d');
                                         $order_history->cb = Yii::app()->session['user']['id'];
                                         if($order_history->save()) {
-                                                $celeb->add_to_order = 1;
+
                                                 $celeb->save();
-                                                $this->redirect('Profile');
                                                 Yii::app()->user->setFlash('order', "your Payment has been  successfully Completed");
-                                        } else {
                                                 $this->redirect('Profile');
+                                        } else {
                                                 Yii::app()->user->setFlash('notorder', "Error Occured");
+                                                $this->redirect('Profile');
                                         }
                                 }
                         }
@@ -844,6 +840,29 @@ class MyaccountController extends Controller {
                 $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
                 $domainName = $_SERVER['HTTP_HOST'];
                 return $protocol . $domainName;
+        }
+
+        public function encrypt_decrypt($action, $string) {
+                $output = false;
+
+                $encrypt_method = "AES-256-CBC";
+                $secret_key = 'This is my secret key';
+                $secret_iv = 'This is my secret iv';
+
+// hash
+                $key = hash('sha256', $secret_key);
+
+// iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+                $iv = substr(hash('sha256', $secret_iv), 0, 16);
+
+                if($action == 'encrypt') {
+                        $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+                        $output = base64_encode($output);
+                } else if($action == 'decrypt') {
+                        $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+                }
+
+                return $output;
         }
 
 }

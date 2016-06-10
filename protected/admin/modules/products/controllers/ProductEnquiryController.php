@@ -9,7 +9,7 @@ class ProductEnquiryController extends Controller {
         public $layout = '//layouts/column2';
 
         public function init() {
-                if (!isset(Yii::app()->session['admin']) || Yii::app()->session['post']['products'] != 1) {
+                if(!isset(Yii::app()->session['admin']) || Yii::app()->session['post']['products'] != 1) {
                         $this->redirect(Yii::app()->request->baseUrl . '/admin.php/site/logOut');
                 }
         }
@@ -69,9 +69,9 @@ class ProductEnquiryController extends Controller {
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-                if (isset($_POST['ProductEnquiry'])) {
+                if(isset($_POST['ProductEnquiry'])) {
                         $model->attributes = $_POST['ProductEnquiry'];
-                        if ($model->save())
+                        if($model->save())
                                 $this->redirect(array('admin'));
                 }
 
@@ -91,12 +91,12 @@ class ProductEnquiryController extends Controller {
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-                if (isset($_POST['ProductEnquiry'])) {
+                if(isset($_POST['ProductEnquiry'])) {
                         $model->attributes = $_POST['ProductEnquiry'];
                         $model->total_amount = $_POST['ProductEnquiry']['total_amount'];
                         $total_amount_paids = CelibStyleHistory::model()->findAllByAttributes(array('enq_id' => $model->id, 'payment_status' => 1));
-                        if (!empty($total_amount_paids)) {
-                                foreach ($total_amount_paids as $total_amount_paid) {
+                        if(!empty($total_amount_paids)) {
+                                foreach($total_amount_paids as $total_amount_paid) {
                                         $total_amt += $total_amount_paid->pay_amount;
                                 }
                         } else {
@@ -105,42 +105,43 @@ class ProductEnquiryController extends Controller {
 
                         $model->balance_to_pay = $model->total_amount - $total_amt;
 
-                        if ($_POST['ProductEnquiry']['status'] == 2) {
+                        if($_POST['ProductEnquiry']['status'] == 2) {
                                 $celib_history = new CelibStyleHistory;
                                 $celib_history->enq_id = $model->id;
                                 $celib_history->status = 2;
-                                if ($celib_history->save()) {
+                                if($celib_history->save()) {
                                         $celib_history_update = CelibStyleHistory::model()->findByPk($celib_history->id);
                                         $enc_enq_id = $model->id;
                                         $enc_celib_history_id = $celib_history->id;
-                                        $celib_history_update->link = Yii::app()->request->baseUrl . '/index.php/Myaccount/SizeChartType/enquiry_id/' . $enc_enq_id . '/history_id/' . $enc_celib_history_id;
-                                        if ($celib_history_update->save()) {
+                                        $getToken = $this->encrypt_decrypt('encrypt', 'enquiry_id=' . $enc_enq_id . ',history_id=' . $enc_celib_history_id);
+                                        $celib_history_update->link = Yii::app()->request->baseUrl . '/index.php/Myaccount/SizeChartType/enquiry_id=' . $enc_enq_id . ',history_id=' . $enc_celib_history_id;
+                                        if($celib_history_update->save()) {
                                                 $model->status = 2;
-                                                if ($model->save()) {
+                                                if($model->save()) {
 
                                                         $this->ProductEnquiryMail($celib_history_update);
                                                 }
                                         }
                                 }
-                        } else if ($_POST['ProductEnquiry']['status'] == 3) {
+                        } else if($_POST['ProductEnquiry']['status'] == 3) {
                                 $celib_history = new CelibStyleHistory;
                                 $celib_history->enq_id = $model->id;
                                 $celib_history->status = 3;
                                 $celib_history->pay_amount = $_POST['amount'];
-                                if ($celib_history->save()) {
+                                if($celib_history->save()) {
                                         $celib_history_update = CelibStyleHistory::model()->findByPk($celib_history->id);
                                         $enc_enq_id = $model->id;
                                         $enc_celib_history_id = $celib_history->id;
                                         $celib_history_update->link = Yii::app()->request->baseUrl . '/index.php/Myaccount/Makepayment/enquiry_id/' . $enc_enq_id . '/history_id/' . $enc_celib_history_id;
-                                        if ($celib_history_update->save()) {
+                                        if($celib_history_update->save()) {
                                                 $model->status = 3;
-                                                if ($model->save()) {
+                                                if($model->save()) {
                                                         $this->ProductEnquiryMail($celib_history_update);
                                                 }
                                         }
                                 }
                         }
-                        if ($model->save())
+                        if($model->save())
                                 $this->redirect(array('update', 'id' => $model->id));
                 }
 
@@ -169,8 +170,9 @@ class ProductEnquiryController extends Controller {
                 // More headers
                 $headers .= 'From: <store@intersmarthosting.in>' . "\r\n";
                 //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
-                //  echo $message;
-                //  exit();
+                echo $message;
+                echo $message1;
+                exit();
                 mail($toclient, $subject, $message, $headers);
                 mail($toadmin, $subject, $message1, $headers);
         }
@@ -184,7 +186,7 @@ class ProductEnquiryController extends Controller {
                 $this->loadModel($id)->delete();
 
 // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-                if (!isset($_GET['ajax']))
+                if(!isset($_GET['ajax']))
                         $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
 
@@ -204,7 +206,7 @@ class ProductEnquiryController extends Controller {
         public function actionAdmin() {
                 $model = new ProductEnquiry('search');
                 $model->unsetAttributes();  // clear any default values
-                if (isset($_GET['ProductEnquiry']))
+                if(isset($_GET['ProductEnquiry']))
                         $model->attributes = $_GET['ProductEnquiry'];
 
                 $this->render('admin', array(
@@ -221,7 +223,7 @@ class ProductEnquiryController extends Controller {
          */
         public function loadModel($id) {
                 $model = ProductEnquiry::model()->findByPk($id);
-                if ($model === null)
+                if($model === null)
                         throw new CHttpException(404, 'The requested page does not exist.');
                 return $model;
         }
@@ -231,10 +233,33 @@ class ProductEnquiryController extends Controller {
          * @param ProductEnquiry $model the model to be validated
          */
         protected function performAjaxValidation($model) {
-                if (isset($_POST['ajax']) && $_POST['ajax'] === 'product-enquiry-form') {
+                if(isset($_POST['ajax']) && $_POST['ajax'] === 'product-enquiry-form') {
                         echo CActiveForm::validate($model);
                         Yii::app()->end();
                 }
+        }
+
+        public function encrypt_decrypt($action, $string) {
+                $output = false;
+
+                $encrypt_method = "AES-256-CBC";
+                $secret_key = 'This is my secret key';
+                $secret_iv = 'This is my secret iv';
+
+// hash
+                $key = hash('sha256', $secret_key);
+
+// iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+                $iv = substr(hash('sha256', $secret_iv), 0, 16);
+
+                if($action == 'encrypt') {
+                        $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+                        $output = base64_encode($output);
+                } else if($action == 'decrypt') {
+                        $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+                }
+
+                return $output;
         }
 
 }
