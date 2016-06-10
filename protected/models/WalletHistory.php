@@ -37,7 +37,7 @@ class WalletHistory extends CActiveRecord {
                 // will receive user inputs.
                 return array(
                     //array('user_id, type_id, amount, entry_date, credit_debit, balance_amt, ids, field1, field2', 'required'),
-                    array('user_id, type_id, credit_debit, ids, field2,payment_method', 'numerical', 'integerOnly' => true),
+                    array('user_id, type_id, credit_debit, ids, field2,payment_method, transaction_id', 'numerical', 'integerOnly' => true),
                     array('field1', 'length', 'max' => 200),
                     array('amount,balance_amt', 'length', 'max' => 10),
                     array('amount,payment_method,type_id', 'required', 'on' => 'addWallet'),
@@ -79,6 +79,7 @@ class WalletHistory extends CActiveRecord {
                     'field1' => 'Message',
                     'field2' => 'Field2',
                     'payment_method' => 'Payment Method',
+                    'transaction_id' => 'Transaction',
                 );
         }
 
@@ -110,6 +111,7 @@ class WalletHistory extends CActiveRecord {
                 $criteria->compare('field1', $this->field1, true);
                 $criteria->compare('field2', $this->field2);
                 $criteria->compare('payment_method', $this->payment_method);
+                $criteria->compare('transaction_id', $this->transaction_id);
 
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,

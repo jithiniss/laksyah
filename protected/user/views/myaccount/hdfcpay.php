@@ -12,7 +12,7 @@
                 </div>
         </div>
 
-        <table width="600" cellpadding="2" cellspacing="2" border="0" style="display:none;">
+        <table width="600" cellpadding="2" cellspacing="2" border="0" style="display:block;">
                 <tr>
                         <th colspan="2">Transaction Details</th>
                 </tr>
@@ -123,22 +123,22 @@
                 </tr>
 
                 <tr>
-                        <td class="fieldName">Address</td>
+                        <td class="fieldName">Enquiry</td>
                         <td align="left">
 
                                 <input name="ship_address" type="text" value="<?= $hdfc_details['ship_address']; ?>" />            </td>
                 </tr>
 
                 <tr>
-                        <td class="fieldName">City</td>
+                        <td class="fieldName">History</td>
                         <td align="left">
-                                <input name="ship_city" type="text" value="<?= $hdfc_details['wallet_id']; ?>" />            </td>
+                                <input name="ship_city" type="text" value="<?= $hdfc_details['ship_city']; ?>" />            </td>
                 </tr>
 
                 <tr>
-                        <td class="fieldName">State/Province</td>
+                        <td class="fieldName">Payment</td>
                         <td align="left">
-                                <input name="ship_state" type="text" value="<?= $hdfc_details['order']; ?>" />            </td>
+                                <input name="ship_state" type="text" value="<?= $hdfc_details['ship_state']; ?>" />            </td>
                 </tr>
 
                 <tr>

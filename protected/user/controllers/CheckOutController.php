@@ -649,8 +649,9 @@ class CheckOutController extends Controller {
                                                                                 $this->render('hdfcpay', array('hdfc_details' => $hdfc_details, 'aid' => '20951', 'sec' => 'b837f49de88e6be36f077b6928c43bf9'));
                                                                         } else if ($order->paypal != '') {
 
+                                                                                $pid = time();
                                                                                 // $totaltopay = round(Currency::model()->findBypk(2)->rate * $order->paypal, 2);
-                                                                                $this->render('paypalpay', array('order' => $order->id, 'totaltopay' => $order->paypal));
+                                                                                $this->render('paypalpay', array('order' => $order->id, 'totaltopay' => $order->paypal, 'pid' => $pid));
                                                                         }
 
                                                                         // $this->redirect(array('OrderSuccess'));
