@@ -293,14 +293,14 @@ class CheckOutController extends Controller {
                                 if ($cart->options != 0) {
                                         $option_stock = OptionDetails::model()->findByPk($cart->options);
                                         if (!empty($option_stock)) {
-                                                if ($option_stock->stock <= $cart->quantity) {
+                                                if ($option_stock->stock >= $cart->quantity) {
                                                         $quantity = $cart->quantity;
                                                 } else {
                                                         $quantity = 0;
                                                 }
                                         }
                                 } else {
-                                        if ($prod_details->quantity <= $cart->quantity) {
+                                        if ($prod_details->quantity >= $cart->quantity) {
 
                                                 $quantity = $cart->quantity;
                                         } else {

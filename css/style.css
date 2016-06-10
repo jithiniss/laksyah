@@ -909,6 +909,7 @@ Product List
 }
 .btn-primary:hover{
         background-color:#737179;
+        border: solid 1px #737179;
 }
 .btn-primary:focus, .btn-primary:active{
         outline:none;
@@ -1957,6 +1958,7 @@ Modal
 }
 .modal-open .modal{
         background-color: rgba(255,255,255,0.87);
+        z-index: 300000;
 }
 .modal-header{
         padding:0px;
@@ -2855,7 +2857,7 @@ Page Dashboard
         font-size:15px;
         font-weight:bold;
 }
-.dash_item .dash_title h3 a{
+.dash_item .dash_title h3 a, .dash_item .dash_title a h3{
         color:#414141;
         text-decoration:none;
 }
@@ -3284,6 +3286,9 @@ Media Queries
         .scrolled .user_nav {
                 margin-top: 25px;
         }
+        .registration_form .col-sm-3{
+                margin-top:10px;
+        }
 }
 
 
@@ -3413,6 +3418,9 @@ Media Queries
         }
         .testimonial_carousel .slide .carousel-inner{
                 height:280px;
+        }
+        .user_content .border_box .row.header_row{
+                display:none;
         }
 
 }
