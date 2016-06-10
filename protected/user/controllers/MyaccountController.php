@@ -13,7 +13,7 @@ class MyaccountController extends Controller {
 //        }
 
         public function actionIndex() {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
 
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
@@ -23,7 +23,7 @@ class MyaccountController extends Controller {
 
         public function actionMywishlists() {
 
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
 
                         Yii::app()->session['wishlist_user'] = 1;
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
@@ -34,7 +34,7 @@ class MyaccountController extends Controller {
         }
 
         public function actionRemoveMywishlists($pid) {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         UserWishlist::model()->deleteAllByAttributes(array('prod_id' => $pid, 'user_id' => Yii::app()->session['user']['id']));
@@ -43,7 +43,7 @@ class MyaccountController extends Controller {
         }
 
         public function actionMyorders() {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $myorder = Order::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id'], 'status' => 1));
@@ -52,7 +52,7 @@ class MyaccountController extends Controller {
         }
 
         public function actionOrderitems($id) {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $myorder = Order::model()->findByPk($id);
@@ -62,23 +62,23 @@ class MyaccountController extends Controller {
 
         public function actionSizeChartType($enquiry_id = NULL, $history_id = NULL) {
 
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         Yii::app()->session['enquiry_id'] = $enquiry_id;
                         Yii::app()->session['history_id'] = $history_id;
 
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
-                        if (isset(Yii::app()->session['enquiry_id'])) {
+                        if(isset(Yii::app()->session['enquiry_id'])) {
                                 Yii::app()->session['enquiry_id'] = Yii::app()->session['enquiry_id'];
                         } else {
                                 Yii::app()->session['enquiry_id'] = $enquiry_id;
                         }
-                        if (isset(Yii::app()->session['history_id'])) {
+                        if(isset(Yii::app()->session['history_id'])) {
                                 Yii::app()->session['history_id'] = Yii::app()->session['history_id'];
                         } else {
                                 Yii::app()->session['history_id'] = $history_id;
                         }
-                        if (Yii::app()->session['enquiry_id'] != NULL && Yii::app()->session['history_id'] != NULL) {
+                        if(Yii::app()->session['enquiry_id'] != NULL && Yii::app()->session['history_id'] != NULL) {
                                 $enquery = ProductEnquiry::model()->findBypk(Yii::app()->session['enquiry_id']);
                                 $history = CelibStyleHistory::model()->findBypk(Yii::app()->session['history_id']);
                         }
@@ -86,7 +86,7 @@ class MyaccountController extends Controller {
                 $product_details = Products::model()->findByPk($enquery->product_id);
                 $model = new UserSizechart;
 
-                if (isset($_POST['UserSizechart'])) {
+                if(isset($_POST['UserSizechart'])) {
 
                         $model->attributes = $_POST['UserSizechart'];
 
@@ -94,13 +94,13 @@ class MyaccountController extends Controller {
                         $model->product_code = $_POST['UserSizechart']['product_code'];
                         $model->type = $_POST['UserSizechart']['type'];
 
-                        if ($model->type == 1) {
+                        if($model->type == 1) {
                                 $model->unit = 2;
                                 $model->standerd = $_POST['UserSizechart']['standerd'];
-                        } else if ($model->type == 2) {
+                        } else if($model->type == 2) {
                                 $model->unit = $_POST['UserSizechart']['unit'];
                                 $model->standerd = 0;
-                                if ($sizechart->unit == 1) {
+                                if($sizechart->unit == 1) {
                                         $model = $this->inchToCm($model, 1);
                                 }
                                 $model->comments = $_POST['UserSizechart']['comments'];
@@ -114,11 +114,11 @@ class MyaccountController extends Controller {
                         $model->type = $_POST['UserSizechart']['type'];
                         $model->comments = $_POST['UserSizechart']['comments'];
 
-                        if ($model->save()) {
+                        if($model->save()) {
                                 $enq_history_update = CelibStyleHistory::model()->findByAttributes(array('enq_id' => $model->enq_id, 'id' => $model->enq_history_id));
-                                if ($enq_history_update != '') {
+                                if($enq_history_update != '') {
                                         $enq_history_update->measurement_id = $model->id;
-                                        if ($enq_history_update->save()) {
+                                        if($enq_history_update->save()) {
                                                 unset(Yii::app()->session['history_id']);
                                                 unset(Yii::app()->session['enquiry_id']);
                                                 $this->ProductEnquiryMail($model, $enq_history_update);
@@ -162,7 +162,7 @@ class MyaccountController extends Controller {
         }
 
         public function actionSizeChartList() {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $chart = UserSizechart::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']), array('order' => 'id DESC'));
@@ -171,22 +171,22 @@ class MyaccountController extends Controller {
         }
 
         public function actionSizeChart($type) {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $user_size_chart = new UserStandardSizechart;
                         $model = new UserSizechart;
-                        if (isset($_POST['UserSizechart'])) {
+                        if(isset($_POST['UserSizechart'])) {
                                 $model->attributes = $_POST['UserSizechart'];
                                 $model->user_id = Yii::app()->session['user']['id'];
                                 $model->date = date('Y-m-d');
-                                if ($model->validate()) {
-                                        if ($model->save()) {
+                                if($model->validate()) {
+                                        if($model->save()) {
                                                 $this->redirect(Yii::app()->request->baseUrl . '/index.php/Myaccount/SizeChartList/type/' . $type);
                                         }
                                 }
                         }
-                        if ($type == 0) {
+                        if($type == 0) {
                                 $model = $this->inchToCm($model, 0);
                         }
                         $this->render('size_chart', array('model' => $model, 'user_size_chart' => $user_size_chart));
@@ -194,15 +194,15 @@ class MyaccountController extends Controller {
         }
 
         public function inchToCm($model, $type = 0) {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
-                        foreach ($model->attributes as $attribute => $key) {
-                                if ($attribute == 'id' || $attribute == 'user_id' || $attribute == 'date' || $attribute == 'product_name' || $attribute == 'product_code' || $attribute == 'type' || $attribute == 'unit' || $attribute == 'standerd') {
+                        foreach($model->attributes as $attribute => $key) {
+                                if($attribute == 'id' || $attribute == 'user_id' || $attribute == 'date' || $attribute == 'product_name' || $attribute == 'product_code' || $attribute == 'type' || $attribute == 'unit' || $attribute == 'standerd') {
 
                                 } else {
-                                        if ($key != '' && $key != 1) {
-                                                if ($type == 1) {
+                                        if($key != '' && $key != 1) {
+                                                if($type == 1) {
                                                         $val = $key * 2.54;
                                                 } else {
                                                         $val = $key / 2.54;
@@ -216,32 +216,32 @@ class MyaccountController extends Controller {
         }
 
         public function actionCopyChart($id) {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $model = UserSizechart::model()->findByPk(array('id' => $id));
-                        if (!empty($model)) {
+                        if(!empty($model)) {
                                 $sizechart = new UserSizechart;
-                                if (isset($_POST['UserSizechart'])) {
+                                if(isset($_POST['UserSizechart'])) {
 
                                         $sizechart->attributes = $_POST['UserSizechart'];
                                         $sizechart->product_name = $model->product_name;
                                         $sizechart->product_code = $model->product_code;
                                         $sizechart->type = $model->type;
-                                        if ($sizechart->type == 1) {
+                                        if($sizechart->type == 1) {
                                                 $sizechart->unit = 2;
-                                        } else if ($sizechart->type == 2) {
+                                        } else if($sizechart->type == 2) {
                                                 $sizechart->unit = $_POST['UserSizechart']['unit'];
 
                                                 $sizechart->standerd = 0;
-                                                if ($sizechart->unit == 1) {
+                                                if($sizechart->unit == 1) {
                                                         $model = $this->inchToCm($model, 1);
                                                 }
                                         }
                                         $sizechart->user_id = Yii::app()->session['user']['id'];
                                         $sizechart->date = date('Y-m-d');
-                                        if ($sizechart->validate()) {
-                                                if ($sizechart->save()) {
+                                        if($sizechart->validate()) {
+                                                if($sizechart->save()) {
                                                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/Myaccount/SizeChartList/type/' . $type);
                                                 }
                                         }
@@ -249,7 +249,7 @@ class MyaccountController extends Controller {
 //                        if ($type == 0) {
 //                                $sizechart = $this->inchToCm($sizechart, 0);
 //                        }
-                                if ($model->unit == 1) {
+                                if($model->unit == 1) {
                                         $model = $this->inchToCm($model, 0);
                                 }
                         }
@@ -258,12 +258,12 @@ class MyaccountController extends Controller {
         }
 
         public function actionViewChart($id) {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $model = UserSizechart::model()->findByPk(array('id' => $id));
-                        if (!empty($model)) {
-                                if ($model->unit == 1) {
+                        if(!empty($model)) {
+                                if($model->unit == 1) {
                                         $model = $this->inchToCm($model, 0);
                                 }
                                 $this->render('view_size_chart', array('model' => $model));
@@ -279,19 +279,19 @@ class MyaccountController extends Controller {
         }
 
         public function actionProfileedit() {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $model = UserDetails::model()->findByPk(array('id' => Yii::app()->session['user']['id']));
-                        if (isset($_POST['UserDetails'])) {
+                        if(isset($_POST['UserDetails'])) {
                                 $model->attributes = $_POST['UserDetails'];
                                 $date1 = $_POST['UserDetails']['dob'];
                                 $newDate = date("Y-m-d", strtotime($date1));
                                 $model->dob = $newDate;
                                 $model->gender = $_POST['UserDetails']['gender'];
-                                if ($model->validate()) {
+                                if($model->validate()) {
                                         $model->UB = Yii::app()->session['user']['id'];
-                                        if ($model->save()) {
+                                        if($model->save()) {
                                                 Yii::app()->user->setFlash('success', " Your account has been updated successfully");
                                         } else {
                                                 Yii::app()->user->setFlash('error', " Something went wrong..");
@@ -303,10 +303,10 @@ class MyaccountController extends Controller {
         }
 
         public function actionAddressbook() {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
-                        if (Yii::app()->session['user']['id'] != '') {
+                        if(Yii::app()->session['user']['id'] != '') {
                                 $model = UserAddress::model()->findAllByAttributes(array('userid' => Yii::app()->session['user']['id']));
                                 $this->render('addressbook', array('model' => $model));
                         } else {
@@ -316,16 +316,16 @@ class MyaccountController extends Controller {
         }
 
         public function checkDefault($model, $default) {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $default_address = UserAddress::model()->findAllByAttributes(array('userid' => Yii::app()->session['user']['id'], $default => 1));
-                        if (empty($default_address)) {
+                        if(empty($default_address)) {
                                 $model->$default = 1;
-                        } elseif ($model->$default == 1) {
+                        } elseif($model->$default == 1) {
                                 $address = UserAddress::model()->updateAll(array($default => 0), 'userid = ' . Yii::app()->session['user']['id']);
                                 $model->$default = 1;
-                        } elseif ($model->$default == 0) {
+                        } elseif($model->$default == 0) {
                                 $model->$default = 0;
                         }
                         return $model;
@@ -333,22 +333,22 @@ class MyaccountController extends Controller {
         }
 
         public function actionReview($id) {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $order = OrderProducts::model()->findByAttributes(array('id' => $id));
                         $user = Order::model()->findByPk($order->order_id);
-                        if (Yii::app()->session['user']['id'] == $user->user_id && $user->status == 1) {
+                        if(Yii::app()->session['user']['id'] == $user->user_id && $user->status == 1) {
                                 $model = new UserReviews;
-                                if ($id != '') {
-                                        if (isset($_POST['UserReviews'])) {
+                                if($id != '') {
+                                        if(isset($_POST['UserReviews'])) {
                                                 $model->attributes = $_POST['UserReviews'];
-                                                if ($model->validate()) {
+                                                if($model->validate()) {
                                                         $model->product_id = $order->product_id;
                                                         $model->user_id = Yii::app()->session['user']['id'];
                                                         $model->review = $_POST['UserReviews']['review'];
                                                         $model->date = date('Y-m-d');
-                                                        if ($model->save()) {
+                                                        if($model->save()) {
 
                                                                 Yii::app()->user->setFlash('success', "your review has been  successfully added");
                                                         } else {
@@ -365,16 +365,16 @@ class MyaccountController extends Controller {
         }
 
         public function actionNewaddress() {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $model = new UserAddress;
-                        if (isset($_POST['UserAddress'])) {
+                        if(isset($_POST['UserAddress'])) {
                                 $model->attributes = $_POST['UserAddress'];
                                 $model->userid = Yii::app()->session['user']['id'];
                                 $model = $this->checkDefault($model, 'default_billing_address');
                                 $model = $this->checkDefault($model, 'default_shipping_address');
-                                if ($model->save()) {
+                                if($model->save()) {
                                         $this->redirect('addressbook');
                                 }
                         }
@@ -383,16 +383,16 @@ class MyaccountController extends Controller {
         }
 
         public function actionEditAddress($id) {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $model = UserAddress::model()->findByPk($id);
-                        if (isset($_POST['UserAddress'])) {
+                        if(isset($_POST['UserAddress'])) {
                                 $model->attributes = $_POST['UserAddress'];
                                 $model->userid = Yii::app()->session['user']['id'];
                                 $model = $this->checkDefault($model, 'default_billing_address');
                                 $model = $this->checkDefault($model, 'default_shipping_address');
-                                if ($model->save()) {
+                                if($model->save()) {
 
                                         $this->redirect(array('Myaccount/Addressbook'));
                                 }
@@ -402,7 +402,7 @@ class MyaccountController extends Controller {
         }
 
         public function actionDeleteAddress($id) {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $model = UserAddress::model()->deleteByPk($id);
@@ -411,7 +411,7 @@ class MyaccountController extends Controller {
         }
 
         public function actionDeletaddress($id) {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $model = UserAddress::model()->deleteByPk($id);
@@ -420,7 +420,7 @@ class MyaccountController extends Controller {
         }
 
         public function actionMakepayment($enquiry_id = NULL, $history_id = NULL) {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
 
@@ -429,46 +429,46 @@ class MyaccountController extends Controller {
                         $enquiry_product = Products::model()->findByPk($enquiry->product_id);
                         $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
                         $model = new MakePayment;
-                        if (isset($_POST['MakePayment'])) {
+                        if(isset($_POST['MakePayment'])) {
                                 $model->attributes = $_POST['MakePayment'];
                                 $model->userid = Yii::app()->session['user']['id'];
                                 $model->date = date('Y-m-d');
                                 $model->amount_type = $_POST['total_amount'];
                                 $balance = $celeb_history->pay_amount - $model->total_amount;
-                                if ($celeb_history->pay_amount == $model->total_amount) {
+                                if($celeb_history->pay_amount == $model->total_amount) {
                                         /* wallet */
                                         $model->payment_mode = 3;
                                 } else {
                                         echo 'g';
                                         exit;
-                                        if ($_POST['total_amount'] != 0 && $_POST['wallet_amt'] != 0) {
+                                        if($_POST['total_amount'] != 0 && $_POST['wallet_amt'] != 0) {
                                                 $model->payment_mode = 4;
 
-                                                if ($_POST['payment_mode'] == 2) {
+                                                if($_POST['payment_mode'] == 2) {
                                                         $model->netbanking = $post_total_pay;
                                                         $model->wallet = $wallet;
-                                                } else if ($_POST['payment_mode'] == 1) {
+                                                } else if($_POST['payment_mode'] == 1) {
                                                         $order->paypal = $post_total_pay;
                                                         $order->wallet = $wallet;
                                                 }
                                         } else {
                                                 $order->payment_mode = $_POST['payment_method'];
-                                                if ($_POST['payment_method'] == 2) {
+                                                if($_POST['payment_method'] == 2) {
                                                         $order->netbanking = $post_total_pay;
-                                                } else if ($_POST['payment_method'] == 3) {
+                                                } else if($_POST['payment_method'] == 3) {
                                                         $order->paypal = $post_total_pay;
                                                 }
                                         }
                                         $this->redirect('payment_gateway');
                                 }
-                                if ($model->validate()) {
+                                if($model->validate()) {
 
-                                        if ($model->save()) {
+                                        if($model->save()) {
                                                 $enquiry->user_id = Yii::app()->session['user']['id'];
                                                 $enquiry->total_amount = $celeb_history->pay_amount;
                                                 $enquiry->balance_to_pay = $balance;
                                                 $enquiry->status = 2;
-                                                if ($enquiry->save()) {
+                                                if($enquiry->save()) {
                                                         $celeb_history = new CelibStyleHistory;
                                                         $celeb_history->enq_id = $enquiry_id;
                                                         $celeb_history->status = 3;
@@ -483,7 +483,7 @@ class MyaccountController extends Controller {
                                                         $wallet_add->credit_debit = 2;
                                                         $wallet_add->payment_method = $_POST['MakePayment']['payment_mode'];
                                                         $wallet_add->balance_amt = $model->total_amount - $wallet_add->amount;
-                                                        if ($wallet_add->save()) {
+                                                        if($wallet_add->save()) {
                                                                 $amount = $model->total_amount - $wallet_add->amount;
                                                                 $user->wallet_amt = $amount;
                                                                 $user->save();
@@ -507,7 +507,7 @@ class MyaccountController extends Controller {
         }
 
         public function actionMakepayment_debit() {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         echo 'jgjh';
@@ -519,20 +519,20 @@ class MyaccountController extends Controller {
                 $enquiry = ProductEnquiry::model()->findByPk($enq_id);
                 $celeb = CelibStyleHistory::model()->findByAttributes(array('enq_id' => $enq_id));
                 $enquiry->status = 4;
-                if ($enquiry->save()) {
+                if($enquiry->save()) {
                         $order = new Order;
                         $order->user_id = $enquiry->user_id;
                         $order->total_amount = $enquiry->total_amount;
                         $order->order_date = date('Y-m-d');
                         $order->payment_status = 1;
                         $order->status = 1;
-                        if ($order->save()) {
+                        if($order->save()) {
                                 $order_history = new OrderHistory;
                                 $order_history->order_id = $order->id;
                                 $order_history->order_status = 1;
                                 $order_history->date = date('Y-m-d');
                                 $order_history->cb = Yii::app()->session['user']['id'];
-                                if ($order_history->save()) {
+                                if($order_history->save()) {
                                         $celeb->add_to_order = 1;
                                         $celeb->save();
                                         $this->redirect('Profile');
@@ -546,7 +546,7 @@ class MyaccountController extends Controller {
         }
 
         public function actionMyordernew() {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $myorders = Order::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']), array('order' => 'order_date DESC'));
@@ -555,7 +555,7 @@ class MyaccountController extends Controller {
         }
 
         public function actionTest() {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $myorders = Order::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
@@ -564,12 +564,12 @@ class MyaccountController extends Controller {
         }
 
         public function actionChangePassword() {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $model = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
-                        if (isset($_POST['submit'])) {
-                                if ($_REQUEST['current'] == $model->password) {
+                        if(isset($_POST['submit'])) {
+                                if($_REQUEST['current'] == $model->password) {
                                         $model->password = $_POST['password'];
                                         $model->confirm = $_POST['confirm'];
                                         $model->save(FALSE);
@@ -630,10 +630,10 @@ class MyaccountController extends Controller {
 //        }
 
         public function actionSuccess($user_id, $wallet_id) {
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
-                        if (!empty($user_id) && !empty($wallet_id) && $user_id != '' && $wallet_id != '') {
+                        if(!empty($user_id) && !empty($wallet_id) && $user_id != '' && $wallet_id != '') {
                                 $user_wallet = UserDetails::model()->findByPk($user_id);
                                 $wallet_history = WalletHistory::model()->findByPk($wallet_id);
 
@@ -641,8 +641,8 @@ class MyaccountController extends Controller {
                                 $amount = $user_wallet->wallet_amt + $wallet_history->amount;
                                 $user_wallet->wallet_amt = $amount;
                                 $wallet_history->field2 = 1; //success
-                                if ($wallet_history->save()) {
-                                        if ($user_wallet->save()) {
+                                if($wallet_history->save()) {
+                                        if($user_wallet->save()) {
                                                 Yii::app()->session['user'] = $user_wallet;
                                                 Yii::app()->user->setFlash('wallet_success', "Money Added Successfully");
                                                 //$this->SendMail($user_wallet, $wallet_history);

@@ -145,7 +145,7 @@
                 </div>
 
 
-                <div class="row">
+                <div class="row"id="payment_modes">
                     <div class="col-sm-3">
                         <label>Payment Method*</label>
                     </div>
@@ -229,15 +229,21 @@
                 var credit = $("#credit_amount").val();
                 if (credit > amount) {
                     $("#credit_amount").val('');
+                    $("#balance").html(wallet_amount);
+                    $("#payment_blnc").html(amount);
                     alert('Invalid Amount');
                 } else {
-                    var wallet_amount = <?php echo Yii::app()->session['user']['wallet_amt']; ?>;
+
                     if (credit > wallet_amount) {
                         alert("Your Amount greater than available balance");
                     } else {
                         var balance = wallet_amount - credit;
                         var payment_blnc = amount - credit;
-
+                        if (credit == amount) {
+                            $('#payment_modes').hide();
+                        } else {
+                            $('#payment_modes').show();
+                        }
                         $("#balance").html(balance);
 
                         $("#payment_blnc").html(payment_blnc);

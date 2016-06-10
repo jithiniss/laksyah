@@ -119,7 +119,7 @@ class SiteController extends Controller {
 // Yii::app()->user->setFlash('error', "Sorry! Message seniding Failed..");
                                                 }
                                         } else {
-                                                $model->addError(confirm, 'password mismatch');
+                                                $model->addError('confirm', 'password mismatch');
                                         }
                                 }
                         }
