@@ -13,7 +13,7 @@
                         <li> <?php echo CHtml::link('Public Pickup', array('site/PublicPickup')); ?></li>-->
                         <li> <?php echo CHtml::link('Policies', array('site/PrivacyPolicy')); ?></li>
 <!--                        <li> <?php echo CHtml::link('Security', array('site/Security')); ?></li>-->
-                        <li> <?php echo CHtml::link('Terms & Conditions', array('site/Terms')); ?></li>
+                        <li> <?php echo CHtml::link('Terms & Policies', array('site/Terms')); ?></li>
                 </ul>
         </div>
 </div>
