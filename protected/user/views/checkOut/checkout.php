@@ -112,7 +112,7 @@
                                                                 </div>
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($billing, '[bill]country', array('class' => 'control-label')); ?>
-                                                                        <?php echo CHtml::activeDropDownList($billing, '[bill]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik', 'options' => array(99 => array('selected' => 'selected')))); ?>
+                                                                        <?php echo CHtml::activeDropDownList($billing, '[bill]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik billing_country', 'options' => array(99 => array('selected' => 'selected')))); ?>
                                                                         <?php echo $form->error($billing, '[bill]country'); ?>
                                                                 </div>
                                                         </div>
@@ -438,25 +438,89 @@
         </div>
 </div>
 <script>
-        var select_val = $('.select_bill_exist').val();
+        $(document).ready(function () {
 
-        if (select_val != 0) {
-                $('.bill_form').hide();
-        } else {
-                $('.bill_form').show();
-        }
-        $(".select_bill_exist").change(function () {
-                var select_val = $(this).val();
-                if ($('.bill_same').is(":checked"))
-                {
-                        getcountry(select_val);
+                var select_val = $('.select_bill_exist').val();
 
-                }
                 if (select_val != 0) {
                         $('.bill_form').hide();
                 } else {
                         $('.bill_form').show();
                 }
+
+                if ($('.bill_same').is(":checked"))
+                {
+                        $('.ship_form').hide();
+                        var select_val = $(".select_bill_exist").val();
+                        if (select_val != 0) {
+                                getcountry(select_val);
+                                $('.bill_form').hide();
+                        } else {
+                                $('.bill_form').show();
+                                var country = $('.billing_country').val();
+                                getshipmethod(country);
+
+                                $(".billing_country").change(function () {
+                                        var country = $('.billing_country').val();
+                                        getshipmethod(country);
+                                });
+                        }
+                        $(".select_bill_exist").change(function () {
+
+                                var select_val = $(this).val();
+                                if (select_val != 0) {
+                                        getcountry(select_val);
+                                        $('.bill_form').hide();
+                                } else {
+                                        $('.bill_form').show();
+                                        var country = $('.billing_country').val();
+                                        getshipmethod(country);
+                                        $(".billing_country").change(function () {
+                                                var country = $('.billing_country').val();
+                                                getshipmethod(country);
+                                        });
+                                }
+                        });
+                } else {
+                        $('.ship_form').show();
+                        var select_ship_val = $(".select_ship_exist").val();
+
+                        if (select_ship_val != 0) {
+
+                                getcountry(select_ship_val);
+
+                                $('.ship_form_content').hide();
+                        } else {
+
+                                var country = $('.shipping_country').val();
+                                getshipmethod(country);
+                                $('.ship_form_content').show();
+                                $(".shipping_country").change(function () {
+                                        var country = $('.shipping_country').val();
+                                        getshipmethod(country);
+                                });
+                        }
+                        $(".select_ship_exist").change(function () {
+                                var select_ship_val = $(this).val();
+
+                                if (select_ship_val != 0) {
+
+                                        getcountry(select_ship_val);
+
+                                        $('.ship_form_content').hide();
+                                } else {
+
+                                        var country = $('.shipping_country').val();
+                                        getshipmethod(country);
+                                        $('.ship_form_content').show();
+                                        $(".shipping_country").change(function () {
+                                                var country = $('.shipping_country').val();
+                                                getshipmethod(country);
+                                        });
+                                }
+                        });
+                }
+
         });
 </script>
 
@@ -473,19 +537,19 @@
         } else {
                 $('.ship_form_content').show();
         }
-        $(".select_ship_exist").change(function () {
-                var select_ship_val = $(this).val();
-
-                if (select_ship_val != 0) {
-
-                        getcountry(select_ship_val);
-
-                        $('.ship_form_content').hide();
-                } else {
-                        $("#shipping_method").html('Sorry, no quotes are available for this order at this time.');
-                        $('.ship_form_content').show();
-                }
-        });
+//        $(".select_ship_exist").change(function () {
+//                var select_ship_val = $(this).val();
+//
+//                if (select_ship_val != 0) {
+//
+//                        getcountry(select_ship_val);
+//
+//                        $('.ship_form_content').hide();
+//                } else {
+//                        $("#shipping_method").html('Sorry, no quotes are available for this order at this time.');
+//                        $('.ship_form_content').show();
+//                }
+//        });
 
 </script>
 
@@ -494,15 +558,15 @@
          * Check whether the order is checked
          */
 
-        if ($('.bill_same').is(":checked"))
-        {
-                $('.ship_form').hide();
-
-        }
-        else {
-                $('.ship_form').show();
-
-        }
+//        if ($('.bill_same').is(":checked"))
+//        {
+//                $('.ship_form').hide();
+//
+//        }
+//        else {
+//                $('.ship_form').show();
+//
+//        }
 <?php if ($shipping->hasErrors()) { ?>
                 $('.bill_same').prop('checked', false);
                 $('.ship_form').show();
@@ -512,15 +576,76 @@
                 if ($(this).is(":checked"))
                 {
                         $('.ship_form').hide();
+                        var select_val = $(".select_bill_exist").val();
+                        if (select_val != 0) {
+                                getcountry(select_val);
+                                $('.bill_form').hide();
+                        } else {
+                                $('.bill_form').show();
+                                var country = $('.billing_country').val();
+                                getshipmethod(country);
 
-                        var country = $('.select_bill_exist').val();
-                        calculatetotalpay();
-                        getcountry(country);
+                                $(".billing_country").change(function () {
+                                        var country = $('.billing_country').val();
+                                        getshipmethod(country);
+                                });
+                        }
+                        $(".select_bill_exist").change(function () {
+
+                                var select_val = $(this).val();
+                                if (select_val != 0) {
+                                        getcountry(select_val);
+                                        $('.bill_form').hide();
+                                } else {
+                                        $('.bill_form').show();
+                                        var country = $('.billing_country').val();
+                                        getshipmethod(country);
+                                        $(".billing_country").change(function () {
+                                                var country = $('.billing_country').val();
+                                                getshipmethod(country);
+                                        });
+                                }
+                        });
 
                 }
                 else {
-                        $("#shipping_method").html('Sorry, no quotes are available for this order at this time.');
                         $('.ship_form').show();
+                        var select_ship_val = $(".select_ship_exist").val();
+
+                        if (select_ship_val != 0) {
+
+                                getcountry(select_ship_val);
+
+                                $('.ship_form_content').hide();
+                        } else {
+
+                                var country = $('.shipping_country').val();
+                                getshipmethod(country);
+                                $('.ship_form_content').show();
+                                $(".shipping_country").change(function () {
+                                        var country = $('.shipping_country').val();
+                                        getshipmethod(country);
+                                });
+                        }
+                        $(".select_ship_exist").change(function () {
+                                var select_ship_val = $(this).val();
+
+                                if (select_ship_val != 0) {
+
+                                        getcountry(select_ship_val);
+
+                                        $('.ship_form_content').hide();
+                                } else {
+
+                                        var country = $('.shipping_country').val();
+                                        getshipmethod(country);
+                                        $('.ship_form_content').show();
+                                        $(".shipping_country").change(function () {
+                                                var country = $('.shipping_country').val();
+                                                getshipmethod(country);
+                                        });
+                                }
+                        });
                 }
         });
 </script>
@@ -543,20 +668,36 @@
                 var wallet = $(this).val();
                 if ($('.bill_same').is(":checked"))
                 {
-                        var countryname = $('#bill_exist').val();
-                        var country = getcountryid(countryname);
+
+                        //var countryname = $('.select_bill_exist').val();
+                        if ($('.select_bill_exist').val() == 0) {
+                                var country = $('.billing_country').val();
+                        } else {
+
+                                var countryname = $('.select_bill_exist').val();
+                                var country = getcountryid(countryname);
+
+                        }
+
+
                 }
                 else {
+
                         if ($('.select_ship_exist').val() == 0) {
-                                var country = $('.ship_form .shipping_country').val();
+
+                                var country = $('.shipping_country').val();
+
                         } else {
-                                var countryname = $('.ship_form .select_ship_exist').val();
+                                var countryname = $('.select_ship_exist').val();
+
+
                                 var country = getcountryid(countryname);
                         }
+
                 }
 
-                var grant = $("#grant_total").html();
-                totalcalculate(wallet, grant, country);
+                //var grant = $("#grant_total").html();
+                totalcalculate(wallet, country);
 
         });
 
@@ -564,26 +705,36 @@
                 var wallet = $('.wallet_amount').val();
                 if ($('.bill_same').is(":checked"))
                 {
-                        var countryname = $('#bill_exist').val();
-                        var country = getcountryid(countryname);
+                        //var countryname = $('.select_bill_exist').val();
+                        if ($('.select_bill_exist').val() == 0) {
+                                var country = $('.billing_country').val();
+                        } else {
+                                var countryname = $('.select_bill_exist').val();
+                                var country = getcountryid(countryname);
+                        }
+
                 }
                 else {
+
                         if ($('.select_ship_exist').val() == 0) {
-                                var country = $('.ship_form .shipping_country').val();
+                                var country = $('.shshipping_country').val();
                         } else {
-                                var countryname = $('.ship_form .select_ship_exist').val();
+                                var countryname = $('.select_ship_exist').val();
+
                                 var country = getcountryid(countryname);
                         }
                 }
+
                 var grant = $("#grant_total").html();
-                totalcalculate(wallet, grant, country);
+                totalcalculate(wallet, country);
         }
 </script>
 <script>
-        $(".shipping_country").change(function () {
-                var country = $('.shipping_country').val();
-                getshipmethod(country);
-        });
+//        $(".shipping_country").change(function () {
+//                var country = $('.shipping_country').val();
+//
+//                getshipmethod(country);
+//        });
         function getcurencyconvert(total) {
                 var result;
                 showLoader();
@@ -601,7 +752,7 @@
 
         }
 
-        function totalcalculate(wallet, grant, country) {
+        function totalcalculate(wallet, country) {
 
                 showLoader();
 
@@ -639,6 +790,7 @@
 
         }
         function getshipmethod(country) {
+                var wallet = $('.wallet_amount').val();
                 showLoader();
                 $.ajax({
                         type: "POST",
@@ -649,11 +801,12 @@
                 }).done(function (data) {
                         $("#shipping_method").html(data);
                         getshippingcharge(country);
-                        calculatetotalpay();
+                        totalcalculate(wallet, country);
                         hideLoader();
                 });
         }
         function getshippingcharge(value) {
+                var wallet = $('.wallet_amount').val();
                 showLoader();
                 $.ajax({
                         type: "POST",
@@ -667,7 +820,7 @@
                         $("#grant_total").html(obj.granttotal);
                         $("#total_pay").html(obj.granttotal);
                         $(".total_pay").val(obj.totalpay);
-                        calculatetotalpay();
+                        totalcalculate(wallet, value);
                         hideLoader();
                 });
         }

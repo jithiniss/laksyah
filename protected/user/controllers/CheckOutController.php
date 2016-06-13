@@ -126,6 +126,7 @@ class CheckOutController extends Controller {
                         }
                         // $grant = $_POST['grant'];
                         $country = $_POST['country'];
+
                         if ($country == 99) {
                                 $total_shipping_rate = 0;
                         } else {
@@ -144,8 +145,8 @@ class CheckOutController extends Controller {
                                 $shipping_rate = ShippingCharges::model()->findByAttributes(array('zone' => $get_zone->zone, 'weight' => $total_weight));
                                 if (!empty($shipping_rate)) {
                                         $fuel_charge = $shipping_rate->shipping_rate * .13;
-                                        $service_charge = ($shipping_rate + $fuel_charge) * .15;
-                                        $total_shipping_rate = ceil($shipping_rate + $fuel_charge + $service_charge);
+                                        $service_charge = ($shipping_rate->shipping_rate + $fuel_charge) * .15;
+                                        $total_shipping_rate = ceil($shipping_rate->shipping_rate + $fuel_charge + $service_charge);
                                 } else {
                                         $total_shipping_rate = 0;
                                 }
@@ -231,6 +232,7 @@ class CheckOutController extends Controller {
                         } else {
                                 $get_zone = Countries::model()->findByPk($country);
                                 $get_total_weight = $this->GetTotalWeight();
+
                                 $value = explode('.', $get_total_weight);
                                 if (strlen($value[1]) == 1) {
                                         $value[1] = $value[1] . '0';
@@ -240,12 +242,15 @@ class CheckOutController extends Controller {
                                 } else {
                                         $total_weight = $value[0] + 1;
                                 }
+
                                 /* 13% Fuel Charge and 15 % Service chARGE is applicable */
                                 $shipping_rate = ShippingCharges::model()->findByAttributes(array('zone' => $get_zone->zone, 'weight' => $total_weight));
+
                                 if (!empty($shipping_rate)) {
                                         $fuel_charge = $shipping_rate->shipping_rate * .13;
-                                        $service_charge = ($shipping_rate + $fuel_charge) * .15;
-                                        $total_shipping_rate = ceil($shipping_rate + $fuel_charge + $service_charge);
+
+                                        $service_charge = ($shipping_rate->shipping_rate + $fuel_charge) * .15;
+                                        $total_shipping_rate = ceil($shipping_rate->shipping_rate + $fuel_charge + $service_charge);
                                 } else {
                                         $total_shipping_rate = 0;
                                 }
@@ -321,6 +326,7 @@ class CheckOutController extends Controller {
         public function actionGetShippingMethod() {
                 if (isset(Yii::app()->session['user']['id'])) {
                         $country = $_POST['country'];
+
                         if ($country == 99) {
                                 $total_shipping_rate = 0;
                         } else {
@@ -341,12 +347,13 @@ class CheckOutController extends Controller {
                                 $shipping_rate = ShippingCharges::model()->findByAttributes(array('zone' => $get_zone->zone, 'weight' => $total_weight));
                                 if (!empty($shipping_rate)) {
                                         $fuel_charge = $shipping_rate->shipping_rate * .13;
-                                        $service_charge = ($shipping_rate + $fuel_charge) * .15;
-                                        $total_shipping_rate = ceil($shipping_rate + $fuel_charge + $service_charge);
+                                        $service_charge = ($shipping_rate->shipping_rate + $fuel_charge) * .15;
+                                        $total_shipping_rate = ceil($shipping_rate->shipping_rate + $fuel_charge + $service_charge);
                                 } else {
                                         $total_shipping_rate = 0;
                                 }
                         }
+
                         if ($country == 99) {
                                 $this->renderPartial('_shipping_indian', array('shipping_charge' => $total_shipping_rate));
                         } else {
@@ -427,8 +434,8 @@ class CheckOutController extends Controller {
                                                 $shipping_rate = ShippingCharges::model()->findByAttributes(array('zone' => $get_zone->zone, 'weight' => $total_weight));
                                                 if (!empty($shipping_rate)) {
                                                         $fuel_charge = $shipping_rate->shipping_rate * .13;
-                                                        $service_charge = ($shipping_rate + $fuel_charge) * .15;
-                                                        $total_shipping_rate = ceil($shipping_rate + $fuel_charge + $service_charge);
+                                                        $service_charge = ($shipping_rate->shipping_rate + $fuel_charge) * .15;
+                                                        $total_shipping_rate = ceil($shipping_rate->shipping_rate + $fuel_charge + $service_charge);
                                                 } else {
                                                         $total_shipping_rate = 0;
                                                 }
