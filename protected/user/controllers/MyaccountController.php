@@ -172,8 +172,9 @@ class MyaccountController extends Controller {
                 mail($toadmin, $subject, $message1, $headers);
         }
 
-        public function actionSizeChartList() {
+        public function actionSizeChartList($user = '') {
                 if (!isset(Yii::app()->session['user'])) {
+                        Yii::app()->session['user_id'] = $user;
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         $chart = UserSizechart::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']), array('order' => 'id DESC'));

@@ -92,6 +92,11 @@
                 </div>
                 <?php echo $form->error($model, 'status'); ?>
         </div>
+        <div class="form-group">
+                <div class="col-sm-2"></div>
+                <?php $user = $this->encrypt_decrypt('encrypt', 'user_id=' . $model->user_id); ?>
+                <div class="col-sm-10"><a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Myaccount/SizeChartList?user=<?php echo $user; ?>" class="btn btn-laksyah">View Measurement Details</a></div>
+        </div>
         <div class="form-group amount" style="display: none">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-10">
@@ -133,7 +138,12 @@
                 <div class = "col-sm-10"><input size = "60" maxlength = "225" class = "form-control" name = "amount" id = "ProductEnquiry_total_amount" type = "text" >
                 </div>
         </div>
-
+        <div class="form-group">
+                <?php echo $form->labelEx($model, 'add_to_order', array('class' => 'col-sm-2 control-label ')); ?>
+                <div class="col-sm-10"><?php echo $form->dropDownList($model, 'add_to_order', array('2' => "No", '1' => "Yes", '3' => "Order Placed"), array('class' => 'form-control enq_status')); ?>
+                </div>
+                <?php echo $form->error($model, 'add_to_order'); ?>
+        </div>
         <div class = "box-footer">
                 <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class' => 'btn btn-laksyah pos'));
                 ?>

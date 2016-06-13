@@ -22,6 +22,7 @@
  * @property ProductEnquiry $country0
  * @property ProductEnquiry[] $productEnquiries
  * @property Products $product
+ *  @property integer $add_to_order
 
  */
 class ProductEnquiry extends CActiveRecord {
@@ -50,7 +51,7 @@ class ProductEnquiry extends CActiveRecord {
                     array('email', 'email'),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, name, email, phone, country, size, requirement, product_id, doc, dou, user_id', 'safe', 'on' => 'search'),
+                    array('id, name, email, phone, country, size, requirement, product_id, doc, dou, user_id,add_to_order', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -85,6 +86,7 @@ class ProductEnquiry extends CActiveRecord {
                     'total_amount' => 'Total Amount',
                     'balance_to_pay' => 'Balance To Pay',
                     'status' => 'Status',
+                    'add_to_order' => 'Add To Order',
                 );
         }
 
@@ -119,6 +121,7 @@ class ProductEnquiry extends CActiveRecord {
                 $criteria->compare('total_amount', $this->total_amount);
                 $criteria->compare('balance_to_pay', $this->balance_to_pay);
                 $criteria->compare('status', $this->status);
+                $criteria->compare('add_to_order', $this->add_to_order);
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
                 ));
