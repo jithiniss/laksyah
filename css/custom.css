@@ -328,3 +328,7 @@ span.required {
 
         z-index: 1000000;
 }
+
+.main_container .row > .list-view > .items > div[class*="col-"]:nth-child(4) {
+        clear: both;
+}

@@ -70,6 +70,7 @@ class MyaccountController extends Controller {
                         Yii::app()->session['measure_details'] = $m;
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
+
                         $decrypt = $this->encrypt_decrypt('decrypt', $m);
 
                         $mstr = explode(",", $decrypt);
@@ -396,6 +397,7 @@ class MyaccountController extends Controller {
                 if (!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
+
                         $model = UserAddress::model()->findByPk($id);
                         if (isset($_POST['UserAddress'])) {
                                 $model->attributes = $_POST['UserAddress'];
@@ -435,6 +437,7 @@ class MyaccountController extends Controller {
                         Yii::app()->session['make_paid'] = $p;
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
+
                         $decrypt = $this->encrypt_decrypt('decrypt', $p);
 
                         $mstr = explode(",", $decrypt);
@@ -445,6 +448,7 @@ class MyaccountController extends Controller {
                                 $ytr[1] = $narr[1];
                                 $a[$narr[0]] = $ytr[1];
                         }
+
                         $enquiry_id = $a['enquiry_id'];
                         $history_id = $a['history_id'];
                         $enquiry = ProductEnquiry::model()->findByPk($enquiry_id);
@@ -575,6 +579,7 @@ class MyaccountController extends Controller {
                             'model' => $model, 'enquiry_product' => $enquiry_product, 'celeb_history' => $celeb_history, 'balance' => $balance,
                         ));
                 } else {
+
                         $this->render('//site/error');
                 }
         }

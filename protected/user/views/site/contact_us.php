@@ -2,7 +2,7 @@
         <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?> <span>/</span>Contact Us</div>
         <div class="row">
                 <?php echo $this->renderPartial('_staticmenu'); ?>
-                <!-- / Side <?php echo $this->renderPartial('_staticmenu'); ?>bar-->
+                <!-- / Side <?php //echo $this->renderPartial('_staticmenu');  ?>bar-->
                 <div class="col-sm-9 user_content">
                         <h1>Contact Us</h1>
                         <!--<div class="alert alert-success alert-dismissible" role="alert">

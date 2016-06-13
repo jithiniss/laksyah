@@ -107,7 +107,7 @@ class ProductsController extends Controller {
                         }
                         $recently = ProductViewed::model()->findAllByAttributes(array('session_id' => $sessonid), array('order' => 'date DESC'));
                 }
-                $model = new ProductEnquiry;
+                $model = new ProductEnquiry('create');
                 if (isset($_POST['ProductEnquiry'])) {
 
                         $model->attributes = $_POST['ProductEnquiry'];

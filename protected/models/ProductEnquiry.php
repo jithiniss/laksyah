@@ -42,7 +42,7 @@ class ProductEnquiry extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
-                    array('verifyCode', 'captcha', 'allowEmpty' => !extension_loaded('gd')),
+                    array('verifyCode', 'captcha', 'allowEmpty' => !extension_loaded('gd'), 'on' => 'create'),
                     array('name, email, phone, country,  product_id', 'required'),
                     array('country, size, product_id, user_id', 'numerical', 'integerOnly' => true),
                     array('name, email', 'length', 'max' => 250),
