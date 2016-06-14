@@ -30,11 +30,11 @@ class ForgotPasswordController extends Controller {
         public function SuccessMail($forgot, $token, $details) {
 
                 $user = $details->email;
-//                $user = 'shahana@intersmart.in';
+                //$user = 'shahana@intersmart.in';
                 $user_subject = 'Please Reset Your Password';
                 $user_message = 'We heard that you lost your Laksyah password. Sorry about that!<br><br>'
                         . 'But don’t worry! You can use the following link within the next day to reset your password:'
-                        . '<a href="http://localhost/laksyah/index.php/ForgotPassword/Changepassword/token/' . $token . '">Click Here to Reset Password</a><br><br>'
+                        . '<a href="http://beta.laksyah.com/index.php/ForgotPassword/Changepassword/token/' . $token . '">Click Here to Reset Password</a><br><br>'
                         . 'Thanks';
 
                 // Always set content-type when sending HTML email
