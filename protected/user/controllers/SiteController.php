@@ -268,7 +268,7 @@ class SiteController extends Controller {
                         $model->date = date("Y-m-d");
                         if ($model->validate()) {
                                 if ($model->save()) {
-                                        $this->appointmentmail($model);
+//                                        $this->appointmentmail($model);
                                         Yii::app()->user->setFlash('success', " Your Appointment Booked successfully");
                                 } else {
                                         Yii::app()->user->setFlash('error', "Error Occured");
