@@ -5,6 +5,7 @@ class ForgotPasswordController extends Controller {
         public function actionIndex() {
 
                 if (isset($_POST['btn_submit'])) {
+
                         $email = $_POST['email'];
                         $user = UserDetails::model()->findByAttributes(array('email' => $email));
                         if ($user != '') {
@@ -16,19 +17,19 @@ class ForgotPasswordController extends Controller {
                                 $forgot->status = 1;
                                 $forgot->DOC = date('Y-m-d');
                                 if ($forgot->save(FALSE)) {
-                                        $this->SuccessMail($forgot, $token);
+                                        $this->SuccessMail($forgot, $token, $details);
                                         $this->render('mail');
                                 } else {
                                         $this->render('sorry');
-                                }
+                                }exit;
                         }
                 }
                 $this->render('index');
         }
 
-        public function SuccessMail($forgot, $token) {
+        public function SuccessMail($forgot, $token, $details) {
 
-                $user = $forgot->email;
+                $user = $details->email;
 //                $user = 'shahana@intersmart.in';
                 $user_subject = 'Please Reset Your Password';
                 $user_message = 'We heard that you lost your Laksyah password. Sorry about that!<br><br>'
