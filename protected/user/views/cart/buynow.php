@@ -357,7 +357,7 @@
                                                 <!--  Cart items-->
 
                                                 <div class="cart_row with_gift">
-                                                        <div class="col-1 cart_product_detail">
+                                                        <div class="col-2 cart_product_detail">
 
                                                                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/small.<?php echo $prod_details->main_image; ?>" class="img-responsive crt" align="absmiddle" style="max-height:300px; max-width:200px;display: block;">
 

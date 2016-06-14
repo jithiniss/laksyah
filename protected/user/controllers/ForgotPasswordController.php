@@ -15,76 +15,33 @@ class ForgotPasswordController extends Controller {
                                 $token = base64_encode($forgot->user_id . ':' . $forgot->code);
                                 $forgot->status = 1;
                                 $forgot->DOC = date('Y-m-d');
-
-                                $forgot->save(FALSE);
-                                $to = $details->email;
-                                $subject = 'Password Reset Link';
-                                echo $message = '<html>
-<head>
-<title>HTML email</title>
-</head>
-<body>
-<p>This email contains HTML Tags!</p>
-<table>
-<tr>
-<th><a href="http://localhost/laksyah/index.php/ForgotPassword/Changepassword/token/' . $token . '">Click Here to Reset Password</a></th>
-</tr>
-</table>
-</body>
-</html>';
-                                //   exit();
-                                $headers = "MIME-Version: 1.0" . "\r\n";
-                                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-                                $headers .= 'From: <laksyah.com>' . "\r\n";
-//mail($to, $subject, $message, $headers);
-                                $this->render('mail');
-
-                                //   exit();
-                        } else {
-                                $this->render('sorry');
-                                //   exit();
+                                if ($forgot->save(FALSE)) {
+                                        $this->SuccessMail($forgot, $token);
+                                        $this->render('mail');
+                                } else {
+                                        $this->render('sorry');
+                                }
                         }
                 }
                 $this->render('index');
         }
 
-        public function actionMail() {
+        public function SuccessMail($forgot, $token) {
 
-                if ($_REQUEST['id'] != 0) {
-                        $id = $_REQUEST['id'];
-                        $details = UserDetails::model()->findByPk($id);
-                        $forgot = new ForgotPassword;
-                        $forgot->user_id = $details->id;
-                        $forgot->code = rand(10000, 1000000);
-                        $token = base64_encode($forgot->user_id . ':' . $forgot->code);
-                        $forgot->status = 1;
-                        $forgot->DOC = date('Y-m-d');
+                $user = $forgot->email;
+//                $user = 'shahana@intersmart.in';
+                $user_subject = 'Please Reset Your Password';
+                $user_message = 'We heard that you lost your Laksyah password. Sorry about that!<br><br>'
+                        . 'But don’t worry! You can use the following link within the next day to reset your password:'
+                        . '<a href="http://localhost/laksyah/index.php/ForgotPassword/Changepassword/token/' . $token . '">Click Here to Reset Password</a><br><br>'
+                        . 'Thanks';
 
-                        $forgot->save(FALSE);
-                        $to = $details->email;
-                        $subject = 'Password Reset Link';
-                        echo $message = '<html>
-<head>
-<title>HTML email</title>
-</head>
-<body>
-<p>This email contains HTML Tags!</p>
-<table>
-<tr>
-<th><a href="http://localhost/laksyah/index.php/ForgotPassword/Changepassword/token/' . $token . '">Click Here to Reset Password</a></th>
-</tr>
-</table>
-</body>
-</html>';
-                        //   exit();
-                        $headers = "MIME-Version: 1.0" . "\r\n";
-                        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-                        $headers .= 'From: <laksyah.com>' . "\r\n";
-//mail($to, $subject, $message, $headers);
-                        $this->render('mail');
-                } else {
-                        $this->render('sorry');
-                }
+                // Always set content-type when sending HTML email
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                // More headers
+                $headers .= 'From: <no-reply@beta.laksyah.com/>' . "\r\n";
+                mail($user, $user_subject, $user_message, $headers);
         }
 
         public function actionChangepassword($token) {
@@ -106,7 +63,8 @@ class ForgotPasswordController extends Controller {
                 }
         }
 
-        public function actionNewpassword() {
+        public
+                function actionNewpassword() {
                 if (isset($_POST['btn_submit'])) {
 
                         if (isset(Yii::app()->session['frgt_usrid'])) {
