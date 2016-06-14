@@ -3,11 +3,13 @@
 class GiftcardController extends Controller {
 
         public function actionIndex($card_id) {
+
                 Yii::app()->session['gift_card_detail'] = $card_id;
                 $this->redirect('Address');
         }
 
         public function actionAddress() {
+                unset(Yii::app()->session['gift_card_option']);
                 unset(Yii::app()->session['user_gift_id']);
 //                if (isset(Yii::app()->session['user'])) {
 //                        $billing = new UserAddress;
@@ -34,14 +36,14 @@ class GiftcardController extends Controller {
 //                } else {
 //                        $this->redirect('Login');
 //                }
-                if (isset(Yii::app()->session['user']['id'])) {
+                if(isset(Yii::app()->session['user']['id'])) {
                         $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
                         $gift_limit = Extras::model()->findByPk(1);
-                        if (!empty($gift_limit)) {
+                        if(!empty($gift_limit)) {
                                 Yii::app()->session['gift_limit'] = $gift_limit;
                         }
                         $gift_rate = Extras::model()->findByPk(2);
-                        if (!empty($gift_rate)) {
+                        if(!empty($gift_rate)) {
                                 Yii::app()->session['gift_rate'] = $gift_rate;
                         }
                         $gift_user = new UserGifts;
@@ -52,19 +54,19 @@ class GiftcardController extends Controller {
 //                              $order = Order::model()->findbypk(Yii::app()->session['orderid']);
                         $address_id = '';
 
-                        if (isset($_POST['gift_form'])) {
+                        if(isset($_POST['gift_form'])) {
                                 $gift_user->attributes = $_POST['UserGifts'];
                                 $gift_user->message = $_POST['UserGifts']['message'];
                                 $gift_user->date = date('Y-m-d');
-                                if (Yii::app()->session['user_gift_id'] == "") {
-                                        if ($gift_user->save()) {
+                                if(Yii::app()->session['user_gift_id'] == "") {
+                                        if($gift_user->save()) {
                                                 Yii::app()->session['user_gift_id'] = $gift_user->id;
                                         }
                                 }
                         }
-                        if ($_POST['yt0']) {
+                        if($_POST['yt0']) {
                                 $post_wallet = $_POST['wallet_amount'];
-                                if ($post_wallet != '') {
+                                if($post_wallet != '') {
                                         $post_wallet = $post_wallet;
                                 } else {
                                         $post_wallet = 0;
@@ -72,17 +74,17 @@ class GiftcardController extends Controller {
                                 $post_total_pay = $_POST['total_pay'];
 
 
-                                if ($_REQUEST['bill_address'] == 0) {
-                                        if (isset($_POST['UserAddress']['bill'])) {
+                                if($_REQUEST['bill_address'] == 0) {
+                                        if(isset($_POST['UserAddress']['bill'])) {
                                                 $billing_address = $this->addAddress($billing, $_POST['UserAddress']['bill']);
                                                 $bill_address_id = $billing_address;
                                         }
                                 } else {
                                         $bill_address_id = $_REQUEST['bill_address'];
                                 }
-                                if ($_REQUEST['billing_same'] == NULL) {
-                                        if ($_REQUEST['ship_address'] == 0) {
-                                                if (isset($_POST['UserAddress']['ship'])) {
+                                if($_REQUEST['billing_same'] == NULL) {
+                                        if($_REQUEST['ship_address'] == 0) {
+                                                if(isset($_POST['UserAddress']['ship'])) {
                                                         $shipping_address = $this->addAddress($shipping, $_POST['UserAddress']['ship']);
                                                         $ship_address_id = $shipping_address;
                                                 }
@@ -95,16 +97,16 @@ class GiftcardController extends Controller {
                                 $shipp_address = UserAddress::model()->findByPk($ship_address_id);
 
                                 //$shipp_available = ShippingCharges::model()->findByAttributes(array('country' => $shipp_address->country));
-                                if ($shipp_address->country == 99) {
+                                if($shipp_address->country == 99) {
                                         $total_shipping_rate = 0;
                                 } else {
                                         $get_zone = Countries::model()->findByPk($shipp_address->country);
                                         $get_total_weight = $this->GetTotalWeight();
                                         $value = explode('.', $get_total_weight);
-                                        if (strlen($value[1]) == 1) {
+                                        if(strlen($value[1]) == 1) {
                                                 $value[1] = $value[1] . '0';
                                         }
-                                        if ($value[1] <= 50) {
+                                        if($value[1] <= 50) {
                                                 $total_weight = $value[0] + .5;
                                         } else {
                                                 $total_weight = $value[0] + 1;
@@ -113,7 +115,7 @@ class GiftcardController extends Controller {
 
                                         /* 13% Fuel Charge and 15 % Service chARGE is applicable */
                                         $shipping_rate = ShippingCharges::model()->findByAttributes(array('zone' => $get_zone->zone, 'weight' => $total_weight));
-                                        if (!empty($shipping_rate)) {
+                                        if(!empty($shipping_rate)) {
                                                 $fuel_charge = $shipping_rate->shipping_rate * .13;
                                                 $service_charge = ($shipping_rate + $fuel_charge) * .15;
                                                 $total_shipping_rate = ceil($shipping_rate + $fuel_charge + $service_charge);
@@ -121,15 +123,15 @@ class GiftcardController extends Controller {
                                                 $total_shipping_rate = 0;
                                         }
                                 }
-                                if ($shipp_address->country == 99) {
+                                if($shipp_address->country == 99) {
                                         $postcode_exist = DtdcPostcode::model()->findByAttributes(array('postcode' => $shipp_address->postcode));
-                                        if (empty($postcode_exist)) {
+                                        if(empty($postcode_exist)) {
                                                 Yii::app()->user->setFlash('shipp_availability', "Thre is no Shipping Option Available in your current shipping Address. Please choose some other post code");
                                                 $this->redirect(array('CheckOut/CheckOut'));
                                         }
                                         //$this->renderPartial('_shipping_indian', array('shipping_charge' => $total_shipping_rate));
                                 } else {
-                                        if (empty($shipping_rate)) {
+                                        if(empty($shipping_rate)) {
                                                 Yii::app()->user->setFlash('shipp_availability', "Thre is no Shipping Option Available in your current shipping Address");
                                                 $this->redirect(array('CheckOut/CheckOut'));
                                         }
@@ -138,12 +140,12 @@ class GiftcardController extends Controller {
 //                                                Yii::app()->user->setFlash('shipp_availability', "Thre is no Shipping Option Available in your current shipping Address");
 //                                                $this->redirect(array('CheckOut/CheckOut'));
 //                                        }
-                                if ($_POST['wallet_amount'] != '') {
+                                if($_POST['wallet_amount'] != '') {
                                         $wallet = $_POST['wallet_amount'];
                                 } else {
                                         $wallet = 0;
                                 }
-                                if (isset(Yii::app()->session['currency'])) {
+                                if(isset(Yii::app()->session['currency'])) {
                                         $currency_rate = Yii::app()->session['currency']['rate'];
                                 } else {
                                         $currency_rate = 1;
@@ -151,9 +153,9 @@ class GiftcardController extends Controller {
                                 $subtotal = $this->subtotal();
 
                                 $discount = CouponHistory::model()->findByAttributes(array('order_id' => Yii::app()->session['orderid'], 'user_id' => Yii::app()->session['user']['id']));
-                                if (!empty($discount)) {
+                                if(!empty($discount)) {
                                         $coupen = Coupons::model()->findbypk($discount->coupon_id);
-                                        if ($coupen == 1) {
+                                        if($coupen == 1) {
                                                 $discount_rate = $discount->total_amount;
                                         } else {
                                                 $discount_rate = 0;
@@ -165,14 +167,14 @@ class GiftcardController extends Controller {
                                 $granttotal = round(($currency_rate * $subtotal) + ($currency_rate * $shipping_charge->shipping_rate) - ($currency_rate * $discount_rate), 2);
 
                                 $cwallet = Yii::app()->session['user']['wallet_amt'];
-                                if (isset(Yii::app()->session['currency'])) {
+                                if(isset(Yii::app()->session['currency'])) {
                                         $currentwallet = round($cwallet * $currency_rate, 2);
                                 } else {
                                         $currentwallet = $cwallet;
                                 }
 
-                                if ($granttotal >= $currentwallet) {
-                                        if ($wallet_balance >= 0) {
+                                if($granttotal >= $currentwallet) {
+                                        if($wallet_balance >= 0) {
                                                 $total_balance_to_pay = $granttotal - $wallet;
                                         } else {
                                                 $total_balance_to_pay = $granttotal - $currentwallet;
@@ -180,7 +182,7 @@ class GiftcardController extends Controller {
                                                 $wallet_balance = $currentwallet - $wallet;
                                         }
                                 } else {
-                                        if ($wallet_balance >= 0) {
+                                        if($wallet_balance >= 0) {
                                                 $total_balance_to_pay = $granttotal - $wallet;
                                                 $wallet = $wallet;
                                         } else {
@@ -191,15 +193,15 @@ class GiftcardController extends Controller {
                                 }
 
 
-                                if ($wallet != $post_wallet || $total_balance_to_pay != $post_total_pay) {
+                                if($wallet != $post_wallet || $total_balance_to_pay != $post_total_pay) {
                                         Yii::app()->user->setFlash('checkout_error', "There an error found on checkout please fill carefully and check out again");
                                         $this->redirect(array('CheckOut/CheckOut'));
                                 }
-                                if ($bill_address_id != '' && $ship_address_id != '') {
+                                if($bill_address_id != '' && $ship_address_id != '') {
                                         $this->addOrder($bill_address_id, $ship_address_id, $cart);
                                         $order->shipping_method = $_REQUEST['shipping_value'];
 
-                                        if ($wallet > 0) {
+                                        if($wallet > 0) {
 
 
 
@@ -219,29 +221,29 @@ class GiftcardController extends Controller {
                                                 /* wallet entry ends */
 
                                                 $gift_packing = $this->giftpack($order->id);
-                                                if ($gift_packing > 0) {
+                                                if($gift_packing > 0) {
                                                         $order->gift_option = 1;
                                                         $order->rate = $gift_packing;
                                                 }
-                                                if ($post_total_pay == 0) {
+                                                if($post_total_pay == 0) {
                                                         $order->payment_mode = 1;
                                                         $order->wallet = $wallet;
                                                 } else {
-                                                        if ($post_total_pay != 0 && $_POST['wallet_amount'] != 0) {
+                                                        if($post_total_pay != 0 && $_POST['wallet_amount'] != 0) {
                                                                 $order->payment_mode = 4;
 
-                                                                if ($_POST['payment_method'] == 2) {
+                                                                if($_POST['payment_method'] == 2) {
                                                                         $order->netbanking = $post_total_pay;
                                                                         $order->wallet = $wallet;
-                                                                } else if ($_POST['payment_method'] == 3) {
+                                                                } else if($_POST['payment_method'] == 3) {
                                                                         $order->paypal = $post_total_pay;
                                                                         $order->wallet = $wallet;
                                                                 }
                                                         } else {
                                                                 $order->payment_mode = $_POST['payment_method'];
-                                                                if ($_POST['payment_method'] == 2) {
+                                                                if($_POST['payment_method'] == 2) {
                                                                         $order->netbanking = $post_total_pay;
-                                                                } else if ($_POST['payment_method'] == 3) {
+                                                                } else if($_POST['payment_method'] == 3) {
                                                                         $order->paypal = $post_total_pay;
                                                                 }
                                                         }
@@ -252,13 +254,13 @@ class GiftcardController extends Controller {
                                                 $order->bill_address_id = $bill_address_id;
                                                 $order->ship_address_id = $ship_address_id;
                                                 $order->order_date = date('Y-m-d H:i:s');
-                                                if ($order->save()) {
+                                                if($order->save()) {
                                                         Cart::model()->deleteAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
                                                         $this->updateorderproduct($order->id);
-                                                        if ($user->save()) {
+                                                        if($user->save()) {
                                                                 Yii::app()->session['user'] = $user;
                                                         }
-                                                        if ($discount_rate != 0) {
+                                                        if($discount_rate != 0) {
                                                                 $this->updatecoupon($coupen);
                                                         }
 
@@ -272,19 +274,19 @@ class GiftcardController extends Controller {
                                                 Cart::model()->deleteAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
 
                                                 $gift_packing = $this->giftpack($order->id);
-                                                if ($gift_packing > 0) {
+                                                if($gift_packing > 0) {
                                                         $order->gift_option = 1;
                                                         $order->rate = $gift_packing;
                                                 }
-                                                if ($discount_rate != 0) {
+                                                if($discount_rate != 0) {
                                                         $this->updatecoupon($coupen);
                                                 }
 
                                                 $order->payment_mode = $_POST['payment_method'];
-                                                if ($_POST['payment_method'] == 2) {
+                                                if($_POST['payment_method'] == 2) {
                                                         $order->netbanking = $_REQUEST['total_pay'];
                                                         $order->paypal = "";
-                                                } else if ($_POST['payment_method'] == 3) {
+                                                } else if($_POST['payment_method'] == 3) {
                                                         $order->paypal = $_REQUEST['total_pay'];
                                                         $order->netbanking = "";
                                                 }
@@ -296,11 +298,11 @@ class GiftcardController extends Controller {
                                                 $order_shipping_detils = UserAddress::model()->findBypk($ship_address_id);
 //  $order->status = 1;
 
-                                                if ($order->save()) {
+                                                if($order->save()) {
 
                                                         $this->updateorderproduct($order->id);
 //$this->redirect(array('OrderHistory'));
-                                                        if ($post_total_pay != 0) {
+                                                        if($post_total_pay != 0) {
 
                                                                 /* payment action goes here */
 //                                                                        if (isset(Yii::app()->session['currency'])) {
@@ -309,7 +311,7 @@ class GiftcardController extends Controller {
 //                                                                                $order->netbanking = $order->netbanking;
 //                                                                        }
 
-                                                                if ($order->netbanking != '') {
+                                                                if($order->netbanking != '') {
                                                                         $hdfc_details = array();
                                                                         $hdfc_details['description'] = 'Laksyah Products';
                                                                         $hdfc_details['order'] = $order->id;
@@ -332,7 +334,7 @@ class GiftcardController extends Controller {
                                                                         $hdfc_details['ship_email'] = Yii::app()->session['user']['email'];
                                                                         $hdfc_details['bill_phone_number'] = Yii::app()->session['user']['phone_no_1'];
                                                                         $this->render('hdfcpay', array('hdfc_details' => $hdfc_details, 'aid' => '20951', 'sec' => 'b837f49de88e6be36f077b6928c43bf9'));
-                                                                } else if ($order->paypal != '') {
+                                                                } else if($order->paypal != '') {
 
                                                                         $pid = time();
                                                                         // $totaltopay = round(Currency::model()->findBypk(2)->rate * $order->paypal, 2);
@@ -367,8 +369,8 @@ class GiftcardController extends Controller {
                 $model->CB = Yii::app()->session['user']['id'];
                 $model->DOC = date('Y-m-d');
                 $model->userid = Yii::app()->session['user']['id'];
-                if ($model->validate()) {
-                        if ($model->save()) {
+                if($model->validate()) {
+                        if($model->save()) {
                                 return $model->id;
                         } else {
 
@@ -383,7 +385,7 @@ class GiftcardController extends Controller {
         public function actionPayment() {
                 $model = UserGiftscardHistory::model()->findByPk(Yii::app()->session['user_gift_id']);
                 $voucher_coupon = new Coupons;
-                if (!empty($model)) {
+                if(!empty($model)) {
                         $model->unique_code = substr(str_shuffle(md5(time())), 0, 10);
                         $model->save();
                         $voucher_coupon->gift_card_amount = $model->amount;
@@ -436,7 +438,7 @@ class GiftcardController extends Controller {
                 $new_card->amount = $card_details->amount;
                 $new_card->status = 1;
                 $new_card->date = date('y-m-d');
-                if ($new_card->validate()) {
+                if($new_card->validate()) {
                         $new_card->save();
                         Yii::app()->session['user_gift_id'] = $new_card->id; /* usergiftcard history table data id for unique id saving after paymrnt */
                         return true;

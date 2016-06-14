@@ -20,6 +20,8 @@
  * @property integer $UB
  * @property string $DOC
  * @property string $DOU
+ * @property string $email_verification
+ * @property string $verify_code
  */
 class UserDetails extends CActiveRecord {
 
@@ -37,8 +39,8 @@ class UserDetails extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
-                    array('first_name, last_name, dob, email,  phone_no_2', 'required'),
-                    array('newsletter, status, phone_no_1, phone_no_2,CB, UB', 'numerical', 'integerOnly' => true),
+                    array('first_name, last_name, dob, email,  phone_no_2,email_verification', 'required'),
+                    array('newsletter, status, phone_no_1, phone_no_2,CB, UB,email_verification,verify_code', 'numerical', 'integerOnly' => true),
                     array('first_name, last_name, email, fax', 'length', 'max' => 100),
                     array('password, confirm', 'length', 'max' => 225),
                     array('DOU', 'safe'),
@@ -47,7 +49,7 @@ class UserDetails extends CActiveRecord {
                     // array('newsletter', 'numerical', 'min' => 1, 'max' => 1,'message'=>''),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, first_name, last_name,dob, gender,email, phone_no_1, phone_no_2, fax, password, confirm, newsletter, status, CB, UB, DOC, DOU', 'safe', 'on' => 'search'),
+                    array('id, first_name, last_name,dob, gender,email, phone_no_1, phone_no_2, fax, password, confirm, newsletter, status, CB, UB, DOC, DOU,email_verification,verify_code', 'safe', 'on' => 'search'),
                     array('first_name,last_name,dob,gender,password,email,confirm', 'required', 'on' => 'create'),
                     array('email', 'email', 'on' => 'create'),
                 );
@@ -87,6 +89,8 @@ class UserDetails extends CActiveRecord {
                     'UB' => 'Ub',
                     'DOC' => 'Doc',
                     'DOU' => 'Dou',
+                    'email_verification' => 'Email Verification',
+                    'verify_code' => 'Email Verification Code',
                 );
         }
 
@@ -125,6 +129,8 @@ class UserDetails extends CActiveRecord {
                 $criteria->compare('UB', $this->UB);
                 $criteria->compare('DOC', $this->DOC, true);
                 $criteria->compare('DOU', $this->DOU, true);
+                $criteria->compare('email_verification', $this->email_verification);
+                $criteria->compare('verify_code', $this->verify_code);
 
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,

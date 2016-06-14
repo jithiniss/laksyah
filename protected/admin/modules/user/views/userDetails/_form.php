@@ -62,7 +62,7 @@
     <div class="form-group">
         <?php echo $form->labelEx($model, 'Gender', array('class' => 'col-sm-2 control-label')); ?>
         <div class="col-sm-10">
-            <?php echo $form->dropDownList($model, 'gender', array('male' => "male", 'female' => "fe-male"), array('class' => 'form-control')); ?>
+            <?php echo $form->dropDownList($model, 'gender', array('male' => "male", 'female' => "fe-male"), array('empty' => 'Select Gender', 'class' => 'form-control')); ?>
             <?php echo $form->error($model, 'Gender'); ?>
         </div>
     </div>
@@ -72,6 +72,13 @@
         </div>
         <?php echo $form->error($model, 'email'); ?>
     </div>
+    <div class="form-group">
+        <?php echo $form->labelEx($model, 'email_verification', array('class' => 'col-sm-2 control-label')); ?>
+        <div class="col-sm-10"><?php echo $form->dropDownList($model, 'email_verification', array('1' => "Verified", '0' => "Not Verified"), array('empty' => 'Select', 'class' => 'form-control')); ?>
+        </div>
+        <?php echo $form->error($model, 'email_verification'); ?>
+    </div>
+
 
     <div class="form-group">
         <?php echo $form->labelEx($model, 'password', array('class' => 'col-sm-2 control-label')); ?>
