@@ -306,7 +306,7 @@ class SiteController extends Controller {
                         $model->date = date('Y-m-d');
                         if ($model->validate()) {
                                 if ($model->save()) {
-                                        // $this->SuccessMail();
+//                                        $this->SuccessMail($model);
                                         Yii::app()->user->setFlash('newsletter', " Your email sent successfully");
                                 } else {
                                         Yii::app()->user->setFlash('error_newsletter', "Error Occured");
@@ -347,18 +347,18 @@ class SiteController extends Controller {
                 $this->render('blogs', array('dataProvider' => $dataProvider));
         }
 
-        public function SuccessMail() {
+        public function SuccessMail($model) {
 
                 //$user = $model->email;
                 $user = 'shahana@intersmart.in';
-                $user_subject = 'News Letter Confirmation';
-                $user_message = 'Your Email added  successfully in our news letter!';
+                $user_subject = 'Your Email has been successfully added in our News Letter!';
+                $user_message = $this->renderPartial('mail/_user_newsletter_email', array('model' => $model), true);
 
                 // Always set content-type when sending HTML email
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                 // More headers
-                $headers .= 'From: <no-reply@intersmarthosting.in>' . "\r\n";
+                $headers .= 'From: <no-reply@beta.laksyah.com>' . "\r\n";
                 //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
                 // echo $user_message;
                 // echo $admin_message;
@@ -366,6 +366,29 @@ class SiteController extends Controller {
                 // exit;
                 mail($user, $user_subject, $user_message, $headers);
         }
+
+//        public function SuccessMail($model) {
+//                //$user = $model->email;
+//                $user = 'shahana@intersmart.in';
+//                $user_subject = 'Your Email has been successfully added in our News Letter!';
+//                $user_message = $this->renderPartial('_user_newsletter_email', array('model' => $model), true);
+//
+//                $admin = 'shahana@intersmart.in';
+//                $admin_subject = '' . $model->first_name . ' has been successfully added Email to News Letter';
+//                $admin_message = $this->renderPartial('_admin_newsletter_email', array('model' => $model), true);
+//                // Always set content-type when sending HTML email
+//                $headers = "MIME-Version: 1.0" . "\r\n";
+//                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+//                // More headers
+//                $headers .= 'From: <no-reply@intersmarthosting.in>' . "\r\n";
+//                //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
+//                // echo $user_message;
+//                // echo $admin_message;
+//                //unset(Yii::app()->session['orderid']);
+//
+//                mail($user, $user_subject, $user_message, $headers);
+//                mail($admin, $admin_subject, $admin_message, $headers);
+//        }
 
         public function actionBlogDetails($blog) {
                 $model = Blog::model()->findByPk($blog);
@@ -480,6 +503,12 @@ class SiteController extends Controller {
         public function actionCareers() {
                 $model = StaticPage::model()->findByPk(14);
                 $this->render('careers', array('model' => $model));
+        }
+
+        public function siteURL() {
+                $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+                $domainName = $_SERVER['HTTP_HOST'];
+                return $protocol . $domainName;
         }
 
 }
