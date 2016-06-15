@@ -366,18 +366,18 @@
                                                                 <?php if (!empty($color_name)) { ?>  <p><span>Color:</span>	<?php echo $color_name->color_name; ?></p> <?php } ?>
                                                                 <?php if (!empty($size_name)) { ?> <p><span>Size:</span><?php echo $size_name->size; ?></p> <?php } ?>
                                                                 <p><span>Qty:</span>	<?php echo $cart->quantity; ?></p>
-                                                                <p><span>Price:</span><?php echo $prod_details->price; ?></p>
+                                                                <p><span>Price:</span><?php echo Yii::app()->Discount->Discount($prod_details); ?></p>
                                                                 <?php
                                                                 $trimstring = substr($prod_details->description, 0, 100);
                                                                 ?>
         <!--                                                                <p><?= $trimstring; ?></p>-->
                                                                 <?php
-                                                                if ($prod_details->discount) {
-                                                                        $price = $prod_details->price - $prod_details->discount;
-                                                                } else {
-                                                                        $price = $prod_details->price;
-                                                                }
-
+//                                                                if ($prod_details->discount) {
+//                                                                        $price = $prod_details->price - $prod_details->discount;
+//                                                                } else {
+//                                                                        $price = $prod_details->price;
+//                                                                }
+                                                                $price = Yii::app()->Discount->DiscountAmount($prod_details);
                                                                 $cart_qty = $cart->quantity;
                                                                 $tot_price = ($cart_qty * $price);
                                                                 $cart_rate = $cart->rate;

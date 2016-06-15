@@ -91,7 +91,7 @@ class CheckOutController extends Controller {
 
                         foreach ($carts as $cart) {
                                 $prod_details = Products::model()->findByPk($cart->product_id);
-                                $producttotal = $prod_details->price * $cart->quantity;
+                                $producttotal = Yii::app()->Discount->DiscountAmount($prod_details) * $cart->quantity;
                                 if ($cart->gift_option != 0) {
                                         $gift += $cart->rate;
                                 }
@@ -154,7 +154,7 @@ class CheckOutController extends Controller {
                         $carts = Cart::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
                         foreach ($carts as $cart) {
                                 $prod_details = Products::model()->findByPk($cart->product_id);
-                                $producttotal = $prod_details->price * $cart->quantity;
+                                $producttotal = Yii::app()->Discount->DiscountAmount($prod_details) * $cart->quantity;
                                 if ($cart->gift_option != 0) {
                                         $gift += $cart->rate;
                                 }
@@ -263,7 +263,7 @@ class CheckOutController extends Controller {
 
                         foreach ($carts as $cart) {
                                 $prod_details = Products::model()->findByPk($cart->product_id);
-                                $producttotal = $prod_details->price * $cart->quantity;
+                                $producttotal = Yii::app()->Discount->DiscountAmount($prod_details) * $cart->quantity;
                                 if ($cart->gift_option != 0) {
                                         $gift += $cart->rate;
                                 }
@@ -761,8 +761,8 @@ class CheckOutController extends Controller {
 
                         }
                         foreach ($cart as $car) {
-                                $product_value = Products::model()->findByPk($car->product_id)->price;
-                                $subtotal = $subtotal + ($car->quantity * $product_value) + $car->rate;
+                                $product_value = Products::model()->findByPk($car->product_id);
+                                $subtotal = $subtotal + ($car->quantity * Yii::app()->Discount->DiscountAmount($product_value)) + $car->rate;
                         }
                 }
 
@@ -775,8 +775,8 @@ class CheckOutController extends Controller {
                 }
                 if (!empty($cart)) {
                         foreach ($cart as $car) {
-                                $product_value = Products::model()->findByPk($car->product_id)->price;
-                                $subtotal = $subtotal + ($car->quantity * $product_value);
+                                $product_value = Products::model()->findByPk($car->product_id);
+                                $subtotal = $subtotal + ($car->quantity * Yii::app()->Discount->DiscountAmount($product_value));
                         }
                 }
                 return Yii::app()->Currency->convert($subtotal);
@@ -808,11 +808,12 @@ class CheckOutController extends Controller {
 
                                 $price = Options::model()->findByPk($carts->options)->amount;
                         } else {
-                                if ($prod_details->discount) {
-                                        $price = $prod_details->price - $prod_details->discount;
-                                } else {
-                                        $price = $prod_details->price;
-                                }
+//                                if ($prod_details->discount) {
+//                                        $price = $prod_details->price - $prod_details->discount;
+//                                } else {
+//                                        $price = $prod_details->price;
+//                                }
+                                $price = Yii::app()->Discount->DiscountAmount($prod_details);
                         }
                         $tot_price = $cart_qty * $price;
                         $total+= $tot_price;

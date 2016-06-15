@@ -284,7 +284,7 @@
                                                                 $size_name = OptionCategory::model()->findByPk($sizes->size_id);
                                                         }
                                                         ?>
-                                                        <?php $producttotal = $prod_details->price * $cart->quantity; ?>
+                                                        <?php $producttotal = Yii::app()->Discount->DiscountAmount($prod_details) * $cart->quantity; ?>
                                                         <div class="cart_product_detail">
 
                                                                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?php echo $folder; ?>/<?php echo $prod_details->id; ?>/small.<?php echo $prod_details->main_image; ?>" class="img-responsive crt">
@@ -292,10 +292,10 @@
 
                                                                 <h3><?php echo $prod_details->product_name; ?><span class="pull-right"><strong><?php
                                                                                         if (isset(Yii::app()->session['currency'])) {
-                                                                                                $prod_price = round($prod_details->price, 2) * $cart->quantity;
+                                                                                                $prod_price = round(Yii::app()->Discount->DiscountAmount($prod_details), 2) * $cart->quantity;
                                                                                                 echo Yii::app()->Currency->convert($prod_price);
                                                                                         } else {
-                                                                                                $prod_price = $prod_details->price * $cart->quantity;
+                                                                                                $prod_price = Yii::app()->Discount->DiscountAmount($prod_details) * $cart->quantity;
                                                                                                 echo Yii::app()->Currency->convert($prod_price);
                                                                                         }
                                                                                         ?>
@@ -304,7 +304,8 @@
 
                                                                 <?php if (!empty($color_name)) { ?>  <p><span>Color:</span>	<?php echo $color_name->color_name; ?></p> <?php } ?>
                                                                 <?php if (!empty($size_name)) { ?> <p><span>Size:</span><?php echo $size_name->size; ?></p> <?php } ?>
-                                                                <p><span>Qty:</span><?php echo $cart->quantity; ?></p>
+                                                                <p><span>Qty:</span> <?php echo $cart->quantity; ?></p>
+                                                                <p><span>Price:</span> <?php echo Yii::app()->Discount->Discount($prod_details); ?></p>
                                                                 <div class="clearfix"></div>
 
                                                         </div>
