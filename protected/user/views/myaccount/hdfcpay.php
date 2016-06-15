@@ -1,4 +1,3 @@
-
 <form  method="post" action="http://beta.laksyah.com/hdfcpay/post.php" name="frmTransaction" id="frmTransaction" >
 
 
@@ -12,7 +11,7 @@
                 </div>
         </div>
 
-        <table width="600" cellpadding="2" cellspacing="2" border="0" style="display:block;">
+        <table width="600" cellpadding="2" cellspacing="2" border="0" style="display:none;">
                 <tr>
                         <th colspan="2">Transaction Details</th>
                 </tr>

@@ -16,7 +16,7 @@ class MyWalletController extends Controller {
 
         public function actionIndex() {
                 $model = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
-                $order_billing_details = UserAddress::model()->findAllByAttributes(array('userid' => Yii::app()->session['user']['id']));
+                $order_billing_details = UserAddress::model()->findByAttributes(array('userid' => Yii::app()->session['user']['id']));
                 if (!empty($model)) {
                         $wallet_amount = $model->wallet_amt;
                         $wallet_add = new WalletHistory('addWallet1');
@@ -37,7 +37,7 @@ class MyWalletController extends Controller {
                                                         $hdfc_details = array();
                                                         $hdfc_details['description'] = 'Laksyah Wallet';
                                                         $hdfc_details['order'] = $model->id;
-                                                        $hdfc_details['totaltopay'] = $wallet_add->balance_amt;
+                                                        $hdfc_details['totaltopay'] = $entry_amount;
                                                         $hdfc_details['bill_name'] = $model->first_name . ' ' . $model->last_name;
                                                         $hdfc_details['bill_address'] = $order_billing_details->address_1 . ' ' . $order_billing_details->address_2;
                                                         $hdfc_details['bill_city'] = $order_billing_details->city;
@@ -49,7 +49,8 @@ class MyWalletController extends Controller {
 
                                                         $hdfc_details['ship_name'] = $order_billing_details->first_name . ' ' . $order_billing_details->last_name;
                                                         $hdfc_details['ship_address'] = $order_billing_details->address_1 . ' ' . $order_billing_details->address_2;
-                                                        $hdfc_details['ship_city'] = $order_billing_details->city;
+                                                        //wallet_id
+                                                        $hdfc_details['ship_city'] = $wallet_add->id;
                                                         $hdfc_details['ship_state'] = $order_billing_details->state;
                                                         $hdfc_details['ship_postal_code'] = $order_billing_details->postcode;
                                                         $hdfc_details['ship_country'] = Countries::model()->findbypk($order_billing_details->country)->country_name;
@@ -78,7 +79,7 @@ class MyWalletController extends Controller {
          * if payment success
          */
 
-        public function actionCreditSuccess($payid, $user_id, $wallet_id) {
+        public function actionCreditSuccess($payid, $user_id, $wallet_id, $tid, $amt) {
 
                 $user_wallet = UserDetails::model()->findByPk($user_id);
                 $wallet_history = WalletHistory::model()->findByPk($wallet_id);
@@ -97,7 +98,7 @@ class MyWalletController extends Controller {
                                                 Yii::app()->user->setFlash('wallet_success', "Money Added Successfully");
                                                 $this->SuccessMail($wallet_history->id);
 
-                                                $this->render("wallet_success");
+                                                $this->render('wallet_success', ['payid' => $payid, 'tid' => $tid, 'amt' => $amt]);
                                                 // $this->render("index");
                                         } else {
                                                 $wallet_history->delete();

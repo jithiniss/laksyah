@@ -865,7 +865,7 @@ class CheckOutController extends Controller {
 
         /* mail send to admin and user */
 
-        public function actionOrderSuccess($payid) {
+        public function actionOrderSuccess($payid, $tid, $amt) {
                 if (isset(Yii::app()->session['orderid']) && Yii::app()->session['user']['id'] != '') {
                         $order = Order::model()->findByPk(Yii::app()->session['orderid']);
                         $userdetails = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
@@ -903,7 +903,7 @@ class CheckOutController extends Controller {
 
                                         Yii::app()->session['user'] = $userdetails;
                                         unset(Yii::app()->session['orderid']);
-                                        $this->render('order_success');
+                                        $this->render('payment_success', ['payid' => $payid, 'tid' => $tid, 'amt' => $amt]);
                                 }
                         } else {
                                 $this->redirect(array('OrderFailed'));

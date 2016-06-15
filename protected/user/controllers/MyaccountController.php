@@ -546,11 +546,11 @@ class MyaccountController extends Controller {
                                                         $hdfc_details['bill_email'] = Yii::app()->session['user']['email'];
                                                         $hdfc_details['bill_phone_number'] = Yii::app()->session['user']['phone_no_1'];
 
-                                                        $hdfc_details['ship_name'] = $order_shipping_detils->first_name . ' ' . $order_shipping_detils->last_name;
+                                                        $hdfc_details['ship_name'] = $order_billing_details->first_name . ' ' . $order_billing_details->last_name;
                                                         $hdfc_details['ship_address'] = $enquiry_id;
                                                         $hdfc_details['ship_city'] = $history_id;
                                                         $hdfc_details['ship_state'] = $model->id;
-                                                        $hdfc_details['ship_postal_code'] = $order_shipping_detils->postcode;
+                                                        $hdfc_details['ship_postal_code'] = $order_billing_details->postcode;
                                                         $hdfc_details['ship_country'] = Countries::model()->findbypk($order_shipping_detils->country)->country_name;
                                                         $hdfc_details['ship_email'] = Yii::app()->session['user']['email'];
                                                         $hdfc_details['bill_phone_number'] = Yii::app()->session['user']['phone_no_1'];
@@ -588,7 +588,7 @@ class MyaccountController extends Controller {
 
         /* mail send to admin and user */
 
-        public function actionMakePaymentSuccess($enquiry_id, $history_id, $payment_id, $tranid) {
+        public function actionMakePaymentSuccess($enquiry_id, $history_id, $payment_id, $tranid, $tid, $amt) {
 
                 if (isset(Yii::app()->session['user']['id']) != '') {
                         $enquiry = ProductEnquiry::model()->findByPk($enquiry_id);
@@ -621,12 +621,13 @@ class MyaccountController extends Controller {
                                 $make_payment->status = 1;
                                 if ($make_payment->save(FALSE)) {
 
-// $this->PaymentSuccessMail($enquiry->id, $make_payment->id);
+                                        $this->PaymentSuccessMail($enquiry->id, $make_payment->id);
                                         Yii::app()->session['user'] = $user;
-                                        if ($enquiry->balance_to_pay == 0) {
+                                        /* if ($enquiry->balance_to_pay == 0) {
 
-                                                $this->redirect(array('AddToOrder', 'enq_id' => $enquiry->id));
-                                        }
+                                          $this->redirect(array('AddToOrder', 'enq_id' => $enquiry->id));
+                                          } */
+                                        $this->render('wallet_success', ['payid' => $tranid, 'tid' => $tid, 'amt' => $amt]);
                                 }
                         } else {
                                 $this->redirect(array('MakePaymentError', 'enquiry_id' => $enquiry_id, 'history_id' => $history_id, 'payment_id' => $model->id));

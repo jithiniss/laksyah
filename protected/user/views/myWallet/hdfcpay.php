@@ -1,4 +1,3 @@
-
 <form  method="post" action="http://beta.laksyah.com/hdfcpay/post.php" name="frmTransaction" id="frmTransaction" >
 
 
@@ -132,7 +131,7 @@
                 <tr>
                         <td class="fieldName">City</td>
                         <td align="left">
-                                <input name="ship_city" type="text" value="<?= $hdfc_details['wallet_id']; ?>" />            </td>
+                                <input name="ship_city" type="text" value="<?= $hdfc_details['ship_city']; ?>" />            </td>
                 </tr>
 
                 <tr>
