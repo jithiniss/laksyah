@@ -8,7 +8,7 @@
         <div class="row">
                 <?php echo $this->renderPartial('_menu'); ?>
                 <div class="col-sm-9 user_content">
-                        <h1>New Address Book</h1>
+                        <h1>Edit Address Book</h1>
                         <?php if (Yii::app()->user->hasFlash('success')): ?>
                                 <div class="alert alert-success">
                                         <strong>Success!</strong> <?php echo Yii::app()->user->getFlash('success'); ?>
@@ -22,7 +22,7 @@
                         <?php
                         $form = $this->beginWidget('CActiveForm', array(
                             'id' => 'user-address-form',
-                            'action' => Yii::app()->baseUrl . '/index.php/Myaccount/Newaddress/',
+                            'action' => Yii::app()->baseUrl . '/index.php/Myaccount/EditAddress/' . $model->id,
                             // Please note: When you enable ajax validation, make sure the corresponding
                             // controller action is handling ajax validation correctly.
                             // There is a call to performAjaxValidation() commented in generated controller code.

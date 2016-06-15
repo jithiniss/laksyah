@@ -319,6 +319,7 @@ class MyaccountController extends Controller {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         if (Yii::app()->session['user']['id'] != '') {
+
                                 $model = UserAddress::model()->findAllByAttributes(array('userid' => Yii::app()->session['user']['id']));
                                 $this->render('addressbook', array('model' => $model));
                         } else {
@@ -387,7 +388,10 @@ class MyaccountController extends Controller {
                                 $model = $this->checkDefault($model, 'default_billing_address');
                                 $model = $this->checkDefault($model, 'default_shipping_address');
                                 if ($model->save()) {
+                                        Yii::app()->user->setFlash('success', "your Address has been  successfully added");
                                         $this->redirect('addressbook');
+                                } else {
+                                        Yii::app()->user->setFlash('error', "Sorry! There is some error..");
                                 }
                         }
                         $this->render('newaddress', array('model' => $model));
@@ -402,33 +406,26 @@ class MyaccountController extends Controller {
                         $model = UserAddress::model()->findByPk($id);
                         if (isset($_POST['UserAddress'])) {
                                 $model->attributes = $_POST['UserAddress'];
-                                $model->userid = Yii::app()->session['user']['id'];
-                                $model = $this->checkDefault($model, 'default_billing_address');
-                                $model = $this->checkDefault($model, 'default_shipping_address');
-                                if ($model->save()) {
 
+                                if ($model->save()) {
+                                        Yii::app()->user->setFlash('success', "your Address has been  successfully updated");
                                         $this->redirect(array('Myaccount/Addressbook'));
+                                } else {
+                                        Yii::app()->user->setFlash('error', "Sorry! There is some error..");
                                 }
                         }
-                        $this->render('newaddress', array('model' => $model));
+                        $this->render('editaddress', array('model' => $model));
                 }
         }
 
-        public function actionDeleteAddress($id) {
+        public function actionDeleteAddress() {
                 if (!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
-                        $model = UserAddress::model()->deleteByPk($id);
-                        $this->redirect(array('Myaccount/Addressbook'));
-                }
-        }
-
-        public function actionDeletaddress($id) {
-                if (!isset(Yii::app()->session['user'])) {
-                        $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
-                } else {
-                        $model = UserAddress::model()->deleteByPk($id);
-                        $this->redirect('addressbook');
+                        if (isset($_GET['id'])) {
+                                $model = UserAddress::model()->deleteByPk($_GET['id']);
+                                $this->redirect(array('Myaccount/Addressbook'));
+                        }
                 }
         }
 
