@@ -8,7 +8,6 @@ class CartController extends Controller {
 
         public function actionIndex() {
                 $this->render('index');
-                echo "Hii";
         }
 
         public function actionRemovecart() {
