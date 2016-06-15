@@ -319,7 +319,6 @@ class MyaccountController extends Controller {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
                         if (Yii::app()->session['user']['id'] != '') {
-
                                 $model = UserAddress::model()->findAllByAttributes(array('userid' => Yii::app()->session['user']['id']));
                                 $this->render('addressbook', array('model' => $model));
                         } else {
@@ -779,7 +778,7 @@ class MyaccountController extends Controller {
                 if (!isset(Yii::app()->session['user'])) {
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 } else {
-                        $myorders = Order::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']), array('order' => 'order_date DESC'));
+                        $myorders = Order::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']), array('condition' => 'status != 0', 'order' => 'order_date DESC'));
                         $this->render('myorder_new', array('myorders' => $myorders));
                 }
         }

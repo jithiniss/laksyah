@@ -80,12 +80,12 @@
                                                         <form  id="form_id" name="submit"  method="POST" action="<?= Yii::app()->baseUrl; ?>/index.php/products/category/name/<?= $category_name ?>">
                                                                 Sort by
                                                                 <select name="category" onchange="products();">
-                                                                        <option value="">Type</option>
-                                                                        <option value="1">Best Seller</option>
-                                                                        <option value="2">Price Low To High</option>
-                                                                        <option value="3">Price High To Low</option>
-                                                                        <option value="4">Name A-Z</option>
-                                                                        <option value="5">Name Z-A</option>
+                                                                        <option <?= Yii::app()->session['sort_id'] == 0 ? 'selected' : ''; ?> value="">Type</option>
+                                                                        <option <?= Yii::app()->session['sort_id'] == 1 ? 'selected' : ''; ?> value="1">Best Seller</option>
+                                                                        <option <?= Yii::app()->session['sort_id'] == 2 ? 'selected' : ''; ?> value="2">Price Low To High</option>
+                                                                        <option <?= Yii::app()->session['sort_id'] == 3 ? 'selected' : ''; ?> value="3">Price High To Low</option>
+                                                                        <option <?= Yii::app()->session['sort_id'] == 4 ? 'selected' : ''; ?> value="4">Name A-Z</option>
+                                                                        <option <?= Yii::app()->session['sort_id'] == 5 ? 'selected' : ''; ?> value="5">Name Z-A</option>
                                                                 </select>
                                                         </form>
 

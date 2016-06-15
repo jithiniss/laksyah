@@ -35,24 +35,47 @@ class MenuCategory extends CApplicationComponent {
                                 }
                         }
                 }
+                $date = date('Y-m-d');
+                $prod_ids = DealProducts::model()->findByAttributes(array('date' => $date))->deal_products;
+                $product_id = 'id not in(' . $prod_ids . ') ';
 //                var_dump($find_in_set);
 //                exit;
                 $find_in_set = rtrim($find_in_set, ' OR');
-                if (!empty($find_in_set) && !empty($min) && !empty($max) && !empty($size)) {
-                        $condition = '(id  IN (SELECT product_id FROM option_details WHERE size_id = ' . $size . ')) AND (' . $find_in_set . ') AND (price > ' . $min . ' AND price <' . $max . ')';
-                        $order = '';
-                } elseif (!empty($find_in_set) && !empty($min) && !empty($max)) {
-                        $condition = '(' . $find_in_set . ') AND (price > ' . $min . ' AND price <' . $max . ')';
-                        $order = '';
-                } elseif (!empty($find_in_set) && !empty($categ)) {
-                        $condition = $find_in_set;
-                        $order = '';
-                } elseif (!empty($find_in_set) && !empty($size)) {
-                        $condition = '(id  IN (SELECT product_id FROM option_details WHERE size_id = ' . $size . ')) AND (' . $find_in_set . ')';
-                        $order = '';
-                } elseif (!empty($find_in_set)) {
-                        $condition = $find_in_set;
-                        $order = 'RAND()';
+                $product_id = rtrim($product_id, ' OR');
+                if (!empty($prod_ids)) {
+                        if (!empty($find_in_set) && !empty($min) && !empty($max) && !empty($size) && !empty($prod_ids)) {
+                                $condition = '(id  IN (SELECT product_id FROM option_details WHERE size_id = ' . $size . ')) AND (' . $find_in_set . ') AND (price > ' . $min . ' AND price <' . $max . ') OR (' . $product_id . ')';
+                                $order = '';
+                        } elseif (!empty($find_in_set) && !empty($min) && !empty($max) && !empty($prod_ids)) {
+                                $condition = '(' . $find_in_set . ') AND (price > ' . $min . ' AND price <' . $max . ') OR (' . $product_id . ')';
+                                $order = '';
+                        } elseif (!empty($find_in_set) && !empty($categ) && !empty($prod_ids)) {
+                                $condition = '(' . $find_in_set . ') OR (' . $product_id . ')';
+                                $order = '';
+                        } elseif (!empty($find_in_set) && !empty($size) && !empty($prod_ids)) {
+                                $condition = '(id  IN (SELECT product_id FROM option_details WHERE size_id = ' . $size . ')) AND (' . $find_in_set . ') AND (' . $product_id . ')';
+                                $order = '';
+                        } elseif (!empty($find_in_set) && !empty($prod_ids)) {
+                                $condition = '(' . $product_id . ') AND (' . $find_in_set . ')';
+                                $order = 'RAND()';
+                        }
+                } else {
+                        if (!empty($find_in_set) && !empty($min) && !empty($max) && !empty($size)) {
+                                $condition = '(id  IN (SELECT product_id FROM option_details WHERE size_id = ' . $size . ')) AND (' . $find_in_set . ') AND (price > ' . $min . ' AND price <' . $max . ')';
+                                $order = '';
+                        } elseif (!empty($find_in_set) && !empty($min) && !empty($max)) {
+                                $condition = '(' . $find_in_set . ') AND (price > ' . $min . ' AND price <' . $max . ') ';
+                                $order = '';
+                        } elseif (!empty($find_in_set) && !empty($categ) || !empty($prod_ids)) {
+                                $condition = '(' . $find_in_set . ') AND (' . $product_id . ')';
+                                $order = '';
+                        } elseif (!empty($find_in_set) && !empty($size)) {
+                                $condition = '(id  IN (SELECT product_id FROM option_details WHERE size_id = ' . $size . ')) AND (' . $find_in_set . ')';
+                                $order = '';
+                        } elseif (!empty($find_in_set)) {
+                                $condition = $find_in_set;
+                                $order = 'RAND()';
+                        }
                 }
 
 

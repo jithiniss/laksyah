@@ -268,6 +268,20 @@
                                                                                 ?>
                                                                         </strong></span>
                                                         </h3>
+                                                        <?php
+                                                        if (isset(Yii::app()->session['currency'])) {
+                                                                $currency_rate = Yii::app()->session['currency']->rate;
+                                                        } else {
+                                                                $currency_rate = 1;
+                                                        }
+                                                        $gift_limit = Extras::model()->findByPk(1);
+                                                        $gift_rate = Extras::model()->findByPk(2);
+                                                        if ($currency_rate * $prod_details->price <= $currency_rate * $gift_limit->value) {
+                                                                $gift_message = 0;
+                                                        } else {
+                                                                $gift_message = 1;
+                                                        }
+                                                        ?>
                                                         <div class="clearfix"></div>
 
                                                 </div>

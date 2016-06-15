@@ -42,7 +42,7 @@
                                                                         ?>
 
                                                                 </div>
-                                                                <div class="col-xs-6 col-sm-3 text-right"><?php if ($myorder->status == 1) { ?><strong class="label label-danger">Not Delivered</strong>  <a class="toggle_btn"><i class="fa fa-caret-up fa-caret-down"></i></a> <?php } else { ?><strong class="label label-success">Delivered</strong><a class="toggle_btn"><i class="fa fa-caret-up"></i></a>  <?php } ?></div>
+                                                                <div class="col-xs-6 col-sm-3 text-right"><?php if ($myorder->status == 2) { ?><strong class="label label-success">Delivered</strong>  <a class="toggle_btn"><i class="fa fa-caret-up fa-caret-down"></i></a> <?php } else { ?><strong class="label label-danger">Not Delivered</strong><a class="toggle_btn"><i class="fa fa-caret-up"></i></a>  <?php } ?></div>
                                                         </div>
                                                 </div>
                                                 <div class="order_tracking" style="display: <?php echo $ii == 1 ? 'block' : 'none'; ?>;">

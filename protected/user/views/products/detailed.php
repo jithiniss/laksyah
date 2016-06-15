@@ -1,5 +1,3 @@
-
-
 <?php
 $value = rtrim($product->category_id, ',');
 $ids = explode(',', $value);
@@ -170,19 +168,56 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                         <div class="product_ID">SKU: LKLEE1006</div>
                                         <?php if ($product->enquiry_sale == 1) { ?>
 
-                                                <div class="product_price"><span><?php echo Yii::app()->Discount->Discount($product); ?></span></div>
-                                        <?php } ?>
+
+                                                <?php
+                                                $today_deal_products = DealProducts::model()->findByAttributes(array('date' => date('Y-m-d')));
+                                                if (!empty($today_deal_products)) {
+
+
+
+                                                        $HiddenProducts = explode(',', $today_deal_products->deal_products);
+                                                        if (in_array($product->id, $HiddenProducts)) {
+                                                                if ($product->discount_type == 1) {
+                                                                        $discountRate = $product->price - $product->discount_rate;
+                                                                } else {
+                                                                        $discountRate = $product->price - ( $product->price * ($product->discount_rate / 100));
+                                                                }
+                                                                ?>
+                                                                <script>
+
+                                                                        $(document).ready(function () {
+
+                                                                                if ($('#clock').length) {
+                                                                                        $('#clock').countdown('<?= date('Y/m/d'); ?> 23:59:59').on('update.countdown', function (event) {
+                                                                                                var $this = $(this).html(event.strftime(''
+
+                                                                                                        + '<div class="digit">%H<span>Hrs</span></div><div class="digit">:</div>'
+                                                                                                        + '<div class="digit">%M<span>Min</span></div></div><div class="digit">:</div>'
+                                                                                                        + '<div class="last digit">%S<span>Sec</span></div>'));
+                                                                                        });
+                                                                                }
+                                                                        });
+                                                                </script>
+
+                                                                <p><span class="old_price"><?php echo Yii::app()->Currency->convert($product->price); ?></span>  <span class="discounted"><?php echo Yii::app()->Discount->Discount($product); ?></span></p>
+
+                                                                <div class="deal_timer">
+                                                                        <div class="deal_title">Deal Ends in:</div>
+                                                                        <div class="deal_time">
+                                                                                <div class="" id="clock"></div>
+                                                                        </div>
+                                                                        <div class="clearfix"></div>
+                                                                </div>
+                                                        <?php } else {
+                                                                ?>
+                                                                <div class="product_price"><span><?php echo Yii::app()->Discount->Discount($product); ?></span></div>
+                                                                <?php
+                                                        }
+                                                }
+                                        }
+                                        ?>
                                         <p class="tax_info"></p>
 
-                                        <?php if ($product->deal_day_status == 1 && $product->deal_day_date == date('Y-m-d')) { ?>
-                                                <div class="deal_timer">
-                                                        <div class="deal_title">Deal Ends in:</div>
-                                                        <div class="deal_time">
-                                                                <div class="" id="clock"></div>
-                                                        </div>
-                                                        <div class="clearfix"></div>
-                                                </div>
-                                        <?php } ?>
 
                                         <?php
                                         if ($product->enquiry_sale == 1) {
@@ -251,7 +286,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                         <h3>Watch Video</h3>
                                                         <div class="video_thumb">
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
                                                                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/video_thumb.jpg" alt=""/>
                                                                 <a class="video_link laksyah_video fancybox.iframe" href="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>"><i class="fa fa-play-circle-o"></i></a>
                                                         </div>
@@ -449,6 +484,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                                                                                 <?php
                                                                                 $form = $this->beginWidget('CActiveForm', array(
+                                                                                    'action' => Yii::app()->request->baseUrl . '/index.php/Products/Detail/name/' . $product->canonical_name,
                                                                                     'id' => 'product-enquiry-form',
                                                                                     'htmlOptions' => array('class' => 'form-horizontal', 'enctype' => 'multipart/form-data'),
                                                                                         // Please note: When you enable ajax validation, make sure the corresponding
@@ -519,7 +555,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                                                                                 <div class="modal-footer">
                                                                                         <?php echo CHtml::submitButton($model->isNewRecord ? 'SUBMIT' : 'Save', array('class' => 'btn btn-primary')); ?>
-                                                                                        <?php //echo CHtml::resetButton($model->isNewRecord ? 'Reset' : 'Save', array('class' => 'btn btn-default'));  ?>
+                                                                                        <?php //echo CHtml::resetButton($model->isNewRecord ? 'Reset' : 'Save', array('class' => 'btn btn-default'));     ?>
 
                                                                                 </div>
                                                                                 <?php $this->endWidget(); ?>
@@ -586,7 +622,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                         </div>
                                                                                 </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies" style="cursor: pointer;" >View Shipping and Return Policies</a></p>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies" style="cursor: pointer;" >View Shipping and Return Policies</a></p>-->
 
 
                                                                         </div>
@@ -630,7 +666,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                         </div>
                                                                                 </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
 
 
                                                                         </div>
@@ -696,7 +732,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                         </div>
                                                                                 </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
 
 
                                                                         </div>
@@ -740,7 +776,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                         </div>
                                                                                 </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
 
 
                                                                         </div>
@@ -780,7 +816,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                         </div>
                                                                 </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
 
 
                                                         </div>
@@ -818,7 +854,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                 </div>
                                                         </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
 
 
                                                 </div>
@@ -975,15 +1011,15 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
         $(document).ready(function () {
 
-                if ($('#clock').length) {
-                        $('#clock').countdown('<?= date('Y/m/d'); ?> 23:59:59').on('update.countdown', function (event) {
-                                var $this = $(this).html(event.strftime(''
-
-                                        + '<div class="digit">%H<span>Hrs</span></div><div class="digit">:</div>'
-                                        + '<div class="digit">%M<span>Min</span></div></div><div class="digit">:</div>'
-                                        + '<div class="last digit">%S<span>Sec</span></div>'));
-                        });
-                }
+//                if ($('#clock').length) {
+//                        $('#clock').countdown('<?= date('Y/m/d'); ?> 23:59:59').on('update.countdown', function (event) {
+//                                var $this = $(this).html(event.strftime(''
+//
+//                                        + '<div class="digit">%H<span>Hrs</span></div><div class="digit">:</div>'
+//                                        + '<div class="digit">%M<span>Min</span></div></div><div class="digit">:</div>'
+//                                        + '<div class="last digit">%S<span>Sec</span></div>'));
+//                        });
+//                }
 
 
 //return ploicy
@@ -1004,8 +1040,6 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                         var id = $(this).attr('id');
                         optionValidation(id);
-
-
                 });
                 $(".buy_now").click(function () {
 
@@ -1015,7 +1049,6 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                         setTimeout(function () {
                                 window.location.replace(baseurl + "/cart/Mycart/");
                         }, 1000);
-
                         //  window.location.origin + baseurl + "cart/Mycart";
 
 
@@ -1056,7 +1089,6 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                         }
                 });
         });
-
         /*
          * product option validation
          */

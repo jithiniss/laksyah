@@ -44,7 +44,7 @@
 
 <script>
         function products() {
-            document.getElementById("form_id").submit();
+                document.getElementById("form_id").submit();
         }
 </script>
 
@@ -54,58 +54,60 @@
 
 
         $(document).ready(function () {
+//$(window).load(function() {
 
-            if ($('#clock').length) {
-                $('#clock').countdown('<?= date('Y/m/d'); ?> 23:59:59').on('update.countdown', function (event) {
-                        var $this = $(this).html(event.strftime(''
+                if ($('#clock').length) {
+                        $('#clock').countdown('<?= date('Y/m/d'); ?> 23:59:59').on('update.countdown', function (event) {
+                                var $this = $(this).html(event.strftime(''
 
-                        + '<div class="digit">%H<span>Hrs</span></div><div class="digit">:</div>'
+                                        + '<div class="digit">%H<span>Hrs</span></div><div class="digit">:</div>'
                                         + '<div class="digit">%M<span>Min</span></div></div><div class="digit">:</div>'
-                            + '<div class="last digit">%S<span>Sec</span></div>'));
-                                                });
-            }
-            $(".add_to_cart").click(function () {
+                                        + '<div class="last digit">%S<span>Sec</span></div>'));
+                        });
+                }
+                $(".add_to_cart").click(function () {
 
-                                                        var id = $(this).attr('id');
-                var canname = $("#cano_name_" + id).val();
-                                                        var qty = $(".qty_" + id).val();
-                addtocart(canname, qty);
-            });
+                        var id = $(this).attr('id');
+                        var canname = $("#cano_name_" + id).val();
+                        var qty = $(".qty_" + id).val();
+                        addtocart(canname, qty);
+                });
         });
 
-                                                        function addtocart(canname, qty) {
+        function addtocart(canname, qty) {
 
-            $.ajax({
-                type: "POST",
-                                        url: baseurl + 'cart/Buynow',
-                                data: {cano_name: canname, qty: qty}
-                                        }).done(function (data) {
-                                        $(".cart_box").html(data);
-                $(".cart_box").show();
-                                        $("html, body").animate({scrollTop: 0}, "slow");
-                                        hideLoader();
-            });
+                $.ajax({
+                        type: "POST",
+                        url: baseurl + 'cart/Buynow',
+                        data: {cano_name: canname, qty: qty}
+                }).done(function (data) {
+                        $(".cart_box").html(data);
+                        $(".cart_box").show();
+                        $("html, body").animate({scrollTop: 0}, "slow");
+                        hideLoader();
+                });
         }
-                        function removecart(cartid, canname) {
-            $.ajax({
-                                type: "POST",
-                                        cache: 'false',
-                                        async: false,
-                                        url: baseurl + 'cart/Removecart',
-                                data: {cartid: cartid, cano_name: canname}
-                                        }).done(function (data) {
+        function removecart(cartid, canname) {
+                $.ajax({
+                        type: "POST",
+                        cache: 'false',
+                        async: false,
+                        url: baseurl + 'cart/Removecart',
+                        data: {cartid: cartid, cano_name: canname}
+                }).done(function (data) {
 
-                $(".cart_box").html(data);
-                                        $(".cart_box").show();
-                                        $("html, body").animate({scrollTop: 0}, "slow");
-                                        hideLoader();
-            });
+                        $(".cart_box").html(data);
+                        $(".cart_box").show();
+                        $("html, body").animate({scrollTop: 0}, "slow");
+                        hideLoader();
+                });
         }
 
-                        function showLoader() {
-            $('.over-lay').show();         }
-                                        function hideLoader() {
-                                        $('.over-lay').hide();
+        function showLoader() {
+                $('.over-lay').show();
+        }
+        function hideLoader() {
+                $('.over-lay').hide();
         }
 
 </script>

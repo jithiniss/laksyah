@@ -31,6 +31,35 @@ class DiscountPrice extends CApplicationComponent {
                 }
         }
 
+        public function DiscountAmount($model) {
+
+                //discount rate value not equal to null//
+
+                if ($model->discount_rate != 0) {
+
+                        //check date for special price //
+                        if ($model->special_price_from != 0 && $model->special_price_to != 0) {
+
+                                $from = $model->special_price_from;
+                                $to = $model->special_price_to;
+
+                                if (strtotime($from) <= strtotime($today) && strtotime($to) >= strtotime($today)) {
+                                        $value = $this->DiscountType($model);
+                                        return $value;
+                                } else {
+                                        return $model->price;
+                                }
+                        }
+                        //no date limitation//
+                        else {
+                                $value = $this->DiscountType($model);
+                                return $value;
+                        }
+                } else {
+                        return $model->price;
+                }
+        }
+
         public function DiscountType($data) {
                 if ($data->discount_type == 1) {
                         $discountRate = $data->price - $data->discount_rate;
