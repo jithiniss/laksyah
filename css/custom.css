@@ -262,6 +262,13 @@ span.empty {
                 margin-left: 13px;
         }
 }
+@media (min-width: 480px) and (max-width: 700px) {
+        .cat_title h3 {
+                font-size: 20px;
+        }
+
+
+}
 
 .over-lay{
         width:100%;

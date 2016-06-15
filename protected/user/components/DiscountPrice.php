@@ -7,25 +7,26 @@ class DiscountPrice extends CApplicationComponent {
                 //discount rate value not equal to null//
 
                 if ($model->discount_rate != 0) {
-
-                        //check date for special price //
-                        if ($model->special_price_from != 0 && $model->special_price_to != 0) {
-
-                                $from = $model->special_price_from;
-                                $to = $model->special_price_to;
-
-                                if (strtotime($from) <= strtotime($today) && strtotime($to) >= strtotime($today)) {
+                        $today_deal_products = DealProducts::model()->findByAttributes(array('date' => date('Y-m-d')));
+                        if (!empty($today_deal_products)) {
+                                $HiddenProducts = explode(',', $today_deal_products->deal_products);
+                                if (in_array($model->id, $HiddenProducts)) {
+//                                        if ($product->discount_type == 1) {
+//                                                $discountRate = $product->price - $product->discount_rate;
+//                                        } else {
+//                                                $discountRate = $product->price - ( $product->price * ($product->discount_rate / 100));
+//                                        }
                                         $value = $this->DiscountType($model);
                                         return Yii::app()->Currency->convert($value);
                                 } else {
                                         return Yii::app()->Currency->convert($model->price);
                                 }
+                        } else {
+                                return Yii::app()->Currency->convert($model->price);
                         }
+
+                        //check date for special price //
                         //no date limitation//
-                        else {
-                                $value = $this->DiscountType($model);
-                                return Yii::app()->Currency->convert($value);
-                        }
                 } else {
                         return Yii::app()->Currency->convert($model->price);
                 }
@@ -34,27 +35,27 @@ class DiscountPrice extends CApplicationComponent {
         public function DiscountAmount($model) {
 
                 //discount rate value not equal to null//
-
                 if ($model->discount_rate != 0) {
-
-                        //check date for special price //
-                        if ($model->special_price_from != 0 && $model->special_price_to != 0) {
-
-                                $from = $model->special_price_from;
-                                $to = $model->special_price_to;
-
-                                if (strtotime($from) <= strtotime($today) && strtotime($to) >= strtotime($today)) {
+                        $today_deal_products = DealProducts::model()->findByAttributes(array('date' => date('Y-m-d')));
+                        if (!empty($today_deal_products)) {
+                                $HiddenProducts = explode(',', $today_deal_products->deal_products);
+                                if (in_array($model->id, $HiddenProducts)) {
+//                                        if ($product->discount_type == 1) {
+//                                                $discountRate = $product->price - $product->discount_rate;
+//                                        } else {
+//                                                $discountRate = $product->price - ( $product->price * ($product->discount_rate / 100));
+//                                        }
                                         $value = $this->DiscountType($model);
                                         return $value;
                                 } else {
                                         return $model->price;
                                 }
+                        } else {
+                                return $model->price;
                         }
+
+                        //check date for special price //
                         //no date limitation//
-                        else {
-                                $value = $this->DiscountType($model);
-                                return $value;
-                        }
                 } else {
                         return $model->price;
                 }
