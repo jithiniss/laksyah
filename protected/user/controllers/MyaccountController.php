@@ -405,7 +405,8 @@ class MyaccountController extends Controller {
                         $model = UserAddress::model()->findByPk($id);
                         if (isset($_POST['UserAddress'])) {
                                 $model->attributes = $_POST['UserAddress'];
-
+                                $model = $this->checkDefault($model, 'default_billing_address');
+                                $model = $this->checkDefault($model, 'default_shipping_address');
                                 if ($model->save()) {
                                         Yii::app()->user->setFlash('success', "your Address has been  successfully updated");
                                         $this->redirect(array('Myaccount/Addressbook'));
