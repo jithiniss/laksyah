@@ -16,7 +16,7 @@
                                                         <tr>
                                                                 <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Customer Name</p></td>
                                                                 <td>:</td>
-                                                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo $model->first_name; ?></p></td>
+                                                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo $model->name; ?></p></td>
                                                         </tr>
                                                         <tr>
                                                                 <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Email ID</p></td>
@@ -31,7 +31,7 @@
                                                         <tr>
                                                                 <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Country</p></td>
                                                                 <td>:</td>
-                                                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo $model->country0->country_name; ?></p></td>
+                                                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo $model->comment; ?></p></td>
                                                         </tr>
                                                         <tr>
                                                                 <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Date</p></td>

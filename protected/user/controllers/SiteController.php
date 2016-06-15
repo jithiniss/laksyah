@@ -332,6 +332,7 @@ class SiteController extends Controller {
                         $model->date = date("Y-m-d");
                         if ($model->validate()) {
                                 if ($model->save()) {
+//                                        $this->contactmail($model);
                                         Yii::app()->user->setFlash('success', " Your email sent successfully");
                                 } else {
                                         Yii::app()->user->setFlash('error', "Error Occured");
@@ -341,6 +342,21 @@ class SiteController extends Controller {
                         }
                 }
                 $this->render('contact_us', array('model' => $model));
+        }
+
+        public function contactmail($model) {
+                $admin = 'shahana@intersmart.in';
+
+                $admin_subject = 'laksyah.com:New Enquiry Recieved';
+                $admin_message = $this->renderPartial('mail/_admin_contact_email', array('model' => $model), true);
+
+                // Always set content-type when sending HTML email
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                // More headers
+                $headers .= 'From: <no-reply@beta.laksyah.com>' . "\r\n";
+
+                mail($admin, $admin_subject, $admin_message, $headers);
         }
 
         public function actionNewsLetter() {
