@@ -1,4 +1,4 @@
-<a href="<?php echo Yii::app()->request->baseUrl; ?>">HOME</a>
+<a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php">HOME</a>
 <?php
 $action = Yii::app()->controller->action->id;
 if ($action == 'category') {
