@@ -37,7 +37,12 @@ class MenuCategory extends CApplicationComponent {
                 }
                 $date = date('Y-m-d');
                 $prod_ids = DealProducts::model()->findByAttributes(array('date' => $date))->deal_products;
-                $product_id = 'id not in(' . $prod_ids . ') ';
+                if (!empty($prod_ids)) {
+                        $product_id = 'id not in(' . $prod_ids . ') ';
+                } else {
+                        $product_id = 'id not in(' . $prod_ids . ') ';
+                }
+                //$product_id = 'id not in(' . $prod_ids . ') ';
 //                var_dump($find_in_set);
 //                exit;
                 $find_in_set = rtrim($find_in_set, ' OR');

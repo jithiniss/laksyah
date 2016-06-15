@@ -150,7 +150,7 @@
                                                         <div class="clearfix"></div>
                                                 </div>
                                                 <div class="row">
-                                                        <div class="col-xs-6">
+                                                        <div class="col-xs-12 col-sm-6">
                                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered measurement_table custm">
                                                                         <tbody>
                                                                                 <tr>
@@ -343,7 +343,7 @@
                                                                         </tbody>
                                                                 </table>
                                                         </div>
-                                                        <div class="col-xs-6"><img src="images/measurement_units.jpg" alt=""/></div>
+                                                        <div class="col-xs-12 col-sm-6"><img src="images/measurement_units.jpg" alt=""/></div>
                                                 </div>
                                         </div>
                                         <div class="form_button">

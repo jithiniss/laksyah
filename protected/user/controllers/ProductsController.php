@@ -11,7 +11,6 @@ class ProductsController extends Controller {
         }
 
         public function actionCategory($name) {
-
                 $parent = ProductCategory::model()->findByAttributes(array('canonical_name' => $name));
                 if (empty($parent)) {
                         $this->render('ProductNotfound');
@@ -25,7 +24,6 @@ class ProductsController extends Controller {
                         Yii::app()->session['sort_id'] = $_POST['category'];
                 } else {
                         $categ = '';
-                        Yii::app()->session['sort_id'] = 0;
                 }
                 $dataProvider = Yii::app()->Menu->MenuCategories($cats, $parent, $categ, $min = '', $max = '', $size = '');
 
