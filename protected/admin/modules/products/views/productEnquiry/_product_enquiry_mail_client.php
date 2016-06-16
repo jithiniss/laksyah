@@ -148,7 +148,7 @@
                                         <td style="background-color:#f7f4f1"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="    font-family: 'Open Sans',arial, sans-serif;font-size: 13px;">
                                                         <tbody>
                                                                 <tr>
-                                                                        <td width="250" align="center" style="border-right:solid 1px #d7d7d7;"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/emailer-footer.jpg" width="116" height="162" alt=""/></td>
+                                                                        <td width="250" align="center" style="border-right:solid 1px #d7d7d7;"><img src="<?php echo $this->siteURL; ?>/images/emailer-footer.jpg" width="116" height="162" alt=""/></td>
                                                                         <td align="center" style="border-right:solid 1px #d7d7d7;">
                                                                                 <h4 style=" font-family:'Open Sans',arial, sans-serif; font-size:16px; color:#414042; margin-bottom:10px;">Contact Us </h4>
                                                                                 <p style="font-family:'Open Sans',arial, sans-serif; font-size:13px;">Tel: +91 914 220 2222Â <br>
