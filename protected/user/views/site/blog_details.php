@@ -10,15 +10,20 @@
                         <div class="blog_titles">
                                 <h1><?= $model->heading; ?></h1>
                                 <?php
-                                $timestamp = strtotime($model->DOC);
-                                $day = date('D', $timestamp);
-                                $mnth = date('M', $timestamp);
-                                $year = date("Y", $timestamp);
+                                $weekday = date('l', strtotime($model->DOC));
+                                $month = date('F', strtotime($model->DOC));
+                                $year = date('Y', strtotime($model->DOC));
+                                $day = date('d', strtotime($model->DOC));
+
+
+                                ;
                                 ?>
                                 <p class="meta"><?php
+                                        echo $weekday;
+                                        echo '  ,  ', $month;
+                                        echo '  ';
                                         echo $day;
-                                        echo ',', $mnth;
-                                        echo ',', $year;
+                                        echo '  ', $year;
                                         ?></p>
                                 <p class="author"></p>
                         </div>
