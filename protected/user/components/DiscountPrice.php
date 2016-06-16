@@ -91,5 +91,3 @@ class DiscountPrice extends CApplicationComponent {
 
 }
 ?>
-
-

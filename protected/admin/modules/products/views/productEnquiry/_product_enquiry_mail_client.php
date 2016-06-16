@@ -11,7 +11,7 @@
                 <div style="margin:auto; width:776px; border:solid 2px #404241; margin-top:40px; margin-bottom:40px;">
                         <table id="Table_01" width="776" border="0" cellpadding="0" cellspacing="0" align="center" style=" font-family: 'Open Sans',arial, sans-serif;">
                                 <tr>
-                                        <td><a href="http://laksyah.com"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/emailer_01.jpg" width="776" height="102" alt=""></a></td>
+                                        <td><a href="http://laksyah.com"><img src="<?php echo $this->siteURL; ?>/images/emailer_01.jpg" width="776" height="102" alt=""></a></td>
                                 </tr>
                                 <tr><td>
 
@@ -142,7 +142,7 @@
 
                                 <tr>
                                         <td>
-                                                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/emailer_03.jpg" width="776" height="47" alt=""></td>
+                                                <img src="<?php echo $this->siteURL; ?>/images/emailer_03.jpg" width="776" height="47" alt=""></td>
                                 </tr>
                                 <tr>
                                         <td style="background-color:#f7f4f1"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="    font-family: 'Open Sans',arial, sans-serif;font-size: 13px;">

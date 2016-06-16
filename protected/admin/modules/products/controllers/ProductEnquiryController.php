@@ -32,7 +32,7 @@ class ProductEnquiryController extends Controller {
         public function accessRules() {
                 return array(
                     array('allow', // allow all users to perform 'index' and 'view' actions
-                        'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete', 'eroductenquiryeail'),
+                        'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete', 'eroductenquiryeail', 'siteURL'),
                         'users' => array('*'),
                     ),
                     array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -47,6 +47,12 @@ class ProductEnquiryController extends Controller {
                         'users' => array('*'),
                     ),
                 );
+        }
+
+        public function siteURL() {
+                $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+                $domainName = $_SERVER['HTTP_HOST'];
+                return $protocol . $domainName;
         }
 
         /**
@@ -165,7 +171,7 @@ class ProductEnquiryController extends Controller {
                                                 $model->status = 3;
                                                 if ($model->save()) {
                                                         $model->add_to_order = 3;
-//                                                        $this->ProductEnquiryMail($celib_history_update);
+                                                        $this->ProductEnquiryMail($celib_history_update);
                                                 }
                                         }
                                 }

@@ -13,8 +13,8 @@
                           } */
                         ?>
                         <h3>Amount to be Paid <i class="fa fa-inr"></i> <?= $hdfc_details['totaltopay']; ?></h3>
-                        <button class="btn-primary" type="submit">PAY NOW</button> &nbsp;
-                        <button class="btn-cancel" type="reset">CANCEL</button>
+                        <button class="btn-primary" type="submit">PAY NOW (<i class="fa fa-inr"></i> <?= $hdfc_details['totaltopay']; ?>)</button> &nbsp;
+                        <!--                        <button class="btn-cancel" type="reset">CANCEL</button>-->
                 </div>
         </div>
 

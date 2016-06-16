@@ -451,17 +451,21 @@
 
                 if ($('.bill_same').is(":checked"))
                 {
+
                         $('.ship_form').hide();
                         var select_val = $(".select_bill_exist").val();
+
                         if (select_val != 0) {
                                 getcountry(select_val);
                                 $('.bill_form').hide();
                         } else {
+
                                 $('.bill_form').show();
                                 var country = $('.billing_country').val();
                                 getshipmethod(country);
 
                                 $(".billing_country").change(function () {
+
                                         var country = $('.billing_country').val();
                                         getshipmethod(country);
                                 });
@@ -470,9 +474,11 @@
 
                                 var select_val = $(this).val();
                                 if (select_val != 0) {
+
                                         getcountry(select_val);
                                         $('.bill_form').hide();
                                 } else {
+
                                         $('.bill_form').show();
                                         var country = $('.billing_country').val();
                                         getshipmethod(country);
@@ -576,6 +582,7 @@
 
                 if ($(this).is(":checked"))
                 {
+
                         $('.ship_form').hide();
                         var select_val = $(".select_bill_exist").val();
                         if (select_val != 0) {
@@ -610,6 +617,7 @@
 
                 }
                 else {
+
                         $('.ship_form').show();
                         var select_ship_val = $(".select_ship_exist").val();
 
@@ -659,10 +667,10 @@
         });
 </script>
 <script>
-        $(document).ready(function () {
-                var country = $('.country_default').val();
-                getshipmethod(country);
-        });
+//        $(document).ready(function () {
+//                var country = $('.country_default').val();
+//                getshipmethod(country);
+//        });
 </script>
 <script>
         $(".wallet_amount").keyup(function () {

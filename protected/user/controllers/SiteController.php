@@ -238,12 +238,12 @@ class SiteController extends Controller {
         /* mail to user and admin */
 
         public function RegisterMail($model) {
-//$user=$model->email;
-                $user = 'sibys09@gmail.com';
+                $user = $model->email;
+//                $user = 'sibys09@gmail.com';
                 $user_subject = 'Welcome to laksyah.com!';
                 $user_message = $this->renderPartial('_register_user_mail', array('model' => $model), true);
-
-                $admin = 'sibys09@gmail.com';
+                $admin = AdminUser::model()->findByPk(4)->email;
+//                $admin = 'sibys09@gmail.com';
                 $admin_subject = $model->first_name . ' registered with laksyah';
                 $admin_message = $this->renderPartial('_register_admin_mail', array('model' => $model), true);
 // Always set content-type when sending HTML email
@@ -261,8 +261,8 @@ class SiteController extends Controller {
         /* mail to user and admin */
 
         public function VerificationMail($model) {
-//$user=$model->email;
-                $user = 'sibys09@gmail.com';
+                $user = $model->email;
+//                $user = 'sibys09@gmail.com';
                 $user_subject = 'laksyah Account - ' . $model->verify_code . ' is your verification code for secure access!';
                 $user_message = $this->renderPartial('_verify_user_mail', array('model' => $model), true);
 
@@ -311,7 +311,8 @@ class SiteController extends Controller {
 
         public function Appointmentmail($model) {
 
-                $admin = 'shahana@intersmart.in';
+//                $admin = 'shahana@intersmart.in';
+                $admin = AdminUser::model()->findByPk(4)->email;
 
                 $admin_subject = 'laksyah.com:' . $model->name . 'has been successfully added appointment';
                 $admin_message = $this->renderPartial('mail/_admin_appointment_email', array('model' => $model), true);
@@ -345,7 +346,8 @@ class SiteController extends Controller {
         }
 
         public function contactmail($model) {
-                $admin = 'shahana@intersmart.in';
+//                $admin = 'shahana@intersmart.in';
+                $admin = AdminUser::model()->findByPk(4)->email;
 
                 $admin_subject = 'laksyah.com:New Enquiry Recieved';
                 $admin_message = $this->renderPartial('mail/_admin_contact_email', array('model' => $model), true);
