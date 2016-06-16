@@ -14,17 +14,14 @@
                                 $month = date('F', strtotime($model->DOC));
                                 $year = date('Y', strtotime($model->DOC));
                                 $day = date('d', strtotime($model->DOC));
-
-
-                                ;
                                 ?>
                                 <p class="meta"><?php
-                                        echo $weekday;
-                                        echo '  ,  ', $month;
-                                        echo '  ';
-                                        echo $day;
-                                        echo '  ', $year;
-                                        ?></p>
+                                echo $weekday;
+                                echo '  ,  ', $month;
+                                echo '  ';
+                                echo $day;
+                                echo '  ', $year;
+                                ?></p>
                                 <p class="author"></p>
                         </div>
                         <img src="<?php echo yii::app()->request->baseUrl; ?>/uploads/blog/<?= $model->id; ?>/big.<?= $model->big_image ?>" alt=""/>
@@ -35,11 +32,11 @@
                         <p><?= substr($model->meta_keywords, 0, 1213); ?></p>
                         <p> <?= substr($model->meta_description, 0, 1213); ?></p>
                         <div class="article_footer">
-                                <?php
-                                if ($model->id == $first_id->id) {
+<?php
+if ($model->id == $first_id->id) {
 
-                                } else {
-                                        ?>
+} else {
+        ?>
                                         <a class="btn btn-skel pull-left" href="<?php echo yii::app()->request->baseUrl; ?>/index.php/site/BlogDetailsPrevious?currentId=<?= $model->id ?>"><i class="fa fa-angle-left"></i> PREVIOUS</a>
                                 <?php } ?>
                                 <?php
