@@ -1,25 +1,30 @@
 <?php
 
 /**
- * This is the model class for table "make_payment".
+ * This is the model class for table "make_payment_history".
  *
- * The followings are the available columns in table 'make_payment':
+ * The followings are the available columns in table 'make_payment_history':
  * @property integer $id
- * @property integer $userid
  * @property string $product_name
  * @property string $product_code
  * @property string $message
- * @property string $amount_type
+ * @property integer $amount_type
  * @property string $amount
- * @property string $date
+ * @property integer $pay_method
+ * @property integer $make_payment_id
+ * @property string $amount_payment_gateway
+ * @property string $amount_from_paypal
+ * @property integer $enq_id
+ * @property integer $history_id
+ * @property integer $date
  */
-class MakePayment extends CActiveRecord {
+class MakePaymentHistory extends CActiveRecord {
 
         /**
          * @return string the associated database table name
          */
         public function tableName() {
-                return 'make_payment';
+                return 'make_payment_history';
         }
 
         /**
@@ -29,15 +34,12 @@ class MakePayment extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
-                    array('userid, product_name, product_code, amount_type,  payment_mode', 'required'),
-                    array('userid,total_amount', 'numerical', 'integerOnly' => true),
-                    array('product_name', 'length', 'max' => 200),
-                    array('product_code, amount_type', 'length', 'max' => 15),
-                    array('total_amount', 'length', 'max' => 25),
-                    array('netbanking, paypal, wallet', 'length', 'max' => 100),
+                    array('product_name, product_code,userid, message, amount_type, amount, pay_method, make_payment_id,  date', 'required'),
+                    array('amount_type, pay_method, make_payment_id, enq_id, history_id, date', 'numerical', 'integerOnly' => true),
+                    array('product_name, product_code, amount, amount_payment_gateway, amount_from_paypal', 'length', 'max' => 200),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, userid, product_name, product_code, message, amount_type, total_amount, payment_mode, date,netbanking, paypal, wallet', 'safe', 'on' => 'search'),
+                    array('id, product_name, product_code, message, amount_type, amount, pay_method, make_payment_id, amount_payment_gateway, amount_from_paypal, enq_id, history_id,userid ,from_wallet, date', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -48,7 +50,6 @@ class MakePayment extends CActiveRecord {
                 // NOTE: you may need to adjust the relation name and the related
                 // class name for the relations automatically generated below.
                 return array(
-                    'user' => array(self::BELONGS_TO, 'UserDetails', 'userid'),
                 );
         }
 
@@ -63,13 +64,15 @@ class MakePayment extends CActiveRecord {
                     'product_code' => 'Product Code',
                     'message' => 'Message',
                     'amount_type' => 'Amount Type',
-                    'total_amount' => 'Amount',
-                    'payment_mode' => 'Payment Mode',
-                    'netbanking' => 'Netbanking',
-                    'paypal' => 'Paypal',
-                    'wallet' => 'Wallet',
+                    'amount' => 'Amount',
+                    'pay_method' => 'Pay Method',
+                    'make_payment_id' => 'Make Payment',
+                    'amount_payment_gateway' => 'Amount Payment Gateway',
+                    'amount_from_paypal' => 'Amount From Paypal',
+                    'from_wallet' => 'From Wallet',
+                    'enq_id' => 'Enq',
+                    'history_id' => 'History',
                     'date' => 'Date',
-                    'status' => 'Status',
                 );
         }
 
@@ -95,14 +98,17 @@ class MakePayment extends CActiveRecord {
                 $criteria->compare('product_name', $this->product_name, true);
                 $criteria->compare('product_code', $this->product_code, true);
                 $criteria->compare('message', $this->message, true);
-                $criteria->compare('amount_type', $this->amount_type, true);
-                $criteria->compare('total_amount', $this->total_amount, true);
-                $criteria->compare('payment_mode', $this->payment_mode, true);
-                $criteria->compare('netbanking', $this->netbanking, true);
-                $criteria->compare('paypal', $this->paypal, true);
-                $criteria->compare('wallet', $this->wallet, true);
-                $criteria->compare('date', $this->date, true);
-                $criteria->compare('status', $this->status);
+                $criteria->compare('amount_type', $this->amount_type);
+                $criteria->compare('amount', $this->amount, true);
+                $criteria->compare('pay_method', $this->pay_method);
+                $criteria->compare('make_payment_id', $this->make_payment_id);
+                $criteria->compare('amount_payment_gateway', $this->amount_payment_gateway, true);
+                $criteria->compare('amount_from_paypal', $this->amount_from_paypal, true);
+                $criteria->compare('from_wallet', $this->from_wallet, true);
+                $criteria->compare('enq_id', $this->enq_id);
+                $criteria->compare('history_id', $this->history_id);
+                $criteria->compare('date', $this->date);
+
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
                 ));
@@ -112,7 +118,7 @@ class MakePayment extends CActiveRecord {
          * Returns the static model of the specified AR class.
          * Please note that you should have this exact method in all your CActiveRecord descendants!
          * @param string $className active record class name.
-         * @return MakePayment the static model class
+         * @return MakePaymentHistory the static model class
          */
         public static function model($className = __CLASS__) {
                 return parent::model($className);

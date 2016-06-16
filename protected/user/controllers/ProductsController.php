@@ -355,4 +355,10 @@ class ProductsController extends Controller {
 //                $this->redirect($this->createUrl('/products/Category', array('name' => $_POST['gift_id'])));
         }
 
+        public function siteURL() {
+                $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+                $domainName = $_SERVER['HTTP_HOST'];
+                return $protocol . $domainName;
+        }
+
 }
