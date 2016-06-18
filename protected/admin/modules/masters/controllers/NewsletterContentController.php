@@ -180,7 +180,7 @@ class NewsletterContentController extends Controller {
 
         public function actionEmailSend($id) {
                 $newsletter = NewsletterContent::model()->findByPk($id);
-                $model = Newsletter::model()->findAll();
+                $model = Newsletter::model()->findAll(array('select' => 'email', 'distinct' => true,));
                 if (!empty($model)) {
                         foreach ($model as $mail) {
 //                        $this->mailfunction($mail['email'],$mail,$newsletter);
@@ -194,11 +194,7 @@ class NewsletterContentController extends Controller {
                 $user = $email;
 //                $user = 'sibys09@gmail.com';
                 $user_subject = 'laksyah News letter';
-                $user_message = $newsletter->heading . '<br><br>';
-                $newsletter->subheading . '<br><br>';
-                $newsletter->content . '<br><br>';
-                $newsletter->image . '<br><br>';
-                $newsletter->link . '<br><br>';
+                $user_message = $this->renderPartial('mail/_user_newsletter_email', array('newsletter' => $newsletter), true);
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
                 mail($user, $user_subject, $user_message, $headers);
         }
