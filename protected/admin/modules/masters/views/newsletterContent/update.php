@@ -8,7 +8,7 @@
         </ol>
 </section>
 
-<a href="<?php echo Yii::app()->request->baseUrl . '/admin.php/masters/newsletter/admin'; ?>" class='btn  btn-laksyah manage'>Manage Newsletter emails</a>
+<a href="<?php echo Yii::app()->request->baseUrl . '/admin.php/masters/NewsletterContent/admin'; ?>" class='btn  btn-laksyah manage'>Manage Newsletter</a>
 <section class="content">
         <div class="box box-info">
 

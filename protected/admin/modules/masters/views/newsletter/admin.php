@@ -7,8 +7,9 @@
                 <li class="active">Manage Newsletter   </li>
         </ol>
 </section>
-<a href="<?php echo Yii::app()->request->baseUrl . '/admin.php/masters/newsletter/create'; ?>" class='btn  btn-laksyah manage'>Add Newsletter</a>
+<a href="<?php echo Yii::app()->request->baseUrl . '/admin.php/masters/newsletter/create'; ?>" class='btn  btn-laksyah manage'>Add Email</a>
 <a href="<?php echo Yii::app()->request->baseUrl . '/admin.php/masters/newsletter/Email'; ?>" class='btn  btn-laksyah manage'>Email's</a>
+<a href="<?php echo Yii::app()->request->baseUrl . '/admin.php/masters/NewsletterContent/admin'; ?>" class='btn  btn-laksyah manage'>Add Newsletter</a>
 <div class="col-xs-12 form-page">
         <div class="box">
                 <div class="box-body table-responsive no-padding">
