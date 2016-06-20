@@ -153,6 +153,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                 $out_stock +=$option_exist->status;
                                                         }
                                                         if ($total_stock == 0 || $out_stock == 0) {
+                                                                $out_stock = 1;
                                                                 ?>
                                                                 <div class="out_of_stock_badge"></div>
                                                         <?php } else if ($total_stock <= 2 && $total_stock != 0) { ?>
@@ -290,7 +291,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                         <h3>Watch Video</h3>
                                                         <div class="video_thumb">
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<video src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>" >-->
                                                                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/video_thumb.jpg" alt=""/>
                                                                 <a class="video_link laksyah_video fancybox.iframe" href="<?php echo Yii::app()->request->baseUrl; ?>/uploads/products/<?= $folder ?>/<?= $product->id ?>/videos/video.<?= $product->video ?>"><i class="fa fa-play-circle-o"></i></a>
                                                         </div>
@@ -300,94 +301,102 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                         <!--/ Video-->
                                         <?php
                                         $product_option = MasterOptions::model()->findByAttributes(['product_id' => $product->id]);
-                                        if (!empty($product_option)) {
-                                                ?>
-                                                <div class="option_errors">
-
-                                                </div>
-                                                <input type="hidden" value="<?php echo $product_option->id; ?>" name="master_option" id="master_option"/>
-                                                <input type="hidden" value="<?php echo $product_option->option_type_id; ?>" name="option_type" id="option_type"/>
-                                                <?php
-                                                if ($product_option->option_type_id == 1 || $product_option->option_type_id == 3) {
-                                                        $colors = OptionDetails::model()->findAllByAttributes(['status' => 1, 'master_option_id' => $product_option->id], ['group' => 'color_id', 'order' => 'color_id']);
+                                        if ($out_stock != 1) {
+                                                if (!empty($product_option)) {
                                                         ?>
+                                                        <div class="option_errors">
 
-                                                        <input type="hidden" value="" name="option_color" id="option_color"/>
-
-                                                        <div class = "color_picker">
-                                                                <h3>Select Color</h3>
-                                                                <?php
-                                                                if (!empty($colors)) {
-                                                                        ?>
-                                                                        <ul class = "product_colors">
-                                                                                <?php
-                                                                                foreach ($colors as $color) {
-                                                                                        $color_name = OptionCategory::model()->findByPk($color->color_id);
-                                                                                        if ($color->stock != 0 || $color->status != 1) {
-                                                                                                $disabled1 = '';
-                                                                                        } else {
-                                                                                                $disabled1 = 'disabled';
-                                                                                        }
-                                                                                        ?>
-                                                                                        <li class = "<?php echo $disabled1; ?>" option_id="<?php echo $product_option->id; ?>" color="<?php echo $color->color_id; ?>"> <a class = "#" style = "background-color:<?php echo $color_name->color_code; ?>;" title="<?php echo $color_name->color_name; ?>"></a> </li>
-
-                                                                                        <?php
-                                                                                }
-                                                                                ?> </ul>
-                                                                <?php }
-                                                                ?>
                                                         </div>
-                                                <?php } ?>
-                                                <!--/ Color_picker-->
+                                                        <input type="hidden" value="<?php echo $product_option->id; ?>" name="master_option" id="master_option"/>
+                                                        <input type="hidden" value="<?php echo $product_option->option_type_id; ?>" name="option_type" id="option_type"/>
+                                                        <?php
+                                                        if ($product_option->option_type_id == 1 || $product_option->option_type_id == 3) {
+                                                                $colors = OptionDetails::model()->findAllByAttributes(['status' => 1, 'master_option_id' => $product_option->id], ['group' => 'color_id', 'order' => 'color_id']);
+                                                                ?>
 
-                                                <?php
-                                                if ($product_option->option_type_id == 2 || $product_option->option_type_id == 3) {
-                                                        $sizes = OptionDetails::model()->findAllByAttributes(['status' => 1, 'master_option_id' => $product_option->id], ['group' => 'size_id', 'order' => 'size_id']);
-                                                        ?>
-                                                        <input type="hidden" value="" name="option_size" id="option_size"/>
-                                                        <div class = "product_size size_filter">
-                                                                <h3>Select Size<span><a href = "#" data-toggle = "modal" data-target = "#sizechartModal">SIZE CHART</a></span></h3>
-                                                                <?php
-                                                                if (!empty($sizes)) {
-                                                                        ?>
-                                                                        <div class = "size_selector">
-                                                                                <?php
-                                                                                foreach ($sizes as $size) {
-                                                                                        $size_name = OptionCategory::model()->findByPk($size->size_id);
+                                                                <input type="hidden" value="" name="option_color" id="option_color"/>
 
-                                                                                        if ($product_option->option_type_id == 3) {
-
-                                                                                                $disabled = 'disabled';
-                                                                                        } else {
-
-
-                                                                                                if ($size->stock != 0 || $size->status != 1) {
-                                                                                                        $disabled = '';
-                                                                                                } else {
-                                                                                                        $disabled = 'disabled';
-                                                                                                }
-                                                                                        }
-                                                                                        ?>
-                                                                                        <label class="<?php echo $disabled; ?>" id="<?php echo $size->size_id; ?>"><?php echo $size_name->size; ?>
-                                                                                                <input type = "radio" name = "size_selector_<?php echo $size_name->id; ?>" value = "<?php echo $size_name->id; ?>" id = "size_selector_<?php echo $size_name->id; ?>">
-                                                                                        </label>
-                                                                                        <?php
-                                                                                }
-                                                                                ?>
-
-                                                                        </div>
+                                                                <div class = "color_picker">
+                                                                        <h3>Select Color</h3>
                                                                         <?php
-                                                                }
+                                                                        if (!empty($colors)) {
+                                                                                ?>
+                                                                                <ul class = "product_colors">
+                                                                                        <?php
+                                                                                        foreach ($colors as $color) {
+                                                                                                $color_name = OptionCategory::model()->findByPk($color->color_id);
+                                                                                                if ($color->stock != 0 || $color->status != 1) {
+                                                                                                        $disabled1 = '';
+                                                                                                } else {
+                                                                                                        $disabled1 = 'disabled';
+                                                                                                }
+                                                                                                ?>
+                                                                                                <li class = "<?php echo $disabled1; ?>" option_id="<?php echo $product_option->id; ?>" color="<?php echo $color->color_id; ?>"> <a class = "#" style = "background-color:<?php echo $color_name->color_code; ?>;" title="<?php echo $color_name->color_name; ?>"></a> </li>
+
+                                                                                                <?php
+                                                                                        }
+                                                                                        ?> </ul>
+                                                                        <?php }
+                                                                        ?>
+                                                                </div>
+                                                        <?php } ?>
+                                                        <!--/ Color_picker-->
+
+                                                        <?php
+                                                        if ($product_option->option_type_id == 2 || $product_option->option_type_id == 3) {
+                                                                $sizes = OptionDetails::model()->findAllByAttributes(['status' => 1, 'master_option_id' => $product_option->id], ['group' => 'size_id', 'order' => 'size_id']);
                                                                 ?>
-                                                        </div>
+                                                                <input type="hidden" value="" name="option_size" id="option_size"/>
+                                                                <div class = "product_size size_filter">
+                                                                        <h3>Select Size<span><a href = "#" data-toggle = "modal" data-target = "#sizechartModal">SIZE CHART</a></span></h3>
+                                                                        <?php
+                                                                        if (!empty($sizes)) {
+                                                                                ?>
+                                                                                <div class = "size_selector">
+                                                                                        <?php
+                                                                                        foreach ($sizes as $size) {
+                                                                                                $size_name = OptionCategory::model()->findByPk($size->size_id);
+
+                                                                                                if ($product_option->option_type_id == 3) {
+
+                                                                                                        $disabled = 'disabled';
+                                                                                                } else {
+
+
+                                                                                                        if ($size->stock != 0 || $size->status != 1) {
+                                                                                                                $disabled = '';
+                                                                                                        } else {
+                                                                                                                $disabled = 'disabled';
+                                                                                                        }
+                                                                                                }
+                                                                                                ?>
+                                                                                                <label class="<?php echo $disabled; ?>" id="<?php echo $size->size_id; ?>"><?php echo $size_name->size; ?>
+                                                                                                        <input type = "radio" name = "size_selector_<?php echo $size_name->id; ?>" value = "<?php echo $size_name->id; ?>" id = "size_selector_<?php echo $size_name->id; ?>">
+                                                                                                </label>
+                                                                                                <?php
+                                                                                        }
+                                                                                        ?>
+
+                                                                                </div>
+                                                                                <?php
+                                                                        }
+                                                                        ?>
+                                                                </div>
+                                                                <?php
+                                                        }
+                                                        ?>
+
+
+
+
+
+
                                                         <?php
                                                 }
-                                                ?>
-
-
-                                                <?php
                                         }
                                         ?>
+
+
                                         <!--/ Size Chart-->
 
                                         <!--/ Shipping_ifo-->
@@ -506,11 +515,12 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                         <div class="col-sm-6">
 
                                                                                                 <?php echo $form->hiddenField($model, 'product_id', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control', 'value' => $product->id)); ?>
+                                                                                                <span class="required">*</span>
                                                                                                 <?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control', 'placeholder' => 'Name')); ?>
                                                                                                 <span style="color:red;"> <?php echo $form->error($model, 'name'); ?></span>
                                                                                         </div>
                                                                                         <div class="col-sm-6">
-
+                                                                                                <span class="required">*</span>
                                                                                                 <?php echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control hello_form', 'placeholder' => 'Email')); ?>
                                                                                                 <span style="color:red;">  <?php echo $form->error($model, 'email'); ?></span>
                                                                                         </div>
@@ -518,11 +528,13 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                                                                                 <div class="row">
                                                                                         <div class="col-sm-6">
+                                                                                                <span class="required">*</span>
                                                                                                 <?php echo $form->textField($model, 'phone', array('size' => 60, 'maxlength' => 225, 'class' => 'form-control', 'placeholder' => 'Phone Number')); ?>
 
                                                                                                 <span style="color:red;">  <?php echo $form->error($model, 'phone'); ?></span>
                                                                                         </div>
                                                                                         <div class="col-sm-6">
+                                                                                                <span class="required">*</span>
                                                                                                 <?php echo CHtml::activeDropDownList($model, 'country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select Country--', 'class' => 'form-control')); ?>
 
                                                                                                 <span style="color:red;"> <?php echo $form->error($model, 'country'); ?></span></div>
@@ -628,7 +640,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                         </div>
                                                                                 </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies" style="cursor: pointer;" >View Shipping and Return Policies</a></p>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies" style="cursor: pointer;" >View Shipping and Return Policies</a></p>-->
 
 
                                                                         </div>
@@ -640,7 +652,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                                                                                         </div>
                                                                                         <div class="col-md-5 col-xs-5">
-                                                                                                <button type="button" class="btn btn-skel" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope-o"></i> ENQUIRY</button>
+                                                                                                <button type="button" class="btn btn-skel" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope-o"></i> ENQUIRY NOW</button>
                                                                                         </div>
                                                                                 </div>
                                                                                 <div class="row">
@@ -672,25 +684,25 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                         </div>
                                                                                 </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
 
 
                                                                         </div>
-                                                                        <div class="product_button_group">
+                                                                        <!--                                                                        <div class="product_button_group">
 
-                                                                                <div class="row">
-                                                                                        <div class="col-md-7 col-xs-7">
-                                                                                                <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
+                                                                                                                                                        <div class="row">
+                                                                                                                                                                <div class="col-md-7 col-xs-7">
+                                                                                                                                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
 
-                                                                                        </div>
-                                                                                        <div class="col-md-5 col-xs-5">
-                                                                                                <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
-                                                                                        </div>
-                                                                                </div>
+                                                                                                                                                                </div>
+                                                                                                                                                                <div class="col-md-5 col-xs-5">
+                                                                                                                                                                        <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
+                                                                                                                                                                </div>
+                                                                                                                                                        </div>
 
 
 
-                                                                        </div>
+                                                                                                                                                </div>-->
 
                                                                         <?php
                                                                 }
@@ -738,7 +750,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                         </div>
                                                                                 </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
 
 
                                                                         </div>
@@ -750,7 +762,7 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
 
                                                                                         </div>
                                                                                         <div class="col-md-5 col-xs-5">
-                                                                                                <button type="button" class="btn btn-skel" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope-o"></i> ENQUIRY</button>
+                                                                                                <button type="button" class="btn btn-skel" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope-o"></i> ENQUIRY NOW</button>
                                                                                         </div>
                                                                                 </div>
                                                                                 <div class="row">
@@ -782,26 +794,26 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                                         </div>
                                                                                 </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
 
 
                                                                         </div>
 
-                                                                        <div class="product_button_group">
+                                                                        <!--                                                                        <div class="product_button_group">
 
-                                                                                <div class="row">
-                                                                                        <div class="col-md-7 col-xs-7">
-                                                                                                <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
+                                                                                                                                                        <div class="row">
+                                                                                                                                                                <div class="col-md-7 col-xs-7">
+                                                                                                                                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
 
-                                                                                        </div>
-                                                                                        <div class="col-md-5 col-xs-5">
-                                                                                                <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
-                                                                                        </div>
-                                                                                </div>
+                                                                                                                                                                </div>
+                                                                                                                                                                <div class="col-md-5 col-xs-5">
+                                                                                                                                                                        <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
+                                                                                                                                                                </div>
+                                                                                                                                                        </div>
 
 
 
-                                                                        </div>
+                                                                                                                                                </div>-->
 
                                                                 <?php }
                                                                 ?>
@@ -822,24 +834,24 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                         </div>
                                                                 </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
 
 
                                                         </div>
-                                                        <div class="product_button_group">
+                                                        <!--                                                        <div class="product_button_group">
 
-                                                                <div class="row">
-                                                                        <div class="col-md-7 col-xs-7">
-                                                                                <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
+                                                                                                                        <div class="row">
+                                                                                                                                <div class="col-md-7 col-xs-7">
+                                                                                                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
 
-                                                                        </div>
-                                                                        <div class="col-md-5 col-xs-5">
-                                                                                <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
-                                                                        </div>
-                                                                </div>
+                                                                                                                                </div>
+                                                                                                                                <div class="col-md-5 col-xs-5">
+                                                                                                                                        <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
+                                                                                                                                </div>
+                                                                                                                        </div>
 
 
-                                                        </div>
+                                                                                                                </div>-->
 
 
                                                         <?php
@@ -860,17 +872,17 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                                 </div>
                                                         </div>
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
 
 
                                                 </div>
                                                 <div class="product_button_group">
                                                         <div class="row">
-                                                                <div class="col-md-7 col-xs-7">
-                                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
+                                                                <!--                                                                <div class="col-md-7 col-xs-7">
+                                                                                                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Products/Wishlist/id/<?= $product->id ?>" class="add_to_wishlist btn btn-skel "><i class="fa fa-heart"></i> ADD TO WISHLIST</a>
 
-                                                                </div>
-                                                                <div class="col-md-5 col-xs-5">
+                                                                                                                                </div>-->
+                                                                <div class="col-md-12 col-xs-12">
                                                                         <button type="button" class="btn-primary" data-toggle="modal" data-target="#myModal"><i class="fa fa-envelope"></i> ENQUIRY NOW</button>
                                                                 </div>
                                                         </div>
@@ -906,21 +918,26 @@ $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                                                         <!-- Nav tabs -->
                                                         <ul class="nav nav-tabs" role="tablist">
                                                                 <li role="presentation" class="active"><a href="#description" aria-controls="home" role="tab" data-toggle="tab">Description</a></li>
-                                                                <li role="presentation"><a href="#details" aria-controls="profile" role="tab" data-toggle="tab"><?= $product->enquiry_sale == 1 ? 'Details' : 'Description|Order Procedures'; ?></a></li>
-                                                                <?php if ($product->enquiry_sale == 1) { ?><li role="presentation"><a href="#sizechart" aria-controls="settings" role="tab" data-toggle="tab">Size Charts</a></li><?php } ?>
+                                                                <li role="presentation"><a href="#details" aria-controls="profile" role="tab" data-toggle="tab"><?= $product->enquiry_sale == 1 ? 'Details' : 'Order Procedures'; ?></a></li>
+                                                                <?php if ($product->enquiry_sale == 1) { ?><li role="presentation"><a href="#sizechart" aria-controls="settings" role="tab" data-toggle="tab">Size Charts</a></li><?php } else { ?>
+                                                                        <li role="presentation"><a href="#sizechart1" aria-controls="settings" role="tab" data-toggle="tab">Size Chart</a></li>
+                                                                <?php } ?>
                                                         </ul>
 
                                                         <!-- Tab panes -->
                                                         <div class="tab-content">
                                                                 <div role="tabpanel" class="tab-pane active" id="description"><?= $product->description; ?> </div>
                                                                 <div role="tabpanel" class="tab-pane" id="details"> <?php echo CHtml::encode($product->product_details) ?></div>
-                                                                <div role="tabpanel" class="tab-pane" id="sizechart"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/sample.jpg" alt=""/></div>
+                                                                <?php if ($product->enquiry_sale == 1) { ?>
+                                                                        <div role="tabpanel" class="tab-pane" id="sizechart"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/sample.jpg" alt=""/></div> <?php } else { ?>
+                                                                        <div role="tabpanel" class="tab-pane" id="sizechart1"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/HOW-TO-MEASURE.jpg" alt=""/></div>
+                                                                <?php } ?>
                                                         </div>
                                                 </div>
                                                 <!--<p><a class="return_policies"  style="cursor: pointer;">View Shipping and Return Policies</a></p>-->
 
                                         </div>
-                                        <p class="terms_link">View <?php echo CHtml::link('Terms', array('site/Terms')); ?> &amp; <?php echo CHtml::link('Policies', array('site/PrivacyPolicy')); ?></p>
+                                        <p class="terms_link">View Laksyah.com <?php echo CHtml::link('Terms', array('site/Terms')); ?> &amp; <?php echo CHtml::link('Policies', array('site/PrivacyPolicy')); ?></p>
                                 </div>
                         </div>
                 </div>
