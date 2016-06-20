@@ -16,6 +16,16 @@
         <input type='hidden' name='lc' value='US'>
         <input type='hidden' name='bn' value='PP-BuyNowBF'>
 </form>
+<h3>Payment Procedure  Progress </h3><span id="wait">.</span>
+<script>
+        var dots = window.setInterval(function () {
+                var wait = document.getElementById("wait");
+                if (wait.innerHTML.length > 3)
+                        wait.innerHTML = "";
+                else
+                        wait.innerHTML += ".";
+        }, 500);
+</script>
 <script>
         document.paypal.submit();
 </script>

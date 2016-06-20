@@ -696,7 +696,7 @@ class CheckOutController extends Controller {
                                                                                                         $paypaltotalamount = round($order->paypal * $usdvalue->rate, 2);
                                                                                                 }
                                                                                                 // $totaltopay = round(Currency::model()->findBypk(2)->rate * $order->paypal, 2);
-                                                                                                $this->render('paypalpay', array('order' => $order->id, 'totaltopay' => $paypaltotalamount, 'pid' => $pid));
+                                                                                                $this->renderPartial('paypalpay', array('order' => $order->id, 'totaltopay' => $paypaltotalamount, 'pid' => $pid));
                                                                                         }
 
                                                                                         // $this->redirect(array('OrderSuccess'));
