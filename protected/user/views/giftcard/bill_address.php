@@ -4,12 +4,12 @@
                 <form id="myForm">
                         <?php // $model->type = 1; ?>
                         <label class="radio_group active" id="UserSizechart_type_0" >
-                                <input type="radio" class="chekbx stand" hidden="true" value="1" name="radioName">
+                                <input type="radio" class="chekbx stand bymail" hidden="true" value="1" name="radioName">
                                 <?php //echo $form->radioButton($model, 'type', array('value' => 1, 'uncheckValue' => null, 'hidden' => 'true', 'class' => 'chekbx stand')); ?>
                         </label>
                         <span class="radio_label pull-left">By Mail</span>
                         <label class="radio_group" id="UserSizechart_type_1" >
-                                <input type="radio" class="chekbx stand" hidden="true" value="2" name="radioName">
+                                <input type="radio" class="chekbx stand bypost" hidden="true" value="2" name="radioName">
                                 <?php //echo $form->radioButton($model, 'type', array('value' => 2, 'uncheckValue' => null, 'hidden' => 'true', 'class' => 'chekbx cstum')); ?>
                         </label>
                         <span class="radio_label pull-left">By Post</span>
@@ -422,6 +422,27 @@
 </div>
 <script>
         $(document).ready(function () {
+                $('.bypost').click(function () {
+                        $("#shipping_address").show();
+                        var select_val = $('.select_bill_exist').val();
+                        if (select_val != 0) {
+                                $('.bill_form').hide();
+                        } else {
+                                $('.bill_form').show();
+                        }
+                        $(".select_bill_exist").change(function () {
+                                var select_val_add = $(this).val();
+                                if (select_val_add != 0) {
+                                        $('.bill_form').hide();
+                                } else {
+                                        $('.bill_form').show();
+                                }
+                        });
+
+                });
+                $('.bymail').click(function () {
+                        $("#shipping_address").hide();
+                });
                 $('#shipping_address').hide();
                 $('.chekbx').click(function () {
                         var check_value = $(".chekbx:checked").val();

@@ -62,8 +62,19 @@ class MyWalletController extends Controller {
                                                         $pay_id = time();
                                                         $user_id = $model->id;
                                                         $wallet_id = $wallet_add->id;
+                                                        if (isset(Yii::app()->session['currency'])) {
+                                                                if (Yii::app()->session['currency']['currency_code'] == 'USD') {
+                                                                        $paypaltotalamount = $wallet_add->balance_amt;
+                                                                } else {
+                                                                        $usdvalue = Currency::model()->findByPk(2);
+                                                                        $paypaltotalamount = round($wallet_add->balance_amt * $usdvalue->rate, 2);
+                                                                }
+                                                        } else {
+                                                                $usdvalue = Currency::model()->findByPk(2);
+                                                                $paypaltotalamount = round($wallet_add->balance_amt * $usdvalue->rate, 2);
+                                                        }
                                                         // $totaltopay = round(Currency::model()->findBypk(2)->rate * $order->paypal, 2);
-                                                        $this->render('paypalpay', array('wallet_id' => $wallet_add->id, 'totaltopay' => $wallet_add->balance_amt, 'pid' => $pay_id, 'uid' => $user_id, 'wid' => $wallet_id));
+                                                        $this->render('paypalpay', array('wallet_id' => $wallet_add->id, 'totaltopay' => $paypaltotalamount, 'pid' => $pay_id, 'uid' => $user_id, 'wid' => $wallet_id));
                                                 }
                                                 //$this->redirect(array('CreditSuccess', 'user_id' => $model->id, 'wallet_id' => $wallet_add->id));
                                                 //  $this->redirect(array('CreditError', 'wallet_id' => $wallet_add->id));

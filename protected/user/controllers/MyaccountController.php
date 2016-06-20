@@ -553,7 +553,18 @@ class MyaccountController extends Controller {
                                                         $eid = $enquiry_id;
                                                         $hid = $history_id;
                                                         $pid = $model->id;
-                                                        $this->render('paypalpay', array('order' => $model->id, 'totaltopay' => $model->paypal, 'trid' => $trid, 'eid' => $eid, 'hid' => $hid, 'pid' => $pid));
+                                                        if (isset(Yii::app()->session['currency'])) {
+                                                                if (Yii::app()->session['currency']['currency_code'] == 'USD') {
+                                                                        $paypaltotalamount = $model->paypal;
+                                                                } else {
+                                                                        $usdvalue = Currency::model()->findByPk(2);
+                                                                        $paypaltotalamount = round($model->paypal * $usdvalue->rate, 2);
+                                                                }
+                                                        } else {
+                                                                $usdvalue = Currency::model()->findByPk(2);
+                                                                $paypaltotalamount = round($model->paypal * $usdvalue->rate, 2);
+                                                        }
+                                                        $this->render('paypalpay', array('order' => $model->id, 'totaltopay' => $paypaltotalamount, 'trid' => $trid, 'eid' => $eid, 'hid' => $hid, 'pid' => $pid));
                                                 }
                                                 /* payment history */
                                                 $payment_history = new MakePaymentHistory;

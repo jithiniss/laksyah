@@ -37,6 +37,48 @@
                       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
                     <![endif]-->
 
+                <?php
+                $details = Yii::app()->controller->action->id;
+                if ($details == 'Detail') {
+                        $canonical_name = $_GET['name'];
+                        $product_det = Products::model()->findByAttributes(array('canonical_name' => $canonical_name));
+                        $folder = Yii::app()->Upload->folderName(0, 1000, $product_det->id);
+                        ?>
+                        <?php
+                        //  $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
+                        $big = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $product_det->id . '/gallery/big';
+                        $bigg = Yii::app()->request->baseUrl . '/uploads/products/' . $folder . '/' . $product_det->id . '/gallery/big/';
+                        $thu = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $product_det->id . '/gallery/small';
+                        $thumbs = Yii::app()->request->baseUrl . '/uploads/products/' . $folder . '/' . $product_det->id . '/gallery/small/';
+                        $zoo = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $product_det->id . '/gallery/zoom';
+                        $zoom = Yii::app()->request->baseUrl . '/uploads/products/' . $folder . '/' . $product_det->id . '/gallery/zoom/';
+                        $file_display = array('jpg', 'jpeg', 'png', 'gif');
+                        if (file_exists($big) == false) {
+
+                        } else {
+                                $dir_contents = scandir($big);
+                                $i = 0;
+                                foreach ($dir_contents as $file) {
+                                        $file_type = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+                                        if ($file !== '.' && $file !== '..' && in_array($file_type, $file_display) == true) {
+                                                ?>
+                                                <link rel="prefetch" href="<?php echo $bigg . $file; ?>" />
+                                                <link rel="prefetch" href="<?php echo $zoom . $file; ?>" />
+                                                <?php
+                                        }
+                                        ?>
+
+
+
+                                        <?php
+                                }
+                                $i++;
+                        }
+                        ?>
+
+                <?php }
+                ?>
+
         </head>
 
         <body>
@@ -304,7 +346,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                                                                                         <div class="laksyah_dropdown">
                                                                                                 <ul class="drop_menu">
                                                                                                         <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount" class="currency" >My Account</a></li>
-                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                                                                                                             ?></li>-->
+                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                                                                                                                            ?></li>-->
                                                                                                         <li><?php echo CHtml::link('Log Out', array('site/Logout'), array('class' => 'currency')); ?></li>
                                                         <!--                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
                                                                                                 <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Myordernew" class="currency" >My Orders</a></li>
@@ -353,7 +395,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;                                                                                                                      ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;                                                                                                                                     ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">

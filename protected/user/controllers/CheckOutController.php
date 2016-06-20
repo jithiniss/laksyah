@@ -684,8 +684,19 @@ class CheckOutController extends Controller {
                                                                                         } else if ($order->paypal != '') {
 
                                                                                                 $pid = time();
+                                                                                                if (isset(Yii::app()->session['currency'])) {
+                                                                                                        if (Yii::app()->session['currency']['currency_code'] == 'USD') {
+                                                                                                                $paypaltotalamount = $order->paypal;
+                                                                                                        } else {
+                                                                                                                $usdvalue = Currency::model()->findByPk(2);
+                                                                                                                $paypaltotalamount = round($order->paypal * $usdvalue->rate, 2);
+                                                                                                        }
+                                                                                                } else {
+                                                                                                        $usdvalue = Currency::model()->findByPk(2);
+                                                                                                        $paypaltotalamount = round($order->paypal * $usdvalue->rate, 2);
+                                                                                                }
                                                                                                 // $totaltopay = round(Currency::model()->findBypk(2)->rate * $order->paypal, 2);
-                                                                                                $this->render('paypalpay', array('order' => $order->id, 'totaltopay' => $order->paypal, 'pid' => $pid));
+                                                                                                $this->render('paypalpay', array('order' => $order->id, 'totaltopay' => $paypaltotalamount, 'pid' => $pid));
                                                                                         }
 
                                                                                         // $this->redirect(array('OrderSuccess'));

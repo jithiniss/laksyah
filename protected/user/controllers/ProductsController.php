@@ -89,7 +89,8 @@ class ProductsController extends Controller {
                                         $product_view->save(FALSE);
                                 }
                         }
-                        $recently = ProductViewed::model()->findAllByAttributes(array('user_id' => $user_id), array('order' => 'date DESC'));
+//                        $recently = ProductViewed::model()->findAllByAttributes(array('user_id' => $user_id), array('order' => 'date DESC', 'condition' => 'select distinct(product_id)'));
+                        $recently = ProductViewed::model()->findAll(array('select' => 't.product_id', 'distinct' => true), array('condition' => 'user_id = ' . $user_id));
                 } else {
                         if (!isset(Yii::app()->session['temp_user'])) {
                                 Yii::app()->session['temp_user'] = microtime(true);
@@ -322,19 +323,22 @@ class ProductsController extends Controller {
                         if ($option != "" && $color != "") {
 
 
-                                $sizes = OptionDetails::model()->findAllByAttributes(['status' => 1, 'master_option_id' => $option], ['condition' => 'stock>=1', 'select' => 'size_id,color_id', 'distinct' => true, 'order' => 'size_id']);
+                                $sizes = OptionDetails::model()->findAllByAttributes(['status' => 1, 'master_option_id' => $option, 'color_id' => $color]);
                                 if (!empty($sizes)) {
                                         foreach ($sizes as $size) {
                                                 $size_name = OptionCategory::model()->findByPk($size->size_id);
 
-                                                if ($size->color_id == $color) {
+
+
+                                                if ($size->stock >= 1) {
+
                                                         $disabled = '';
                                                 } else {
                                                         $disabled = 'disabled';
                                                 }
                                                 ?>
                                                 <label class="<?php echo $disabled; ?>" id="<?php echo $size->size_id; ?>"><?php echo $size_name->size; ?>
-                                                        <input type = "radio" name = "size_selector_<?php echo $size_name->id; ?>" value = "<?php echo $size_name->id; ?>" id = "size_selector_<?php echo $size_name->id; ?>">
+                                                        <input type = "radio" name= "size_selector_<?php echo $size_name->id; ?>" value = "<?php echo $size_name->id; ?>" id = "size_selector_<?php echo $size_name->id; ?>">
                                                 </label>
                                                 <?php
                                         }
