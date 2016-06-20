@@ -183,14 +183,14 @@ class NewsletterContentController extends Controller {
                 $model = Newsletter::model()->findAll(array('select' => 'email', 'distinct' => true,));
                 if (!empty($model)) {
                         foreach ($model as $mail) {
-//                        $this->mailfunction($mail['email'],$mail,$newsletter);
+//                        $this->mailfunction($mail['email'],$newsletter);
                         }
                 }
 
                 $this->redirect(array('NewsletterContent/admin'));
         }
 
-        public function mailfunction($email, $mail, $newsletter) {
+        public function mailfunction($email, $newsletter) {
                 $user = $email;
 //                $user = 'sibys09@gmail.com';
                 $user_subject = 'laksyah News letter';
