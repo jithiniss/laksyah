@@ -199,6 +199,11 @@ class NewsletterContentController extends Controller {
                 mail($user, $user_subject, $user_message, $headers);
         }
 
+//
+//        public function actionSuccess() {
+//                $this->render('successNewsletter');
+//        }
+
         public function siteURL() {
                 $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
                 $domainName = $_SERVER['HTTP_HOST'];
@@ -206,4 +211,5 @@ class NewsletterContentController extends Controller {
         }
 
 }
+
 ?>

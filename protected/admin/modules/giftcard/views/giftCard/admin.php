@@ -31,6 +31,7 @@
                                     },
                                     'type' => 'raw'
                                 ),
+                                'weight',
                                 array('name' => 'status',
                                     'filter' => array('1' => 'enable', '0' => 'disable'),
                                     'value' => function($data) {

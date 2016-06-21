@@ -8,6 +8,7 @@
  * @property string $name
  * @property string $amount
  * @property string $image
+ * @property string $weight
  * @property integer $cb
  * @property string $doc
  * @property integer $ub
@@ -35,7 +36,7 @@ class GiftCard extends CActiveRecord {
                     array('dou', 'safe'),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, name, amount, image,status, cb, doc, ub, dou', 'safe', 'on' => 'search'),
+                    array('id, name, amount, image,weight,status, cb, doc, ub, dou', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -58,6 +59,7 @@ class GiftCard extends CActiveRecord {
                     'name' => 'Name',
                     'amount' => 'Amount',
                     'image' => 'Image',
+                    'weight' => 'Weight',
                     'status' => 'Status',
                     'cb' => 'Cb',
                     'doc' => 'Doc',
@@ -87,6 +89,7 @@ class GiftCard extends CActiveRecord {
                 $criteria->compare('name', $this->name, true);
                 $criteria->compare('amount', $this->amount, true);
                 $criteria->compare('image', $this->image, true);
+                $criteria->compare('weight', $this->weight, true);
                 $criteria->compare('status', $this->status, true);
                 $criteria->compare('cb', $this->cb);
                 $criteria->compare('doc', $this->doc, true);

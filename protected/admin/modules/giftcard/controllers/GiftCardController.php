@@ -67,6 +67,7 @@ class GiftCardController extends Controller {
                 $model = new GiftCard;
                 if (isset($_POST['GiftCard'])) {
                         $model->attributes = $_POST['GiftCard'];
+                        $model->weight = $_POST['GiftCard']['weight'];
                         $model->doc = date('Y-m-d');
                         $image = CUploadedFile::getInstance($model, 'image');
 
@@ -99,6 +100,7 @@ class GiftCardController extends Controller {
                 if (isset($_POST['GiftCard'])) {
 
                         $model->attributes = $_POST['GiftCard'];
+                        $model->weight = $_POST['GiftCard']['weight'];
                         $model->dou = date('Y-m-d');
                         $image = CUploadedFile::getInstance($model, 'image');
                         if (isset($image)) {

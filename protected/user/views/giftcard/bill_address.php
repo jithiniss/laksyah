@@ -1,26 +1,90 @@
-<div class="container main_container inner_pages ">
+<div class="clearfix"></div>
+<div class="container main_container inner_pages">
         <h1>Method</h1>
-        <div class="price_group radio_buttons" id="fitting">
-                <form id="myForm">
-                        <?php // $model->type = 1; ?>
-                        <label class="radio_group active" id="UserSizechart_type_0" >
-                                <input type="radio" class="chekbx stand bymail" hidden="true" value="1" name="radioName">
-                                <?php //echo $form->radioButton($model, 'type', array('value' => 1, 'uncheckValue' => null, 'hidden' => 'true', 'class' => 'chekbx stand')); ?>
-                        </label>
-                        <span class="radio_label pull-left">By Mail</span>
-                        <label class="radio_group" id="UserSizechart_type_1" >
-                                <input type="radio" class="chekbx stand bypost" hidden="true" value="2" name="radioName">
-                                <?php //echo $form->radioButton($model, 'type', array('value' => 2, 'uncheckValue' => null, 'hidden' => 'true', 'class' => 'chekbx cstum')); ?>
-                        </label>
-                        <span class="radio_label pull-left">By Post</span>
-                        <div class="clearfix"></div>
-                </form>
-        </div>
+        <div class="modal zoomIn" id="giftpopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                        <div class="modal-content gift_body sucess">
+                                <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Gift Address</h4>
+                                        <span class="gift_msg">
+                                        </span>
+                                </div>
+                                <div class="modal-body">
 
+
+                                        <div class="form">
+
+                                                <?php
+                                                $form2 = $this->beginWidget('CActiveForm', array(
+                                                    'id' => 'temp-user-gifts-form',
+                                                    'action' => Yii::app()->baseUrl . '/index.php/Giftcard/Address/',
+                                                    // Please note: When you enable ajax validation, make sure the corresponding
+                                                    // controller action is handling ajax validation correctly.
+                                                    // There is a call to performAjaxValidation() commented in generated controller code.
+                                                    // See class documentation of CActiveForm for details on this.
+                                                    'enableAjaxValidation' => false,
+                                                ));
+                                                ?>
+
+                                                <?php echo $form2->errorSummary($gift_user); ?>
+                                                <br/>
+                                                <?php if (Yii::app()->session['user'] != '' && Yii::app()->session['user'] != NULL) { ?>
+                                                        <div class="form-group">
+                                                                <?php echo $form2->hiddenField($gift_user, 'user_id', array('class' => 'form-control', 'value' => Yii::app()->session['user']['id']));
+                                                                ?>
+                                                                <?php echo $form2->error($gift_user, 'user_id'); ?>
+                                                        </div>
+
+
+                                                <?php } else { ?>
+
+                                                        <div class="form-group">
+                                                                <?php echo $form2->hiddenField($gift_user, 'session_id', array('class' => 'form-control', 'value' => Yii::app()->session['temp_user'])); ?>
+                                                                <?php echo $form2->error($gift_user, 'session_id'); ?>
+                                                        </div>
+                                                        <div class="form-group">
+                                                                <?php echo $form2->hiddenField($gift_user, 'user_id', array('class' => 'form-control', 'value' => Yii::app()->session['user']['id']));
+                                                                ?>
+                                                                <?php echo $form2->error($gift_user, 'user_id'); ?>
+                                                        </div>
+
+                                                <?php } ?>
+
+
+
+
+
+                                                <div class="form-group">
+                                                        <?php echo $form2->labelEx($gift_user, 'from'); ?>
+                                                        <?php echo $form2->textField($gift_user, 'from', array('size' => 60, 'maxlength' => 100, 'class' => 'form-control')); ?>
+                                                        <?php echo $form2->error($gift_user, 'from'); ?>
+                                                </div>
+                                                <div class="form-group">
+                                                        <?php echo $form2->labelEx($gift_user, 'to'); ?>
+                                                        <?php echo $form2->textField($gift_user, 'to', array('size' => 60, 'maxlength' => 100, 'class' => 'form-control')); ?>
+                                                        <?php echo $form2->error($gift_user, 'to'); ?>
+                                                </div>
+                                                <div class="form-group">
+                                                        <?php echo $form2->labelEx($gift_user, 'message'); ?>
+                                                        <?php echo $form2->textArea($gift_user, 'message', array('rows' => 6, 'cols' => 50, 'class' => 'form-control')); ?>
+                                                        <?php echo $form2->error($gift_user, 'message'); ?>
+                                                </div>
+                                                <div class="modal-footer">
+                                                        <?php echo CHtml::submitButton($gift_user->isNewRecord ? 'Submit' : 'Save', array('class' => 'btn btn-primary', 'name' => 'gift_form')); ?>
+                                                </div>
+                                                <?php $this->endWidget(); ?>
+                                        </div>
+
+                                </div>
+                        </div>
+                </div>
+        </div>
         <?php
         $form = $this->beginWidget('CActiveForm', array(
             'id' => 'user-address-form',
             'htmlOptions' => array('class' => 'form-group'),
+            'action' => Yii::app()->baseUrl . '/index.php/GiftCard/CheckOutGiftcard/',
             // Please note: When you enable ajax validation, make sure the corresponding
             // controller action is handling ajax validation correctly.
             // There is a call to performAjaxValidation() commented in generated controller code.
@@ -28,6 +92,44 @@
             'enableAjaxValidation' => false,
         ));
         ?>
+        <div class="price_group radio_buttons" id="fitting">
+
+                <?php // $model->type = 1; ?>
+                <label class="radio_group active" id="UserSizechart_type_0" >
+                        <input type="radio" class="chekbx stand" hidden="true" value="1" name="radioName">
+                        <?php //echo $form->radioButton($model, 'type', array('value' => 1, 'uncheckValue' => null, 'hidden' => 'true', 'class' => 'chekbx stand')); ?>
+                </label>
+                <span class="radio_label pull-left">By Mail</span>
+                <label class="radio_group" id="UserSizechart_type_1" >
+                        <input type="radio" class="chekbx stand" hidden="true" value="2" name="radioName">
+                </label>
+                <span class="radio_label pull-left">By Post</span>
+                <div class="clearfix"></div>
+                <div id="gft_check_bx">
+                        <input type="hidden" id="gift_pack" value="<?php echo Yii::app()->session['user_gift_id']; ?>" name="gft_check_bx"/>
+                        <input style="height: 20px; width: 20px;" type="checkbox" <?php if (Yii::app()->session['user_gift_id'] != '') { ?> checked="" disabled="" <?php } ?> cart_id="<?php echo $cart->id; ?>"   name="gift"  value="1" gift_status="<?php echo $gift_message; ?>" class="gift_options gift_ticker">
+                        <span class="radio_label pull-left">Gift Option</span>
+                </div>
+                <?php //echo $form->radioButton($model, 'type', array('value' => 1, 'uncheckValue' => null, 'hidden' => 'true', 'class' => 'chekbx stand')); ?>
+
+
+
+        </div>
+
+        <?php if (Yii::app()->user->hasFlash('success')):
+                ?>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <?php echo Yii::app()->user->getFlash('success'); ?>
+                </div>
+        <?php endif; ?>
+        <?php if (Yii::app()->user->hasFlash('checkout_error')): ?>
+                <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <?php echo Yii::app()->user->getFlash('checkout_error'); ?>
+                </div>
+
+        <?php endif; ?>
         <div class="row">
                 <div class="col-md-8">
                         <div class="check_out related_element">
@@ -51,7 +153,7 @@
                                                                         }
                                                                         ?>  value="<?php echo $address->id; ?>"><?php echo $address->first_name; ?> <?php echo $data->last_name; ?> ,   <?php echo $address->address_1; ?>
                                                                                 <?php echo $address->address_2; ?> , <?php echo $address->city; ?> ,
-                                                                                <?php echo $address->state; ?> , <?php echo $address->country; ?>
+                                                                                <?php echo $address->state; ?> , <?php echo Countries::model()->findByPk($address->country)->country_name; ?>
                                                                                 <?php echo $address->postcode; ?></option>
                                                                         <?php
                                                                         if (isset($_GET['box'])) {
@@ -106,12 +208,12 @@
                                                         <div class="row">
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($billing, '[bill]postcode', array('class' => 'control-label')); ?>
-                                                                        <?php echo $form->textField($billing, '[bill]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik postcode')); ?>
                                                                         <?php echo $form->error($billing, '[bill]postcode'); ?>
                                                                 </div>
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($billing, '[bill]country', array('class' => 'control-label')); ?>
-                                                                        <?php echo CHtml::activeDropDownList($billing, '[bill]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo CHtml::activeDropDownList($billing, '[bill]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik', 'options' => array(99 => array('selected' => 'selected')))); ?>
                                                                         <?php echo $form->error($billing, '[bill]country'); ?>
                                                                 </div>
                                                         </div>
@@ -134,11 +236,12 @@
 
 
                                 <div class="border_box" id="shipping_address">
+
                                         <div class="box_title">
                                                 Shipping Details
                                         </div>
                                         <div class="box_content">
-                                                <h3>Shipping Address <span class="pull-right"><input type="checkbox" checked=""  name="billing_same" value="1" class="bill_same"><label>Same as Billing Address</label></span></h3>
+                                                <h3>Shipping Address <span class="pull-right"><input type="checkbox" checked="" name="billing_same" value="1" class="bill_same"><label>Same as Billing Address</label></span></h3>
                                                 <div class="ship_form">
                                                         <div class="form_row">
                                                                 <label>Select a billing address from your address book or enter a new address.</label>
@@ -149,7 +252,7 @@
                                                                                 ?>
                                                                                 <option  value="<?php echo $address->id; ?>"><?php echo $address->first_name; ?> <?php echo $data->last_name; ?> ,   <?php echo $address->address_1; ?>
                                                                                         <?php echo $address->address_2; ?> , <?php echo $address->city; ?> ,
-                                                                                        <?php echo $address->state; ?> , <?php echo $address->country; ?>
+                                                                                        <?php echo $address->state; ?> , <?php echo Countries::model()->findByPk($address->country)->country_name; ?>
                                                                                         <?php echo $address->postcode; ?></option>
                                                                                 <?php
                                                                                 if (isset($_GET['box'])) {
@@ -208,7 +311,7 @@
                                                                 </div>
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($shipping, '[ship]country', array('class' => 'control-label')); ?>
-                                                                        <?php echo CHtml::activeDropDownList($shipping, '[ship]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik1 shipping_country')); ?>
+                                                                        <?php echo CHtml::activeDropDownList($shipping, '[ship]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select Country--', 'class' => 'form-control aik1 shipping_country', 'options' => array(99 => array('selected' => 'selected')))); ?>
 
                                                                         <?php echo $form->error($shipping, '[ship]country'); ?>
                                                                 </div>
@@ -226,7 +329,7 @@
                                                 </div>
                                                 <h3>Shipping Method</h3>
                                                 <div class="row">
-                                                        <div class="col-xs-12 col-sm-6">
+                                                        <div class="col-xs-12 ">
                                                                 <?php if (Yii::app()->user->hasFlash('shipp_availability')): ?>
                                                                         <div class="alert alert-danger fade in">
                                                                                 <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
@@ -240,10 +343,31 @@
                                                                 </div>
                                                         </div>
                                                 </div>
+
                                         </div>
                                 </div>
                         </div>
+                        <!--                        <div class="container">
+                                                        <div class="row">
+                                                                <div class="col-xs-12 col-sm-6">
+                        <?php // if (Yii::app()->user->hasFlash('shipp_availability')): ?>
+                                                                                        <div class="alert alert-danger fade in">
+                                                                                                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
+                        <?php // echo Yii::app()->user->getFlash('shipp_availability'); ?>
+                                                                                        </div>
+
+                        <?php // endif; ?>
+                                                                        <h3>Shipping Method</h3>
+                                                                        <div id="shipping_method" class="shipping_method">
+
+                                                                        </div>
+                                                                </div>
+                                                        </div>
+                                                </div>-->
+
+
                 </div>
+
                 <div class="col-md-4 sidebar-right">
                         <div class="fixed_scroller">
                                 <div class="order_summary">
@@ -255,7 +379,7 @@
                                                 <div class="cart_product_detail">
 
                                                         <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/gift/<?php echo $card_details->id; ?>.<?php echo $card_details->image; ?>" class="img-responsive crt">
-
+                                                        <input type="hidden" id="gift_card_id" value="<?php echo $card_details->id; ?>" name="gift_card_id"/>
 
                                                         <h3><?php echo $card_details->name; ?><span class="pull-right"><strong><?php
                                                                                 if (isset(Yii::app()->session['currency'])) {
@@ -274,9 +398,7 @@
                                                         } else {
                                                                 $currency_rate = 1;
                                                         }
-                                                        $gift_limit = Extras::model()->findByPk(1);
-                                                        $gift_rate = Extras::model()->findByPk(2);
-                                                        if ($currency_rate * $prod_details->price <= $currency_rate * $gift_limit->value) {
+                                                        if ($currency_rate * $card_details->amount <= $currency_rate * 3000) {
                                                                 $gift_message = 0;
                                                         } else {
                                                                 $gift_message = 1;
@@ -288,24 +410,22 @@
                                                 <div class="cart_product_detail">
 
                                                         <?php
-                                                        if ($cart->gift_option != 0) {
+                                                        if (Yii::app()->session['user_gift_id'] != '') {
                                                                 ?>
 
-                                                                <?php $gift_user_details = TempUserGifts::model()->findByAttributes(array('cart_id' => $cart->id)); ?>
+                                                                <?php $gift_user_details = UserGifts::model()->findByPk(Yii::app()->session['user_gift_id']); ?>
                                                                 <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/laksyah_gift.jpg" class="img-responsive crt"  />
-                                                                <h3>GIFT PACK <span class="pull-right"><strong><?php echo Yii::app()->Currency->convert($cart->rate); ?>
+                                                                <h3>GIFT PACK <span class="pull-right"><strong><?php if ($gift_message == 0) echo Yii::app()->Currency->convert(200); ?>
                                                                                 </strong></span>
                                                                 </h3>
                                                                 <p><span>From:</span><?php echo $gift_user_details->from; ?></p>
                                                                 <p><span>To:</span> <?php echo $gift_user_details->to; ?></p>
                                                                 <div class="clearfix"></div>
-                                                                <?php $gift += $cart->rate; ?>
+                                                                <?php $gift += 200; ?>
 
                                                                 <?php
                                                         }
                                                         ?>
-
-                                                        <?php $product_price += $producttotal; ?>
                                                 </div>
 
 
@@ -322,7 +442,7 @@
                                         $hours = floor($diff_seconds / 3600);
                                         $minutes = floor(($diff_seconds % 3600) / 60) + ($hours * 60);
                                         ?>
-                                        <?php $subtotal = $gift + $product_price - $giftvoucher->discount; ?>
+                                        <?php $subtotal = $gift + $card_details->amount - $giftvoucher->discount; ?>
                                         <?php if ($minutes < 30) { ?>
                                                 <?php $giftvoucher = Coupons::model()->findByPk($coupon->coupon_id); ?>
                                                 <div class="panel-body gift_card_details">
@@ -345,10 +465,12 @@
                                         <div class="price_group">
 
                                                 <div class="pull-left">Subtotal : </div>
-                                                <div class="pull-right"><?php echo Yii::app()->Currency->convert($subtotal); ?></div>
+                                                <div class="pull-right" id="gift_subtotal" ><?php echo Yii::app()->Currency->convert($subtotal); ?></div>
                                                 <div class="clearfix"></div>
 
                                         </div>
+<!--                                        <span id="gift_shipping"></span>
+                                        <span><input type="hidden" id="gift_subtotal" value="<?php //echo Yii::app()->Currency->convert($subtotal);                                                                                         ?>" ></span>-->
                                         <div class="price_group">
                                                 <div class="pull-left">Shipping</div>
                                                 <div class="pull-right"><span id="shipping_charge"></span></div>
@@ -358,7 +480,9 @@
                                         <div class="price_group total_amount">
 
                                                 <div class="pull-left">ORDER TOTAL</div>
-                                                <div class="pull-right"><span id="grant_total"></span></div>
+                                                <!--<div class="pull-right"><?php //echo Yii::app()->Currency->convert($subtotal);                                                                       ?></div>-->
+                                                <div class="pull-right"><span class="grant_total"></span></div>
+                                                <input type="hidden" class="grant_total" name="grant_total_gift" />
                                                 <div class="clearfix"></div>
 
                                         </div>
@@ -396,8 +520,7 @@
                                         </div>
                                 </div>
                                 <div class="agree_terms">
-                                        <p><input type="checkbox" required> By placing an order you agree to our Terms &
-                                                Conditions and  Privacy Policy</p>
+                                        <p><input type="checkbox" required> By placing an order you agree to our <?php echo CHtml::link('Terms', array('site/Terms')); ?> &amp; <?php echo CHtml::link('Policies', array('site/PrivacyPolicy')); ?></p>
                                 </div>
 
                                 <div class="cart_buttons">
@@ -405,45 +528,18 @@
                                 </div>
 
                         </div>
-                        <div class="cart_buttons">
-                                <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'PAY SECURELY NOW', array('class' => 'btn-primary btn-full', 'id' => 'laksyah_order_payment')); ?>
-                        </div>
+
+
                         <?php $this->endWidget(); ?>
+
                 </div>
-
-
-
-
-
-
-
-
         </div>
 </div>
 <script>
         $(document).ready(function () {
-                $('.bypost').click(function () {
-                        $("#shipping_address").show();
-                        var select_val = $('.select_bill_exist').val();
-                        if (select_val != 0) {
-                                $('.bill_form').hide();
-                        } else {
-                                $('.bill_form').show();
-                        }
-                        $(".select_bill_exist").change(function () {
-                                var select_val_add = $(this).val();
-                                if (select_val_add != 0) {
-                                        $('.bill_form').hide();
-                                } else {
-                                        $('.bill_form').show();
-                                }
-                        });
 
-                });
-                $('.bymail').click(function () {
-                        $("#shipping_address").hide();
-                });
                 $('#shipping_address').hide();
+                $('#gft_check_bx').hide();
                 $('.chekbx').click(function () {
                         var check_value = $(".chekbx:checked").val();
                         if (check_value == 2) {
@@ -453,19 +549,44 @@
 
                                 }
                                 $('#shipping_address').show();
+                                $('#gft_check_bx').show();
                         }
                 });
         });
+        $('.gift_options').click(function () {
+                if ($(this).is(":checked"))
+                {
+                        var gift_message = $(this).attr("gift_status");
+
+                        if (gift_message == 1) {
+                                $(".gift_msg").html('<h3>You are eligible for a free customized gift card and gift packing.</h3>');
+                        } else if (gift_message == 0) {
+                                $(".gift_msg").html('<h3 style="color:#AB7420">You should pay <?php echo Yii::app()->Currency->convert(200); ?> for the gift packing.</h3>');
+                        }
+                        $('#temp-user-gifts-form').trigger("reset");
+                        $("#giftpopup").modal('show');
+                        var cart_id = $(this).attr("id");
+                        $("#gift_cart_id").val(cart_id);
+                        $(document).on('hide.bs.modal', '#giftpopup', function () {
+                                $('#' + cart_id).prop("checked", false);
+                        });
+                }
+        });
 </script>
 <script>         var select_val = $('.select_bill_exist').val();
+
         if (select_val != 0) {
                 $('.bill_form').hide();
         } else {
                 $('.bill_form').show();
         }
         $(".select_bill_exist").change(function () {
-                var select_val_add = $(this).val();
-                if (select_val_add != 0) {
+                var select_val = $(this).val();
+                if ($('.bill_same').is(":checked")) {
+                        getcountry(select_val);
+
+                }
+                if (select_val != 0) {
                         $('.bill_form').hide();
                 } else {
                         $('.bill_form').show();
@@ -474,8 +595,83 @@
 </script>
 
 <script>
-        $(".wallet_amount"
-                ).keyup(function () {
+        /*
+         * Select already added addressbook
+         */
+
+
+        var select_ship_val = $('.select_ship_exist').val();
+        if (select_ship_val != 0) {
+                $('.ship_form_content').hide();
+        } else {
+                $('.ship_form_content').show();
+        }
+        $(".select_ship_exist").change(function () {
+                var select_ship_val = $(this).val();
+
+                if (select_ship_val != 0) {
+
+                        getcountry(select_ship_val);
+                        $('.ship_form_content').hide();
+                } else {
+                        $("#shipping_method").html('Sorry, no quotes are available for this order at this time.');
+                        $('.ship_form_content').show();
+                }
+        });
+</script>
+
+<script>
+        /*
+         * Check whether the order is checked
+         */
+
+        if ($('.bill_same').is(":checked"))
+        {
+                $('.ship_form').hide();
+
+        }
+        else {
+                $('.ship_form').show();
+
+        }
+<?php if ($shipping->hasErrors()) { ?>
+                $('.bill_same').prop('checked', false);
+                $('.ship_form').show();
+<?php } ?>
+        $('.bill_same').click(function () {
+                if ($(this).is(":checked"))
+                {
+                        $('.ship_form').hide();
+
+                        var country = $('.select_bill_exist').val();
+                        calculatetotalpay();
+                        getcountry(country);
+
+                }
+                else {
+                        $("#shipping_method").html('Sorry, no quotes are available for this order at this time.');
+                        $('.ship_form').show();
+                }
+        });
+</script>
+<script>
+        $('input.select').on('change', function () {
+                $('input.select').not(this).prop('checked', false);
+        });
+        $('input.select2').on('change', function () {
+                $('input.select2').not(this).prop('checked', false);
+        });
+</script>
+<script>
+        $(document).ready(function () {
+                var country = $('.country_default').val();
+                getshipmethod(country);
+        });
+</script>
+<script>
+        var gift_card_id = $("#gift_card_id").val();
+        var gift_pack_id = $("#gift_pack").val();
+        $(".wallet_amount").keyup(function () {
                 var wallet = $(this).val();
                 if ($('.bill_same').is(":checked"))
                 {
@@ -490,13 +686,13 @@
                                 var country = getcountryid(countryname);
                         }
                 }
+
                 var grant = $("#grant_total").html();
-                totalcalculate(wallet, grant, country);
+                totalcalculate(wallet, grant, country, gift_card_id, gift_pack_id);
 
         });
 
-        function
-                calculatetotalpay() {
+        function calculatetotalpay() {
                 var wallet = $('.wallet_amount').val();
                 if ($('.bill_same').is(":checked"))
                 {
@@ -512,7 +708,7 @@
                         }
                 }
                 var grant = $("#grant_total").html();
-                totalcalculate(wallet, grant, country);
+                totalcalculate(wallet, grant, country, gift_card_id, gift_pack_id);
         }
 </script>
 <script>
@@ -526,24 +722,28 @@
                 $.ajax({
                         type: "POST",
                         cache: 'false',
-                        async: false, url: baseurl + 'CheckOut/currencyconvert',
-                        data: {total: total}
-                }).done(function (data) {
+                        async: false,
+                        url: baseurl + 'CheckOut/currencyconvert',
+                        data: {total: total}}).done(function (data) {
+
                         result = data;
                 });
                 return result;
-
         }
+        var gift_card_id = $("#gift_card_id").val();
 
-        function totalcalculate(wallet, grant, country) {
+        function totalcalculate(wallet, grant, country, gift_card_id, gift_pack_id) {
 
                 showLoader();
+
                 $.ajax({
                         type: "POST",
                         cache: 'false',
-                        async: false, url: baseurl + 'CheckOut/totalcalculate',
-                        data: {wallet: wallet, grant: grant, country: country}
+                        async: false,
+                        url: baseurl + 'GiftCard/totalcalculate',
+                        data: {wallet: wallet, country: country, gift_card_id: gift_card_id, gift_pack_id: gift_pack_id}
                 }).done(function (data) {
+
                         var obj = jQuery.parseJSON(data);
 
                         $("#wallet_total").html(obj.wallet_balance);
@@ -568,31 +768,38 @@
 
 
         }
+        var gift_card_id = $("#gift_card_id").val();
+        var gift_pack_id = $("#gift_pack").val();
         function getshipmethod(country) {
                 showLoader();
                 $.ajax({
                         type: "POST",
                         cache: 'false',
-                        async: false, url: baseurl + 'CheckOut/Getshippingmethod',
+                        async: false,
+                        url: baseurl + 'CheckOut/Getshippingmethod',
                         data: {country: country}
                 }).done(function (data) {
                         $("#shipping_method").html(data);
-                        getshippingcharge(country);
+                        getshippingcharge(country, gift_card_id, gift_pack_id);
                         calculatetotalpay();
                         hideLoader();
                 });
         }
-        function getshippingcharge(value) {
+
+        function getshippingcharge(value, gift_card_id, gift_pack_id) {
                 showLoader();
+
                 $.ajax({
                         type: "POST",
                         cache: 'false',
-                        async: false, url: baseurl + 'CheckOut/Getshippingcharge',
-                        data: {country: value}
+                        async: false,
+                        url: baseurl + 'GiftCard/Getshippingcharge',
+                        data: {country: value, gift_card_id: gift_card_id, gift_pack_id: gift_pack_id}
                 }).done(function (data) {
                         var obj = jQuery.parseJSON(data);
                         $("#shipping_charge").html(obj.shippingcharge);
-                        $("#grant_total").html(obj.granttotal);
+                        $(".grant_total").html(obj.granttotal);
+                        $(".grant_total").val(obj.granttotal);
                         $("#total_pay").html(obj.granttotal);
                         $(".total_pay").val(obj.totalpay);
                         calculatetotalpay();
@@ -605,9 +812,11 @@
                 $.ajax({
                         type: "POST",
                         cache: 'false',
-                        async: false, url: baseurl + 'CheckOut/Getcountry',
+                        async: false,
+                        url: baseurl + 'CheckOut/Getcountry',
                         data: {country: country}
                 }).done(function (data) {
+
                         result = data;
                         hideLoader();
                 });
@@ -615,15 +824,13 @@
         }
         function getcountry(country) {
                 showLoader();
-                $.ajax({
-                        type: "POST",
+                $.ajax({type: "POST",
                         cache: 'false',
-                        async: false, url: baseurl + 'CheckOut/Getcountry',
-                        data: {country: country}
+                        async: false,
+                        url: baseurl + 'CheckOut/Getcountry', data: {country: country}
                 }).done(function (data) {
 
-                        get
-                        shippingcharge(data);
+                        getshippingcharge(data);
                         if (data != 0) {
                                 getshipmethod(data);
                         }

@@ -138,35 +138,33 @@ class SiteController extends Controller {
          */
         public function actionLogin() {
 
-
-
                 if (isset(Yii::app()->session['user'])) {
 
                         $this->redirect($this->createUrl('index'));
                 } else {
+
                         $model = new UserDetails();
                         if (isset($_REQUEST['UserDetails'])) {
 
 
 
                                 $modell = UserDetails::model()->findByAttributes(array('email' => $_REQUEST['UserDetails']['email'], 'password' => $_REQUEST['UserDetails']['password']));
-
                                 if (!empty($modell)) {
+
                                         if ($modell->status == 0) {
                                                 Yii::app()->user->setFlash('login_list', "Access Denied.Contact Laksyah");
                                         } else if ($modell->email_verification == 0) {
-
 
                                                 Yii::app()->user->setFlash('emailverify', "One Time Password (OTP) has been sent to your email <b>" . $modell->email . "</b>, please enter the same here to access your account.");
 
                                                 Yii::app()->user->setFlash('verify_code', $modell->id);
                                                 Yii::app()->session['user_email_verify'] = $modell->id;
-                                                Yii::app()->session['gift_card_option'] = $_POST['gift_id'];
 
                                                 $this->VerificationMail($modell);
                                         } else if ($modell->email_verification == 1 && $modell->status == 1) {
                                                 Yii::app()->user->setFlash('emailverify', null);
                                                 Yii::app()->user->setFlash('email_verification1', null);
+                                                Yii::app()->session['gift_card_option'] = $_POST['gift_id'];
 
 
                                                 $this->siteNavigator($modell);
@@ -202,7 +200,6 @@ class SiteController extends Controller {
 
                         Yii::app()->session['user'] = $model;
                         if (isset(Yii::app()->session['gift_card_option']) != '') {
-
                                 $this->redirect($this->createUrl('/giftcard/index', array('card_id' => Yii::app()->session['gift_card_option'])));
                         } else if (isset(Yii::app()->session['temp_user'])) {
 

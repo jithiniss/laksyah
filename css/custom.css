@@ -339,3 +339,7 @@ span.required {
 .main_container .row > .list-view > .items > div[class*="col-"]:nth-child(4) {
         clear: both;
 }
+#gft_check_bx{
+        padding-left: 194px;
+        margin-top: -25px;
+}

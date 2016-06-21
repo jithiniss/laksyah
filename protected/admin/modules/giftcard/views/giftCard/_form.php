@@ -21,13 +21,13 @@
 
 
         <div class="form-group">
-                <?php echo $form->labelEx($model, 'name', array('class' => 'col-md-2')); ?>
+                <?php echo $form->labelEx($model, 'name', array('class' => 'col-md-2 control-label')); ?>
                 <div class="col-md-10"><?php echo $form->textField($model, 'name', array('size' => 60, 'maxlength' => 200, 'class' => 'form-control')); ?>
                         <?php echo $form->error($model, 'name'); ?></div>
         </div>
 
         <div class="form-group">
-                <?php echo $form->labelEx($model, 'amount', array('class' => 'col-md-2')); ?>
+                <?php echo $form->labelEx($model, 'amount', array('class' => 'col-md-2 control-label')); ?>
                 <div class="col-md-10"><?php echo $form->textField($model, 'amount', array('size' => 60, 'maxlength' => 200, 'class' => 'form-control')); ?>
                         <?php echo $form->error($model, 'amount'); ?></div>
         </div>
@@ -42,6 +42,11 @@
                         ?>
                 </div>
                 <?php echo $form->error($model, 'image'); ?>
+        </div>
+        <div class="form-group">
+                <?php echo $form->labelEx($model, 'weight', array('class' => 'col-md-2 control-label')); ?>
+                <div class="col-md-10"><?php echo $form->textField($model, 'weight', array('size' => 60, 'maxlength' => 200, 'class' => 'form-control')); ?>
+                        <?php echo $form->error($model, 'weight'); ?></div>
         </div>
         <div class="form-group">
                 <?php echo $form->labelEx($model, 'status', array('class' => 'col-sm-2 control-label')); ?>
