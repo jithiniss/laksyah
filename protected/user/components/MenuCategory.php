@@ -19,8 +19,10 @@ class MenuCategory extends CApplicationComponent {
                         $max = $this->currencychange($max_);
                 }
 
-                if (!empty($cats) || $cats != '') {
+                if (!empty($cats)) {
                         $find_ids = $this->ids($cats, $parent, $categ);
+                } else {
+                        $find_ids[0] = $parent->id;
                 }
 
                 if (!empty($categ)) {
@@ -196,16 +198,16 @@ class MenuCategory extends CApplicationComponent {
         }
 
         public function selectCategory($data, $id) {
-                $index = count($_SESSION['category']);
+                $index = count($_SESSION['category_new']);
                 if ($data->id == $id) {
-                        $_SESSION['category'][$index + 1] = $data->id;
+                        $_SESSION['category_new'][$index + 1] = $data->id;
                 } else {
                         $results = ProductCategory::model()->findByPk($data->parent);
-                        $_SESSION['category'][$index + 1] = $data->id;
+                        $_SESSION['category_new'][$index + 1] = $data->id;
                         return $this->selectCategory($results, $id);
                 }
                 $return = array();
-                $category_arr = array_reverse($_SESSION['category']);
+                $category_arr = array_reverse($_SESSION['category_new']);
                 foreach ($category_arr as $cat) {
                         array_push($return, $cat);
                 }
