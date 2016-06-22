@@ -25,8 +25,8 @@ $(document).ready(function () {
 
 
         });
-        
-       
+
+
 });
 
 
@@ -70,7 +70,7 @@ function removecart(cartid, canname) {
         }).done(function (data) {
                 getcartcount();
                 getcarttotal();
-                $(".cart_box").html(data);
+                //$(".cart_box").html(data);
                 //alert(data);
                 if (data == 'Cart box is Empty') {
                         window.location.href = baseurl + "Cart/Mycart";
