@@ -93,7 +93,7 @@
                 </div>
 
                 <div class="form-group">
-                        <?php echo $form->labelEx($model, 'Main Image ( image size : 3016 X 4030 )', array('class' => 'col-sm-2 control-label')); ?>
+                        <?php echo $form->labelEx($model, 'Main Image ( image size : 322 X 500 )', array('class' => 'col-sm-2 control-label')); ?>
                         <div class="col-sm-10"><?php echo $form->fileField($model, 'main_image', array('size' => 60, 'maxlength' => 100, 'class' => 'form-control')); ?>
                                 <?php
                                 if ($model->main_image != '' && $model->id != "") {
@@ -282,7 +282,7 @@
                 </div>
                 <!--    <div class="form-group">
                 <?php //echo $form->labelEx($model, 'discount', array('class' => 'col-sm-2 control-label'));    ?>
-                        <div class="col-sm-10"><?php //echo $form->textField($model, 'discount', array('class' => 'form-control'));                                                                                                          ?>
+                        <div class="col-sm-10"><?php //echo $form->textField($model, 'discount', array('class' => 'form-control'));                                                                                                           ?>
                         </div>
                 <?php //echo $form->error($model, 'discount');    ?>
                     </div>-->
