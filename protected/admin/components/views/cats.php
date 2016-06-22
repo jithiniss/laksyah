@@ -114,10 +114,10 @@
                 });
 
                 /* $('#category_tag_select').live('click',function(){
-                 var cat= $('#<?php //echo $this->category_id;                                                             ?>').val();
+                 var cat= $('#<?php //echo $this->category_id;                                                                        ?>').val();
                  if(cat==''){
                  alert('Select a Category first.');
-                 $('#<?php //echo $this->category_id;                                                             ?>').focus();
+                 $('#<?php //echo $this->category_id;                                                                        ?>').focus();
                  }
 
                  });*/
@@ -191,10 +191,13 @@
 
 
                 $('#<?php echo $this->type; ?>_close').on('click', '.<?php echo $this->type; ?>_closee', function () {
+                        var value = $(this).attr('id');
                         var parent = $(this).parent().html();
                         var parent_res = parent.replace('<i class="fa fa-close <?php echo $this->type; ?>_closee"></i>', "");
                         var str = $('#<?php echo $this->category_tag_id; ?>').val();
-                        var res = str.replace(parent_res + ",", "");
+
+                        var res = str.replace(value + ",", "");
+
                         $('#<?php echo $this->category_tag_id; ?>').val(res);
                         $(this).parent().remove();
                 });
