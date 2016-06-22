@@ -56,7 +56,7 @@ class Order extends CActiveRecord {
                     array('total_amount, discount_rate, netbanking, paypal, wallet', 'length', 'max' => 10),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, user_id, total_amount, order_date, address_book_id, comment, payment_mode, admin_comment, transaction_id, payment_status, admin_status, status, DOC, wallet,shipping_method, paypal, netbanking', 'safe', 'on' => 'search'),
+                    array('id, user_id, total_amount, order_date, address_book_id, comment, payment_mode, admin_comment, transaction_id, payment_status, admin_status, status,laksyah_gift, DOC, wallet,shipping_method, paypal, netbanking', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -99,6 +99,7 @@ class Order extends CActiveRecord {
                     'payment_status' => 'Payment Status',
                     'admin_status' => 'Admin Status',
                     'status' => 'Status',
+                    'laksyah_gift' => 'Laksyah Gift',
                     'shipping_method' => 'Shipping Method',
                     'DOC' => 'Doc',
                 );
@@ -143,6 +144,7 @@ class Order extends CActiveRecord {
                 $criteria->compare('admin_status', $this->admin_status);
                 $criteria->compare('status', $this->status);
                 $criteria->compare('shipping_method', $this->shipping_method);
+                $criteria->compare('laksyah_gift', $this->laksyah_gift);
                 $criteria->compare('DOC', $this->DOC, true);
 
                 return new CActiveDataProvider($this, array(

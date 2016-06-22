@@ -131,6 +131,18 @@
 
         <?php endif; ?>
         <div class="row">
+                <div class="col-xs-12 ">
+                        <?php if (Yii::app()->user->hasFlash('shipp_availability')): ?>
+                                <div class="alert alert-danger fade in">
+                                        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
+                                        <?php echo Yii::app()->user->getFlash('shipp_availability'); ?>
+                                </div>
+
+                        <?php endif; ?>
+
+                </div>
+        </div>
+        <div class="row">
                 <div class="col-md-8">
                         <div class="check_out related_element">
                                 <div class="border_box">
@@ -380,6 +392,7 @@
 
                                                         <img src="<?php echo Yii::app()->request->baseUrl; ?>/uploads/gift/<?php echo $card_details->id; ?>.<?php echo $card_details->image; ?>" class="img-responsive crt">
                                                         <input type="hidden" id="gift_card_id" value="<?php echo $card_details->id; ?>" name="gift_card_id"/>
+                                                        <input type="hidden" id="gift_card_amount" value="<?php echo $card_details->amount; ?>" name="gift_card_amount"/>
 
                                                         <h3><?php echo $card_details->name; ?><span class="pull-right"><strong><?php
                                                                                 if (isset(Yii::app()->session['currency'])) {
@@ -470,7 +483,7 @@
 
                                         </div>
 <!--                                        <span id="gift_shipping"></span>
-                                        <span><input type="hidden" id="gift_subtotal" value="<?php //echo Yii::app()->Currency->convert($subtotal);                                                                                         ?>" ></span>-->
+                                        <span><input type="hidden" id="gift_subtotal" value="<?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                          ?>" ></span>-->
                                         <div class="price_group">
                                                 <div class="pull-left">Shipping</div>
                                                 <div class="pull-right"><span id="shipping_charge"></span></div>
@@ -480,7 +493,7 @@
                                         <div class="price_group total_amount">
 
                                                 <div class="pull-left">ORDER TOTAL</div>
-                                                <!--<div class="pull-right"><?php //echo Yii::app()->Currency->convert($subtotal);                                                                       ?></div>-->
+                                                <!--<div class="pull-right"><?php //echo Yii::app()->Currency->convert($subtotal);                                                                                        ?></div>-->
                                                 <div class="pull-right"><span class="grant_total"></span></div>
                                                 <input type="hidden" class="grant_total" name="grant_total_gift" />
                                                 <div class="clearfix"></div>
@@ -550,6 +563,10 @@
                                 }
                                 $('#shipping_address').show();
                                 $('#gft_check_bx').show();
+                        }
+                        if (check_value == 1) {
+                                $('#shipping_address').hide();
+                                $('#gft_check_bx').hide();
                         }
                 });
         });
