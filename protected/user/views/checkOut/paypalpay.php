@@ -6,14 +6,14 @@
         <input type='hidden' name='amount' value="<?= $totaltopay; ?>">
         <input type='hidden' name='no_shipping' value='1'>
         <input type="hidden" name="pay_id" value="<?= $pid; ?>">
-        <input type='hidden' name='return' value="<?php echo Yii::app()->request->baseUrl; ?>/index.php/CheckOut/OrderSuccess/payid/<?php echo $pid; ?>">;
+        <input type='hidden' name='return' value="<?php echo Yii::app()->request->baseUrl; ?>/index.php/CheckOut/OrderSuccess/payid/<?php echo $pid; ?>">
         <input type='hidden' name='cancel' value='<?php echo Yii::app()->request->baseUrl; ?>/index.php/CheckOut/OrderFailed'>
         <input type='hidden' name='no_note' value='1'>
         <input type='hidden' name='currency_code' value='USD'>
         <input type='hidden' name='lc' value='US'>
         <input type='hidden' name='bn' value='PP-BuyNowBF'>
 </form>
-<h3>Payment Procedure  Progress </h3><span id="wait">.</span>
+<h3>Payment Procedure  Progress <span id="wait">.</span> </h3>
 <script>
         var dots = window.setInterval(function () {
                 var wait = document.getElementById("wait");

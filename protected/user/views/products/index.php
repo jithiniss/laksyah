@@ -26,7 +26,7 @@
                                 $parent = Yii::app()->Menu->findParent($get_cat_name->id);
                                 if ($parent != 4) {
                                         ?>
-                                        <h3 class="hidden-xs"><i class="fa fa-align-justify "></i>Filter</h3>
+                                        <h3 class="hidden-xs"><i class="fa fa-align-justify "></i>Filter <a style="text-decoration: none; color: #f47721; font-size: 10px;" class="pull-right" href="">Reset Filter</a></h3>
                                         <div class="laksyah_filters">
                                                 <div class="price_filter">
                                                         <h4>Price</h4>

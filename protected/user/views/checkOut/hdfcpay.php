@@ -172,7 +172,7 @@
         </table>
 
 </form>
-<h3>Payment Procedure  Progress </h3><span id="wait">.</span>
+<h3>Payment Procedure  Progress <span id="wait">.</span></h3>
 <script>
         var dots = window.setInterval(function () {
                 var wait = document.getElementById("wait");

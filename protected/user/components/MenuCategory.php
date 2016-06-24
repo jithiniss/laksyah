@@ -42,7 +42,7 @@ class MenuCategory extends CApplicationComponent {
                 if (!empty($prod_ids)) {
                         $product_id = 'id not in(' . $prod_ids . ') ';
                 } else {
-                        $product_id = 'id not in(' . $prod_ids . ') ';
+//                        $product_id = 'id not in(' . $prod_ids . ') ';
                 }
                 //$product_id = 'id not in(' . $prod_ids . ') ';
 //                var_dump($find_in_set);
@@ -73,7 +73,8 @@ class MenuCategory extends CApplicationComponent {
                         } elseif (!empty($find_in_set) && !empty($min) && !empty($max)) {
                                 $condition = '(' . $find_in_set . ') AND (price > ' . $min . ' AND price <' . $max . ') ';
                                 $order = '';
-                        } elseif (!empty($find_in_set) && !empty($categ) || !empty($prod_ids)) {
+                        } elseif (!empty($find_in_set) && !empty($categ) && !empty($prod_ids)) {
+
                                 $condition = '(' . $find_in_set . ') AND (' . $product_id . ')';
                                 $order = '';
                         } elseif (!empty($find_in_set) && !empty($size)) {
