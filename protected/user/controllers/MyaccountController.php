@@ -11,6 +11,9 @@ class MyaccountController extends Controller {
 //                        $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
 //                }
 //        }
+        public function init() {
+                date_default_timezone_set('Asia/Kolkata');
+        }
 
         public function actionIndex() {
 
@@ -134,7 +137,7 @@ class MyaccountController extends Controller {
                                         if ($enq_history_update->save()) {
                                                 Yii::app()->session['measure_details'] = '';
                                                 unset(Yii::app()->session['measure_details']);
-// $this->ProductEnquiryMail($model, $enq_history_update);
+                                                $this->ProductEnquiryMail($model, $enq_history_update);
                                         }
                                 }
                                 Yii::app()->user->setFlash('meas_success', " Your Measurement Successfully Saved");

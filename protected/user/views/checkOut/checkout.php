@@ -38,7 +38,7 @@
                                                 Billing Details
                                         </div>
                                         <div class="box_content">
-                                                <h3>Biiling Address</h3>
+                                                <h3>Billing Address</h3>
                                                 <div class="form_row">
                                                         <label>Select a billing address from your address book or enter a new address.</label>
                                                         <select  name="bill_address" class="select_bill_exist form-control" id="bill_exist">

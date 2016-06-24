@@ -1093,7 +1093,7 @@ class GiftcardController extends Controller {
                 }
         }
 
-        public function actiontotalcalculate() {
+        public function actionTotalcalculate() {
                 if (isset(Yii::app()->session['user']['id'])) {
                         $wallet = $_POST['wallet'];
                         $gift_card_id = $_POST['gift_card_id'];

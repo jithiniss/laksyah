@@ -64,15 +64,15 @@
                                                 </div>
                                         </div>
                                 </div>
-                                <div class="col-sm-4 col-md-3 col-xs-4">
-                                        <div class="dash_item">
-                                                <img  src="<?php echo Yii::app()->baseUrl; ?> /images/dash_board_icon1.jpg" alt=""/>
-                                                <div class="dash_title">
-                                                        <a href="#"><i class="fa fa-credit-card"></i></a>
-                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Makepayment">  <h3>Make a Payment</h3></a>
-                                                </div>
-                                        </div>
-                                </div>
+                                <!--                                <div class="col-sm-4 col-md-3 col-xs-4">
+                                                                        <div class="dash_item">
+                                                                                <img  src="<?php //echo Yii::app()->baseUrl;  ?> /images/dash_board_icon1.jpg" alt=""/>
+                                                                                <div class="dash_title">
+                                                                                        <a href="#"><i class="fa fa-credit-card"></i></a>
+                                                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Makepayment">  <h3>Make a Payment</h3></a>
+                                                                                </div>
+                                                                        </div>
+                                                                </div>-->
                         </div>
 
 

@@ -127,7 +127,7 @@ class ProductsController extends Controller {
                                         $celib_history->pay_amount = 0;
                                         if ($celib_history->save()) {
                                                 Yii::app()->user->setFlash('enuirysuccess', "Your Enquiry Send Successfully ");
-                                                //$this->ProductEnquiryMail($model);
+                                                $this->ProductEnquiryMail($model);
                                                 $model->unsetAttributes();
                                         }
                                 }

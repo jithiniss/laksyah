@@ -17,7 +17,7 @@
                         <li><?php echo CHtml::link('My Order', array('Myaccount/Myordernew')); ?></li>
                         <li><?php echo CHtml::link('My Wishlist', array('Myaccount/Mywishlists')); ?></li>
                         <li><?php echo CHtml::link('Measurement', array('Myaccount/SizeChartType')); ?></li>
-                        <li><?php echo CHtml::link('Make a Payment', array('Myaccount/Makepayment')); ?></li>
+                        <li><?php //echo CHtml::link('Make a Payment', array('Myaccount/Makepayment'));  ?></li>
                         <!--            <li> <a href="#">Track My Order</a></li>-->
                 </ul>
         </div>

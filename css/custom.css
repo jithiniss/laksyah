@@ -343,3 +343,27 @@ span.required {
         padding-left: 194px;
         margin-top: -25px;
 }
+
+
+.user_content article p {
+        line-height: 22px;
+        margin: 0px;
+        margin-bottom: 10px;
+        text-align: justify;
+}
+.tab-content .tab-pane p{
+        text-align: justify;
+}
+.tab-content .tab-pane ul li{
+        text-align: justify;
+}
+div #details .tab-pane p{
+        text-align: justify;
+}
+.cart_product_detail ul li{
+        text-align: justify;
+}
+.custom_measurement ul{
+        text-align: justify;
+
+}

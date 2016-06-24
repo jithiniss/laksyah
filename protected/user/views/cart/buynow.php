@@ -80,7 +80,7 @@
                                                 </div>
                                                 <div role="tabpanel" class="tab-pane login_popup" id="register">
                                                         <h2>REGISTRATION</h2>
-                                                        <h4>Please fillout your profile information</h4>
+                                                        <h4>Please fill out your profile information</h4>
                                                         <div class="col-xs-12 forward">
                                                                 <?php if (Yii::app()->user->hasFlash('feilderror1')): ?>
                                                                         <div class="alert alert-danger mesage">
@@ -179,13 +179,8 @@
 
 
 
-
-
-
-
-
                                                                         <div class="box-footer">
-                                                                                <?php echo CHtml::submitButton($regform->isNewRecord ? 'Create an Acocunt' : 'Save', array('class' => 'btn-primary btn-full')); ?>
+                                                                                <?php echo CHtml::submitButton($regform->isNewRecord ? 'Create an Account' : 'Save', array('class' => 'btn-primary btn-full')); ?>
                                                                         </div>
 
                                                                         <?php $this->endWidget(); ?>

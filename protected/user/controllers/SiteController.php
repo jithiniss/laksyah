@@ -165,8 +165,6 @@ class SiteController extends Controller {
                                                 Yii::app()->user->setFlash('emailverify', null);
                                                 Yii::app()->user->setFlash('email_verification1', null);
                                                 Yii::app()->session['gift_card_option'] = $_POST['gift_id'];
-
-
                                                 $this->siteNavigator($modell);
                                         }
                                 } else {
@@ -199,13 +197,11 @@ class SiteController extends Controller {
 
 
                         Yii::app()->session['user'] = $model;
-                        if (isset(Yii::app()->session['gift_card_option']) != '') {
+
+                        if (Yii::app()->session['gift_card_option'] != "") {
                                 $this->redirect($this->createUrl('/giftcard/index', array('card_id' => Yii::app()->session['gift_card_option'])));
                         } else if (isset(Yii::app()->session['temp_user'])) {
-
-
                                 Cart::model()->updateAll(array("user_id" => $model->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
-
                                 UserWishlist::model()->updateAll(array("user_id" => $model->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
                                 ProductViewed::model()->updateAll(array("user_id" => $model->id, 'session_id' => ''), 'session_id=' . Yii::app()->session['temp_user']);
 
@@ -222,13 +218,13 @@ class SiteController extends Controller {
 
                                 unset(Yii::app()->session['wishlist_user']);
 
-                                $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/index');
+                                $this->redirect(Yii::app()->request->baseUrl . '/index.php/Myaccount');
                         }
                         if (isset(Yii::app()->session['wishlist_user'])) {
 
                                 Yii::app()->user->setFlash('wishlist_user', "Dear, You must login to see Wishlist Items");
                         }
-                        $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/index');
+                        $this->redirect(Yii::app()->request->baseUrl . '/index.php/Myaccount');
                 }
         }
 
@@ -280,9 +276,12 @@ class SiteController extends Controller {
          */
         public function actionLogout() {
 // Cart::model()->deleteAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
-                Yii::app()->user->logout();
                 unset(Yii::app()->session['user']);
-// unset($_SESSION);
+                unset(Yii::app()->session['gift_card_option']);
+                unset($_SESSION);
+
+                Yii::app()->user->logout();
+
                 $this->redirect(Yii::app()->homeUrl);
         }
 
@@ -295,7 +294,7 @@ class SiteController extends Controller {
                         $model->date = date("Y-m-d");
                         if ($model->validate()) {
                                 if ($model->save()) {
-                                        //$this->Appointmentmail($model);
+                                        $this->Appointmentmail($model);
                                         Yii::app()->user->setFlash('success', " Your Appointment Booked successfully");
                                 } else {
                                         Yii::app()->user->setFlash('error', "Error Occured");
@@ -330,7 +329,7 @@ class SiteController extends Controller {
                         $model->date = date("Y-m-d");
                         if ($model->validate()) {
                                 if ($model->save()) {
-//                                        $this->contactmail($model);
+                                        $this->contactmail($model);
                                         Yii::app()->user->setFlash('success', " Your email sent successfully");
                                 } else {
                                         Yii::app()->user->setFlash('error', "Error Occured");
@@ -368,7 +367,7 @@ class SiteController extends Controller {
                         $model->date = date('Y-m-d');
                         if ($model->validate()) {
                                 if ($model->save($model)) {
-//                                        $this->SuccessMail($model);
+                                        $this->SuccessMail($model);
                                         Yii::app()->user->setFlash('newsletter', " Your email sent successfully");
                                 } else {
                                         Yii::app()->user->setFlash('error_newsletter', "Error Occured");
