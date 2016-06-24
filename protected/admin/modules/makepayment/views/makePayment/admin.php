@@ -65,7 +65,7 @@
                                             return 'Advance Payment';
                                     } elseif ($data->amount_type == '1') {
                                             return 'Final';
-                                    } elseif ($data->amount_type == '1') {
+                                    } elseif ($data->amount_type == '3') {
                                             return 'other';
                                     } else {
                                             return 'Invalid';
