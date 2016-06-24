@@ -301,7 +301,7 @@ class ProductsController extends Controller {
 
 
 
-                $message = $this->renderPartial('_product_info_mail', array('page_url' => $page_url, 'from' => $from));
+                $message = $this->renderPartial('_product_info_mail', array('page_url' => $page_url, 'from' => $from), TRUE);
 
 
 
@@ -311,7 +311,7 @@ class ProductsController extends Controller {
 
                 if (mail($to, $subject, $message, $headers)) {
                         Yii::app()->user->setFlash('success', " your email sent successfully..");
-                        $this->redirect($page_url);
+                        $this->redirect(Yii::app()->request->urlReferrer);
                 }
         }
 
