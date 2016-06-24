@@ -674,7 +674,7 @@ class GiftcardController extends Controller {
 
                                                                                 if ($order->netbanking != '') {
                                                                                         $hdfc_details = array();
-                                                                                        $hdfc_details['description'] = 'Laksyah Products';
+                                                                                        $hdfc_details['description'] = 'Laksyah Giftcard';
                                                                                         $hdfc_details['order'] = $order->id;
                                                                                         $hdfc_details['totaltopay'] = $order->netbanking;
                                                                                         $hdfc_details['bill_name'] = $order_billing_details->first_name . ' ' . $order_billing_details->last_name;
@@ -723,7 +723,7 @@ class GiftcardController extends Controller {
 
                                                                                         if ($order->netbanking != '') {
                                                                                                 $hdfc_details = array();
-                                                                                                $hdfc_details['description'] = 'Laksyah Products';
+                                                                                                $hdfc_details['description'] = 'Laksyah Giftcard';
                                                                                                 $hdfc_details['order'] = $order->id;
                                                                                                 $hdfc_details['totaltopay'] = $order->netbanking;
                                                                                                 $hdfc_details['bill_name'] = $order_billing_details->first_name . ' ' . $order_billing_details->last_name;
@@ -807,7 +807,7 @@ class GiftcardController extends Controller {
 
                                                                         if ($order->netbanking != '') {
                                                                                 $hdfc_details = array();
-                                                                                $hdfc_details['description'] = 'Laksyah Products';
+                                                                                $hdfc_details['description'] = 'Laksyah Giftcard';
                                                                                 $hdfc_details['order'] = $order->id;
                                                                                 $hdfc_details['totaltopay'] = $order->netbanking;
                                                                                 $hdfc_details['bill_name'] = $order_billing_details->first_name . ' ' . $order_billing_details->last_name;
@@ -856,7 +856,7 @@ class GiftcardController extends Controller {
 
                                                                                 if ($order->netbanking != '') {
                                                                                         $hdfc_details = array();
-                                                                                        $hdfc_details['description'] = 'Laksyah Products';
+                                                                                        $hdfc_details['description'] = 'Laksyah Giftcard';
                                                                                         $hdfc_details['order'] = $order->id;
                                                                                         $hdfc_details['totaltopay'] = $order->netbanking;
                                                                                         $hdfc_details['bill_name'] = $order_billing_details->first_name . ' ' . $order_billing_details->last_name;
@@ -915,7 +915,7 @@ class GiftcardController extends Controller {
 
         /* addresslist for checkout */
 
-        public function actionOrderSuccess() {
+        public function actionOrderSuccess($payid, $tid, $amt) {
                 if (isset(Yii::app()->session['orderid']) && Yii::app()->session['user']['id'] != '') {
                         $order = Order::model()->findByPk(Yii::app()->session['orderid']);
                         $userdetails = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
