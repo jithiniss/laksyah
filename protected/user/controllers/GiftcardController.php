@@ -1075,16 +1075,18 @@ class GiftcardController extends Controller {
                                         $totalpay = ceil($totalpay / Yii::app()->session['currency']['rate']);
                                 }
                         }
+                        $grant_total_val = $grant_total;
                         $grant_total = Yii::app()->Currency->convert($grant_total);
+
 
                         if (!empty($shipping_rate)) {
                                 $ship_amount = Yii::app()->Currency->convert($total_shipping_rate);
-                                $array = array('granttotal' => $grant_total, 'totalpay' => $totalpay, 'shippingcharge' => $ship_amount, 'subtotal' => $sub_total);
+                                $array = array('granttotal' => $grant_total, 'grant_total_val' => $grant_total_val, 'totalpay' => $totalpay, 'shippingcharge' => $ship_amount, 'subtotal' => $sub_total);
                                 $json = CJSON::encode($array);
                                 echo $json;
                         } else {
                                 $ship_amount = 0;
-                                $array = array('granttotal' => $grant_total, 'shippingcharge' => $ship_amount, 'subtotal' => $sub_total);
+                                $array = array('granttotal' => $grant_total, 'grant_total_val' => $grant_total_val, 'shippingcharge' => $ship_amount, 'subtotal' => $sub_total);
                                 $json = CJSON::encode($array);
                                 echo $json;
                         }

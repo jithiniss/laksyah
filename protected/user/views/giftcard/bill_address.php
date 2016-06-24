@@ -84,7 +84,7 @@
         $form = $this->beginWidget('CActiveForm', array(
             'id' => 'user-address-form',
             'htmlOptions' => array('class' => 'form-group'),
-            'action' => Yii::app()->baseUrl . '/index.php/GiftCard/CheckOutGiftcard/',
+            'action' => Yii::app()->baseUrl . '/index.php/Giftcard/CheckOutGiftcard/',
             // Please note: When you enable ajax validation, make sure the corresponding
             // controller action is handling ajax validation correctly.
             // There is a call to performAjaxValidation() commented in generated controller code.
@@ -483,7 +483,7 @@
 
                                         </div>
 <!--                                        <span id="gift_shipping"></span>
-                                        <span><input type="hidden" id="gift_subtotal" value="<?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                          ?>" ></span>-->
+                                        <span><input type="hidden" id="gift_subtotal" value="<?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                               ?>" ></span>-->
                                         <div class="price_group">
                                                 <div class="pull-left">Shipping</div>
                                                 <div class="pull-right"><span id="shipping_charge"></span></div>
@@ -493,7 +493,7 @@
                                         <div class="price_group total_amount">
 
                                                 <div class="pull-left">ORDER TOTAL</div>
-                                                <!--<div class="pull-right"><?php //echo Yii::app()->Currency->convert($subtotal);                                                                                        ?></div>-->
+                                                <!--<div class="pull-right"><?php //echo Yii::app()->Currency->convert($subtotal);                                                                                             ?></div>-->
                                                 <div class="pull-right"><span class="grant_total"></span></div>
                                                 <input type="hidden" class="grant_total" name="grant_total_gift" />
                                                 <div class="clearfix"></div>
@@ -757,7 +757,7 @@
                         type: "POST",
                         cache: 'false',
                         async: false,
-                        url: baseurl + 'GiftCard/totalcalculate',
+                        url: baseurl + 'Giftcard/Totalcalculate',
                         data: {wallet: wallet, country: country, gift_card_id: gift_card_id, gift_pack_id: gift_pack_id}
                 }).done(function (data) {
 
@@ -810,13 +810,13 @@
                         type: "POST",
                         cache: 'false',
                         async: false,
-                        url: baseurl + 'GiftCard/Getshippingcharge',
+                        url: baseurl + 'Giftcard/Getshippingcharge',
                         data: {country: value, gift_card_id: gift_card_id, gift_pack_id: gift_pack_id}
                 }).done(function (data) {
                         var obj = jQuery.parseJSON(data);
                         $("#shipping_charge").html(obj.shippingcharge);
                         $(".grant_total").html(obj.granttotal);
-                        $(".grant_total").val(obj.granttotal);
+                        $(".grant_total").val(obj.grant_total_val);
                         $("#total_pay").html(obj.granttotal);
                         $(".total_pay").val(obj.totalpay);
                         calculatetotalpay();
