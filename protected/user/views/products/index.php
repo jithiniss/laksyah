@@ -130,6 +130,7 @@
                 </div>
         </div>
 </div>
+
 <!-- /.container -->
 
 <script>
@@ -175,7 +176,7 @@
                                 $(".max_value").html("<i class='fa <?= Yii::app()->session['currency'] != '' ? Yii::app()->session['currency']->symbol : 'fa-inr'; ?>'></i> " + ui.values[ 1 ]);
                         },
                         stop: function (event, ui) {
-                                showLoader();
+
                                 //debugger;
                                 productFilter();
                         }
@@ -193,7 +194,10 @@
                         var qty = $(".qty_" + id).val();
                         addtocart(canname, qty);
                 });
+
+
         });
+
         function productFilter() {
                 var size;
                 var form = $("#slide_rnge");
@@ -206,6 +210,12 @@
                 $.ajax({
                         url: baseurl + 'Products/PriceRange',
                         type: "POST",
+                        beforeSend: function () {
+                                showLoader();
+                        },
+                        complete: function () {
+                                hideLoader();
+                        },
                         //data: form.serialize()
                         data: {min: min_amount, max: max_amount, cat: categ_id, size: size}
                 }).done(function (data) {
