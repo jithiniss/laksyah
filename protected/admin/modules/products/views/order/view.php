@@ -1,87 +1,177 @@
 <section class="content-header">
-    <h1>View Order #<?php echo $model->id; ?></h1>
-    <ol class="breadcrumb">
-        <li><a href="<?php echo Yii::app()->request->baseUrl . '/admin.php/products/order/admin'; ?>"><i class="fa fa-dashboard"></i>  Order</a></li>
-        <li class="active">Manage</li>
-    </ol>
+        <h1>View Order #<?php echo $model->id; ?></h1>
+        <ol class="breadcrumb">
+                <li><a href="<?php echo Yii::app()->request->baseUrl . '/admin.php/products/order/admin'; ?>"><i class="fa fa-dashboard"></i>  Order</a></li>
+                <li class="active">Manage</li>
+        </ol>
 </section>
 <!--<a href="<?php echo Yii::app()->request->baseUrl . '/admin.php/products/order/create'; ?>" class='btn  btn-success manage'>Add Order</a>-->
 <div class="col-xs-12 form-page">
-    <div class="box">
-        <div class="box-body table-responsive no-padding">
+        <div class="box">
+                <div class="box-body table-responsive no-padding">
 
-            <?php
-            $this->widget('booster.widgets.TbDetailView', array(
-                'data' => $model,
-                'attributes' => array(
+                        <?php
+                        $this->widget('booster.widgets.TbDetailView', array(
+                            'data' => $model,
+                            'attributes' => array(
 //                    'id',
-                    array('name' => 'user_id',
-                        'value' => function($data) {
-                                return $data->user->first_name;
-                        },
-                    ),
-                    array('name' => 'total_amount',
-                        'value' => function($data) {
-                                return 'INR ' . $data->total_amount . '/-';
-                        },
-                    ),
-                    'order_date',
-                    array('name' => 'address_book_id',
-                        'value' => function($data) {
+                                array('name' => 'user_id',
+                                    'value' => function($data) {
+                                            return $data->user->first_name;
+                                    },
+                                ),
+                                array('name' => 'total_amount',
+                                    'value' => function($data) {
+                                            return 'INR ' . $data->total_amount . '/-';
+                                    },
+                                ),
+                                'order_date',
+                                array('name' => 'ship_address_id',
+                                    'type' => 'raw',
+                                    'value' => function($data) {
+                                            $shipp_add = UserAddress::model()->findByPk($data->ship_address_id);
+                                            $result .= $shipp_add->first_name . ' ' . $shipp_add->last_name . '<br />';
+                                            $result .= $shipp_add->address_1 . ' ' . $shipp_add->address_2 . '<br />';
+                                            $result .= $shipp_add->city . ' ' . $shipp_add->postcode . '<br />';
+                                            $result .= Countries::model()->findByPk($shipp_add->country)->country_name . ' ' . States::model()->findByPk($shipp_add->state)->state_name . '<br />';
+                                            return $result;
+                                    },
+                                ),
+                                array('name' => 'bill_address_id',
+                                    'type' => 'raw',
+                                    'value' => function($data) {
 
-                                return $data->addressBook->address_1;
-                        },
-                    ),
-                    array('name' => 'address_book_id',
-                        'value' => function($data) {
-
-                                return $data->addressBook->address_2;
-                        },
-                    ),
-                    'comment',
-                    'payment_mode',
-                    'admin_comment',
-                    'transaction_id',
-                    'payment_status',
-                    array('name' => 'status',
-                    ),
+                                            $bill_add = UserAddress::model()->findByPk($data->bill_address_id);
+                                            $result1 .= $bill_add->first_name . ' ' . $bill_add->last_name . '<br />';
+                                            $result1 .= $bill_add->address_1 . ' ' . $bill_add->address_2 . '<br />';
+                                            $result1 .= $bill_add->city . ' ' . $bill_add->postcode . '<br />';
+                                            $result1 .= Countries::model()->findByPk($bill_add->country)->country_name . ' ' . States::model()->findByPk($bill_add->state)->state_name . '<br />';
+                                            return $result1;
+                                    },
+                                ),
+                                'comment',
+                                array('name' => 'payment_mode',
+                                    'value' => function($data) {
+                                            if ($data->payment_mode == 1) {
+                                                    return 'Wallet';
+                                            } else if ($data->payment_mode == 2) {
+                                                    return 'Netbanking';
+                                            } else if ($data->payment_mode == 3) {
+                                                    return 'Paypal';
+                                            } else if ($data->payment_mode == 4) {
+                                                    return 'Wallet, Netbanking';
+                                            } else {
+                                                    return 'Cash On delivery';
+                                            }
+//                                            return 'INR ' . $data->payment_status . '/-';
+                                    },
+                                ),
+                                'admin_comment',
+                                'transaction_id',
+                                array('name' => 'payment_status',
+                                    'value' => function($data) {
+                                            if ($data->payment_status == 1) {
+                                                    return 'Success';
+                                            } else if ($data->payment_status == 2) {
+                                                    return 'Failed Transaction';
+                                            } else {
+                                                    return 'Not Paid';
+                                            }
+//                                            return 'INR ' . $data->payment_status . '/-';
+                                    },
+                                ),
+                                array('name' => 'status',
+                                    'value' => function($data) {
+                                            if ($data->status == 1) {
+                                                    return 'Order Placed , Not Delivered to customer';
+                                            } else if ($data->status == 2) {
+                                                    return 'Order Success';
+                                            } else if ($data->payment_status == 3) {
+                                                    return 'Order Failed';
+                                            } else {
+                                                    return 'Order Not Placed';
+                                            }
+//                                            return 'INR ' . $data->payment_status . '/-';
+                                    },
+                                ),
 //                    'DOC',
-                ),
-            ));
-            ?>
-            <section class="content-header">
-                <h1>Products</h1>
-            </section>
-            <?php
-            $this->widget('booster.widgets.TbGridView', array(
-                'type' => ' bordered condensed hover',
-                'id' => 'order-products-grid',
-                'dataProvider' => $products->search(),
-                //'filter' => $products,
-                'columns' => array(
-//		'order_id',
-                    array('name' => 'product_id',
+                            ),
+                        ));
+                        ?>
+
+
+                        <section class="content-header">
+                                <h1>Order History</h1>
+                        </section>
+
+
+                        <?php
+                        $this->widget('booster.widgets.TbGridView', array(
+                            'type' => ' bordered condensed hover',
+                            'id' => 'order-products-grid',
+                            'dataProvider' => $history->search(),
+                            //'filter' => $products,
+                            'columns' => array(
+                                'date',
+                                array('name' => 'status',
 //                        'filter' => CHtml::listData(Products::model()->findAll(), 'id', 'product_name'),
-                        'value' => function($data) {
-                                return '<a href="' . Yii::app()->baseUrl . '/admin.php/products/products/view/id/' . $data->product_id . '" target="_blank">' . $data->product->product_name . '</a>';
-                        },
-                        'type' => 'raw',
-                    ),
-                    'quantity',
-                    array('name' => 'amount',
-                        'value' => function($data) {
-                                return 'INR ' . $data->amount . '/-';
-                        }
-                    ),
+                                    'value' => function($data) {
+                                            return OrderStatus::model()->findByPk($data->order_status)->title . ' ' . OrderStatus::model()->findByPk($data->order_status)->description;
+                                    },
+                                    'type' => 'raw',
+                                ),
+                                'order_status_comment',
+                                array('name' => 'shipping_type',
+//                        'filter' => CHtml::listData(Products::model()->findAll(), 'id', 'product_name'),
+                                    'value' => function($data) {
+                                            return OrderStatus::model()->findByPk($data->shipping_type)->shipping_type;
+                                    },
+                                    'type' => 'raw',
+                                ),
+                                'tracking_id',
+                                array(
+                                    'htmlOptions' => array('nowrap' => 'nowrap'),
+                                    'class' => 'booster.widgets.TbButtonColumn',
+                                    'template' => '',
+                                ),
+                            ),
+                        ));
+                        ?>
+
+
+                        <section class="content-header">
+                                <h1>Products</h1>
+                        </section>
+                        <?php
+                        $this->widget('booster.widgets.TbGridView', array(
+                            'type' => ' bordered condensed hover',
+                            'id' => 'order-products-grid',
+                            'dataProvider' => $products->search(),
+                            //'filter' => $products,
+                            'columns' => array(
+//		'order_id',
+                                array('name' => 'product_id',
+//                        'filter' => CHtml::listData(Products::model()->findAll(), 'id', 'product_name'),
+                                    'value' => function($data) {
+                                            return '<a href="' . Yii::app()->baseUrl . '/admin.php/products/products/view/id/' . $data->product_id . '" target="_blank">' . $data->product->product_name . '</a>';
+                                    },
+                                    'type' => 'raw',
+                                ),
+                                'quantity',
+                                array('name' => 'amount',
+                                    'value' => function($data) {
+                                            return 'INR ' . $data->amount . '/-';
+                                    }
+                                ),
 //		'status',
-                    array(
-                        'htmlOptions' => array('nowrap' => 'nowrap'),
-                        'class' => 'booster.widgets.TbButtonColumn',
-                        'template' => '',
-                    ),
-                ),
-            ));
-            ?>
+                                array(
+                                    'htmlOptions' => array('nowrap' => 'nowrap'),
+                                    'class' => 'booster.widgets.TbButtonColumn',
+                                    'template' => '',
+                                ),
+                            ),
+                        ));
+                        ?>
+                </div>
         </div>
-    </div>
 </div>

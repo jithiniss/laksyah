@@ -675,6 +675,7 @@
 <script>
         $(".wallet_amount").keyup(function () {
                 var wallet = $(this).val();
+                showLoader();
                 if ($('.bill_same').is(":checked"))
                 {
 
@@ -707,6 +708,7 @@
 
                 //var grant = $("#grant_total").html();
                 totalcalculate(wallet, country);
+                hideLoader();
 
         });
 
@@ -756,6 +758,7 @@
                 }).done(function (data) {
 
                         result = data;
+                        hideLoader();
                 });
                 return result;
 
@@ -772,7 +775,6 @@
                         url: baseurl + 'CheckOut/totalcalculate',
                         data: {wallet: wallet, country: country}
                 }).done(function (data) {
-
                         var obj = jQuery.parseJSON(data);
 
                         $("#wallet_total").html(obj.wallet_balance);
@@ -792,7 +794,7 @@
                                 $(".total_pay").val(obj.total);
                                 $('#laksyah_order_payment').val('PAY SECURELY NOW');
                         }
-
+                        hideLoader();
                         //$(".wallet_amount").val(obj.wallet);
                 });
 

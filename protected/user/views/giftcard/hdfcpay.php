@@ -2,21 +2,6 @@
 <form  method="post" action="http://beta.laksyah.com/hdfcpay/post.php" name="frmTransaction" id="frmTransaction" >
 
 
-        <div class="container main_container inner_pages centerd_page">
-                <h1 class="text-center">Proceed to Payment</h1>
-                <div class="text-center payment_proceed">
-                        <?php
-                        /* if (isset(Yii::app()->session['currency'])) {
-                          $symbol = Yii::app()->session['currency']->symbol;
-                          } else {
-                          $symbol = "fa-inr";
-                          } */
-                        ?>
-                        <h3>Amount to be Paid <i class="fa fa-inr"></i> <?= $hdfc_details['totaltopay']; ?></h3>
-                        <button class="btn-primary" type="submit">PAY NOW (<i class="fa fa-inr"></i> <?= $hdfc_details['totaltopay']; ?>)</button> &nbsp;
-                        <!--                        <button class="btn-cancel" type="reset">CANCEL</button>-->
-                </div>
-        </div>
 
         <table width="600" cellpadding="2" cellspacing="2" border="0" style="display:none;">
                 <tr>

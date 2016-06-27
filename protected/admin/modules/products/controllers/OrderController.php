@@ -55,9 +55,12 @@ class OrderController extends Controller {
          */
         public function actionView($id) {
                 $products = new OrderProducts('search');
+                $history = new OrderHistory('search');
+                //  $history = OrderHistory::model()->findallByAttributes(array('order_id' => $id), array('order' => 'date DESC'));
                 $products->order_id = $id;
+                $history->order_id = $id;
                 $this->render('view', array(
-                    'model' => $this->loadModel($id), 'products' => $products
+                    'model' => $this->loadModel($id), 'products' => $products, 'history' => $history
                 ));
         }
 
