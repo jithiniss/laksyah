@@ -95,7 +95,7 @@ class Order extends CActiveRecord {
                     'paypal' => 'Paypal',
                     'netbanking' => 'Netbanking',
                     'admin_comment' => 'Admin Comment',
-                    'transaction_id' => 'Transaction',
+                    'transaction_id' => 'Transaction ID',
                     'payment_status' => 'Payment Status',
                     'admin_status' => 'Admin Status',
                     'status' => 'Status',
