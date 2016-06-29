@@ -6,7 +6,7 @@ $(window).scroll(function () {
         if (c_scrollTop > 60) {
                 $('.menu_bar').addClass('scrolled');
                 var hights = $('.menu_bar').height();
-                $('html').css('margin-top', hights);
+                $('html').css('margin-top', hights + 50);
         } else {
                 $('.menu_bar').removeClass('scrolled');
                 $('html').css('margin-top', 0);

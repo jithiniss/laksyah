@@ -266,8 +266,7 @@ Logo Area
         margin: 0px;
         padding: 0px;
         font-size: 38px;
-        font-family: Merriweather, serif;
-        font-weight: bold;
+        font-family: 'Bitter', serif;
 }
 .section_title h4, .cat_title h4 {
         margin: 0px;
@@ -401,9 +400,8 @@ Blog Section
         text-align: center;
 }
 .blog_section h2, .testimonials_section h2 {
-        font-family: Merriweather, serif;
+        font-family: 'Bitter', serif;
         font-size: 22px;
-        font-weight: bold;
         letter-spacing:1px;
 }
 .blog_section h2:after, .testimonials_section h2:after {
@@ -667,9 +665,13 @@ a.google-map-tag {
         Bootstrap Over Write
 -------------------------
 */
-.nav>li>a:focus, .nav>li>a:hover {
+.nav>li>a:focus, .nav>li>a:hover, .user_nav li a:hover {
         text-decoration: none;
         background: none;
+        color: #f47721;
+}
+.header_special_row h4 a:hover{
+        color: #f47721;
 }
 /*
 ------------------------
@@ -908,6 +910,11 @@ Product List
         border: solid 1px #f47721;
 }
 .btn-primary:hover{
+        background-color:#737179;
+        border: solid 1px #737179;
+}
+.btn-primary.active.focus, .btn-primary.active:focus, .btn-primary.active:hover, .btn-primary:active.focus, .btn-primary:active:focus, .btn-primary:active:hover, .open>.dropdown-toggle.btn-primary.focus, .open>.dropdown-toggle.btn-primary:focus, .open>.dropdown-toggle.btn-primary:hover {
+        color: #fff;
         background-color:#737179;
         border: solid 1px #737179;
 }
@@ -1516,7 +1523,7 @@ Product Details
         line-height:12px;
 }
 .product_metas .product_price{
-        font-size:18px;
+        font-size:20px;
         font-weight:bold;
         margin:0px;
         line-height:18px;
@@ -1957,7 +1964,7 @@ Modal
         border-radius:0;
 }
 .modal-open .modal{
-        background-color: rgba(255,255,255,0.87);
+        background-color: rgba(255,255,255,0.57);
         z-index: 300000;
 }
 .modal-header{

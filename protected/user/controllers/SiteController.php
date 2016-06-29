@@ -539,6 +539,11 @@ class SiteController extends Controller {
                 $this->render('careers', array('model' => $model));
         }
 
+        public function actionMobileapp() {
+                //  $model = StaticPage::model()->findByPk(14);
+                $this->render('mobileapp');
+        }
+
         public function siteURL() {
                 $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
                 $domainName = $_SERVER['HTTP_HOST'];

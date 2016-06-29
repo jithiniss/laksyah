@@ -266,7 +266,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                                                 <div class="col-sm-7 text-right col-md-6 mobile-inline">
                                                         <ul>
                                                                 <li class="hidden-mobile"> <?php echo CHtml::link('<i class="fa fa-envelope"></i><span class="hidden-xs">LEAVE A </span>MESSAGE', array('site/ContactUs')); ?></li>
-                                                                <li class="hidden-mobile"><a href="#"><i class="fa fa-mobile-phone"></i> MOBILE APP</a></li>
+                                                                <li class="hidden-mobile"><?php echo CHtml::link('<i class="fa fa-mobile-phone"></i><span class="hidden-xs">LEAVE A </span>MOBILE APP', array('site/Mobileapp')); ?></li>
 
                                                                 <li class="has_dropdown"><a href="#" class="active_currency">
                                                                                 <?php if (isset(Yii::app()->session['currency'])) { ?>
@@ -347,7 +347,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                                                                                         <div class="laksyah_dropdown">
                                                                                                 <ul class="drop_menu">
                                                                                                         <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount" class="currency" >My Account</a></li>
-                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                                                                                                                               ?></li>-->
+                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                                                                                                                                   ?></li>-->
                                                                                                         <li><?php echo CHtml::link('Log Out', array('site/Logout'), array('class' => 'currency')); ?></li>
                                                         <!--                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
                                                                                                 <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Myordernew" class="currency" >My Orders</a></li>
@@ -396,7 +396,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;                                                                                                                                        ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;                                                                                                                                            ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">
@@ -522,8 +522,8 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                                                                 <li><?php echo CHtml::link('Terms', array('site/Terms')); ?> | </li>
                                                                 <li><?php echo CHtml::link('Policies', array('site/ShippingPolicy')); ?> | </li>
                                                                 <!--<li><?php echo CHtml::link('Policies', array('site/PrivacyPolicy')); ?> | </li>-->
-                                                                <li><?php echo CHtml::link('Q&A', array('site/Faq')); ?></li>
-                                                                <li><?php echo CHtml::link('Download Measurement', array($file), array('download' => true)) ?> | </li>
+                                                                <li><?php echo CHtml::link('Q&A', array('site/Faq')); ?> |</li>
+                                                                <li><?php echo CHtml::link('Download Measurement', array($file), array('download' => true)) ?>  </li>
                                                         </ul>
                                                         <div id="back-to-top" style="display: block;"> <a class="back-to-top" style="display: block;"></a> </div>
                                                 </div>
