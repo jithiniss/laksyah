@@ -137,41 +137,81 @@
                             ),
                         ));
                         ?>
-
-
-                        <section class="content-header">
-                                <h1>Products</h1>
-                        </section>
-                        <?php
-                        $this->widget('booster.widgets.TbGridView', array(
-                            'type' => ' bordered condensed hover',
-                            'id' => 'order-products-grid',
-                            'dataProvider' => $products->search(),
-                            //'filter' => $products,
-                            'columns' => array(
+                        <?php if ($data->laksyah_gift == 1) { ?>
+                                <div id="order-products-grid" class="grid-view">
+                                        <div class="summary">Displaying 1-1 of 1 result.</div>
+                                        <table class="items table table-bordered table-condensed table-hover">
+                                                <thead>
+                                                        <tr>
+                                                                <th id="order-products-grid_c0"><a class="sort-link" href="/admin.php/products/order/view/id/446/OrderHistory_sort/date">Date <span class="caret"></span></a></th><th id="order-products-grid_c1"><a class="sort-link" href="/admin.php/products/order/view/id/446/OrderHistory_sort/status">Status <span class="caret"></span></a></th><th id="order-products-grid_c2"><a class="sort-link" href="/admin.php/products/order/view/id/446/OrderHistory_sort/order_status_comment">Order Status Comment <span class="caret"></span></a></th><th id="order-products-grid_c3"><a class="sort-link" href="/admin.php/products/order/view/id/446/OrderHistory_sort/shipping_type">Shipping Type <span class="caret"></span></a></th><th id="order-products-grid_c4"><a class="sort-link" href="/admin.php/products/order/view/id/446/OrderHistory_sort/tracking_id">Tracking <span class="caret"></span></a></th><th class="button-column" id="order-products-grid_c5">&nbsp;</th></tr>
+                                                </thead>
+                                                <tbody>
+                                                        <tr class="odd">
+                                                                <td>2016-06-28 13:19:11</td><td>vvvv vvvvv</td><td>Order Placed</td><td>&nbsp;</td><td>0</td><td nowrap="nowrap"></td></tr>
+                                                </tbody>
+                                        </table>
+                                        <div class="keys" style="display:none" title="/admin.php/products/order/view/id/446"><span>31</span></div>
+                                </div>
+                        <?php } else { ?>
+                                <section class="content-header">
+                                        <h1>Products</h1>
+                                </section>
+                                <?php
+                                $this->widget('booster.widgets.TbGridView', array(
+                                    'type' => ' bordered condensed hover',
+                                    'id' => 'order-products-grid',
+                                    'dataProvider' => $products->search(),
+                                    //'filter' => $products,
+                                    'columns' => array(
 //		'order_id',
-                                array('name' => 'product_id',
+                                        array('name' => 'product_id',
 //                        'filter' => CHtml::listData(Products::model()->findAll(), 'id', 'product_name'),
-                                    'value' => function($data) {
-                                            return '<a href="' . Yii::app()->baseUrl . '/admin.php/products/products/view/id/' . $data->product_id . '" target="_blank">' . $data->product->product_name . '</a>';
-                                    },
-                                    'type' => 'raw',
-                                ),
-                                'quantity',
-                                array('name' => 'amount',
-                                    'value' => function($data) {
-                                            return 'INR ' . $data->amount . '/-';
-                                    }
-                                ),
+                                            'value' => function($data) {
+                                                    return '<a href="' . Yii::app()->baseUrl . '/admin.php/products/products/view/id/' . $data->product_id . '" target="_blank">' . $data->product->product_name . '</a>';
+                                            },
+                                            'type' => 'raw',
+                                        ),
+                                        array('name' => 'Product Code',
+//                        'filter' => CHtml::listData(Products::model()->findAll(), 'id', 'product_name'),
+                                            'value' => function($data) {
+                                                    return $data->product->product_code;
+                                            },
+                                            'type' => 'raw',
+                                        ),
+                                        array('name' => 'Product Options',
+//                        'filter' => CHtml::listData(Products::model()->findAll(), 'id', 'product_name'),
+                                            'value' => function($data) {
+                                                    if ($data->option_id != 0) {
+                                                            $option_details = OptionDetails::model()->findByPk($data->option_id);
+                                                            if ($option_details->color_id != 0) {
+                                                                    return 'Color : ' . OptionCategory::model()->findByPk($option_details->color_id)->color_name . '(' . OptionCategory::model()->findByPk($option_details->color_id)->color_code . ')';
+                                                            }
+                                                            if ($option_details->size_id != 0) {
+                                                                    return 'Size : ' . OptionCategory::model()->findByPk($option_details->size_id)->size;
+                                                            }
+                                                    } else {
+                                                            return 'No Product Options are Mentioned';
+                                                    }
+                                                    //return OrderStatus::model()->findByPk($data->shipping_type)->shipping_type;
+                                            },
+                                            'type' => 'raw',
+                                        ),
+                                        'quantity',
+                                        array('name' => 'amount',
+                                            'value' => function($data) {
+                                                    return 'INR ' . $data->amount . '/-';
+                                            }
+                                        ),
 //		'status',
-                                array(
-                                    'htmlOptions' => array('nowrap' => 'nowrap'),
-                                    'class' => 'booster.widgets.TbButtonColumn',
-                                    'template' => '',
-                                ),
-                            ),
-                        ));
-                        ?>
+                                        array(
+                                            'htmlOptions' => array('nowrap' => 'nowrap'),
+                                            'class' => 'booster.widgets.TbButtonColumn',
+                                            'template' => '',
+                                        ),
+                                    ),
+                                ));
+                                ?>
+                        <?php } ?>
                 </div>
         </div>
 </div>

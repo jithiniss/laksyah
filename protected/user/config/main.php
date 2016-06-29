@@ -8,6 +8,7 @@ $user = dirname(dirname(__FILE__));
 Yii::setPathOfAlias('user', $user);
 Yii::setPathOfAlias('captcha', dirname(__FILE__) . '/../extensions/captchaExtended-1.0.2');
 return array(
+    'timeZone' => 'Asia/Calcutta',
     'basePath' => dirname($user),
     'runtimePath' => $user . '/runtime',
     'controllerPath' => $user . '/controllers',

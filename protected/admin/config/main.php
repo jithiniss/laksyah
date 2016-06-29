@@ -10,6 +10,7 @@ Yii::setPathOfAlias('admin', $admin);
 Yii::setPathOfAlias('booster', dirname(__FILE__) . '/../extensions/yiibooster');
 Yii::setPathOfAlias('eckeditor', dirname(__FILE__) . '/../extensions/eckeditor');
 return array(
+    'timeZone' => 'Asia/Calcutta',
     'basePath' => dirname($admin),
     'runtimePath' => $admin . '/runtime',
     'controllerPath' => $admin . '/controllers',
