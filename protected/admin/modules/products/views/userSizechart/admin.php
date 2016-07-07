@@ -24,7 +24,7 @@
                             'type' => ' bordered condensed hover',
                             'id' => 'user-sizechart-grid',
                             'dataProvider' => $model->search(),
-                            'filter' => $model,
+//                            'filter' => $model,
                             'columns' => array(
                                 array('name' => 'user_id',
                                     'value' => function($data) {

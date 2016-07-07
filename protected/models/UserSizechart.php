@@ -179,6 +179,9 @@ class UserSizechart extends CActiveRecord {
                 $criteria->compare('enq_history_id', $this->enq_history_id);
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
+                    'sort' => array(
+                        'defaultOrder' => 'id DESC',
+                    ),
                 ));
         }
 

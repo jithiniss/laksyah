@@ -64,8 +64,7 @@ class ForgotPasswordController extends Controller {
                 }
         }
 
-        public
-                function actionNewpassword() {
+        public function actionNewpassword() {
                 if (isset($_POST['btn_submit'])) {
 
                         if (isset(Yii::app()->session['frgt_usrid'])) {

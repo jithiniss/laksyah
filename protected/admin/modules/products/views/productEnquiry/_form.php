@@ -94,7 +94,10 @@
         </div>
         <div class="form-group">
                 <div class="col-sm-2"></div>
-                <?php $user = $this->encrypt_decrypt('encrypt', 'user_id=' . $model->user_id); ?>
+                <?php
+                $user = $this->encrypt_decrypt('encrypt', 'user_id=' . $model->user_id);
+                $user_details = UserDetails::model()->findByPk($model->user_id);
+                ?>
                 <div class="col-sm-10"><a href="<?php echo Yii::app()->request->baseUrl; ?>/admin.php/products/UserSizechart/admin?user=<?php echo $model->user_id; ?>" class="btn btn-laksyah">View Measurement Details</a></div>
         </div>
         <div class="form-group amount" style="display: none">

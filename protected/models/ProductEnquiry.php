@@ -124,6 +124,9 @@ class ProductEnquiry extends CActiveRecord {
                 $criteria->compare('add_to_order', $this->add_to_order);
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
+                    'sort' => array(
+                        'defaultOrder' => 'id DESC',
+                    ),
                 ));
         }
 
