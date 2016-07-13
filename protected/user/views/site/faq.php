@@ -1,64 +1,64 @@
 <div class="container main_container inner_pages ">
-    <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?> <span>/</span>Q & A </div>
-    <div class="row">
-        <?php echo $this->renderPartial('_staticmenu'); ?>
-        <!-- / Sidebar-->
-        <div class="col-sm-9 user_content">
-            <h1>Q & A</h1>
-            <!--<div class="alert alert-success alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    Success </div>-->
+        <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?> <span>/</span>Q & A </div>
+        <div class="row">
+                <?php echo $this->renderPartial('_staticmenu'); ?>
+                <!-- / Sidebar-->
+                <div class="col-sm-9 user_content">
+                        <h1>Q & A</h1>
+                        <!--<div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                Success </div>-->
 
-            <article>
-                <!--                <h3>ORDERS</h3>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"><strong><?php echo $model->order_q1; ?></strong></div>
-                                    <div class="panel-body">
-                <?php //echo $model->order_a1; ?>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"><strong><?php echo $model->order_q2; ?></strong></div>
-                                    <div class="panel-body">
-                <?php //echo $model->order_a2; ?>
-                                    </div>
-                                </div>
-                                <h3>PAYMENTS</h3>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"><strong><?php echo $model->payment_q1; ?></strong></div>
-                                    <div class="panel-body">
-                <?php //echo $model->payment_a1; ?>
-                                    </div>
-                                </div>
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"><strong><?php echo $model->payment_q2; ?></strong></div>
-                                    <div class="panel-body">
-                <?php //echo $model->payment_a2; ?>
-                                    </div>
-                                </div>-->
+                        <article>
+                                <!--                <h3>ORDERS</h3>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading"><strong><?php echo $model->order_q1; ?></strong></div>
+                                                    <div class="panel-body">
+                                <?php //echo $model->order_a1; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading"><strong><?php echo $model->order_q2; ?></strong></div>
+                                                    <div class="panel-body">
+                                <?php //echo $model->order_a2; ?>
+                                                    </div>
+                                                </div>
+                                                <h3>PAYMENTS</h3>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading"><strong><?php echo $model->payment_q1; ?></strong></div>
+                                                    <div class="panel-body">
+                                <?php //echo $model->payment_a1; ?>
+                                                    </div>
+                                                </div>
+                                                <div class="panel panel-default">
+                                                    <div class="panel-heading"><strong><?php echo $model->payment_q2; ?></strong></div>
+                                                    <div class="panel-body">
+                                <?php //echo $model->payment_a2; ?>
+                                                    </div>
+                                                </div>-->
 
-                <div class="terms_tabs">
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li role="presentation" class="active"><a href="#description" aria-controls="home" role="tab" data-toggle="tab">Terms 1</a></li>
-                        <li role="presentation"><a href="#details" aria-controls="profile" role="tab" data-toggle="tab">Terms 2</a></li>
-                        <li role="presentation"><a href="#sizechart" aria-controls="settings" role="tab" data-toggle="tab">Terms 3</a></li>
-                    </ul>
+                                <div class="terms_tabs">
+                                        <!-- Nav tabs -->
+                                        <ul class="nav nav-tabs" role="tablist">
+                                                <li role="presentation" class="active"><a href="#description" aria-controls="home" role="tab" data-toggle="tab">General</a></li>
+                                                <li role="presentation"><a href="#details" aria-controls="profile" role="tab" data-toggle="tab">Celeb Style</a></li>
+                                                <li role="presentation"><a href="#sizechart" aria-controls="settings" role="tab" data-toggle="tab">Made to Measure</a></li>
+                                        </ul>
 
-                    <!-- Tab panes -->
-                    <div class="tab-content">
-                        <div role="tabpanel" class="tab-pane active" id="description">
-<!--                            <p>Laksyah.com provide services to you subject to the following conditions. If you visit or shop at Laksyah.com, you accept these conditions. Please read them carefully. In addition, when you use any current or future Laksyah.com service or visit or purchase from any business affiliated with Laksyah.com, whether or not included in the Laksyah.com website, you also will be subject to the guidelines and conditions applicable to such service or business.</p>
-                            -->
+                                        <!-- Tab panes -->
+                                        <div class="tab-content">
+                                                <div role="tabpanel" class="tab-pane active" id="description">
+                        <!--                            <p>Laksyah.com provide services to you subject to the following conditions. If you visit or shop at Laksyah.com, you accept these conditions. Please read them carefully. In addition, when you use any current or future Laksyah.com service or visit or purchase from any business affiliated with Laksyah.com, whether or not included in the Laksyah.com website, you also will be subject to the guidelines and conditions applicable to such service or business.</p>
+                                                        -->
 
-                            <h3><strong>Q. How do I make a place an order?</strong></h3>
-                            <p>
-                                It is very easy to place an order at laksyah.com
-                                Browse our products by clicking on WOMEN to find what you'd like to buy.
-                                Once you have found a product you want to buy, click on it, select your size and click on the 'ADD TO CART' button next to each product.
-                                Review the items in your shopping cart by clicking the 'SHOPPING CART' icon at the top right of the page. You can use the 'REMOVE' link under the product image to delete items from your shopping bag.
-                                Click on 'PROCEED TO CHECKOUT' to complete your order.
-                            </p>
+                                                        <h3><strong>Q. How do I make a place an order?</strong></h3>
+                                                        <p>
+                                                                It is very easy to place an order at laksyah.com
+                                                                Browse our products by clicking on WOMEN to find what you'd like to buy.
+                                                                Once you have found a product you want to buy, click on it, select your size and click on the 'ADD TO CART' button next to each product.
+                                                                Review the items in your shopping cart by clicking the 'SHOPPING CART' icon at the top right of the page. You can use the 'REMOVE' link under the product image to delete items from your shopping bag.
+                                                                Click on 'PROCEED TO CHECKOUT' to complete your order.
+                                                        </p>
 
 <!--                            <p>Please review our Privacy Policy, which also governs your visit to Laksyah.com, to understand our practices.</p>
  <h3><strong>Electronic Communications</strong></h3>
@@ -67,39 +67,39 @@
  <p>All content included on this site, such as text, graphics, logos, button icons, images, audio clips, digital downloads, data compilations, and software, is the property of Laksyah.com or its content suppliers. The compilation of all content on this site is the exclusive property of Laksyah.com. All software used on this site is the property of Laksyah.com or its software suppliers.  </p>
  <h3><strong>Trademarks</strong></h3>
  <p>Your use of Laksyah.com and its contents grants no rights to you in relation to any copyright, designs, trademarks and all other intellectual property and material rights, including Laksyah.com Software and all HTML and other code contained in this Site. Any violation of our trademarks will be liable for legal action. </p>
-                            -->
+                                                        -->
 
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="details">
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane" id="details">
 
-                            <h3><strong>Q. How do I make a purchase an order?</strong></h3>
-
-
-
-
-                            <p>
-                                It is very easy to place an order at @laksyah.com
-                                Browse our products by clicking on WOMEN to find what you'd like to buy.
-                                Once you have found a product you want to buy, click on it, select your size and click on the 'ADD TO CART' button next to each product.
-                                Review the items in your shopping cart by clicking the 'SHOPPING CART' icon at the top right of the page. You can use the 'REMOVE' link under the product image to delete items from your shopping bag.
-                                Click on 'PROCEED TO CHECKOUT' to complete your order.
-
-                                 </p>
+                                                        <h3><strong>Q. How do I make a purchase an order?</strong></h3>
 
 
 
-                        </div>
-                        <div role="tabpanel" class="tab-pane" id="sizechart">
 
-                            <h3><strong>Q. How do I make a purchase/ place an order?</strong></h3>
+                                                        <p>
+                                                                It is very easy to place an order at @laksyah.com
+                                                                Browse our products by clicking on WOMEN to find what you'd like to buy.
+                                                                Once you have found a product you want to buy, click on it, select your size and click on the 'ADD TO CART' button next to each product.
+                                                                Review the items in your shopping cart by clicking the 'SHOPPING CART' icon at the top right of the page. You can use the 'REMOVE' link under the product image to delete items from your shopping bag.
+                                                                Click on 'PROCEED TO CHECKOUT' to complete your order.
 
-                            <p>
-                                It is very easy to place an order at laksyah.com
-                                Browse our products by clicking on WOMEN to find what you'd like to buy.
-                                Once you have found a product you want to buy, click on it, select your size and click on the 'ADD TO CART' button next to each product.
-                                Review the items in your shopping cart by clicking the 'SHOPPING CART' icon at the top right of the page. You can use the 'REMOVE' link under the product image to delete items from your shopping bag.
-                                Click on 'PROCEED TO CHECKOUT' to complete your order.
-                            </p>
+                                                                 </p>
+
+
+
+                                                </div>
+                                                <div role="tabpanel" class="tab-pane" id="sizechart">
+
+                                                        <h3><strong>Q. How do I make a purchase/ place an order?</strong></h3>
+
+                                                        <p>
+                                                                It is very easy to place an order at laksyah.com
+                                                                Browse our products by clicking on WOMEN to find what you'd like to buy.
+                                                                Once you have found a product you want to buy, click on it, select your size and click on the 'ADD TO CART' button next to each product.
+                                                                Review the items in your shopping cart by clicking the 'SHOPPING CART' icon at the top right of the page. You can use the 'REMOVE' link under the product image to delete items from your shopping bag.
+                                                                Click on 'PROCEED TO CHECKOUT' to complete your order.
+                                                        </p>
 
 <!--                            <p>The fit of our clothing depends on the cut, fabric and style of each garment. Some garments are designed to have a looser, relaxed fit and some garments are styled to be more fitted. Please review our sizing guide to select the size best suited to you. If you are worried about the fit and size chart we provided, you can call and book an appointment at our pick up centre for trying them out.  </p>
   <h3><strong>Pricing</strong></h3>
@@ -114,12 +114,12 @@
   <p>Any dispute relating in any way to your visit to <a href="https://www.laksyah.com/">laksyah.com</a> on or to products you purchase through <a href="https://www.laksyah.com/">laksyah.com</a> on shall be referred to the confidential arbitration in India, except that, to the extent you have in any manner violated or threatened to violate <a href="https://www.laksyah.com/">laksyah.com</a> on 's intellectual property rights, <a href="https://www.laksyah.com/">laksyah.com</a> on may seek injunctive or other appropriate relief in any court of Law in India or internationally, and you consent to exclusive jurisdiction and venue in such courts. The venue of arbitration shall be within the jurisdiction of Ernakulum District. </p>
   <p>Arbitration under this agreement shall be conducted under the act &amp; rules then prevailing under the Indian Arbitration &amp; Conciliation Act. The arbitrator's award shall be final and binding upon the parties and may be entered as a judgment in any court of competent jurisdiction. To the fullest extent permitted by applicable law, no arbitration under this Agreement shall be joined to an arbitration involving any other party subject to this Agreement, whether through class arbitration proceedings or otherwise. </p>
   <p>Site policies, modification, and severability, please review our other policies, such as our pricing policy, posted on this site. These policies also govern your visit to <a href="https://www.laksyah.com/">laksyah.com</a> on. We reserve the right to make changes to our site, policies, and these Terms of Use at any time. If any of these conditions shall be deemed invalid, void, or for any reason unenforceable, that condition shall be deemed severable and shall not affect the validity and enforceability of any remaining condition.</p>
-                            -->
-                        </div>
-                    </div>
-                </div>
+                                                        -->
+                                                </div>
+                                        </div>
+                                </div>
 
-            </article>
+                        </article>
+                </div>
         </div>
-    </div>
 </div>

@@ -108,7 +108,7 @@
                                 <div class="section_title gift_title">
                                         <h2><?= $gifts->heading ?></h2>
                                         <h4><?= $gifts->description ?></h4>
-                                        <?php echo CHtml::link($gifts->link, array('products/order_giftoption'), array('class' => 'btn-dark')); ?></div>
+                                        <?php echo CHtml::link($gifts->link, array('products/category', 'name' => 'women'), array('class' => 'btn-dark')); ?></div>
                         </div>
                 </div>
         </div>

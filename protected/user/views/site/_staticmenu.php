@@ -5,8 +5,8 @@
                         <li> <?php echo CHtml::link('Contact  Us', array('site/contactUs')); ?></li>
 <!--                        <li> <?php echo CHtml::link('Made to Measure', array('site/BookAppointment')); ?></li>-->
                         <li> <?php echo CHtml::link('Product Submission', array('site/productsubmission')); ?></li>
-                        <li> <?php echo CHtml::link('Support', array('site/Support')); ?></li>
-                        <li> <?php echo CHtml::link('Q&A', array('site/Faq')); ?></li>
+                       <!-- <li> <?php echo CHtml::link('Support', array('site/Support')); ?></li>-->
+                        <li> <?php echo CHtml::link('Q & A', array('site/Faq')); ?></li>
 <!--                        <li> <?php echo CHtml::link('Guarantees', array('site/Guarantees')); ?></li>
                         <li> <?php echo CHtml::link('Shipping Policy', array('site/ShippingPolicy')); ?></li>-->
 <!--                        <li> <?php echo CHtml::link('Return Policy', array('site/ReturnPolicy')); ?></li>

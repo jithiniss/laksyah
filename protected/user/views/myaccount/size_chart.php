@@ -7,7 +7,7 @@
 
                 <!-- / Sidebar-->
                 <div class="col-sm-9 user_content">
-                        <?php echo CHtml::link('View Measurements', array('myaccount/SizeChartList'), array('class' => 'account_link pull-right')); ?>
+                        <?php echo CHtml::link('View Old Measurements', array('myaccount/SizeChartList'), array('class' => 'account_link pull-right')); ?>
                         <h1>Add New Measurement</h1>
                         <?php if (Yii::app()->user->hasFlash('meas_success')): ?>
                                 <div class="alert alert-success mesage">
@@ -363,10 +363,10 @@
 </div>
 
 <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
 //                $('#custm').hide();
-                $('.chekbx').click(function () {
+                $('.chekbx').click(function() {
                         var std_value = $(".chekbx:checked").val();
                         var code2 = 2;
                         var code1 = 1;

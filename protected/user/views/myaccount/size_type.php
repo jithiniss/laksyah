@@ -7,7 +7,7 @@
 
                 <!-- / Sidebar-->
                 <div class="col-sm-9 user_content">
-                        <?php echo CHtml::link('View Measurements', array('myaccount/SizeChartList'), array('class' => 'account_link pull-right')); ?>
+                        <?php echo CHtml::link('View Old Measurements', array('myaccount/SizeChartList'), array('class' => 'account_link pull-right')); ?>
                         <h1>Add New Measurement</h1>
                         <?php if (Yii::app()->user->hasFlash('meas_success')): ?>
                                 <div class="alert alert-success mesage">
@@ -155,7 +155,7 @@
                                                 $file = "../uploads/measurement_pdf/" . $measurement->id . "." . $measurement->file;
                                                 ?>
                                                 <p>  <?php
-                                                        echo CHtml::link('Download Measurement Form', array($file), array('download' => true, 'class' => 'text_link'));
+                                                        echo CHtml::link('Download Measurement Form', array($file), array('download' => true, 'class' => 'text_link', 'target' => _blank));
                                                         ?></p>
                                                 <div>
                                                         <label> </label>
@@ -373,14 +373,15 @@
                                                                 </table>
                                                                 <?php echo $form->labelEx($model, 'comments', array('class' => 'control-label ')); ?>
                                                                 <?php echo $form->textarea($model, 'comments', array('class' => 'form-control')); ?>
+
                                                         </div>
                                                         <div class="col-xs-12 col-sm-6"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/measurement_units.jpg" alt=""/></div>
                                                 </div>
                                         </div>
-                                        <div class="form_button pull-right">
+                                        <div class="col-xs-12 col-sm-6" style="padding-left:0px;padding-right:0px;">
                                                 <?php echo $form->hiddenField($model, 'enq_id', array('class' => 'form-control', 'value' => $enquery->id)); ?>
                                                 <?php echo $form->hiddenField($model, 'enq_history_id', array('class' => 'form-control', 'value' => $history->id)); ?>
-                                                <?php echo CHtml::submitButton($model->isNewRecord ? 'SAVE AND SUBMIT' : 'Save', array('class' => 'btn btn-primary ')); ?>
+                                                <?php echo CHtml::submitButton($model->isNewRecord ? 'SAVE AND SUBMIT' : 'Save', array('class' => 'btn btn-primary wdt ')); ?>
                                         </div>
 
                                         <?php $this->endWidget(); ?>
@@ -396,10 +397,10 @@
 </div>
 
 <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
                 //                $('#custm').hide();
-                $('.chekbx').click(function () {
+                $('.chekbx').click(function() {
                         var std_value = $(".chekbx:checked").val();
                         var code2 = 2;
                         var code1 = 1;
@@ -414,16 +415,16 @@
                         }
                 });
 
-                $(".cente").on('click', function () {
-                        $('.custom').find("input[type=text], input[class=centemeter]").each(function (ev)
+                $(".cente").on('click', function() {
+                        $('.custom').find("input[type=text], input[class=centemeter]").each(function(ev)
                         {
                                 if (!$(this).val()) {
                                         $(this).attr("placeholder", "Cm");
                                 }
                         });
                 });
-                $(".inches").on('click', function () {
-                        $('.custom').find("input[type=text], input[class=centemeter]").each(function (ev)
+                $(".inches").on('click', function() {
+                        $('.custom').find("input[type=text], input[class=centemeter]").each(function(ev)
                         {
                                 if (!$(this).val()) {
                                         $(this).attr("placeholder", "Inches");

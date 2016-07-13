@@ -119,8 +119,8 @@
         </div>
 </div>
 <script>
-        $(document).ready(function () {
-                $('#wallet-add-form').submit(function () {
+        $(document).ready(function() {
+                $('#wallet-add-form').submit(function() {
 
                         if ($('#payment_agree').prop('checked')) {
 
@@ -134,7 +134,7 @@
 
                 });
                 // Custom Radio
-                $('.price_group1 .radio_group1').click(function () {
+                $('.price_group1 .radio_group1').click(function() {
                         $(this).parents('.price_group1').find('.radio_group1').removeClass('active');
                         $(this).addClass('active');
                         $(this).find('input').attr('checked', true);
