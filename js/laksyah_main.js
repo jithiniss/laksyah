@@ -311,7 +311,7 @@ $(document).ready(function () {
 //// Zoom
 if ($('#laksyah_zoom').length) {
         $('#laksyah_zoom').elevateZoom({
-                gallery: 'gal1', cursor: 'pointer', galleryActiveClass: 'active', imageCrossfade: true,
+                gallery: 'gal1', cursor: 'pointer', galleryActiveClass: 'active', imageCrossfade: true, loadingIcon: true, responsive: true
         });
 
         $("#laksyah_zoom").bind("click", function (e) {

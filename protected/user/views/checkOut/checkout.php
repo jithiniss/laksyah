@@ -267,7 +267,8 @@
                 </div>
 
                 <div class="col-md-4 sidebar-right">
-                        <div class="fixed_scroller">
+                        <!--<div class="fixed_scroller">-->
+                        <div >
                                 <div class="order_summary">
                                         <div class="panel-body cart_products">
 

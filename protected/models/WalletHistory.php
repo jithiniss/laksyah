@@ -13,6 +13,7 @@
  * @property string $balance_amt
  * @property integer $ids
  * @property string $field1
+ * @property string $unique_code
  * @property integer $field2
  * @property integer $payment_method
  *
@@ -41,13 +42,13 @@ class WalletHistory extends CActiveRecord {
                     array('field1', 'length', 'max' => 200),
                     array('amount,balance_amt', 'length', 'max' => 10),
                     array('amount,payment_method,type_id', 'required', 'on' => 'addWallet'),
-                    array('amount,payment_method,field1', 'required', 'on' => 'addWallet1'),
+                    array('amount,unique_code, field1', 'required', 'on' => 'addWallet1'),
                     array('amount', 'numerical', 'integerOnly' => true, 'on' => 'addWallet'),
                     array('type_id,amount,field1', 'required', 'on' => 'redeemWallet'),
                     array('amount', 'numerical', 'integerOnly' => true, 'on' => 'redeemWallet'),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, user_id, type_id, amount, entry_date, credit_debit, balance_amt, ids, field1, field2,payment_method', 'safe', 'on' => 'search'),
+                    array('id, user_id,unique_code, type_id, amount, entry_date, credit_debit, balance_amt, ids, field1, field2,payment_method', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -80,6 +81,7 @@ class WalletHistory extends CActiveRecord {
                     'field2' => 'Field2',
                     'payment_method' => 'Payment Method',
                     'transaction_id' => 'Transaction',
+                    'unique_code' => 'Unique Code',
                 );
         }
 
@@ -112,6 +114,7 @@ class WalletHistory extends CActiveRecord {
                 $criteria->compare('field2', $this->field2);
                 $criteria->compare('payment_method', $this->payment_method);
                 $criteria->compare('transaction_id', $this->transaction_id);
+                $criteria->compare('unique_code', $this->unique_code);
 
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,

@@ -42,7 +42,7 @@ class UserDetails extends CActiveRecord {
                     array('title,first_name, last_name,country, email,  phone_no_2,email_verification', 'required'),
                     array('newsletter, status, phone_no_1, phone_no_2,CB, UB,email_verification,verify_code', 'numerical', 'integerOnly' => true),
                     array('first_name, last_name, email, fax', 'length', 'max' => 100),
-                    array('country', 'length', 'max' => 50),
+//                    array('country', 'length', 'max' => 50),
                     array('password, confirm', 'length', 'max' => 225),
                     array('DOU', 'safe'),
                     array('email', 'unique'),
@@ -51,7 +51,7 @@ class UserDetails extends CActiveRecord {
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
                     array('id, first_name, last_name,dob, gender,email, phone_no_1, phone_no_2, fax, password, confirm, newsletter, status, CB, UB, DOC, DOU,email_verification,verify_code', 'safe', 'on' => 'search'),
-                    array('title,first_name,last_name,dob,gender,password,email,confirm', 'required', 'on' => 'create'),
+                    array('title,first_name,last_name,dob,password,email,confirm', 'required', 'on' => 'create'),
                     array('email', 'email', 'on' => 'create'),
                 );
         }
