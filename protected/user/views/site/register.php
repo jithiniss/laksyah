@@ -31,6 +31,7 @@
 
         <div class="registration_form">
                 <div class="row">
+                        <?php //echo $form->errorSummary($model); ?>
                         <div class="col-sm-6">
                                 <?php echo $form->labelEx($model, 'Title<font color="red">*</font>', array('class' => '')); ?>
                                 <?php echo $form->dropDownList($model, 'title', array('Ms' => "Ms", 'Mrs' => "Mrs", 'Mr' => "Mr"), array('class' => 'form-control')); ?>
@@ -82,10 +83,11 @@ Last Name<font color="red">*</font>', array('class' => '')); ?>
 
                                 <?php echo $form->labelEx($model, '
 Country<font color="red">*</font>', array('class' => '')); ?>
-                                <?php echo $form->textField($model, 'country', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Country', 'class' => 'form-control')); ?>
+                                <?php echo CHtml::activeDropDownList($model, 'country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control ', 'options' => array(99 => array('selected' => 'selected')))); ?>
                                 <?php echo $form->error($model, 'country'); ?>
 
                         </div>
+
                         <div class="col-sm-6">
                                 <?php echo $form->labelEx($model, 'email', array('class' => '')); ?>
                                 <?php echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Email Address', 'class' => 'form-control')); ?>
@@ -133,18 +135,18 @@ Country<font color="red">*</font>', array('class' => '')); ?>
                 <?php echo $form->labelEx($model, 'confirm', array('class' => '')); ?>
                 <?php echo $form->passwordField($model, 'confirm', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Confirm Password', 'class' => 'form-control')); ?>
                 <?php echo $form->error($model, 'confirm'); ?>
-                         </div>
                  </div>
+         </div>
 
 
-                        <div class="row">
-                             <div class="col-sm-6">
+                <div class="row">
+                     <div class="col-sm-6">
 
                 <?php //echo $form->labelEx($model, 'newsletter', array('class' => '')); ?>
                 <?php //echo $form->dropDownList($model, 'newsletter', array('1' => "Yes", '0' => "No"), array('class' => 'form-control')); ?>
                 <?php //echo $form->error($model, 'newsletter'); ?>
-                             </div>
-                         </div>--><br/>
+                     </div>
+                 </div>--><br/>
                 <div class="confirm">
 
                         <div class="custom_check">

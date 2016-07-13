@@ -4,7 +4,7 @@
                 <?php echo $this->renderPartial('_staticmenu'); ?>
                 <!-- / Sidebar-->
                 <div class="col-sm-9 user_content">
-                        <h1>Terms and Policies</h1>
+                        <h1>Terms and Conditions</h1>
                         <!--<div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 Success </div>-->
@@ -16,9 +16,9 @@
                                 <div class="terms_tabs">
                                         <!-- Nav tabs -->
                                         <ul class="nav nav-tabs" role="tablist">
-                                                <li role="presentation" class="active"><a href="#description" aria-controls="home" role="tab" data-toggle="tab">Terms 1</a></li>
-                                                <li role="presentation"><a href="#details" aria-controls="profile" role="tab" data-toggle="tab">Terms 2</a></li>
-                                                <li role="presentation"><a href="#sizechart" aria-controls="settings" role="tab" data-toggle="tab">Terms 3</a></li>
+                                                <li role="presentation" class="active"><a href="#description" aria-controls="home" role="tab" data-toggle="tab">General</a></li>
+                                                <li role="presentation"><a href="#details" aria-controls="profile" role="tab" data-toggle="tab">Celeb Style</a></li>
+                                                <li role="presentation"><a href="#sizechart" aria-controls="settings" role="tab" data-toggle="tab">Made to Measure</a></li>
                                         </ul>
 
                                         <!-- Tab panes -->
