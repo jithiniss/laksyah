@@ -8,65 +8,77 @@
 
                         <div class="row dash_board">
                                 <div class="col-sm-4 col-md-3 col-xs-4">
-                                        <div class="dash_item">
-                                                <img  src="<?php echo Yii::app()->baseUrl; ?> /images/dash_board_icon1.jpg" alt=""/>
-                                                <div class="dash_title">
-                                                        <i class="fa fa-user"></i>
-                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Profile">   <h3>My Profile</h3></a>
+                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Profile">
+                                                <div class="dash_item">
+                                                        <img  src="<?php echo Yii::app()->baseUrl; ?> /images/dash_board_icon1.jpg" alt=""/>
+                                                        <div class="dash_title">
+                                                                <i class="fa fa-user"></i>
+                                                                <h3>My Profile</h3>
+                                                        </div>
                                                 </div>
-                                        </div>
+                                        </a>
                                 </div>
                                 <div class="col-sm-4 col-md-3 col-xs-4">
-                                        <div class="dash_item">
+                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/CreditHistory">
+                                                <div class="dash_item">
 
 
-                                                <img  src="<?php echo Yii::app()->baseUrl; ?> /images/dash_board_icon1.jpg" alt=""/>
+                                                        <img  src="<?php echo Yii::app()->baseUrl; ?> /images/dash_board_icon1.jpg" alt=""/>
 
-                                                <div class="dash_title">
-                                                        <i class="fa fa-credit-card"></i>
-                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/CreditHistory"> <h3>My Credit</h3></a>
+                                                        <div class="dash_title">
+                                                                <i class="fa fa-credit-card"></i>
+                                                                <h3>My Credit</h3>
+                                                        </div>
                                                 </div>
-                                        </div>
+                                        </a>
                                 </div>
                                 <div class="col-sm-4 col-md-3 col-xs-4">
-                                        <div class="dash_item">
-                                                <img  src="<?php echo Yii::app()->baseUrl; ?> /images/dash_board_icon1.jpg" alt=""/>
-                                                <div class="dash_title">
-                                                        <i class="fa fa-book"></i>
-                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Addressbook"><h3>Address Book</h3></a>
+                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Addressbook">
+                                                <div class="dash_item">
+                                                        <img  src="<?php echo Yii::app()->baseUrl; ?> /images/dash_board_icon1.jpg" alt=""/>
+                                                        <div class="dash_title">
+                                                                <i class="fa fa-book"></i>
+                                                                <h3>Address Book</h3>
+                                                        </div>
                                                 </div>
-                                        </div>
+                                        </a>
                                 </div>
                                 <div class="col-sm-4 col-md-3 col-xs-4">
-                                        <div class="dash_item">
-                                                <img  src="<?php echo Yii::app()->baseUrl; ?> /images/dash_board_icon1.jpg" alt=""/>
-                                                <div class="dash_title">
-                                                        <i class="fa fa-shopping-bag"></i>
-                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/OrderHistory">  <h3>My Orders</h3></a>
+                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/OrderHistory">
+                                                <div class="dash_item">
+                                                        <img  src="<?php echo Yii::app()->baseUrl; ?> /images/dash_board_icon1.jpg" alt=""/>
+                                                        <div class="dash_title">
+                                                                <i class="fa fa-shopping-bag"></i>
+                                                                <h3>My Orders</h3>
+                                                        </div>
                                                 </div>
-                                        </div>
+                                        </a>
                                 </div>
                                 <div class="col-sm-4 col-md-3 col-xs-4">
-                                        <div class="dash_item">
-                                                <img  src="<?php echo Yii::app()->baseUrl; ?> /images/dash_board_icon1.jpg" alt=""/>
-                                                <div class="dash_title">
-                                                        <i class="fa fa-heart"></i>
-                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Wishlists"> <h3>Wishlists</h3></a>
+                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Wishlists">
+                                                <div class="dash_item">
+                                                        <img  src="<?php echo Yii::app()->baseUrl; ?> /images/dash_board_icon1.jpg" alt=""/>
+                                                        <div class="dash_title">
+                                                                <i class="fa fa-heart"></i>
+                                                                <h3>Wishlists</h3>
+                                                        </div>
                                                 </div>
-                                        </div>
+                                        </a>
                                 </div>
                                 <div class="col-sm-4 col-md-3 col-xs-4">
-                                        <div class="dash_item">
-                                                <img  src="<?php echo Yii::app()->baseUrl; ?> /images/dash_board_icon1.jpg" alt=""/>
-                                                <div class="dash_title">
-                                                        <i class="fa fa-female"></i>
-                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Measurement"> <h3>Measurements</h3></a>
+                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Measurement">
+                                                <div class="dash_item">
+                                                        <img  src="<?php echo Yii::app()->baseUrl; ?> /images/dash_board_icon1.jpg" alt=""/>
+                                                        <div class="dash_title">
+                                                                <i class="fa fa-female"></i>
+                                                                <h3>Measurements</h3>
+                                                        </div>
                                                 </div>
-                                        </div>
+                                        </a>
                                 </div>
                                 <!--                                <div class="col-sm-4 col-md-3 col-xs-4">
                                                                         <div class="dash_item">
-                                                                                <img  src="<?php //echo Yii::app()->baseUrl;  ?> /images/dash_board_icon1.jpg" alt=""/>
+                                                                                <img  src="<?php //echo Yii::app()->baseUrl;   ?> /images/dash_board_icon1.jpg" alt=""/>
                                                                                 <div class="dash_title">
                                                                                         <a href="#"><i class="fa fa-credit-card"></i></a>
                                                                                         <a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Makepayment">  <h3>Make a Payment</h3></a>

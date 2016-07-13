@@ -27,12 +27,12 @@ class ContactUs extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
-                    array('name, email, phone, comment', 'required'),
+                    array('name, email, phone,country, comment', 'required'),
                     array('email', 'email'),
                     array('phone', 'numerical'),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, name, email, phone, comment, date', 'safe', 'on' => 'search'),
+                    array('id, name, email, phone,country, comment, date', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -55,7 +55,8 @@ class ContactUs extends CActiveRecord {
                     'name' => 'Name',
                     'email' => 'Email',
                     'phone' => 'Phone',
-                    'comment' => 'Comment',
+                    'country' => 'Country',
+                    'comment' => 'Message',
                     'date' => 'Date',
                 );
         }
@@ -81,6 +82,7 @@ class ContactUs extends CActiveRecord {
                 $criteria->compare('name', $this->name, true);
                 $criteria->compare('email', $this->email, true);
                 $criteria->compare('phone', $this->phone, true);
+                $criteria->compare('country', $this->country, true);
                 $criteria->compare('comment', $this->comment, true);
                 $criteria->compare('date', $this->date, true);
 

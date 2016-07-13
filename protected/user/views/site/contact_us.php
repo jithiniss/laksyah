@@ -2,7 +2,7 @@
         <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?> <span>/</span>Contact Us</div>
         <div class="row">
                 <?php echo $this->renderPartial('_staticmenu'); ?>
-                <!-- / Side <?php //echo $this->renderPartial('_staticmenu');  ?>bar-->
+                <!-- / Side <?php //echo $this->renderPartial('_staticmenu');   ?>bar-->
                 <div class="col-sm-9 user_content">
                         <h1>Contact Us</h1>
                         <!--<div class="alert alert-success alert-dismissible" role="alert">
@@ -35,37 +35,43 @@
                                                                 </div>
                                                         <?php endif; ?>
                                                         <p><strong><em>To contact us via email, complete the fields below:</em></strong></p>
-                                                        <div class="form-group">
+                                                        <div class="form-group col-xs-12 col-sm-6">
                                                                 <?php echo $form->labelEx($model, 'name'); ?>
                                                                 <?php echo $form->textField($model, 'name', array('size' => 60, 'class' => 'form-control')); ?>
                                                                 <?php echo $form->error($model, 'name', array('style' => 'color:red')); ?>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group col-xs-12 col-sm-6">
                                                                 <?php echo $form->labelEx($model, 'email'); ?>
                                                                 <?php echo $form->textField($model, 'email', array('size' => 60, 'class' => 'form-control')); ?>
                                                                 <?php echo $form->error($model, 'email', array('style' => 'color:red')); ?>
                                                         </div>
-                                                        <div class="form-group">
+                                                        <div class="form-group col-xs-12 col-sm-6">
                                                                 <?php echo $form->labelEx($model, 'phone'); ?>
                                                                 <?php echo $form->textField($model, 'phone', array('size' => 60, 'class' => 'form-control')); ?>
                                                                 <?php echo $form->error($model, 'phone', array('style' => 'color:red')); ?>
                                                         </div>
-                                                        <div class="form-group">
-                                                                <label>Message*:</label>
+                                                        <div class="form-group col-xs-12 col-sm-6">
+                                                                <?php echo $form->labelEx($model, 'country'); ?>
+                                                                <?php echo $form->textField($model, 'country', array('size' => 60, 'class' => 'form-control')); ?>
+                                                                <?php echo $form->error($model, 'country', array('style' => 'color:red')); ?>
+                                                        </div>
+                                                        <div class="form-group col-xs-12">
+                                                                <?php echo $form->labelEx($model, 'comment'); ?>
                                                                 <?php echo $form->textArea($model, 'comment', array('rows' => 5, 'cols' => 60, 'class' => 'form-control')); ?>
                                                                 <?php echo $form->error($model, 'comment', array('style' => 'color:red')); ?>
                                                         </div>
-                                                        <div class="form_button"> <strong>
+                                                        <div class="form_button pull-right"> <strong>
                                                                         <?php echo CHtml::submitButton('Submit', array('class' => 'btn-primary')); ?>
                                                                 </strong>
                                                         </div>
                                                         <?php $this->endWidget(); ?>
+                                                        <div class="clearfix"></div>
                                                 </div>
 
                                         </div>
                                 </div>
                                 <div class="contact_us_details">
-                                        <h4><i class="fa fa-phone-square"></i> +91 914 220 2222 &nbsp;&nbsp; <i class="fa fa-whatsapp"></i> +91 9656 30 3333</h4>
+                                        <h4><i class="fa fa-whatsapp"></i> +91 914 220 2222 &nbsp;&nbsp; <i class="fa fa-whatsapp"></i> +91 9656 30 3333</h4>
                                 </div>
                                 <h3>ENQUIRIES</h3>
                                 <div class="row margin-bottom">
@@ -80,7 +86,10 @@
                                 </div>
                                 <h3>WORKING HOURS:</h3>
                                 <p>Mon to Sat 09:30am to 6:30pm IST (Indian Standard Time)</p>
-
+                                <h3>VISIT US:</h3>
+                                <p>The Design House,<br/>
+                                        C-3, GCDA House, Mavelipuram,<br/>
+                                        Kakkanad, kochi</p>
                         </article>
                 </div>
         </div>

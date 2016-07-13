@@ -85,7 +85,7 @@
                 <div class="over-lay"><img src="<?= Yii::app()->baseUrl; ?>/images/ajax-loader_1.gif"></div>
                 <script>
 
-                        $(document).ready(function () {
+                        $(document).ready(function() {
 <?php
 if (Yii::app()->user->hasFlash('login_list')):
         ?>
@@ -135,8 +135,8 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                                                 <!-- Tab panes -->
                                                 <div class="tab-content">
                                                         <div role="tabpanel" class="tab-pane active login_popup ">
-                                                                <h2>Enter One Time Password</h2>
-                                                                <h4>One Time Password (OTP) has been sent to your email <b><?php echo $unverified_user->email; ?></b>, please enter the same here to access your account.</h4>
+                                                                <h2>Verify email/mobile number</h2>
+                                                                <h4>We sent an email to make sure you own it. Please check your inbox and enter the security code below to finish setting up your Laksyah account.</h4>
                                                                 <?php if (Yii::app()->user->hasFlash('email_verification1')): ?>
                                                                         <div class="alert alert-danger mesage">
                                                                                 <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -173,7 +173,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                                                 <!-- Tab panes -->
                                                 <div class="tab-content">
                                                         <div role="tabpanel" class="tab-pane active login_popup " id="home">
-                                                                <h2>SIGN IN</h2>
+                                                                <h2>SIGN IN TO MY ACCOUNT</h2>
                                                                 <h4>Sign in information</h4>
                                                                 <?php if (Yii::app()->user->hasFlash('login_list')): ?>
                                                                         <div class="alert alert-danger mesage">
@@ -182,9 +182,9 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                                                                         </div>
                                                                 <?php endif; ?>
                                                                 <form  name="login" id="login_form" action="<?= Yii::app()->baseUrl; ?>/index.php/Site/login" method="POST">
-                                                                        <label>Email Address</label>
+                                                                        <label>Email Address<font color="red">*</font></label>
                                                                         <input class="form-control" type="text" name="UserDetails[email]" autocomplete="off" />
-                                                                        <label>Password</label>
+                                                                        <label>Password<font color="red">*</font></label>
                                                                         <input class="form-control" type="password" name="UserDetails[password]" autocomplete="off" />
                                                                         <p><a  href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/forgotPassword/" class="forgot">Forgot Password?</a>
                                                                                 <a style="float:right;" href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/new-user" class="forgot">New User Registration?</a></p>
@@ -202,8 +202,8 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                                 <div class="modal-content">
                                         <div class="modal-header text-left">
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                                <h2 class="modal-title">Sign up for newsletters</h2>
-                                                <h4>Please fill out the following form.</h4>
+                                                <h2 class="modal-title">Sign up for our newsletter</h2>
+                                                <h4>Get the scoop on new arrivals, freeshipping, promotions and more.</h4>
                                         </div>
                                         <?php if (Yii::app()->user->hasFlash('newsletter')): ?>
                                                 <div class="alert alert-success mesage">
@@ -231,12 +231,13 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                                         <?php endif; ?>
                                         <div class="modal-body">
                                                 <form  name="newsletters" id="login_form" action="<?= Yii::app()->baseUrl; ?>/index.php/Site/Newsletter" method="POST">
-                                                        <div class="row">
-                                                                <div class="col-sm-6"><input class="form-control" type="text" name="Newsletter[first_name]" placeholder="First Name" autocomplete="off"></div>
+                                                        <div class="col-sm-6">
+                                                                <label>Name<font color="red">*</font></label>
+                                                                <input class="form-control" type="text" name="Newsletter[first_name]" placeholder="First Name" autocomplete="off"></div>
 
-                                                                <div class="col-sm-6"><input class="form-control" type="text" name="Newsletter[email]" placeholder="Email Id" autocomplete="off"></div>
-
-                                                        </div>
+                                                        <div class="col-sm-6">
+                                                                <label>Email Address<font color="red">*</font></label>
+                                                                <input class="form-control" type="text" name="Newsletter[email]" placeholder="Email Id" autocomplete="off"></div>
 
                                                         <div class="modal-footer">
                                                                 <input type="submit"  class="btn btn-primary" name="submit" value="SUBMIT"/>
@@ -347,7 +348,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                                                                                         <div class="laksyah_dropdown">
                                                                                                 <ul class="drop_menu">
                                                                                                         <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount" class="currency" >My Account</a></li>
-                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                                                                                                                                   ?></li>-->
+                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                                                                                                                                          ?></li>-->
                                                                                                         <li><?php echo CHtml::link('Log Out', array('site/Logout'), array('class' => 'currency')); ?></li>
                                                         <!--                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
                                                                                                 <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Myordernew" class="currency" >My Orders</a></li>
@@ -396,7 +397,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;                                                                                                                                            ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;                                                                                                                                                   ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">
@@ -422,7 +423,9 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
 
                                                 <div class="collapse navbar-collapse">
                                                         <ul class="nav navbar-nav main-nav">
-                                                                <li class="active"><?php echo CHtml::link('WOMEN', array('products/category', 'name' => 'women')); ?></li>
+                                                                <li class="active"><a href="<?php echo Yii::app()->baseUrl; ?>/"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/home.png" width="20" height="20" alt=""/></a></li>
+                                                                <li class="seperator"><i class="fa fa-circle"></i></li>
+                                                                <li><?php echo CHtml::link('WOMEN', array('products/category', 'name' => 'women')); ?></li>
                                                                 <li class="seperator"><i class="fa fa-circle"></i></li>
                                                                 <li><?php echo CHtml::link('CELEB STYLE', array('products/category', 'name' => 'celeb-style')); ?></li>
                                                                 <li class="seperator"><i class="fa fa-circle"></i></li>

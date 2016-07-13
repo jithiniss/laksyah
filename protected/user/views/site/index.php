@@ -2,13 +2,13 @@
 
         <div class="row header_special_row">
                 <div class="col-sm-4 col-xs-4">
-                        <h4><i class="fa fa-globe"></i> <span>We Ship Worldwide</span></h4>
+                        <h4><a href="#"><i class="fa fa-globe"></i> <span>We Ship Worldwide</span></a></h4>
                 </div>
                 <div class="col-sm-4 col-xs-4">
-                        <h4><a href="#" data-toggle="modal" data-target="#subscribeModal"><i class="fa fa-envelope"></i> <span>Sign up to our newsletter</span></a></h4>
+                        <h4><a href="#" data-toggle="modal" data-target="#subscribeModal"><i class="fa fa-envelope"></i> <span>Sign up for our newsletter</span></a></h4>
                 </div>
                 <div class="col-sm-4 col-xs-4">
-                        <h4><i class="fa fa-truck"></i> <span>Free Shipping In India</span></h4>
+                        <h4><a href="#"><i class="fa fa-truck"></i> <span>Free Shipping In India</span></a></h4>
                 </div>
         </div>
         <!--/ End Shipping Area -->

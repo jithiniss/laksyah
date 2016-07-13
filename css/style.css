@@ -318,7 +318,7 @@ Logo Area
         border-color: #adaba3;
 }
 .btn-dark, .btn-dark:focus {
-        background-color: #737179;
+        background-color: #f57b20;
         color: #fff;
         height: 32px;
         line-height: 32px;
@@ -2839,7 +2839,8 @@ Page Dashboard
         top:0px;
         padding-top:18%;
         width:100%;
-        text-align:center
+        text-align:center;
+        color: #414141;
 }
 .dash_item .dash_title i{
         font-size:40px;
