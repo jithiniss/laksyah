@@ -119,7 +119,7 @@
                                         } else {
                                                 ?>
                                                 Shipping Rate:<?php
-                                                echo Yii::app()->Currency->convert($shiping_charge->shipping_rate);
+                                                echo Yii::app()->Currency->convertCurrencyCode($shiping_charge->shipping_rate);
                                         }
                                         ?> ( delivered within 3-14 working days )
                                         &nbsp;
@@ -172,12 +172,12 @@
                                             <td align="right" valign="top" style="font-size:11px;padding:3px 9px;padding-top:10px; <?php if($orders->gift_option == 0) { ?>padding-bottom:10px;border-bottom:1px dotted #cccccc;<?php } ?>">
 
 
-                                                <span><?php echo Yii::app()->Currency->convert($orders->amount); ?></span>                                        </td>
+                                                <span><?php echo Yii::app()->Currency->convertCurrencyCode($orders->amount); ?></span>                                        </td>
                                         </tr>
                                         <?php if($orders->gift_option == 1) { ?>
                                                 <tr>
                                                     <td colspan="3" style="padding: 0px 0px 10px 10px;text-transform: uppercase;font-size: 10px;font-weight: bold;border-bottom:1px dotted #cccccc">Gift Packing</td>
-                                                    <td align="right" valign="top" style="font-size:11px;padding:3px 9px;border-bottom:1px dotted #cccccc;"><?php echo Yii::app()->Currency->convert($orders->rate); ?></td>
+                                                    <td align="right" valign="top" style="font-size:11px;padding:3px 9px;border-bottom:1px dotted #cccccc;"><?php echo Yii::app()->Currency->convertCurrencyCode($orders->rate); ?></td>
                                                 </tr>
 
                                                 <?php
@@ -200,20 +200,20 @@
                                     <td colspan="3" align="right" style="padding:13px 9px 0 0;font-size:13px;">
                                         Subtotal                    </td>
                                     <td align="right" style="padding:13px 9px 0 0;font-size:13px;">
-                                        <span><?php echo Yii::app()->Currency->convert($granttotal); ?></span>                    </td>
+                                        <span><?php echo Yii::app()->Currency->convertCurrencyCode($granttotal); ?></span>                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" align="right" style="padding:3px 9px;font-size:13px;">
                                         Shipping &amp; Handling                    </td>
                                     <td align="right" style="padding:3px 9px;font-size:13px;">
-                                        <span><?php echo Yii::app()->Currency->convert($shiping_charge->shipping_rate); ?></span>                    </td>
+                                        <span><?php echo Yii::app()->Currency->convertCurrencyCode($shiping_charge->shipping_rate); ?></span>                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="3" align="right" style="padding:3px 9px 13px 0;font-size:13px;">
                                         <strong>Grand Total</strong>
                                     </td>
                                     <td align="right" style="padding:3px 9px 13px 0;font-size:13px;">
-                                        <strong><span><?php echo Yii::app()->Currency->convert($total); ?></span></strong>
+                                        <strong><span><?php echo Yii::app()->Currency->convertCurrencyCode($total); ?></span></strong>
                                     </td>
                                 </tr>
                             </tbody>

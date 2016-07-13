@@ -12,7 +12,7 @@
                 </tr>
                 <tr>
                     <td style="padding:40px 20px; font-family:'Open Sans',arial, sans-serif; font-size:13px"><p>Hi <?php echo $userdetails->first_name; ?><span>      <?php echo $userdetails->last_name; ?>,</p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">You have successfully paid <b><?php echo Yii::app()->Currency->convert($payment->total_amount); ?></b> as Advance payment for the product <b><?php echo $payment->product_name . ' (' . $payment->product_code . ')' ?></b> on <?php echo date("d-m-Y g:i a", strtotime($payment->date)); ?>.</p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">You have successfully paid <b><?php echo Yii::app()->Currency->convertCurrencyCode($payment->total_amount); ?></b> as Advance payment for the product <b><?php echo $payment->product_name . ' (' . $payment->product_code . ')' ?></b> on <?php echo date("d-m-Y g:i a", strtotime($payment->date)); ?>.</p>
                         <?php if($payment->message != "") { ?>
                                 <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><b>Your Message : </b><?php echo $payment->message; ?></p>
                         <?php } ?>

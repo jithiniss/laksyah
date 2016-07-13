@@ -13,7 +13,7 @@
                 <tr>
                     <td style="padding:40px 20px; font-family:'Open Sans',arial, sans-serif; font-size:13px"><p>Hi <?php echo $userdetails->first_name; ?><span>      <?php echo $userdetails->last_name; ?>,</p>
                         <p style="font-size:13px;line-height:16px;text-align:left;">
-                            We are unable to complete your <b><?php echo Yii::app()->Currency->convert($payment->total_amount); ?></b> as Advance payment for the product <b><?php echo $payment->product_name . ' (' . $payment->product_code . ')' ?></b> on <?php echo date("d-m-Y g:i a", strtotime($payment->date)); ?> at http://www.laksyah.com due to Transaction Failure.
+                            We are unable to complete your <b><?php echo Yii::app()->Currency->convertCurrencyCode($payment->total_amount); ?></b> as Advance payment for the product <b><?php echo $payment->product_name . ' (' . $payment->product_code . ')' ?></b> on <?php echo date("d-m-Y g:i a", strtotime($payment->date)); ?> at http://www.laksyah.com due to Transaction Failure.
                         </p>
                         <?php if($payment->message != "") { ?>
                                 <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><b>Your Message : </b><?php echo $payment->message; ?></p>

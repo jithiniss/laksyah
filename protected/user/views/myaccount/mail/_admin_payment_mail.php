@@ -36,7 +36,7 @@
                             <tr>
                                 <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Paid Amount</p></td>
                                 <td>:</td>
-                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo Yii::app()->Currency->convert($payment->total_amount); ?></p>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo Yii::app()->Currency->convertCurrencyCode($payment->total_amount); ?></p>
                                 </td>
                             </tr>
                             <tr>

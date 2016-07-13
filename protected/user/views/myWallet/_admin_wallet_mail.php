@@ -21,7 +21,7 @@
                             <tr>
                                 <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Paid Amount</p></td>
                                 <td>:</td>
-                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo Yii::app()->Currency->convert($wallet_history->amount); ?></p>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo Yii::app()->Currency->convertCurrencyCode($wallet_history->amount); ?></p>
                                 </td>
                             </tr>
                             <tr>
@@ -49,7 +49,7 @@
                             <tr>
                                 <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Updated Credit Balance</p></td>
                                 <td>:</td>
-                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo Yii::app()->Currency->convert($user_wallet->wallet_amt); ?></p></td>
+                                <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;"><?php echo Yii::app()->Currency->convertCurrencyCode($user_wallet->wallet_amt); ?></p></td>
                             </tr>
                             <tr>
                                 <td><p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;padding:10px;">Payment Status</p></td>

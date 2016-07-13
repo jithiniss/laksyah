@@ -12,7 +12,7 @@
                 </tr>
                 <tr>
                     <td style="padding:40px 20px; font-family:'Open Sans',arial, sans-serif; font-size:13px"><p>Hi <?php echo $user_wallet->first_name; ?><span>      <?php echo $user_wallet->last_name; ?>,</p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">You have added <b><?php echo Yii::app()->Currency->convert($wallet_history->amount); ?></b> to your Laksyah Credit Balance on <?php echo date("d-m-Y g:i a", strtotime($wallet_history->entry_date)); ?>.</p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">You have added <b><?php echo Yii::app()->Currency->convertCurrencyCode($wallet_history->amount); ?></b> to your Laksyah Credit Balance on <?php echo date("d-m-Y g:i a", strtotime($wallet_history->entry_date)); ?>.</p>
                         <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><b>Your Message : </b><?php echo $wallet_history->field1; ?></p>
                         <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><b>Payment Method : </b>
                             <?php
@@ -24,7 +24,7 @@
                                     echo "Paypal";
                             }
                             ?></p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Your updated Laksyah Credit Balance is <b><?php echo Yii::app()->Currency->convert($user_wallet->wallet_amt); ?></b> .</p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Your updated Laksyah Credit Balance is <b><?php echo Yii::app()->Currency->convertCurrencyCode($user_wallet->wallet_amt); ?></b> .</p>
 
                         <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Laksyah Credit Balance can be used  for shopping on Laksyah.</p>
                         <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;"><a href="<?php echo $this->siteURL() . '/index.php/CreditHistory' ?>" style="text-transform: uppercase;background-color: #f47721;border-radius: 0;outline: none;border: none;height: 40px;line-height: 40px;padding: 0px 10px;padding-left: 30px;padding-right: 30px; color:#fff; text-decoration:none; display:inline-block;">VIEW MY ACCOUNT</a></p>

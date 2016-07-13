@@ -28,7 +28,7 @@
                                     echo "Paypal";
                             }
                             ?></p>
-                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Your updated Laksyah Credit Balance is <b><?php echo Yii::app()->Currency->convert($user_wallet->wallet_amt); ?></b> .</p>
+                        <p style=" font-family:'Open Sans',arial, sans-serif; font-size:13px;">Your updated Laksyah Credit Balance is <b><?php echo Yii::app()->Currency->convertCurrencyCode($user_wallet->wallet_amt); ?></b> .</p>
 
                         <p style="font-size:13px;line-height:16px;text-align:left;">
                             Thank you for your patronage.

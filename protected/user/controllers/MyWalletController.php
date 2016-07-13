@@ -4,7 +4,7 @@ class MyWalletController extends Controller {
 
         public function init() {
                 date_default_timezone_set('Asia/Kolkata');
-                if (!isset(Yii::app()->session['user'])) {
+                if(!isset(Yii::app()->session['user'])) {
 
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 }
@@ -17,10 +17,10 @@ class MyWalletController extends Controller {
         public function actionIndex() {
                 $model = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
                 $order_billing_details = UserAddress::model()->findByAttributes(array('userid' => Yii::app()->session['user']['id']));
-                if (!empty($model)) {
+                if(!empty($model)) {
                         $wallet_amount = $model->wallet_amt;
                         $wallet_add = new WalletHistory('addWallet1');
-                        if (isset($_POST['WalletHistory'])) {
+                        if(isset($_POST['WalletHistory'])) {
                                 $wallet_add->attributes = $_POST['WalletHistory'];
 
                                 $entry_amount = $_POST['WalletHistory']['amount'];
@@ -31,9 +31,9 @@ class MyWalletController extends Controller {
                                 $wallet_add->balance_amt = $wallet_amount + $entry_amount;
 
 
-                                if ($wallet_add->validate()) {
-                                        if ($wallet_add->save()) {
-                                                if ($wallet_add->payment_method == '2') {
+                                if($wallet_add->validate()) {
+                                        if($wallet_add->save()) {
+                                                if($wallet_add->payment_method == '2') {
                                                         $hdfc_details = array();
                                                         $hdfc_details['description'] = 'Laksyah Wallet';
                                                         $hdfc_details['order'] = $model->id;
@@ -57,13 +57,13 @@ class MyWalletController extends Controller {
                                                         $hdfc_details['ship_email'] = Yii::app()->session['user']['email'];
                                                         $hdfc_details['bill_phone_number'] = Yii::app()->session['user']['phone_no_1'];
                                                         $this->render('hdfcpay', array('hdfc_details' => $hdfc_details, 'aid' => '20951', 'sec' => 'b837f49de88e6be36f077b6928c43bf9'));
-                                                } else if ($wallet_add->payment_method == '3') {
+                                                } else if($wallet_add->payment_method == '3') {
 
                                                         $pay_id = time();
                                                         $user_id = $model->id;
                                                         $wallet_id = $wallet_add->id;
-                                                        if (isset(Yii::app()->session['currency'])) {
-                                                                if (Yii::app()->session['currency']['currency_code'] == 'USD') {
+                                                        if(isset(Yii::app()->session['currency'])) {
+                                                                if(Yii::app()->session['currency']['currency_code'] == 'USD') {
                                                                         $paypaltotalamount = $wallet_add->balance_amt;
                                                                 } else {
                                                                         $usdvalue = Currency::model()->findByPk(2);
@@ -94,17 +94,17 @@ class MyWalletController extends Controller {
 
                 $user_wallet = UserDetails::model()->findByPk($user_id);
                 $wallet_history = WalletHistory::model()->findByPk($wallet_id);
-                if (!empty($user_wallet) && !empty($wallet_history)) {
+                if(!empty($user_wallet) && !empty($wallet_history)) {
 
                         $amount = $user_wallet->wallet_amt + $wallet_history->amount;
                         $user_wallet->wallet_amt = $amount;
                         $wallet_history->field2 = 1; //success
                         $wallet_history->transaction_id = $payid;
                         $wallet_history_exist = WalletHistory::model()->findByAttributes(array('transaction_id' => $payid));
-                        if (empty($wallet_history_exist)) {
+                        if(empty($wallet_history_exist)) {
 
-                                if ($wallet_history->save()) {
-                                        if ($user_wallet->save()) {
+                                if($wallet_history->save()) {
+                                        if($user_wallet->save()) {
                                                 Yii::app()->session['user'] = $user_wallet;
                                                 Yii::app()->user->setFlash('wallet_success', "Money Added Successfully");
                                                 $this->SuccessMail($wallet_history->id);
@@ -135,7 +135,7 @@ class MyWalletController extends Controller {
                 $wallet_history = WalletHistory::model()->findByPk($wallet_id);
                 //$user = $userdetails->email;
 
-                $credit_amount = Yii::app()->Currency->convert($wallet_history->amount);
+                $credit_amount = Yii::app()->Currency->convertCurrencyCode($wallet_history->amount);
 
                 $user = 'sibys09@gmail.com';
                 $user_subject = 'laksyah.com : Credit Money ' . $credit_amount . ' has been successfully added!';
@@ -166,7 +166,7 @@ class MyWalletController extends Controller {
                 $wallet_history = WalletHistory::model()->findByPk($wallet_id);
 
                 $username = UserDetails::model()->findByPk($wallet_history->user_id);
-                if (!empty($wallet_history) && !empty($username)) {
+                if(!empty($wallet_history) && !empty($username)) {
 
                         $this->errorMail($wallet_history->id);
                         $wallet_history->delete();
