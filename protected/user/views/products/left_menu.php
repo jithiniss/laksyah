@@ -47,7 +47,7 @@ if (isset($open)) {
         ?>
         <script>
 
-                $(document).ready(function () {
+                $(document).ready(function() {
                         $('.maincat_<?= $open ?>').addClass('open');
                         $('.idown_<?= $open ?>').removeClass('fa-angle-up').addClass('fa-angle-down');
                 });

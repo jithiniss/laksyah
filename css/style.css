@@ -760,6 +760,7 @@ ul.catmenu > li ul{
 margin:0px;
 padding:0px;
 display:none;
+padding-left: 21px;
 	}
 ul.catmenu > li.open ul{
 		display:block;
@@ -2559,6 +2560,7 @@ Gift Cards
 		display:block;
 		transition:none;
 		transform:none!important;
+                border: 1px solid #8e8e8f;
 	}
 /*
 -------------------------

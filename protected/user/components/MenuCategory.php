@@ -185,7 +185,7 @@ class MenuCategory extends CApplicationComponent {
 
         public function sorting($categ) {
                 if ($categ == 1) {
-                        $srt = 'sale_from DESC';
+                        $srt = 'id DESC';
                 } elseif ($categ == 2) {
                         $srt = 'price ASC';
                 } elseif ($categ == 3) {

@@ -81,7 +81,7 @@
                                                                 Sort by
                                                                 <select name="category" onchange="products();">
                                                                         <option <?= Yii::app()->session['sort_id'] == 0 ? 'selected' : ''; ?> value="">Type</option>
-                                                                        <option <?= Yii::app()->session['sort_id'] == 1 ? 'selected' : ''; ?> value="1">Best Seller</option>
+                                                                        <option <?= Yii::app()->session['sort_id'] == 1 ? 'selected' : ''; ?> value="1">Newest</option>
                                                                         <option <?= Yii::app()->session['sort_id'] == 2 ? 'selected' : ''; ?> value="2">Price Low To High</option>
                                                                         <option <?= Yii::app()->session['sort_id'] == 3 ? 'selected' : ''; ?> value="3">Price High To Low</option>
                                                                         <option <?= Yii::app()->session['sort_id'] == 4 ? 'selected' : ''; ?> value="4">Name A-Z</option>
@@ -138,7 +138,7 @@
                 document.getElementById("form_id").submit();
         }
         // Size Selector
-        $(".size_selector label").click(function () {
+        $(".size_selector label").click(function() {
 
                 $('.size_selector label').removeClass('active');
                 $("input[name=size_selector]").removeAttr('checked');
@@ -157,7 +157,7 @@
 
 
 
-        $(document).ready(function () {
+        $(document).ready(function() {
                 var min = <?php echo Yii::app()->Currency->convertPrice(100); ?>;
                 var max = <?php echo Yii::app()->Currency->convertPrice(50000); ?>;
                 //alert(test);
@@ -165,7 +165,7 @@
                         min: min,
                         max: max,
                         values: [min, max],
-                        slide: function (event, ui) {
+                        slide: function(event, ui) {
                                 var min_amount = $("#amount").val(ui.values[ 0 ]);
                                 var max_amount = $("#amount1").val(ui.values[ 1 ]);
                                 var categ_id = $("#cat_name").val();
@@ -175,7 +175,7 @@
                                 $(".min_value").html("<i class='fa <?= Yii::app()->session['currency'] != '' ? Yii::app()->session['currency']->symbol : 'fa-inr'; ?>'></i> " + ui.values[ 0 ]);
                                 $(".max_value").html("<i class='fa <?= Yii::app()->session['currency'] != '' ? Yii::app()->session['currency']->symbol : 'fa-inr'; ?>'></i> " + ui.values[ 1 ]);
                         },
-                        stop: function (event, ui) {
+                        stop: function(event, ui) {
 
                                 //debugger;
                                 productFilter();
@@ -188,7 +188,7 @@
                 $("#amount1").val($("#slider-range").slider("values", 1));
                 $(".min_value").html("<i class='fa <?= Yii::app()->session['currency']->symbol; ?>'></i> " + $("#slider-range").slider("values", 0));
                 $(".max_value").html("<i class='fa <?= Yii::app()->session['currency']->symbol; ?>'></i> " + $("#slider-range").slider("values", 1));
-                $(".add_to_cart").click(function () {
+                $(".add_to_cart").click(function() {
                         var id = $(this).attr('id');
                         var canname = $("#cano_name_" + id).val();
                         var qty = $(".qty_" + id).val();
@@ -210,15 +210,15 @@
                 $.ajax({
                         url: baseurl + 'Products/PriceRange',
                         type: "POST",
-                        beforeSend: function () {
+                        beforeSend: function() {
                                 showLoader();
                         },
-                        complete: function () {
+                        complete: function() {
                                 hideLoader();
                         },
                         //data: form.serialize()
                         data: {min: min_amount, max: max_amount, cat: categ_id, size: size}
-                }).done(function (data) {
+                }).done(function(data) {
                         if (value == 1) {
                                 $("#content").html(data);
                         } else {
@@ -234,7 +234,7 @@
                         type: "POST",
                         url: baseurl + 'cart/Buynow',
                         data: {cano_name: canname, qty: qty}
-                }).done(function (data) {
+                }).done(function(data) {
                         getcartcount();
                         getcarttotal();
                         $(".cart_box").html(data);
