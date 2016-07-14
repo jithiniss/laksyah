@@ -29,16 +29,26 @@ class MakePayment extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
-                    array('userid, product_name, product_code, amount_type,  payment_mode', 'required'),
+                    array('userid, product_name, product_code, amount_type,  payment_mode', 'required', 'on' => 'indirect_payment'),
+                    array('amount_type,  payment_mode,total_amount,message', 'required', 'on' => 'direct_payment'),
                     array('userid,total_amount', 'numerical', 'integerOnly' => true),
                     array('product_name', 'length', 'max' => 200),
                     array('product_code, amount_type', 'length', 'max' => 15),
                     array('total_amount', 'length', 'max' => 25),
                     array('netbanking, paypal, wallet', 'length', 'max' => 100),
+                    array('amount_type,other_amount_type', 'paymentType'),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, userid, product_name, product_code, message, amount_type, total_amount, payment_mode, date,netbanking, paypal, wallet', 'safe', 'on' => 'search'),
+                    array('id, userid,other_amount_type,payment_type, product_name, product_code, message, amount_type, total_amount, payment_mode, date,netbanking, paypal, wallet', 'safe', 'on' => 'search'),
                 );
+        }
+
+        public function paymentType() {
+                if($this->amount_type == 5) {
+                        if($this->other_amount_type == '') {
+                                $this->addError('other_amount_type', 'Enter Amount Type if it is other');
+                        }
+                }
         }
 
         /**
@@ -61,7 +71,7 @@ class MakePayment extends CActiveRecord {
                     'userid' => 'Userid',
                     'product_name' => 'Product Name',
                     'product_code' => 'Product Code',
-                    'message' => 'Message',
+                    'message' => 'Description',
                     'amount_type' => 'Amount Type',
                     'total_amount' => 'Amount',
                     'payment_mode' => 'Payment Mode',
@@ -70,6 +80,8 @@ class MakePayment extends CActiveRecord {
                     'wallet' => 'Wallet',
                     'date' => 'Date',
                     'status' => 'Status',
+                    'other_amount_type' => 'other amount type',
+                    'payment_type' => 'Payment Type',
                 );
         }
 
@@ -96,6 +108,7 @@ class MakePayment extends CActiveRecord {
                 $criteria->compare('product_code', $this->product_code, true);
                 $criteria->compare('message', $this->message, true);
                 $criteria->compare('amount_type', $this->amount_type, true);
+                $criteria->compare('other_amount_type', $this->other_amount_type, true);
                 $criteria->compare('total_amount', $this->total_amount, true);
                 $criteria->compare('payment_mode', $this->payment_mode, true);
                 $criteria->compare('netbanking', $this->netbanking, true);
@@ -103,6 +116,7 @@ class MakePayment extends CActiveRecord {
                 $criteria->compare('wallet', $this->wallet, true);
                 $criteria->compare('date', $this->date, true);
                 $criteria->compare('status', $this->status);
+                $criteria->compare('payment_type', $this->payment_type);
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
                 ));

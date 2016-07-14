@@ -1,23 +1,17 @@
-<?php
-/* @var $this MakePaymentController */
-/* @var $model MakePayment */
-/* @var $form CActiveForm */
-?>
-
-
-
-
 <div class="container main_container inner_pages ">
-
-
-
-
     <div class="breadcrumbs"> <?php echo CHtml::link('HOME', array('site/index')); ?>  <span>/</span> <?php echo CHtml::link('My Account', array('Myaccount/index')); ?> <span>/</span> Make a Payment </div>
+    <?php
+    if(Yii::app()->session['currency'] != "") {
 
+            $cur_symbol = Yii::app()->session['currency']->currency_code;
+    } else {
+            $cur_symbol = 'INR';
+    }
+    ?>
     <div class="row">
         <?php echo $this->renderPartial('_menu'); ?>
         <div class="col-sm-9 user_content">
-            <?php echo CHtml::link('Credit History', array('MyWallet/CreditHistory'), array('class' => 'account_link pull-right')); ?>
+            <?php echo CHtml::link('Payment History', array('MyAccount/PaymentHistory'), array('class' => 'account_link pull-right')); ?>
             <h1>Make Payment</h1>
 
             <?php if(Yii::app()->user->hasFlash('success')): ?>
@@ -76,7 +70,7 @@
                 <?php } else { ?>
                         <div class="row">
                             <div class="col-sm-3">
-                                <label>Product Name*</label>
+                                <label>Product Name</label>
                             </div>
                             <div class="col-sm-8 col-md-6">
                                 <?php echo $form->textField($model, 'product_name', array('class' => 'form-control')); ?>
@@ -85,7 +79,7 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-3">
-                                <label>Product Code*</label>
+                                <label>Product Code</label>
                             </div>
                             <div class="col-sm-8 col-md-6">
                                 <?php echo $form->textField($model, 'product_code', array('class' => 'form-control')); ?>
@@ -97,7 +91,7 @@
                 <?php } ?>
                 <div class="row">
                     <div class="col-sm-3">
-                        <label>Message</label>
+                        <label>Description</label>
                     </div>
                     <div class="col-sm-8 col-md-6">
                         <?php echo $form->textArea($model, 'message', array('size' => 200, 'class' => 'form-control')); ?>
@@ -111,20 +105,37 @@
                     <div class="col-md-6 col-sm-8">
                         <div class="row margin-normal">
                             <div class="col-xs-5">
-                                <?php echo $form->dropDownList($model, 'amount_type', array('2' => 'Advance Payment', '1' => 'Final', '0' => 'other'), array('class' => 'form-control')); ?>
+                                <?php echo $form->dropDownList($model, 'amount_type', CHtml::listData(MasterPaymentType::model()->findAll(array('condition' => 'status=1', 'order' => 'sorting asc')), 'id', 'type'), array('empty' => 'Select Type', 'class' => 'form-control')); ?>
                                 <?php echo $form->error($model, 'amount_type', array('style' => 'color:red')); ?>
 
                             </div>
-                            <div class="col-xs-2"><input type="text" class="form-control text-center" readonly placeholder="" value="₹"></div>
+                            <div class="col-xs-2"><input type="text" class="form-control text-center" readonly placeholder="" value="<?php echo $cur_symbol; ?>"></div>
                             <div class="col-xs-5">
                                 <?php if(!empty($celeb_history)) { ?>
 
                                         <input type="hidden"  id="MakePayment_amount1"  value='<?php echo Yii::app()->Currency->convert($celeb_history->pay_amount); ?>'/>
                                         <input type="text"  id="MakePayment_amount" readonly autocomplete="off" value="<?php echo $celeb_history->pay_amount; ?>" class="form-control"/>
                                 <?php } else { ?>
-                                        <input type="text"  id="MakePayment_amount2" value="" name="amount_makepayment" autocomplete="off"  class="form-control" >
+                                        <?php echo $form->textField($model, 'total_amount', array('class' => 'form-control')); ?>
+                                        <?php echo $form->error($model, 'total_amount', array('style' => 'color:red')); ?>
                                 <?php } ?>
                             </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row" id="other_payment" style="display:none;">
+                    <div class="col-sm-3">
+
+                    </div>
+                    <div class="col-md-6 col-sm-8">
+                        <div class="row margin-normal">
+                            <div class="col-xs-5">
+                                <?php echo $form->textField($model, 'other_amount_type', array('class' => 'form-control')); ?>
+                                <?php echo $form->error($model, 'other_amount_type', array('style' => 'color:red')); ?>
+
+                            </div>
+
                         </div>
 
                     </div>
@@ -184,7 +195,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="confirm">
-                            <div class="custom_check"> <i class="fa fa-check "></i> By making the payment you agree to our <a href="#">payment policies</a>.
+                            <div class="custom_check"> <i class="fa fa-check "></i> By making the payment you agree to our <?php echo CHtml::link('Terms', array('site/Terms')); ?> &amp; <?php echo CHtml::link('Policies', array('site/PrivacyPolicy')); ?>.
                                 <input type="checkbox" hidden="" name="payment_agree" id="payment_agree">
                             </div>
                             <div id="agrees"></div>
@@ -225,81 +236,66 @@
 
 
             });
+
+            if ($('#MakePayment_amount_type').val() == 5) {
+                $('#other_payment').show();
+            } else {
+                $('#other_payment').hide();
+            }
+
+
+            $('#MakePayment_amount_type').change(function () {
+                if ($('#MakePayment_amount_type').val() == 5) {
+                    $('#other_payment').show();
+                } else {
+                    $('#other_payment').hide();
+                }
+            });
+
             // Custom Radio
             $('.price_group1 .radio_group1').click(function () {
                 $(this).parents('.price_group1').find('.radio_group1').removeClass('active');
                 $(this).addClass('active');
                 $(this).find('input').attr('checked', true);
             });
-        });
-</script>
 
-<script type="text/javascript">
-        $(document).ready(function () {
+
+            var amount;
 <?php if(!empty($celeb_history)) { ?>
-                    var amount = <?php echo $celeb_history->pay_amount; ?>;
-                    var wallet_amount = <?php echo Yii::app()->session['user']['wallet_amt']; ?>;
-
-                    $('#credit_amount').on('keyup', function () {
-
-                        var credit = $("#credit_amount").val();
-                        if (credit > amount) {
-                            $("#credit_amount").val('');
-                            $("#balance").html(wallet_amount);
-                            $("#payment_blnc").html(amount);
-                            alert('Invalid Amount');
-                        } else {
-
-                            if (credit > wallet_amount) {
-                                alert("Your Amount greater than available balance");
-                            } else {
-                                var balance = wallet_amount - credit;
-                                var payment_blnc = amount - credit;
-                                if (credit == amount) {
-                                    $('#payment_modes').hide();
-                                } else {
-                                    $('#payment_modes').show();
-                                }
-                                $("#balance").html(balance);
-
-                                $("#payment_blnc").html(payment_blnc);
-                            }
-
-                        }
-                    });
-<?php } else { ?>
-                    $("#MakePayment_amount2").on('change', function () {
-                        var amount = $("#MakePayment_amount2").val();
-                        var wallet_amount = <?php echo Yii::app()->session['user']['wallet_amt']; ?>;
-
-                        $('#credit_amount').on('keyup', function () {
-
-                            var credit = $("#credit_amount").val();
-                            if (credit > amount) {
-                                $("#credit_amount").val('');
-                                $("#balance").html(wallet_amount);
-                                $("#payment_blnc").html(amount);
-                                alert('Invalid Amount');
-                            } else {
-
-                                if (credit > wallet_amount) {
-                                    alert("Your Amount greater than available balance");
-                                } else {
-                                    var balance = wallet_amount - credit;
-                                    var payment_blnc = amount - credit;
-                                    if (credit == amount) {
-                                        $('#payment_modes').hide();
-                                    } else {
-                                        $('#payment_modes').show();
-                                    }
-                                    $("#balance").html(balance);
-
-                                    $("#payment_blnc").html(payment_blnc);
-                                }
-
-                            }
-                        });
-                    });
+                    amount = <?php echo $celeb_history->pay_amount; ?>;
 <?php } ?>
+            var wallet_amount = <?php echo Yii::app()->session['user']['wallet_amt']; ?>;
+
+            $('#credit_amount').on('blur', function () {
+<?php if(empty($celeb_history)) { ?>
+                        amount = $("#MakePayment_total_amount").val();
+<?php } ?>
+                var credit = $("#credit_amount").val();
+
+                if (parseInt(credit) > parseInt(amount)) {
+                    $("#credit_amount").val('');
+                    $("#balance").html(wallet_amount);
+                    $("#payment_blnc").html(amount);
+                    alert('Invalid Amount');
+                } else {
+
+                    if (credit > wallet_amount) {
+                        alert("Your Amount greater than available balance");
+                    } else {
+                        var balance = wallet_amount - credit;
+                        var payment_blnc = amount - credit;
+                        if (credit == amount) {
+                            $('#payment_modes').hide();
+                        } else {
+                            $('#payment_modes').show();
+                        }
+                        $("#balance").html(balance);
+
+                        $("#payment_blnc").html(payment_blnc);
+                    }
+
+                }
+            });
+
         });
 </script>

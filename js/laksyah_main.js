@@ -196,9 +196,11 @@ $(document).ready(function () {
                 if ($(this).find('input').attr('checked')) {
                         $('.custom_check').removeClass('true');
                         $(this).find('input').attr('checked', false);
+                          end();
                 } else {
                         $(this).addClass('true');
-                        $(this).find('input').attr('checked', 'true');
+                        $(this).find('input').attr('checked', true);
+                        end();
                 }
         });
         /////////////////////////////
