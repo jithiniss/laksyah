@@ -29,8 +29,8 @@ class UserGiftscardHistory extends CActiveRecord {
                 // NOTE: you should only define rules for those attributes that
                 // will receive user inputs.
                 return array(
-                    //array('giftcard_id, user_id, bill_address_id, amount, unique_code, status, date', 'required'),
-                    array('giftcard_id, user_id, bill_address_id, status', 'numerical', 'integerOnly' => true),
+                    array('giftcard_id,  unique_code, status', 'required'),
+                    array('giftcard_id, user_id, status', 'numerical', 'integerOnly' => true),
                     array('amount, unique_code', 'length', 'max' => 225),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.

@@ -409,7 +409,7 @@
                                                                 <div class="cart_action">
                                     <!--                                        <a style="font-size: 22px;"href="<?= Yii::app()->request->baseUrl; ?>/index.php/cart/Delete/<?= $cart->id; ?>"><i class="fa cart-del fa-trash-o"></i></a>-->
                                                                         <a href="<?= Yii::app()->request->baseUrl; ?>/index.php/cart/Delete/<?= $cart->id; ?>">Remove</a>
-                                                                        <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Products/Detail/name/<?php echo $prod_details->canonical_name; ?>">Edit</a>
+                                                                        <!--<a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/Products/Detail/name/<?php echo $prod_details->canonical_name; ?>">Edit</a>-->
                                                                 </div>
                                                         </div>
                                                 </div>

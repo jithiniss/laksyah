@@ -35,10 +35,10 @@
                                 <div class="border_box">
                                         <input type="hidden" value="<?php echo $deafult_shipping->country; ?>" class="country_default" name="country_default" />
                                         <div class="box_title">
-                                                Billing Details
+                                                Billing Address
                                         </div>
                                         <div class="box_content">
-                                                <h3>Billing Address</h3>
+                                                <!--<h3>Billing Address</h3>-->
                                                 <div class="form_row">
                                                         <label>Select a billing address from your address book or enter a new address.</label>
                                                         <select  name="bill_address" class="select_bill_exist form-control" id="bill_exist">
@@ -80,50 +80,54 @@
                                                         </div>
                                                         <div class="row">
                                                                 <div class="col-sm-6">
-                                                                        <?php echo $form->labelEx($billing, '[bill]contact_number', array('class' => 'control-label')); ?>
-                                                                        <?php echo $form->textField($billing, '[bill]contact_number', array('placeholder' => 'Contact Number ', 'class' => 'form-control aik')); ?>
-                                                                        <?php echo $form->error($billing, '[bill]contact_number'); ?>
-                                                                </div>
-
-                                                                <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($billing, '[bill]address_1', array('class' => 'control-label')); ?>
                                                                         <?php echo $form->textField($billing, '[bill]address_1', array('placeholder' => 'Address Line 1 ', 'class' => 'form-control aik')); ?>
                                                                         <?php echo $form->error($billing, '[bill]address_1'); ?>
                                                                 </div>
-                                                        </div>
-                                                        <div class="row">
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($billing, '[bill]address_2', array('class' => 'control-label')); ?>
                                                                         <?php echo $form->textField($billing, '[bill]address_2', array('placeholder' => 'Address Line 2 ', 'class' => 'form-control aik')); ?>
                                                                         <?php echo $form->error($billing, '[bill]address_2'); ?>
                                                                 </div>
 
-                                                                <div class="col-sm-6">
-                                                                        <?php echo $form->labelEx($billing, '[bill]city', array('class' => 'control-label')); ?>
-                                                                        <?php echo $form->textField($billing, '[bill]city', array('placeholder' => 'City ', 'class' => 'form-control aik')); ?>
-                                                                        <?php echo $form->error($billing, '[bill]city'); ?>
-                                                                </div>
+
                                                         </div>
+
                                                         <div class="row">
-                                                                <div class="col-sm-6">
-                                                                        <?php echo $form->labelEx($billing, '[bill]postcode', array('class' => 'control-label')); ?>
-                                                                        <?php echo $form->textField($billing, '[bill]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik postcode')); ?>
-                                                                        <?php echo $form->error($billing, '[bill]postcode'); ?>
-                                                                </div>
+
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($billing, '[bill]country', array('class' => 'control-label')); ?>
                                                                         <?php echo CHtml::activeDropDownList($billing, '[bill]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik billing_country', 'options' => array(99 => array('selected' => 'selected')))); ?>
                                                                         <?php echo $form->error($billing, '[bill]country'); ?>
                                                                 </div>
-                                                        </div>
-                                                        <div class="row">
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($billing, '[bill]state', array('class' => 'control-label')); ?>
                                                                         <?php echo $form->textField($billing, '[bill]state', array('placeholder' => 'state ', 'class' => 'form-control aik')); ?>
                                                                         <?php echo $form->error($billing, '[bill]state'); ?>
                                                                 </div>
+                                                        </div>
+                                                        <div class="row">
                                                                 <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, '[bill]city', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]city', array('placeholder' => 'City ', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo $form->error($billing, '[bill]city'); ?>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, 'Zip code', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik postcode')); ?>
+                                                                        <?php echo $form->error($billing, '[bill]postcode'); ?>
+                                                                </div>
 
+
+                                                        </div>
+
+
+                                                        <div class="row">
+
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, '[bill]contact_number', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]contact_number', array('placeholder' => 'Contact Number ', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo $form->error($billing, '[bill]contact_number'); ?>
                                                                 </div>
                                                         </div>
 
@@ -136,10 +140,10 @@
 
                                 <div class="border_box">
                                         <div class="box_title">
-                                                Shipping Details
+                                                Delivery Address
                                         </div>
                                         <div class="box_content">
-                                                <h3>Shipping Address <span class="pull-right"><input type="checkbox" checked="" name="billing_same" value="1" class="bill_same"><label>Same as Billing Address</label></span></h3>
+                                                <span class="pull-right"><input type="checkbox" checked="" name="billing_same" value="1" class="bill_same"><label>Same as Billing Address</label></span>
                                                 <div class="ship_form">
                                                         <div class="form_row">
                                                                 <label>Select a billing address from your address book or enter a new address.</label>
@@ -415,8 +419,8 @@
                                         </div>
                                         <div class="price_group payment_method">
 
-                                                <strong class="radio_label pull-left"><input type="radio" checked="" name="payment_method" value="2">CREDIT/DEBIT/NET BANKING</strong>
-                                                <strong class="radio_label pull-left"><input type="radio" name="payment_method" value="3">PAYPAL</strong>
+                                                <strong class="radio_label pull-left"><input type="radio" checked="" name="payment_method" value="2">&nbsp;&nbsp;&nbsp;CREDIT/DEBIT/NET BANKING</strong>
+                                                <strong class="radio_label pull-left"><input type="radio" name="payment_method" value="3">&nbsp;&nbsp;&nbsp;PAYPAL</strong>
                                                 <div class="clearfix"></div>
 
 

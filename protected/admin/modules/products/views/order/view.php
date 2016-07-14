@@ -137,17 +137,26 @@
                             ),
                         ));
                         ?>
-                        <?php if ($data->laksyah_gift == 1) { ?>
+                        <?php if ($model->laksyah_gift == 1) { ?>
+
                                 <div id="order-products-grid" class="grid-view">
                                         <div class="summary">Displaying 1-1 of 1 result.</div>
                                         <table class="items table table-bordered table-condensed table-hover">
                                                 <thead>
                                                         <tr>
-                                                                <th id="order-products-grid_c0"><a class="sort-link" href="/admin.php/products/order/view/id/446/OrderHistory_sort/date">Date <span class="caret"></span></a></th><th id="order-products-grid_c1"><a class="sort-link" href="/admin.php/products/order/view/id/446/OrderHistory_sort/status">Status <span class="caret"></span></a></th><th id="order-products-grid_c2"><a class="sort-link" href="/admin.php/products/order/view/id/446/OrderHistory_sort/order_status_comment">Order Status Comment <span class="caret"></span></a></th><th id="order-products-grid_c3"><a class="sort-link" href="/admin.php/products/order/view/id/446/OrderHistory_sort/shipping_type">Shipping Type <span class="caret"></span></a></th><th id="order-products-grid_c4"><a class="sort-link" href="/admin.php/products/order/view/id/446/OrderHistory_sort/tracking_id">Tracking <span class="caret"></span></a></th><th class="button-column" id="order-products-grid_c5">&nbsp;</th></tr>
+                                                                <th id="order-products-grid_c0"><a class="sort-link" >Date <span class="caret"></span></a></th><th id="order-products-grid_c1"><a class="sort-link" href="/admin.php/products/order/view/id/446/OrderHistory_sort/status">Gift Card Name <span class="caret"></span></a></th><th id="order-products-grid_c2"><a class="sort-link" href="/admin.php/products/order/view/id/446/OrderHistory_sort/order_status_comment">Amount <span class="caret"></span></a></th><th id="order-products-grid_c3"><a class="sort-link" href="/admin.php/products/order/view/id/446/OrderHistory_sort/shipping_type">Gift Delivery  Type <span class="caret"></span></a></th>
+                                                                <th id="order-products-grid_c3"><a class="sort-link" href="/admin.php/products/order/view/id/446/OrderHistory_sort/shipping_type">Genarate Gift Code <span class="caret"></span></a></th>
+                                                        </tr>
                                                 </thead>
                                                 <tbody>
-                                                        <tr class="odd">
-                                                                <td>2016-06-28 13:19:11</td><td>vvvv vvvvv</td><td>Order Placed</td><td>&nbsp;</td><td>0</td><td nowrap="nowrap"></td></tr>
+                                                <h4>Gift Card Details</h4>
+                                                <tr class="odd">
+                                                        <td><?php echo $model->order_date; ?></td>
+                                                        <td><?php echo GiftCard::model()->findByPk($model->gift_card_id)->name; ?></td>
+                                                        <td><?php echo GiftCard::model()->findByPk($model->gift_card_id)->amount; ?></td>
+                                                        <td><?php echo $model->laksyah_gift_transportaion == 1 ? 'Delivery By Email' : 'Delivery By Post' ?></td>
+                                                        <td> Click here <a style="font-weight: bold; color: #cc006a;" href="<?php echo Yii::app()->request->baseUrl; ?>/admin.php/giftcard/userGiftscardHistory/create/user_id/<?php echo $model->user_id; ?>/gift_id/<?php echo $model->gift_card_id; ?>">Generate Gift Code</a></td>
+                                                </tr>
                                                 </tbody>
                                         </table>
                                         <div class="keys" style="display:none" title="/admin.php/products/order/view/id/446"><span>31</span></div>
@@ -184,7 +193,7 @@
                                                     if ($data->option_id != 0) {
                                                             $option_details = OptionDetails::model()->findByPk($data->option_id);
                                                             if ($option_details->color_id != 0) {
-                                                                    return 'Color : ' . OptionCategory::model()->findByPk($option_details->color_id)->color_name . '(' . OptionCategory::model()->findByPk($option_details->color_id)->color_code . ')';
+                                                                    return 'Color : <div style="width:20px; float: right; height:20px; background-color:' . OptionCategory::model()->findByPk($option_details->color_id)->color_code . '"></div>' . OptionCategory::model()->findByPk($option_details->color_id)->color_name;
                                                             }
                                                             if ($option_details->size_id != 0) {
                                                                     return 'Size : ' . OptionCategory::model()->findByPk($option_details->size_id)->size;

@@ -25,6 +25,8 @@
  * @property integer $payment_status
  * @property integer $admin_status
  * @property integer $status
+ * @property integer $laksyah_gift_transportaion
+ * @property integer $gift_card_id
  *  * @property integer $shipping_method
  * @property string $DOC
  *
@@ -51,12 +53,12 @@ class Order extends CActiveRecord {
                 // will receive user inputs.
                 return array(
                     //array('total_amount, order_date, comment, payment_mode', 'required'),
-                    array('ship_address_id, bill_address_id, transaction_id, payment_status, status, shipping_method', 'numerical', 'integerOnly' => true),
+                    array('ship_address_id, bill_address_id, transaction_id,gift_card_id,laksyah_gift_transportaion, payment_status, status, shipping_method', 'numerical', 'integerOnly' => true),
                     array('payment_mode', 'length', 'max' => 100),
                     array('total_amount, discount_rate, netbanking, paypal, wallet', 'length', 'max' => 10),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, user_id, total_amount, order_date, address_book_id, comment, payment_mode, admin_comment, transaction_id, payment_status, admin_status, status,laksyah_gift, DOC, wallet,shipping_method, paypal, netbanking', 'safe', 'on' => 'search'),
+                    array('id, user_id,laksyah_gift_transportaion, total_amount, order_date, address_book_id, comment, payment_mode, admin_comment, transaction_id, payment_status, admin_status, status,laksyah_gift, DOC, wallet,shipping_method, paypal, netbanking', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -101,6 +103,8 @@ class Order extends CActiveRecord {
                     'status' => 'Status',
                     'laksyah_gift' => 'Laksyah Gift',
                     'shipping_method' => 'Shipping Method',
+                    'laksyah_gift_transportaion' => 'Laksyah Gift Transportaion',
+                    'gift_card_id' => 'Gift Card Id',
                     'DOC' => 'Doc',
                 );
         }
@@ -145,12 +149,17 @@ class Order extends CActiveRecord {
                 $criteria->compare('status', $this->status);
                 $criteria->compare('shipping_method', $this->shipping_method);
                 $criteria->compare('laksyah_gift', $this->laksyah_gift);
+                $criteria->compare('laksyah_gift_transportaion', $this->laksyah_gift_transportaion);
+                $criteria->compare('gift_card_id', $this->gift_card_id);
                 $criteria->compare('DOC', $this->DOC, true);
 
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
                     'sort' => array(
                         'defaultOrder' => 'order_date DESC',
+                    ),
+                    'pagination' => array(
+                        'pageSize' => 40,
                     ),
                 ));
         }
