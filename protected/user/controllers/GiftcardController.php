@@ -940,7 +940,7 @@ class GiftcardController extends Controller {
                                 $order->transaction_id = $payid;
                                 if($order->save()) {
 
-//                                        $this->SuccessMail();
+                                        $this->SuccessMail();
                                         $this->OrderHistory($order->id, 8, 'Order Placed');
 
                                         Yii::app()->session['user'] = $userdetails;
@@ -950,8 +950,8 @@ class GiftcardController extends Controller {
                                 $this->redirect(array('OrderFailed'));
                         }
                 } else {
-                        echo Yii::app()->session['orderid'] . ' ' . Yii::app()->session['user']['id'];
-                        exit;
+                        //echo Yii::app()->session['orderid'] . ' ' . Yii::app()->session['user']['id'];
+                        //  exit;
                         $this->redirect(array('site/error'));
                 }
         }
@@ -975,12 +975,12 @@ class GiftcardController extends Controller {
                 $bill_address = UserAddress::model()->findByPk($order->bill_address_id);
                 $order_details = OrderProducts::model()->findAllByAttributes(array('order_id' => $order->id));
                 $shiping_charge = ShippingCharges::model()->findByAttributes(array('country' => $user_address->country));
-                //$user = $userdetails->email;
-                $user = 'sibys09@gmail.com';
+                $user = $userdetails->email;
+
                 $user_subject = 'Order Confirmation - Your Order with laksyah.com [' . $order->id . '] has been successfully placed!';
                 $user_message = $this->renderPartial('_user_order_success_mail', array('order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge), true);
 
-                $admin = 'sibys09@gmail.com';
+                $admin = AdminUser::model()->findByPk(4)->email;
                 $admin_subject = 'laksyah.com: New Order to admin # ' . $order->id;
                 $admin_message = $this->renderPartial('_admin_order_success_mail', array('userdetails' => $userdetails, 'order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge), true);
 
@@ -994,8 +994,8 @@ class GiftcardController extends Controller {
 // echo $admin_message;
 //unset(Yii::app()->session['orderid']);
 // exit;
-                // mail($user, $user_subject, $user_message, $headers);
-                // mail($admin, $admin_subject, $admin_message, $headers);
+                mail($user, $user_subject, $user_message, $headers);
+                mail($admin, $admin_subject, $admin_message, $headers);
         }
 
         public function addAddressList($model, $data) {

@@ -491,7 +491,7 @@ class CartController extends Controller {
 
         public function RegisterMail($model) {
                 $user = $model->email;
-                //  $user = 'sibys09@gmail.com';
+
                 $user_subject = 'Welcome to laksyah.com!';
                 $user_message = $this->renderPartial('//site/_register_user_mail', array('model' => $model), true);
 
