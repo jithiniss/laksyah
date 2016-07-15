@@ -22,6 +22,8 @@ class MakePayment extends CActiveRecord {
                 return 'make_payment';
         }
 
+        public $user_name;
+
         /**
          * @return array validation rules for model attributes.
          */
@@ -39,7 +41,7 @@ class MakePayment extends CActiveRecord {
                     array('amount_type,other_amount_type', 'paymentType'),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, userid,other_amount_type,payment_type, product_name, product_code, message, amount_type, total_amount, payment_mode, date,netbanking, paypal, wallet', 'safe', 'on' => 'search'),
+                    array('id,user_name, userid,other_amount_type,payment_type, product_name, product_code, message, amount_type, total_amount, payment_mode, date,netbanking, paypal, wallet', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -80,7 +82,7 @@ class MakePayment extends CActiveRecord {
                     'wallet' => 'Wallet',
                     'date' => 'Date',
                     'status' => 'Status',
-                    'other_amount_type' => 'other amount type',
+                    'other_amount_type' => 'Other Amount Type',
                     'payment_type' => 'Payment Type',
                 );
         }
@@ -101,7 +103,8 @@ class MakePayment extends CActiveRecord {
                 // @todo Please modify the following code to remove attributes that should not be searched.
 
                 $criteria = new CDbCriteria;
-
+                $criteria->with = array('user');
+                $criteria->compare('user.first_name', $this->user_name, true);
                 $criteria->compare('id', $this->id);
                 $criteria->compare('userid', $this->userid);
                 $criteria->compare('product_name', $this->product_name, true);
@@ -119,6 +122,15 @@ class MakePayment extends CActiveRecord {
                 $criteria->compare('payment_type', $this->payment_type);
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
+                    'sort' => array(
+                        'defaultOrder' => 'date DESC',
+                        'attributes' => array(
+                            'user_name' => array(
+                                'asc' => 'user.first_name',
+                                'desc' => 'user.first_name DESC',
+                            ),
+                            '*',
+                        ),),
                 ));
         }
 
