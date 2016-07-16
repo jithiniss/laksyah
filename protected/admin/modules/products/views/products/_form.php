@@ -119,7 +119,7 @@
                 </div>
 
                 <div class="form-group">
-                        <?php echo $form->labelEx($model, 'Gallery Images ( image size : 3016 X 4030 )', array('class' => 'col-sm-2 control-label')); ?>
+                        <?php echo $form->labelEx($model, 'Gallery Images ( image size : 1508 X 2015 )', array('class' => 'col-sm-2 control-label')); ?>
                         <div class="col-sm-10">
                                 <?php
                                 $this->widget('CMultiFileUpload', array(
@@ -282,7 +282,7 @@
                 </div>
                 <!--    <div class="form-group">
                 <?php //echo $form->labelEx($model, 'discount', array('class' => 'col-sm-2 control-label'));    ?>
-                        <div class="col-sm-10"><?php //echo $form->textField($model, 'discount', array('class' => 'form-control'));                                                                                                           ?>
+                        <div class="col-sm-10"><?php //echo $form->textField($model, 'discount', array('class' => 'form-control'));                                                                                                            ?>
                         </div>
                 <?php //echo $form->error($model, 'discount');    ?>
                     </div>-->

@@ -66,8 +66,13 @@
                                                 <div class=" bill_form" style="">
                                                         <div class="row">
                                                                 <?php //echo $form->errorSummary($billing); ?>
-                                                                <div class="col-sm-6">
-                                                                        <?php echo $form->labelEx($billing, '[bill]first_name', array('class' => 'control-label')); ?>
+                                                                <?php $billing->first_name = $user->first_name; ?>
+                                                                <?php $billing->last_name = $user->last_name; ?>
+                                                                <?php $billing->country = $user->country; ?>
+                                                                <?php $billing->contact_number = $user->phone_no_1; ?>
+                                                                <div class = "col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, '[bill]first_name', array('class' => 'control-label'));
+                                                                        ?>
                                                                         <?php echo $form->textField($billing, '[bill]first_name', array('placeholder' => 'First Name ', 'class' => 'form-control aik')); ?>
                                                                         <?php echo $form->error($billing, '[bill]first_name'); ?>
                                                                 </div>
@@ -167,6 +172,10 @@
 
 
                                                         <div class="row ship_form_content">
+                                                                <?php $shipping->first_name = $user->first_name; ?>
+                                                                <?php $shipping->last_name = $user->last_name; ?>
+                                                                <?php $shipping->country = $user->country; ?>
+                                                                <?php $shipping->contact_number = $user->phone_no_1; ?>
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($shipping, '[ship]first_name', array('class' => 'control-label')); ?>
                                                                         <?php echo $form->textField($shipping, '[ship]first_name', array('placeholder' => 'First Name ', 'class' => 'form-control aik1')); ?>
@@ -252,13 +261,13 @@
                         <!--                        <div class="container">
                                                         <div class="row">
                                                                 <div class="col-xs-12 col-sm-6">
-                        <?php // if (Yii::app()->user->hasFlash('shipp_availability')): ?>
+                        <?php // if (Yii::app()->user->hasFlash('shipp_availability')):   ?>
                                                                                         <div class="alert alert-danger fade in">
                                                                                                 <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
-                        <?php // echo Yii::app()->user->getFlash('shipp_availability'); ?>
+                        <?php // echo Yii::app()->user->getFlash('shipp_availability');   ?>
                                                                                         </div>
 
-                        <?php // endif; ?>
+                        <?php // endif;   ?>
                                                                         <h3>Shipping Method</h3>
                                                                         <div id="shipping_method" class="shipping_method">
 

@@ -1,3 +1,8 @@
+.gift_header {
+        padding: 50px 0px;
+        text-align: center;
+        margin-bottom: 16px;
+}
 .line-top{
         position: relative;
 }
@@ -345,11 +350,11 @@ span.required {
         margin-top: -25px;
 }
 .user_content article p {
-    line-height: 22px;
-    margin: 0px;
-    margin-bottom: 10px;
-    text-align: justify;
+        line-height: 22px;
+        margin: 0px;
+        margin-bottom: 10px;
+        text-align: justify;
 }
 .wdt{
-    width: 100%;
+        width: 100%;
 }

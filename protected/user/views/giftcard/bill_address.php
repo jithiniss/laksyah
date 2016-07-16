@@ -1,6 +1,6 @@
 <div class="clearfix"></div>
 <div class="container main_container inner_pages">
-        <h1>Method</h1>
+        <h1>Delivery Details</h1>
         <div class="modal zoomIn" id="giftpopup" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog" role="document">
                         <div class="modal-content gift_body sucess">
@@ -99,11 +99,11 @@
                         <input type="radio" class="chekbx stand" hidden="true" value="1" name="radioName">
                         <?php //echo $form->radioButton($model, 'type', array('value' => 1, 'uncheckValue' => null, 'hidden' => 'true', 'class' => 'chekbx stand')); ?>
                 </label>
-                <span class="radio_label pull-left">By Mail</span>
+                <span class="radio_label pull-left">Digital Gift Card</span>
                 <label class="radio_group" id="UserSizechart_type_1" >
                         <input type="radio" class="chekbx stand" hidden="true" value="2" name="radioName">
                 </label>
-                <span class="radio_label pull-left">By Post</span>
+                <span class="radio_label pull-left">Physical Gift Card</span>
                 <div class="clearfix"></div>
                 <div id="gft_check_bx">
                         <input type="hidden" id="gift_pack" value="<?php echo Yii::app()->session['user_gift_id']; ?>" name="gft_check_bx"/>
@@ -483,7 +483,7 @@
 
                                         </div>
 <!--                                        <span id="gift_shipping"></span>
-                                        <span><input type="hidden" id="gift_subtotal" value="<?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                 ?>" ></span>-->
+                                        <span><input type="hidden" id="gift_subtotal" value="<?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                     ?>" ></span>-->
                                         <div class="price_group">
                                                 <div class="pull-left">Shipping</div>
                                                 <div class="pull-right"><span id="shipping_charge"></span></div>
@@ -493,7 +493,7 @@
                                         <div class="price_group total_amount">
 
                                                 <div class="pull-left">ORDER TOTAL</div>
-                                                <!--<div class="pull-right"><?php //echo Yii::app()->Currency->convert($subtotal);                                                                                               ?></div>-->
+                                                <!--<div class="pull-right"><?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                   ?></div>-->
                                                 <div class="pull-right"><span class="grant_total"></span></div>
                                                 <input type="hidden" class="grant_total" name="grant_total_gift" />
                                                 <div class="clearfix"></div>
