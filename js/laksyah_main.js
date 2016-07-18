@@ -110,10 +110,10 @@ $(document).ready(function () {
         });
         /////
         // Size Selector
-        $('.size_selector label').click(function () {
-                $('.size_selector label').removeClass('active');
-                $(this).addClass('active');
-        });
+//        $('.size_selector label').click(function () {
+//                $('.size_selector label').removeClass('active');
+//               // $(this).addClass('active');
+//        });
         ///
         //Popup
         $('.close_popup').click(function () {

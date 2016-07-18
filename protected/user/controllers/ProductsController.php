@@ -322,22 +322,29 @@ class ProductsController extends Controller {
                         $color = $_REQUEST['color'];
                         if($option != "" && $color != "") {
 
-
-                                $sizes = OptionDetails::model()->findAllByAttributes(['status' => 1, 'master_option_id' => $option], ['condition' => 'stock>=1', 'select' => 'size_id,color_id', 'distinct' => true, 'order' => 'size_id']);
+                                $sizes = OptionCategory::model()->findAll(['condition' => 'option_type_id=2']);
                                 if(!empty($sizes)) {
-                                        foreach($sizes as $size) {
-                                                $size_name = OptionCategory::model()->findByPk($size->size_id);
 
-                                                if($size->color_id == $color) {
-                                                        $disabled = '';
-                                                        $styles = "cursor:pointer";
+
+                                        foreach($sizes as $size) {
+
+                                                $product_option = OptionDetails::model()->findByAttributes(array('color_id' => $color, 'master_option_id' => $option, 'size_id' => $size->id));
+
+
+
+                                                if($product_option->stock > 0 && $product_option->status != 0) {
+                                                        if($size->id == $product_option->size_id) {
+                                                                $disabled = '';
+                                                        } else {
+                                                                $disabled = 'disabled';
+                                                        }
                                                 } else {
+
                                                         $disabled = 'disabled';
-                                                        $styles = '';
                                                 }
                                                 ?>
-                                                <label  class="<?php echo $disabled; ?>" style="<?php echo $styles; ?>" id="<?php echo $size->size_id; ?>"><?php echo $size_name->size; ?>
-                                                    <input type = "radio" name = "size_selector_<?php echo $size_name->id; ?>" value = "<?php echo $size_name->id; ?>" id = "size_selector_<?php echo $size_name->id; ?>">
+                                                <label class="<?php echo $disabled; ?>" id="<?php echo $size->id; ?>"><?php echo $size->size; ?>
+                                                    <input type = "radio" name = "size_selector_<?php echo $size->id; ?>" value = "<?php echo $size->id; ?>" id = "size_selector_<?php echo $size->id; ?>">
                                                 </label>
                                                 <?php
                                         }
