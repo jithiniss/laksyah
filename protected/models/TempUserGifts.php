@@ -32,7 +32,7 @@ class TempUserGifts extends CActiveRecord {
                 return array(
                     array('cart_id, from, to, message', 'required'),
                     array('cart_id, user_id,  status', 'numerical', 'integerOnly' => true),
-                    array('from, to', 'length', 'max' => 100),
+                    array('from, to,message', 'length', 'max' => 100),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
                     array('id, session_id, cart_id, user_id,  from, to, message, status, date', 'safe', 'on' => 'search'),

@@ -314,6 +314,9 @@
                                                         <?php echo $form->textArea($gift_user, 'message', array('rows' => 6, 'cols' => 50, 'class' => 'form-control')); ?>
                                                         <?php echo $form->error($gift_user, 'message'); ?>
                                                 </div>
+                                                <div class="form-group">
+                                                        <p>Maximum characters <b><span id="stringLengrth" style="color:red;">100</span> </b></p>
+                                                </div>
                                                 <div class="modal-footer">
                                                         <?php echo CHtml::submitButton($gift_user->isNewRecord ? 'Submit' : 'Save', array('class' => 'btn btn-primary')); ?>
                                                 </div>
@@ -559,7 +562,20 @@
                 </div>
         </div>
 </div>
+<script>
+        $(document).ready(function () {
+                $("#TempUserGifts_message").keyup(function () {
+                        var StrLengths = $("#TempUserGifts_message").val().length;
+                        var myLength = 100 - StrLengths;
+                        var totallength = 100;
+                        document.getElementById("stringLengrth").innerHTML = myLength;
+                        if (myLength <= 0) {
+                                document.getElementById("stringLengrth").innerHTML = "Sorry.....Maximum message length is 100!!!";
+                        }
 
+                });
+        });
+</script>
 <script>
         $(document).ready(function () {
 <?php if ($gift_user->hasErrors()) { ?>
