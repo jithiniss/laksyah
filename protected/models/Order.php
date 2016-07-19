@@ -56,9 +56,11 @@ class Order extends CActiveRecord {
                     array('ship_address_id, bill_address_id, transaction_id,gift_card_id,laksyah_gift_transportaion, payment_status, status, shipping_method', 'numerical', 'integerOnly' => true),
                     array('payment_mode', 'length', 'max' => 100),
                     array('total_amount, discount_rate, netbanking, paypal, wallet', 'length', 'max' => 10),
+                    array('gift_email', 'length', 'max' => 200),
+                    array('gift_email', 'email'),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, user_id,laksyah_gift_transportaion, total_amount, order_date, address_book_id, comment, payment_mode, admin_comment, transaction_id, payment_status, admin_status, status,laksyah_gift, DOC, wallet,shipping_method, paypal, netbanking', 'safe', 'on' => 'search'),
+                    array('id, user_id,laksyah_gift_transportaion, total_amount, order_date, address_book_id, comment, payment_mode, admin_comment, transaction_id, payment_status, admin_status, status,laksyah_gift, DOC, wallet,shipping_method, paypal, netbanking,gift_via_status,gift_email', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -106,6 +108,8 @@ class Order extends CActiveRecord {
                     'laksyah_gift_transportaion' => 'Laksyah Gift Transportaion',
                     'gift_card_id' => 'Gift Card Id',
                     'DOC' => 'Doc',
+                    'gift_via_status' => 'Gift Via Status',
+                    'gift_email' => 'Gift Email',
                 );
         }
 
@@ -152,6 +156,8 @@ class Order extends CActiveRecord {
                 $criteria->compare('laksyah_gift_transportaion', $this->laksyah_gift_transportaion);
                 $criteria->compare('gift_card_id', $this->gift_card_id);
                 $criteria->compare('DOC', $this->DOC, true);
+                $criteria->compare('gift_via_status', $this->gift_via_status);
+                $criteria->compare('gift_email', $this->gift_email, true);
 
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,

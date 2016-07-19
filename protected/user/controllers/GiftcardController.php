@@ -224,12 +224,11 @@ class GiftcardController extends Controller {
                                                                 }
                                                         }
                                                 }
-
-
 //$order->payment_status = 1;
                                                 $order->bill_address_id = $bill_address_id;
                                                 $order->ship_address_id = $ship_address_id;
                                                 $order->order_date = date('Y-m-d H:i:s');
+
                                                 if ($order->save()) {
                                                         Cart::model()->deleteAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
                                                         $this->updateorderproduct($order->id);
@@ -602,6 +601,8 @@ class GiftcardController extends Controller {
                                                         $order->laksyah_gift = 1;
                                                         $order->laksyah_gift_transportaion = $_POST['radioName'];
                                                         $order->gift_card_id = $_POST['gift_card_id'];
+                                                        $order->gift_email = $_POST['gift_email'];
+                                                        $order->gift_via_status = $_POST['gift_via_status'];
 //                                                        if ($order->validate()) {
 
                                                         if (Yii::app()->user->hasFlash('shipp_availability') != 1) {
@@ -671,6 +672,8 @@ class GiftcardController extends Controller {
                                                         $order->user_id = Yii::app()->session['user']['id'];
                                                         $order_billing_details = UserAddress::model()->findBypk($bill_address_id);
                                                         $order_shipping_detils = UserAddress::model()->findBypk($ship_address_id);
+                                                        $order->gift_email = $_POST['gift_email'];
+                                                        $order->gift_via_status = $_POST['gift_via_status'];
                                                         if ($order->validate()) {
 
                                                                 if (Yii::app()->user->hasFlash('shipp_availability') != 1) {
@@ -806,6 +809,8 @@ class GiftcardController extends Controller {
                                                 $order->user_id = Yii::app()->session['user']['id'];
                                                 $order_billing_details = UserAddress::model()->findBypk($bill_address_id);
                                                 $order_shipping_detils = UserAddress::model()->findBypk($ship_address_id);
+                                                $order->gift_email = $_POST['gift_email'];
+                                                $order->gift_via_status = $_POST['gift_via_status'];
                                                 if ($order->validate()) {
 
                                                         if (Yii::app()->user->hasFlash('shipp_availability') != 1) {

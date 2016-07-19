@@ -1,3 +1,8 @@
+<style>
+        .fa-caret-up:before {
+                color: #eadcbc;
+        }
+</style>
 <div class="clearfix"></div>
 <div class="container main_container inner_pages">
         <h1>Delivery Details</h1>
@@ -50,9 +55,6 @@
                                                         </div>
 
                                                 <?php } ?>
-
-
-
 
 
                                                 <div class="form-group">
@@ -111,10 +113,36 @@
                         <span class="radio_label pull-left">Gift Option</span>
                 </div>
                 <?php //echo $form->radioButton($model, 'type', array('value' => 1, 'uncheckValue' => null, 'hidden' => 'true', 'class' => 'chekbx stand')); ?>
-
-
-
         </div>
+
+
+        <div class="price_group radio_buttons_1">
+                <i class="fa fa-caret-up top_point"></i>
+                <label class="radio_group active" >
+                        <input type="radio" name="gift_via_status" class="mail_gift"  hidden="true"  value="1">
+                </label>
+                <span class="radio_label pull-left">Email to my self</span>
+                <label class="radio_group">
+                        <input type="radio" name="gift_via_status" class="mail_gift" hidden="true" value="2">
+                </label>
+                <span class="radio_label pull-left">Email to Someone else</span>
+                <div class="clearfix"></div>
+                <div  id="mail_to_purchase">
+                        <div class="col-md-5">
+                                <label  class="control-label required" for="UserAddress_bill_first_name">Email ID(Someone else):</label>
+                        </div>
+                        <div class="col-md-6">
+                                <input type="text" class="form-control" maxlength="250" name="gift_email" placeholder="Enter email ID"  />
+                        </div>
+                        <!--                        <div class="col-md-6 gift_card_purchase">
+                                                </div>-->
+
+                </div>
+                <div class="clearfix"></div>
+        </div>
+
+
+
 
         <?php if (Yii::app()->user->hasFlash('success')):
                 ?>
@@ -482,8 +510,8 @@
                                                 <div class="clearfix"></div>
 
                                         </div>
-<!--                                        <span id="gift_shipping"></span>
-                                        <span><input type="hidden" id="gift_subtotal" value="<?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                     ?>" ></span>-->
+        <!--                                        <span id="gift_shipping"></span>
+                                        <span><input type="hidden" id="gift_subtotal" value="<?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                                                                                                                                                                                                      ?>" ></span>-->
                                         <div class="price_group">
                                                 <div class="pull-left">Shipping</div>
                                                 <div class="pull-right"><span id="shipping_charge"></span></div>
@@ -493,7 +521,7 @@
                                         <div class="price_group total_amount">
 
                                                 <div class="pull-left">ORDER TOTAL</div>
-                                                <!--<div class="pull-right"><?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                   ?></div>-->
+                                                <!--<div class="pull-right"><?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                                                                                                                                                                                    ?></div>-->
                                                 <div class="pull-right"><span class="grant_total"></span></div>
                                                 <input type="hidden" class="grant_total" name="grant_total_gift" />
                                                 <div class="clearfix"></div>
@@ -502,9 +530,9 @@
                                         <div class="price_group apply_credit">
 
                                                 <?php if (Yii::app()->session['user']['wallet_amt'] != 0) { ?>
-                                                        <div class="pull-left">My Credit</div>
-                                                        <div class="pull-right"><input type="number" class="wallet_amount" value="" /></div>
-                                                        <input type="hidden" class="wallet_amount" name="wallet_amount"  />
+                                                        <!--                                                        <div class="pull-left">My Credit</div>
+                                                                                                                <div class="pull-right"><input type="number" class="wallet_amount" value="" /></div>
+                                                                                                                <input type="hidden" class="wallet_amount" name="wallet_amount"  />-->
                                                         <div class="clearfix"></div>
                                                         <p class="text-right">Available Credit: <strong>  <span id="wallet_total"><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></span></strong></p>
                                                 <?php } ?>
@@ -547,318 +575,329 @@
 
                 </div>
         </div>
-</div>
-<script>
-        $(document).ready(function () {
+        <script>
+                $(document).ready(function () {
+                        $("#mail_to_purchase").hide();
+                        $('#shipping_address').hide();
+                        $('#gft_check_bx').hide();
+                        $('.chekbx').click(function () {
+                                var check_value = $(".chekbx:checked").val();
+                                if (check_value == 2) {
+                                        if ($('.bill_same').is(":checked"))
+                                        {
+                                                getcountry(select_val);
 
-                $('#shipping_address').hide();
-                $('#gft_check_bx').hide();
-                $('.chekbx').click(function () {
-                        var check_value = $(".chekbx:checked").val();
-                        if (check_value == 2) {
-                                if ($('.bill_same').is(":checked"))
-                                {
-                                        getcountry(select_val);
-
+                                        }
+                                        $('#shipping_address').show();
+                                        $('#gft_check_bx').show();
+                                        $(".radio_buttons_1").hide();
+                                        $("#mail_to_purchase").hide();
                                 }
-                                $('#shipping_address').show();
-                                $('#gft_check_bx').show();
-                        }
-                        if (check_value == 1) {
-                                $('#shipping_address').hide();
-                                $('#gft_check_bx').hide();
+                                if (check_value == 1) {
+                                        $('#shipping_address').hide();
+                                        $('#gft_check_bx').hide();
+                                        $(".radio_buttons_1").show();
+                                        $("#mail_to_purchase").hide();
+                                }
+                        });
+                        $('.mail_gift').click(function () {
+                                var mail_gifts = $(".mail_gift:checked").val();
+                                if (mail_gifts == 2) {
+                                        $("#mail_to_purchase").show();
+                                }
+                                if (mail_gifts == 1) {
+                                        $("#mail_to_purchase").hide();
+                                }
+                        });
+                });
+                $('.gift_options').click(function () {
+                        if ($(this).is(":checked"))
+                        {
+                                var gift_message = $(this).attr("gift_status");
+
+                                if (gift_message == 1) {
+                                        $(".gift_msg").html('<h3>You are eligible for a free customized gift card and gift packing.</h3>');
+                                } else if (gift_message == 0) {
+                                        $(".gift_msg").html('<h3 style="color:#AB7420">You should pay <?php echo Yii::app()->Currency->convert(200); ?> for the gift packing.</h3>');
+                                }
+                                $('#temp-user-gifts-form').trigger("reset");
+                                $("#giftpopup").modal('show');
+                                var cart_id = $(this).attr("id");
+                                $("#gift_cart_id").val(cart_id);
+                                $(document).on('hide.bs.modal', '#giftpopup', function () {
+                                        $('#' + cart_id).prop("checked", false);
+                                });
                         }
                 });
-        });
-        $('.gift_options').click(function () {
-                if ($(this).is(":checked"))
-                {
-                        var gift_message = $(this).attr("gift_status");
+        </script>
+        <script>         var select_val = $('.select_bill_exist').val();
 
-                        if (gift_message == 1) {
-                                $(".gift_msg").html('<h3>You are eligible for a free customized gift card and gift packing.</h3>');
-                        } else if (gift_message == 0) {
-                                $(".gift_msg").html('<h3 style="color:#AB7420">You should pay <?php echo Yii::app()->Currency->convert(200); ?> for the gift packing.</h3>');
-                        }
-                        $('#temp-user-gifts-form').trigger("reset");
-                        $("#giftpopup").modal('show');
-                        var cart_id = $(this).attr("id");
-                        $("#gift_cart_id").val(cart_id);
-                        $(document).on('hide.bs.modal', '#giftpopup', function () {
-                                $('#' + cart_id).prop("checked", false);
-                        });
-                }
-        });
-</script>
-<script>         var select_val = $('.select_bill_exist').val();
-
-        if (select_val != 0) {
-                $('.bill_form').hide();
-        } else {
-                $('.bill_form').show();
-        }
-        $(".select_bill_exist").change(function () {
-                var select_val = $(this).val();
-                if ($('.bill_same').is(":checked")) {
-                        getcountry(select_val);
-
-                }
                 if (select_val != 0) {
                         $('.bill_form').hide();
                 } else {
                         $('.bill_form').show();
                 }
-        });
-</script>
+                $(".select_bill_exist").change(function () {
+                        var select_val = $(this).val();
+                        if ($('.bill_same').is(":checked")) {
+                                getcountry(select_val);
+                        }
+                        if (select_val != 0) {
+                                $('.bill_form').hide();
+                        } else {
+                                $('.bill_form').show();
+                        }
+                });
+        </script>
 
-<script>
-        /*
-         * Select already added addressbook
-         */
+        <script>
+                /*
+                 * Select already added addressbook
+                 */
 
 
-        var select_ship_val = $('.select_ship_exist').val();
-        if (select_ship_val != 0) {
-                $('.ship_form_content').hide();
-        } else {
-                $('.ship_form_content').show();
-        }
-        $(".select_ship_exist").change(function () {
-                var select_ship_val = $(this).val();
-
+                var select_ship_val = $('.select_ship_exist').val();
                 if (select_ship_val != 0) {
-
-                        getcountry(select_ship_val);
                         $('.ship_form_content').hide();
                 } else {
-                        $("#shipping_method").html('Sorry, no quotes are available for this order at this time.');
                         $('.ship_form_content').show();
                 }
-        });
-</script>
+                $(".select_ship_exist").change(function () {
+                        var select_ship_val = $(this).val();
 
-<script>
-        /*
-         * Check whether the order is checked
-         */
+                        if (select_ship_val != 0) {
 
-        if ($('.bill_same').is(":checked"))
-        {
-                $('.ship_form').hide();
+                                getcountry(select_ship_val);
+                                $('.ship_form_content').hide();
+                        } else {
+                                $("#shipping_method").html('Sorry, no quotes are available for this order at this time.');
+                                $('.ship_form_content').show();
+                        }
+                });
+        </script>
 
-        }
-        else {
-                $('.ship_form').show();
+        <script>
+                /*
+                 * Check whether the order is checked
+                 */
 
-        }
-<?php if ($shipping->hasErrors()) { ?>
-                $('.bill_same').prop('checked', false);
-                $('.ship_form').show();
-<?php } ?>
-        $('.bill_same').click(function () {
-                if ($(this).is(":checked"))
+                if ($('.bill_same').is(":checked"))
                 {
                         $('.ship_form').hide();
 
-                        var country = $('.select_bill_exist').val();
-                        calculatetotalpay();
-                        getcountry(country);
-
                 }
                 else {
-                        $("#shipping_method").html('Sorry, no quotes are available for this order at this time.');
                         $('.ship_form').show();
+
                 }
-        });
-</script>
-<script>
-        $('input.select').on('change', function () {
-                $('input.select').not(this).prop('checked', false);
-        });
-        $('input.select2').on('change', function () {
-                $('input.select2').not(this).prop('checked', false);
-        });
-</script>
-<script>
-        $(document).ready(function () {
-                var country = $('.country_default').val();
-                getshipmethod(country);
-        });
-</script>
-<script>
-        var gift_card_id = $("#gift_card_id").val();
-        var gift_pack_id = $("#gift_pack").val();
-        $(".wallet_amount").keyup(function () {
-                var wallet = $(this).val();
-                if ($('.bill_same').is(":checked"))
-                {
-                        var countryname = $('#bill_exist').val();
-                        var country = getcountryid(countryname);
-                }
-                else {
-                        if ($('.select_ship_exist').val() == 0) {
-                                var country = $('.ship_form .shipping_country').val();
-                        } else {
-                                var countryname = $('.ship_form .select_ship_exist').val();
+<?php if ($shipping->hasErrors()) { ?>
+                        $('.bill_same').prop('checked', false);
+                        $('.ship_form').show();
+<?php } ?>
+                $('.bill_same').click(function () {
+                        if ($(this).is(":checked"))
+                        {
+                                $('.ship_form').hide();
+
+                                var country = $('.select_bill_exist').val();
+                                calculatetotalpay();
+                                getcountry(country);
+
+                        }
+                        else {
+                                $("#shipping_method").html('Sorry, no quotes are available for this order at this time.');
+                                $('.ship_form').show();
+                        }
+                });
+        </script>
+        <script>
+                $('input.select').on('change', function () {
+                        $('input.select').not(this).prop('checked', false);
+                });
+                $('input.select2').on('change', function () {
+                        $('input.select2').not(this).prop('checked', false);
+                });
+        </script>
+        <script>
+                $(document).ready(function () {
+                        var country = $('.country_default').val();
+                        getshipmethod(country);
+                });
+        </script>
+        <script>
+                var gift_card_id = $("#gift_card_id").val();
+                var gift_pack_id = $("#gift_pack").val();
+                $(".wallet_amount").keyup(function () {
+                        var wallet = $(this).val();
+                        if ($('.bill_same').is(":checked"))
+                        {
+                                var countryname = $('#bill_exist').val();
                                 var country = getcountryid(countryname);
                         }
-                }
+                        else {
+                                if ($('.select_ship_exist').val() == 0) {
+                                        var country = $('.ship_form .shipping_country').val();
+                                } else {
+                                        var countryname = $('.ship_form .select_ship_exist').val();
+                                        var country = getcountryid(countryname);
+                                }
+                        }
 
-                var grant = $("#grant_total").html();
-                totalcalculate(wallet, grant, country, gift_card_id, gift_pack_id);
+                        var grant = $("#grant_total").html();
+                        totalcalculate(wallet, grant, country, gift_card_id, gift_pack_id);
 
-        });
+                });
 
-        function calculatetotalpay() {
-                var wallet = $('.wallet_amount').val();
-                if ($('.bill_same').is(":checked"))
-                {
-                        var countryname = $('#bill_exist').val();
-                        var country = getcountryid(countryname);
-                }
-                else {
-                        if ($('.select_ship_exist').val() == 0) {
-                                var country = $('.ship_form .shipping_country').val();
-                        } else {
-                                var countryname = $('.ship_form .select_ship_exist').val();
+                function calculatetotalpay() {
+                        var wallet = $('.wallet_amount').val();
+                        if ($('.bill_same').is(":checked"))
+                        {
+                                var countryname = $('#bill_exist').val();
                                 var country = getcountryid(countryname);
                         }
+                        else {
+                                if ($('.select_ship_exist').val() == 0) {
+                                        var country = $('.ship_form .shipping_country').val();
+                                } else {
+                                        var countryname = $('.ship_form .select_ship_exist').val();
+                                        var country = getcountryid(countryname);
+                                }
+                        }
+                        var grant = $("#grant_total").html();
+                        totalcalculate(wallet, grant, country, gift_card_id, gift_pack_id);
                 }
-                var grant = $("#grant_total").html();
-                totalcalculate(wallet, grant, country, gift_card_id, gift_pack_id);
-        }
-</script>
-<script>
-        $(".shipping_country").change(function () {
-                var country = $('.shipping_country').val();
-                getshipmethod(country);
-        });
-        function getcurencyconvert(total) {
-                var result;
-                showLoader();
-                $.ajax({
-                        type: "POST",
-                        cache: 'false',
-                        async: false,
-                        url: baseurl + 'CheckOut/currencyconvert',
-                        data: {total: total}}).done(function (data) {
-
-                        result = data;
+        </script>
+        <script>
+                $(".shipping_country").change(function () {
+                        var country = $('.shipping_country').val();
+                        getshipmethod(country);
                 });
-                return result;
-        }
-        var gift_card_id = $("#gift_card_id").val();
+                function getcurencyconvert(total) {
+                        var result;
+                        showLoader();
+                        $.ajax({
+                                type: "POST",
+                                cache: 'false',
+                                async: false,
+                                url: baseurl + 'CheckOut/currencyconvert',
+                                data: {total: total}}).done(function (data) {
 
-        function totalcalculate(wallet, grant, country, gift_card_id, gift_pack_id) {
+                                result = data;
+                        });
+                        return result;
+                }
+                var gift_card_id = $("#gift_card_id").val();
 
-                showLoader();
+                function totalcalculate(wallet, grant, country, gift_card_id, gift_pack_id) {
 
-                $.ajax({
-                        type: "POST",
-                        cache: 'false',
-                        async: false,
-                        url: baseurl + 'Giftcard/Totalcalculate',
-                        data: {wallet: wallet, country: country, gift_card_id: gift_card_id, gift_pack_id: gift_pack_id}
-                }).done(function (data) {
+                        showLoader();
 
-                        var obj = jQuery.parseJSON(data);
+                        $.ajax({
+                                type: "POST",
+                                cache: 'false',
+                                async: false,
+                                url: baseurl + 'Giftcard/Totalcalculate',
+                                data: {wallet: wallet, country: country, gift_card_id: gift_card_id, gift_pack_id: gift_pack_id}
+                        }).done(function (data) {
 
-                        $("#wallet_total").html(obj.wallet_balance);
-                        if (obj.total == 0) {
+                                var obj = jQuery.parseJSON(data);
 
-                                $(".wallet_amount").val(obj.wallet);
-                                $("#total_pay").html(obj.totalamounttopay);
-                                $(".total_pay").val(obj.total);
-                                $('.total_to_pay').hide();
-                                $('#laksyah_order_payment').val('CONFIRM ORDER');
+                                $("#wallet_total").html(obj.wallet_balance);
+                                if (obj.total == 0) {
 
-                        } else {
-                                $(".wallet_amount").val(obj.wallet);
-                                $('.total_to_pay').show();
-                                $("#total_pay").html(obj.totalamounttopay);
-                                $(".total_pay").val(obj.total);
-                                $('#laksyah_order_payment').val('PAY SECURELY NOW');
-                        }
+                                        $(".wallet_amount").val(obj.wallet);
+                                        $("#total_pay").html(obj.totalamounttopay);
+                                        $(".total_pay").val(obj.total);
+                                        $('.total_to_pay').hide();
+                                        $('#laksyah_order_payment').val('CONFIRM ORDER');
 
-                        //$(".wallet_amount").val(obj.wallet);
-                });
+                                } else {
+                                        $(".wallet_amount").val(obj.wallet);
+                                        $('.total_to_pay').show();
+                                        $("#total_pay").html(obj.totalamounttopay);
+                                        $(".total_pay").val(obj.total);
+                                        $('#laksyah_order_payment').val('PAY SECURELY NOW');
+                                }
+
+                                //$(".wallet_amount").val(obj.wallet);
+                        });
 
 
-        }
-        var gift_card_id = $("#gift_card_id").val();
-        var gift_pack_id = $("#gift_pack").val();
-        function getshipmethod(country) {
-                showLoader();
-                $.ajax({
-                        type: "POST",
-                        cache: 'false',
-                        async: false,
-                        url: baseurl + 'CheckOut/Getshippingmethod',
-                        data: {country: country}
-                }).done(function (data) {
-                        $("#shipping_method").html(data);
-                        getshippingcharge(country, gift_card_id, gift_pack_id);
-                        calculatetotalpay();
-                        hideLoader();
-                });
-        }
+                }
+                var gift_card_id = $("#gift_card_id").val();
+                var gift_pack_id = $("#gift_pack").val();
+                function getshipmethod(country) {
+                        showLoader();
+                        $.ajax({
+                                type: "POST",
+                                cache: 'false',
+                                async: false,
+                                url: baseurl + 'CheckOut/Getshippingmethod',
+                                data: {country: country}
+                        }).done(function (data) {
+                                $("#shipping_method").html(data);
+                                getshippingcharge(country, gift_card_id, gift_pack_id);
+                                calculatetotalpay();
+                                hideLoader();
+                        });
+                }
 
-        function getshippingcharge(value, gift_card_id, gift_pack_id) {
-                showLoader();
+                function getshippingcharge(value, gift_card_id, gift_pack_id) {
+                        showLoader();
 
-                $.ajax({
-                        type: "POST",
-                        cache: 'false',
-                        async: false,
-                        url: baseurl + 'Giftcard/Getshippingcharge',
-                        data: {country: value, gift_card_id: gift_card_id, gift_pack_id: gift_pack_id}
-                }).done(function (data) {
-                        var obj = jQuery.parseJSON(data);
-                        $("#shipping_charge").html(obj.shippingcharge);
-                        $(".grant_total").html(obj.granttotal);
-                        $(".grant_total").val(obj.grant_total_val);
-                        $("#total_pay").html(obj.granttotal);
-                        $(".total_pay").val(obj.totalpay);
-                        calculatetotalpay();
-                        hideLoader();
-                });
-        }
-        function getcountryid(country) {
-                var result;
-                showLoader();
-                $.ajax({
-                        type: "POST",
-                        cache: 'false',
-                        async: false,
-                        url: baseurl + 'CheckOut/Getcountry',
-                        data: {country: country}
-                }).done(function (data) {
+                        $.ajax({
+                                type: "POST",
+                                cache: 'false',
+                                async: false,
+                                url: baseurl + 'Giftcard/Getshippingcharge',
+                                data: {country: value, gift_card_id: gift_card_id, gift_pack_id: gift_pack_id}
+                        }).done(function (data) {
+                                var obj = jQuery.parseJSON(data);
+                                $("#shipping_charge").html(obj.shippingcharge);
+                                $(".grant_total").html(obj.granttotal);
+                                $(".grant_total").val(obj.grant_total_val);
+                                $("#total_pay").html(obj.granttotal);
+                                $(".total_pay").val(obj.totalpay);
+                                calculatetotalpay();
+                                hideLoader();
+                        });
+                }
+                function getcountryid(country) {
+                        var result;
+                        showLoader();
+                        $.ajax({
+                                type: "POST",
+                                cache: 'false',
+                                async: false,
+                                url: baseurl + 'CheckOut/Getcountry',
+                                data: {country: country}
+                        }).done(function (data) {
 
-                        result = data;
-                        hideLoader();
-                });
-                return result;
-        }
-        function getcountry(country) {
-                showLoader();
-                $.ajax({type: "POST",
-                        cache: 'false',
-                        async: false,
-                        url: baseurl + 'CheckOut/Getcountry', data: {country: country}
-                }).done(function (data) {
+                                result = data;
+                                hideLoader();
+                        });
+                        return result;
+                }
+                function getcountry(country) {
+                        showLoader();
+                        $.ajax({type: "POST",
+                                cache: 'false',
+                                async: false,
+                                url: baseurl + 'CheckOut/Getcountry', data: {country: country}
+                        }).done(function (data) {
 
-                        getshippingcharge(data);
-                        if (data != 0) {
-                                getshipmethod(data);
-                        }
-                        hideLoader();
-                });
-        }
+                                getshippingcharge(data);
+                                if (data != 0) {
+                                        getshipmethod(data);
+                                }
+                                hideLoader();
+                        });
+                }
 
-        function showLoader() {
-                $('.over-lay').show();
-        }
-        function hideLoader() {
-                $('.over-lay').hide();
-        }
-</script>
+                function showLoader() {
+                        $('.over-lay').show();
+                }
+                function hideLoader() {
+                        $('.over-lay').hide();
+                }
+        </script>

@@ -261,6 +261,50 @@ span.empty {
         margin-bottom: 5px;
         margin-left: 25px;
 }
+.radio_buttons_1 .radio_label {
+		font-weight:normal !important;
+		margin-right:25px;
+		font-size:13px;
+	}
+.radio_buttons_1 label{
+		margin-top:5px;
+                margin-left: 68px;
+	}
+.radio_buttons_1{
+		margin-bottom:28px;
+	}
+        
+.radio_buttons_1 label {
+    margin-top: 0px;
+    margin-left: 0px;
+}
+.price_group.radio_buttons_1 {
+    width: 50%;
+    /*height: 50px;*/
+    background-color: #eadcbc;
+    padding: 15px;
+    position: relative;
+}
+.radio_buttons {
+    margin-bottom: 20px;
+}
+i.fa.fa-caret-up.top_point {
+    position: absolute;
+    top: -27px;
+    font-size: 41px;
+    color: #eadcbc !important;
+    /* background-color: #ccc; */
+}
+div#mail_to_purchase {
+    padding-top: 20px;
+}
+.price_group input[type='text'] {
+    border: none;
+    display: inline-block;
+    width: 100%;
+    padding: 2px 8px;
+     text-align: left; 
+}
 @media (max-width: 385px) {
 
         .user_nav li {
