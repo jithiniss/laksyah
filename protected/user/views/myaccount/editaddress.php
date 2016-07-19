@@ -85,7 +85,7 @@
                                 <div class="row">
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'country'); ?>
-                                                <?php echo CHtml::activeDropDownList($model, 'country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('class' => 'form-control')); ?>
+                                                <?php echo CHtml::activeDropDownList($model, 'country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select Country--', 'class' => 'form-control')); ?>
                                                 <?php echo $form->error($model, 'country'); ?>
                                         </div>
                                         <div class="col-sm-6">

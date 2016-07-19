@@ -243,24 +243,55 @@ class SiteController extends Controller {
         /**
          * Displays the login page
          */
+//        public function actionLogin() {
+//                $model = new LoginForm;
+//
+//                // if it is ajax validation request
+//                if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
+//                        echo CActiveForm::validate($model);
+//                        Yii::app()->end();
+//                }
+//
+//                // collect user input data
+//                if (isset($_POST['LoginForm'])) {
+//                        $model->attributes = $_POST['LoginForm'];
+//                        // validate user input and redirect to the previous page if valid
+//                        if ($model->validate() && $model->login())
+//                                $this->redirect(Yii::app()->user->returnUrl);
+//                }
+//                // display the login form
+//                $this->render('login', array('model' => $model));
+//        }
+
+
         public function actionLogin() {
-                $model = new LoginForm;
+                // renders the view file 'protected/views/site/index.php'
+                // using the default layout 'protected/views/layouts/main.php'
 
-                // if it is ajax validation request
-                if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
-                        echo CActiveForm::validate($model);
-                        Yii::app()->end();
+                $this->layout = "login";
+                $model = new AdminUser('signin');
+                if (isset($_POST['AdminUser'])) {
+                        $model->attributes = $_POST['AdminUser'];
+                        if ($model->validate()) {
+                                $admin = AdminUser::model()->findByAttributes(array('username' => $model->username, 'password' => $model->password));
+                                if ($admin == '') {
+                                        $model->addError(password, 'invalid username or password');
+                                } else {
+                                        $id = $admin->admin_post_id;
+                                        $post = AdminPost::model()->findByPk($id);
+                                        Yii::app()->session['post'] = $post;
+
+                                        yii::app()->session['admin'] = $admin->attributes;
+                                        $this->redirect(array('site/home'));
+                                }
+                        }
                 }
 
-                // collect user input data
-                if (isset($_POST['LoginForm'])) {
-                        $model->attributes = $_POST['LoginForm'];
-                        // validate user input and redirect to the previous page if valid
-                        if ($model->validate() && $model->login())
-                                $this->redirect(Yii::app()->user->returnUrl);
-                }
-                // display the login form
-                $this->render('login', array('model' => $model));
+
+
+                $this->render('login', array(
+                    'model' => $model,
+                ));
         }
 
         /**

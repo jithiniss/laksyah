@@ -78,7 +78,7 @@ class WalletHistory extends CActiveRecord {
                     'balance_amt' => 'Balance Amt',
                     'ids' => 'Purchase Id',
                     'field1' => 'Message',
-                    'field2' => 'Field2',
+                    'field2' => 'Status',
                     'payment_method' => 'Payment Method',
                     'transaction_id' => 'Transaction',
                     'unique_code' => 'Unique Code',
@@ -118,6 +118,9 @@ class WalletHistory extends CActiveRecord {
 
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
+                    'pagination' => array(
+                        'pageSize' => 50,
+                    ),
                     'sort' => array(
                         'defaultOrder' => 'entry_date DESC',
                     )

@@ -241,7 +241,7 @@ class ProductEnquiryController extends Controller {
         /**
          * Manages all models.
          */
-        public function actionAdmin() {
+        public function actionAdmin($ctype = '') {
                 $model = new ProductEnquiry('search');
                 $model->unsetAttributes();  // clear any default values
                 if (isset($_GET['ProductEnquiry']))

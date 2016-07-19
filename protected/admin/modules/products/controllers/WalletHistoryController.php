@@ -1,6 +1,6 @@
 <?php
 
-class UserGiftscardHistoryController extends Controller {
+class WalletHistoryController extends Controller {
 
         /**
          * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -26,7 +26,7 @@ class UserGiftscardHistoryController extends Controller {
         public function accessRules() {
                 return array(
                     array('allow', // allow all users to perform 'index' and 'view' actions
-                        'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete'),
+                        'actions' => array('index', 'view', 'update', 'admin', 'delete', 'addcredit'),
                         'users' => array('*'),
                     ),
                     array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -57,25 +57,20 @@ class UserGiftscardHistoryController extends Controller {
          * Creates a new model.
          * If creation is successful, the browser will be redirected to the 'view' page.
          */
-        public function actionCreate($user_id = '', $gift_id = '') {
+        public function actionCreate() {
+                $model = new WalletHistory;
 
-                $model = new UserGiftscardHistory;
-                // $model->user_id = $user_id;
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-                if (isset($_POST['UserGiftscardHistory'])) {
-                        $model->attributes = $_POST['UserGiftscardHistory'];
-                        $amount = GiftCard::model()->findByPk($_POST['UserGiftscardHistory']['giftcard_id'])->amount;
-                        $model->amount = $amount;
-                        if ($model->save()) {
+                if (isset($_POST['WalletHistory'])) {
+                        $model->attributes = $_POST['WalletHistory'];
+                        if ($model->save())
                                 $this->redirect(array('admin'));
-                        }
                 }
 
                 $this->render('create', array(
                     'model' => $model,
-                    'user_id' => $user_id,
                 ));
         }
 
@@ -90,13 +85,10 @@ class UserGiftscardHistoryController extends Controller {
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-                if (isset($_POST['UserGiftscardHistory'])) {
-                        $model->attributes = $_POST['UserGiftscardHistory'];
-                        $amount = GiftCard::model()->findByPk($_POST['UserGiftscardHistory']['giftcard_id'])->amount;
-                        $model->amount = $amount;
-                        if ($model->save()) {
-                                $this->redirect(array('admin'));
-                        }
+                if (isset($_POST['WalletHistory'])) {
+                        $model->attributes = $_POST['WalletHistory'];
+                        if ($model->save())
+                                $this->redirect(array('update', 'id' => $model->id));
                 }
 
                 $this->render('update', array(
@@ -121,7 +113,7 @@ class UserGiftscardHistoryController extends Controller {
          * Lists all models.
          */
         public function actionIndex() {
-                $dataProvider = new CActiveDataProvider('UserGiftscardHistory');
+                $dataProvider = new CActiveDataProvider('WalletHistory');
                 $this->render('index', array(
                     'dataProvider' => $dataProvider,
                 ));
@@ -131,12 +123,36 @@ class UserGiftscardHistoryController extends Controller {
          * Manages all models.
          */
         public function actionAdmin() {
-                $model = new UserGiftscardHistory('search');
+                $model = new WalletHistory('search');
                 $model->unsetAttributes();  // clear any default values
-                if (isset($_GET['UserGiftscardHistory']))
-                        $model->attributes = $_GET['UserGiftscardHistory'];
+                if (isset($_GET['WalletHistory']))
+                        $model->attributes = $_GET['WalletHistory'];
 
                 $this->render('admin', array(
+                    'model' => $model,
+                ));
+        }
+
+        public function actionAddcredit() {
+                $model = new WalletHistory();
+                $model->unsetAttributes();  // clear any default values
+                if (isset($_POST['WalletHistory']['addmoney'])) {
+
+                        $user_details = UserDetails::model()->findByAttributes(array('id' => $_POST['WalletHistory']['addmoney']['user_id']));
+                        $model->attributes = $_POST['WalletHistory']['addmoney'];
+                        $model->type_id = 2;
+                        $model->entry_date = date('Y-m-d');
+                        $model->credit_debit = 1;
+                        $model->balance_amt = $user_details->wallet_amt + $_POST['WalletHistory']['addmoney']['amount'];
+                        if ($model->save()) {
+                                $user_details->wallet_amt = $model->balance_amt;
+                                if ($user_details->save()) {
+                                        $this->redirect(array('admin'));
+                                }
+                        }
+                }
+
+                $this->render('addcredit', array(
                     'model' => $model,
                 ));
         }
@@ -145,11 +161,11 @@ class UserGiftscardHistoryController extends Controller {
          * Returns the data model based on the primary key given in the GET variable.
          * If the data model is not found, an HTTP exception will be raised.
          * @param integer $id the ID of the model to be loaded
-         * @return UserGiftscardHistory the loaded model
+         * @return WalletHistory the loaded model
          * @throws CHttpException
          */
         public function loadModel($id) {
-                $model = UserGiftscardHistory::model()->findByPk($id);
+                $model = WalletHistory::model()->findByPk($id);
                 if ($model === null)
                         throw new CHttpException(404, 'The requested page does not exist.');
                 return $model;
@@ -157,10 +173,10 @@ class UserGiftscardHistoryController extends Controller {
 
         /**
          * Performs the AJAX validation.
-         * @param UserGiftscardHistory $model the model to be validated
+         * @param WalletHistory $model the model to be validated
          */
         protected function performAjaxValidation($model) {
-                if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-giftscard-history-form') {
+                if (isset($_POST['ajax']) && $_POST['ajax'] === 'wallet-history-form') {
                         echo CActiveForm::validate($model);
                         Yii::app()->end();
                 }

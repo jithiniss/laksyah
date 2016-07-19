@@ -23,6 +23,8 @@
  * @property ProductEnquiry[] $productEnquiries
  * @property Products $product
  *  @property integer $add_to_order
+ *  @property string $delivery_date
+ *  @property integer $enquiry_type
 
  */
 class ProductEnquiry extends CActiveRecord {
@@ -44,14 +46,14 @@ class ProductEnquiry extends CActiveRecord {
                 // will receive user inputs.
                 return array(
                     array('verifyCode', 'captcha', 'allowEmpty' => !extension_loaded('gd'), 'on' => 'create'),
-                    array('name, email, phone, country,  product_id', 'required'),
+                    array('name, email, phone, country,delivery_date,  product_id', 'required'),
                     array('country, size, product_id, user_id', 'numerical', 'integerOnly' => true),
                     array('name, email', 'length', 'max' => 250),
                     array('phone', 'length', 'max' => 15),
                     array('email', 'email'),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, name, email, phone, country, size, requirement, product_id, doc, dou, user_id,add_to_order', 'safe', 'on' => 'search'),
+                    array('id, name, email, phone,delivery_date,enquiry_type, country, size, requirement, product_id, doc, dou, user_id,add_to_order', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -87,6 +89,8 @@ class ProductEnquiry extends CActiveRecord {
                     'balance_to_pay' => 'Balance To Pay',
                     'status' => 'Status',
                     'add_to_order' => 'Add To Order',
+                    'delivery_date' => 'Delivery date',
+                    'enquiry_type' => 'Enquiry type',
                 );
         }
 
@@ -111,6 +115,7 @@ class ProductEnquiry extends CActiveRecord {
                 $criteria->compare('name', $this->name, true);
                 $criteria->compare('email', $this->email, true);
                 $criteria->compare('phone', $this->phone, true);
+                $criteria->compare('delivery_date', $this->delivery_date, true);
                 $criteria->compare('country', $this->country);
                 $criteria->compare('size', $this->size);
                 $criteria->compare('requirement', $this->requirement, true);
@@ -121,6 +126,7 @@ class ProductEnquiry extends CActiveRecord {
                 $criteria->compare('total_amount', $this->total_amount);
                 $criteria->compare('balance_to_pay', $this->balance_to_pay);
                 $criteria->compare('status', $this->status);
+                $criteria->compare('enquiry_type', $this->enquiry_type);
                 $criteria->compare('add_to_order', $this->add_to_order);
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
