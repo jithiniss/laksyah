@@ -224,7 +224,7 @@ input#email {
 .size_selector label.disabled{
         cursor:not-allowed;
         background: #d2d2d2;
-           
+
 }
 .color_picker li {
         cursor: pointer;
@@ -232,7 +232,7 @@ input#email {
 .size_filter label {
         min-width: 30px;
         width:auto;
-         cursor: pointer;
+        cursor: pointer;
 }
 
 .chnge_passwrd{
@@ -350,11 +350,35 @@ span.required {
         margin-top: -25px;
 }
 .user_content article p {
-    line-height: 22px;
-    margin: 0px;
-    margin-bottom: 10px;
-    text-align: justify;
+        line-height: 22px;
+        margin: 0px;
+        margin-bottom: 10px;
+        text-align: justify;
 }
 .wdt{
-    width: 100%;
+        width: 100%;
+}
+
+.gift_header h3 a {
+        text-decoration: none;
+        color: #35251a;
+        font-size: 17px;
+        padding: 9px;
+        border-radius: 4px;
+        background-color: #f89a1c;
+        font-family: Merriweather, serif;
+}
+
+.gift_header h4 {
+        margin: 0px;
+        padding: 0px;
+        font-size: 16px;
+        font-family: Merriweather, serif;
+        font-weight: 400;
+        font-style: italic;
+        margin-top: 24px;
+}
+.product_list p {
+        font-size: 14px;
+        line-height: 28px;
 }
