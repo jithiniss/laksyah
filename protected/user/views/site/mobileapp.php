@@ -8,7 +8,7 @@
                 <div class="col-xs-6 empty_message">
                         <p>&nbsp;</p>
                         <h2>Mobile App</h2>
-                        <h3>Laksyah.com Android and IOS applications will be launch soon.</h3>
+                        <h3>Our IOS and Android app will be released very soon.</h3>
 
                 </div>
         </div>
