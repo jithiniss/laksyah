@@ -8,12 +8,12 @@
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane active login_popup " id="home">
-                                                <h2>MY ACCOUNT</h2>
-                                                <h4>Sign in to your account</h4>
+                                                <h2>SIGN IN TO MY ACCOUNT</h2>
+                                                <h4>Sign in information</h4>
                                                 <?php if (Yii::app()->user->hasFlash('login_list')): ?>
                                                         <div class="alert alert-danger mesage">
                                                                 <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                                                <strong>sorry!</strong><?php echo Yii::app()->user->getFlash('login_list'); ?>
+                                                                <strong>Sorry! </strong><?php echo Yii::app()->user->getFlash('login_list'); ?>
                                                         </div>
                                                 <?php endif; ?>
                                                 <form  name="login" id="login_form" action="<?= Yii::app()->baseUrl; ?>/index.php/Site/Login" method="POST">

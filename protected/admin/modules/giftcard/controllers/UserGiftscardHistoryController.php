@@ -68,6 +68,7 @@ class UserGiftscardHistoryController extends Controller {
                         $model->attributes = $_POST['UserGiftscardHistory'];
                         $amount = GiftCard::model()->findByPk($_POST['UserGiftscardHistory']['giftcard_id'])->amount;
                         $model->amount = $amount;
+                        $model->date = date('Y-m-d');
                         if ($model->save()) {
                                 $this->redirect(array('admin'));
                         }
@@ -94,6 +95,7 @@ class UserGiftscardHistoryController extends Controller {
                         $model->attributes = $_POST['UserGiftscardHistory'];
                         $amount = GiftCard::model()->findByPk($_POST['UserGiftscardHistory']['giftcard_id'])->amount;
                         $model->amount = $amount;
+                        $model->date = date('Y-m-d');
                         if ($model->save()) {
                                 $this->redirect(array('admin'));
                         }

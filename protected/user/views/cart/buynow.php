@@ -550,7 +550,7 @@
                                 </div>
                                 <!-- / Order Amount-->
                                 <div class="cart_buttons">
-                                        <a class="btn-continue" href="<?= Yii::app()->baseUrl; ?>/index.php">CONTINUE SHOPPING</a>
+                                        <a class="btn-continue" href="<?= Yii::app()->baseUrl; ?>/products/category?name=women">CONTINUE SHOPPING</a>
                                         <?php if (isset(Yii::app()->session['user']['id'])) { ?>
                                                 <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/cart/Proceed/<?php echo $prod->id; ?>"><button type="button" class="btn btn-big btn-primary cartpg">CHECKOUT&nbsp;<i class="fa fa-angle-right "></i> </button></a>
                                         <?php } else { ?>
@@ -563,8 +563,8 @@
         </div>
 </div>
 <script>
-        $(document).ready(function () {
-                $("#TempUserGifts_message").keyup(function () {
+        $(document).ready(function() {
+                $("#TempUserGifts_message").keyup(function() {
                         var StrLengths = $("#TempUserGifts_message").val().length;
                         var myLength = 100 - StrLengths;
                         var totallength = 100;
@@ -577,7 +577,7 @@
         });
 </script>
 <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 <?php if ($gift_user->hasErrors()) { ?>
                         $("#giftpopup").modal('show');
 <?php } ?>
@@ -601,9 +601,9 @@
         });
 </script>
 <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
                 /*submit gift pack remove form */
-                $('.remvegft').click(function () {
+                $('.remvegft').click(function() {
                         $('#gftremove').submit();
                 });
                 /*
@@ -612,14 +612,14 @@
                 /*
                  * Edit Gift
                  */
-                $('.edit_gift').click(function () {
+                $('.edit_gift').click(function() {
                         var cart_id = $(this).attr('cart_id');
                         var session_id = $(this).attr('session_id');
                         editgift(cart_id, session_id);
 
 
                 });
-                $('.gift_options').click(function () {
+                $('.gift_options').click(function() {
                         if ($(this).is(":checked"))
                         {
                                 var gift_message = $(this).attr("gift_status");
@@ -633,12 +633,12 @@
                                 $("#giftpopup").modal('show');
                                 var cart_id = $(this).attr("id");
                                 $("#gift_cart_id").val(cart_id);
-                                $(document).on('hide.bs.modal', '#giftpopup', function () {
+                                $(document).on('hide.bs.modal', '#giftpopup', function() {
                                         $('#' + cart_id).prop("checked", false);
                                 });
                         }
                 });
-                $('.quantity').change(function () {
+                $('.quantity').change(function() {
                         showLoader();
                         var cart = $(this).attr('cart');
                         var qty = this.value;
@@ -654,7 +654,7 @@
                         async: false,
                         url: baseurl + 'Cart/Getorderproduct',
                         data: {product_id: product_id, order_id: order_id, option: option},
-                }).done(function (data) {
+                }).done(function(data) {
                         $("#order_product_id").val(data);
                         hideLoader();
                 });
@@ -669,7 +669,7 @@
                         async: false,
                         url: baseurl + 'Cart/Calculate',
                         data: {cart_id: cart, Qty: qty, prod_id: product_id},
-                }).done(function (data) {
+                }).done(function(data) {
                         var obj = jQuery.parseJSON(data);
                         $(".range_" + cart).html(obj.producttotal);
                         $("#giftprice_" + cart).html(obj.gift_rate);
@@ -689,7 +689,7 @@
                         async: false,
                         url: baseurl + 'Cart/EditGIft',
                         data: {cart_id: cart_id, session_id: session_id},
-                }).done(function (data) {
+                }).done(function(data) {
                         $(".edit_modal").html(data);
                         $("#edit_gift_option").modal('show');
                         hideLoader();
@@ -704,7 +704,7 @@
                         async: false,
                         url: baseurl + 'Cart/Total',
                         data: {}
-                }).done(function (data) {
+                }).done(function(data) {
                         $(".range").html('Rs.' + data);
                         hideLoader();
                 });

@@ -4,7 +4,7 @@ class MyWalletController extends Controller {
 
         public function init() {
                 date_default_timezone_set('Asia/Kolkata');
-                if(!isset(Yii::app()->session['user'])) {
+                if (!isset(Yii::app()->session['user'])) {
 
                         $this->redirect(Yii::app()->request->baseUrl . '/index.php/site/login');
                 }
@@ -17,26 +17,26 @@ class MyWalletController extends Controller {
         public function actionIndex() {
                 $model = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
                 $order_billing_details = UserAddress::model()->findByAttributes(array('userid' => Yii::app()->session['user']['id']));
-                if(!empty($model)) {
+                if (!empty($model)) {
                         $wallet_amount = $model->wallet_amt;
                         $wallet_add = new WalletHistory('addWallet1');
-                        if(isset($_POST['WalletHistory'])) {
+                        if (isset($_POST['WalletHistory'])) {
                                 $wallet_add->attributes = $_POST['WalletHistory'];
                                 $unique_code = $_POST['WalletHistory']['unique_code'];
                                 $entry_amount = $_POST['WalletHistory']['amount'];
                                 $wallet_exist = UserGiftscardHistory::model()->findByAttributes(array('unique_code' => $unique_code, 'status' => 1, 'amount' => $entry_amount));
-                                if(!empty($wallet_exist)) {
+                                if (!empty($wallet_exist)) {
                                         $wallet_add->user_id = $model->id;
 
                                         $wallet_add->entry_date = date('Y-m-d H:i:s');
                                         $wallet_add->unique_code = $unique_code;
                                         $wallet_add->credit_debit = 1;
                                         $wallet_add->balance_amt = $wallet_amount + $entry_amount;
-                                        if($wallet_add->validate()) {
-                                                if($wallet_add->save()) {
+                                        if ($wallet_add->validate()) {
+                                                if ($wallet_add->save()) {
                                                         $wallet_exist->status = 2;
-                                                        if($wallet_exist->save()) {
-                                                                Yii::app()->user->setFlash('credit_wallet_success', "Rs " . $entry_amount . ' Added to Your Account. YOur New Balance is Rs ' . $wallet_add->balance_amt);
+                                                        if ($wallet_exist->save()) {
+                                                                Yii::app()->user->setFlash('credit_wallet_success', "Rs " . $entry_amount . ' Added to Your Account. Your New Balance is Rs ' . $wallet_add->balance_amt);
                                                         }
                                                         $user_model = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
                                                         $user_model->wallet_amt = $wallet_add->balance_amt;
@@ -106,17 +106,17 @@ class MyWalletController extends Controller {
 
                 $user_wallet = UserDetails::model()->findByPk($user_id);
                 $wallet_history = WalletHistory::model()->findByPk($wallet_id);
-                if(!empty($user_wallet) && !empty($wallet_history)) {
+                if (!empty($user_wallet) && !empty($wallet_history)) {
 
                         $amount = $user_wallet->wallet_amt + $wallet_history->amount;
                         $user_wallet->wallet_amt = $amount;
                         $wallet_history->field2 = 1; //success
                         $wallet_history->transaction_id = $payid;
                         $wallet_history_exist = WalletHistory::model()->findByAttributes(array('transaction_id' => $payid));
-                        if(empty($wallet_history_exist)) {
+                        if (empty($wallet_history_exist)) {
 
-                                if($wallet_history->save()) {
-                                        if($user_wallet->save()) {
+                                if ($wallet_history->save()) {
+                                        if ($user_wallet->save()) {
                                                 Yii::app()->session['user'] = $user_wallet;
                                                 Yii::app()->user->setFlash('wallet_success', "Money Added Successfully");
                                                 $this->SuccessMail($wallet_history->id);
@@ -178,7 +178,7 @@ class MyWalletController extends Controller {
                 $wallet_history = WalletHistory::model()->findByPk($wallet_id);
 
                 $username = UserDetails::model()->findByPk($wallet_history->user_id);
-                if(!empty($wallet_history) && !empty($username)) {
+                if (!empty($wallet_history) && !empty($username)) {
 
                         $this->errorMail($wallet_history->id);
                         $wallet_history->delete();
@@ -226,7 +226,7 @@ class MyWalletController extends Controller {
         public function actionGetAmount() {
                 $gift_code = $_POST['gift_code'];
                 $model = UserGiftscardHistory::model()->findByAttributes(array('unique_code' => $gift_code, 'status' => 1));
-                if(!empty($model)) {
+                if (!empty($model)) {
                         echo $model->amount;
                 } else {
                         echo 0;

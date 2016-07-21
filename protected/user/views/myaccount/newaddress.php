@@ -31,86 +31,92 @@
                         ));
                         ?>
 
-
-                        <?php echo $form->errorSummary($model); ?>
+                        <?php
+                        $user1 = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+                        $model->first_name = $user1->first_name;
+                        ?>
+                        <?php $model->last_name = $user1->last_name; ?>
+                        <?php $model->country = $user1->country; ?>
+                        <?php $model->contact_number = $user1->phone_no_1; ?>
+<?php //echo $form->errorSummary($model);  ?>
                         <div class="registration_form">
                                 <div class="row">
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'first_name'); ?>
                                                 <?php echo $form->textField($model, 'first_name', array('size' => 40, 'maxlength' => 100, 'class' => 'form-control')); ?>
-                                                <?php echo $form->error($model, 'first_name'); ?>
+<?php echo $form->error($model, 'first_name'); ?>
                                         </div>
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'last_name'); ?>
                                                 <?php echo $form->textField($model, 'last_name', array('size' => 40, 'maxlength' => 100, 'class' => 'form-control')); ?>
-                                                <?php echo $form->error($model, 'last_name'); ?>
+<?php echo $form->error($model, 'last_name'); ?>
                                         </div>
                                 </div>
                                 <div class="row">
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'company'); ?>
                                                 <?php echo $form->textField($model, 'company', array('size' => 40, 'maxlength' => 100, 'class' => 'form-control')); ?>
-                                                <?php echo $form->error($model, 'company'); ?>
+<?php echo $form->error($model, 'company'); ?>
                                         </div>
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'contact_number'); ?>
                                                 <?php echo $form->textField($model, 'contact_number', array('size' => 40, 'maxlength' => 100, 'class' => 'form-control')); ?>
-                                                <?php echo $form->error($model, 'contact_number'); ?>
+<?php echo $form->error($model, 'contact_number'); ?>
                                         </div>
                                 </div>
                                 <div class="row">
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'address_1'); ?>
                                                 <?php echo $form->textArea($model, 'address_1', array('rows' => 6, 'cols' => 50, 'class' => 'form-control')); ?>
-                                                <?php echo $form->error($model, 'address_1'); ?>
+<?php echo $form->error($model, 'address_1'); ?>
                                         </div>
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'address_2'); ?>
                                                 <?php echo $form->textArea($model, 'address_2', array('rows' => 6, 'cols' => 50, 'class' => 'form-control')); ?>
-                                                <?php echo $form->error($model, 'address_2'); ?>
+<?php echo $form->error($model, 'address_2'); ?>
                                         </div>
                                 </div>
                                 <div class="row">
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'city'); ?>
                                                 <?php echo $form->textField($model, 'city', array('size' => 40, 'maxlength' => 100, 'class' => 'form-control')); ?>
-                                                <?php echo $form->error($model, 'city'); ?>
+<?php echo $form->error($model, 'city'); ?>
                                         </div>
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'postcode'); ?>
                                                 <?php echo $form->textField($model, 'postcode', array('size' => 40, 'maxlength' => 111, 'class' => 'form-control')); ?>
-                                                <?php echo $form->error($model, 'postcode'); ?>
+<?php echo $form->error($model, 'postcode'); ?>
                                         </div>
                                 </div>
                                 <div class="row">
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'country'); ?>
                                                 <?php echo CHtml::activeDropDownList($model, 'country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('class' => 'form-control')); ?>
-                                                <?php echo $form->error($model, 'country'); ?>
+<?php echo $form->error($model, 'country'); ?>
                                         </div>
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'state'); ?>
                                                 <?php echo $form->textField($model, 'state', array('size' => 60, 'maxlength' => 111, 'class' => 'form-control')); ?>
-                                                <?php echo $form->error($model, 'state'); ?>
+<?php echo $form->error($model, 'state'); ?>
                                         </div>
                                 </div>
                                 <div class="row">
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'default_billing_address'); ?>
                                                 <?php echo $form->checkBox($model, 'default_billing_address', array('class' => 'form-control')); ?>
-                                                <?php echo $form->error($model, 'default_billing_address'); ?>
+<?php echo $form->error($model, 'default_billing_address'); ?>
                                         </div>
 
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'default_shipping_address'); ?>
                                                 <?php echo $form->checkBox($model, 'default_shipping_address', array('class' => 'form-control')); ?>
-                                                <?php echo $form->error($model, 'default_shipping_address'); ?>
+<?php echo $form->error($model, 'default_shipping_address'); ?>
                                         </div>
                                 </div>
-                                <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class' => 'btn-primary')); ?>
+<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class' => 'btn-primary')); ?>
                         </div>
 
-                        <?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>
 
                 </div><!-- form -->
         </div>

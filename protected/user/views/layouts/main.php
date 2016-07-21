@@ -339,7 +339,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                                                                                                 <div class="wallet_icon"></div>
                                                                                                 <div class="wallet_item">
                                                                                                         <h6>My Credit</h6>
-                                                                                                        <h5><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></h5>
+                                                                                                        <h5><?php echo Yii::app()->Currency->convert(UserDetails::model()->findByPk(Yii::app()->session['user']['id'])->wallet_amt); ?></h5>
 
                                                                                                 </div>
                                                                                                 <div class="clearfix"></div>
@@ -348,7 +348,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                                                                                         <div class="laksyah_dropdown">
                                                                                                 <ul class="drop_menu">
                                                                                                         <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount" class="currency" >My Account</a></li>
-                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                                                                                                                                            ?></li>-->
+                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                                                                                                                                               ?></li>-->
                                                                                                         <li><?php echo CHtml::link('Log Out', array('site/Logout'), array('class' => 'currency')); ?></li>
                                                         <!--                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
                                                                                                 <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Myordernew" class="currency" >My Orders</a></li>
@@ -397,7 +397,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;                                                                                                                                                     ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;                                                                                                                                                        ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">
@@ -525,7 +525,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                                                                 <li><?php echo CHtml::link('Terms', array('site/Terms')); ?> | </li>
                                                                 <li><?php echo CHtml::link('Policies', array('site/ShippingPolicy')); ?> | </li>
                                                                 <!--<li><?php echo CHtml::link('Policies', array('site/PrivacyPolicy')); ?> | </li>-->
-                                                                <li><?php echo CHtml::link('Q&A', array('site/Faq')); ?> |</li>
+                                                                <li><?php echo CHtml::link('Q & A', array('site/Faq')); ?> |</li>
                                                                 <li><?php echo CHtml::link('Download Measurement', array($file), array('download' => true)) ?>  </li>
                                                         </ul>
                                                         <div id="back-to-top" style="display: block;"> <a class="back-to-top" style="display: block;"></a> </div>
@@ -549,7 +549,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                 <script src="<?php echo yii::app()->request->baseUrl; ?>/js/jquery-ui.min.js"></script>
                 <script src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery.ui.touch-punch.min.js"></script>
                 <script>
-                $('#widget').draggable();</script>
+                        $('#widget').draggable();</script>
                 <!--<script src="<?php echo yii::app()->request->baseUrl; ?>/js/bootstrap.min.js"></script>-->
                 <script src="<?php echo yii::app()->request->baseUrl; ?>/js/slick.min.js"></script>
                 <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

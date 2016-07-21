@@ -4,4 +4,4 @@
         <div class="clearfix"></div>
 </div>
 <a class="btn-dark btn-full" href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/cart/Mycart/">MY SHOPPING BAG / CHECKOUT</a>
-<div class="text-center"><a class="btn-continue" href="<?php echo Yii::app()->request->baseUrl; ?>">CONTINUE SHOPPING</a></div>
+<div class="text-center"><a class="btn-continue" href="<?php echo Yii::app()->request->baseUrl; ?>/products/category?name=women">CONTINUE SHOPPING</a></div>

@@ -7,6 +7,6 @@
         <p><span>Qty:</span>	<?php echo $cart_content->quantity; ?></p>
         <p><span>Price:</span>	<?php echo Yii::app()->Discount->Discount($prod_details); ?></p>
         <div class="clearfix"></div>
-        <div class="remove_item" canname="<?php echo $prod_details->canonical_name; ?>" cartid="<?php echo $cart_content->id; ?>"><a  class="cart_close1" >x</a></div>
+        <div class="remove_item" canname="<?php echo $prod_details->canonical_name; ?>" cartid="<?php echo $cart_content->id; ?>"><a  class="cart_close1" >Remove</a></div>
 </div>
 
