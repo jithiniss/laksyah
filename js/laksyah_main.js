@@ -153,6 +153,7 @@ $(document).ready(function () {
         ///////
         if ($('.related_list_slider').length) {
                 $('.related_list_slider').slick({
+                    autoplay:true,
                         speed: 300,
                         slidesToShow: 6,
                         slidesToScroll: 1,

@@ -87,62 +87,106 @@
                                         </div>
 
                                         <div id="std" class="standard_measurement">
+                                                <label>All measurements are in inches.1 inch = 2.54 centimeters.</label>
                                                 <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered measurement_table">
                                                         <thead>
                                                                 <tr class="price_group">
                                                                         <?php $model->standerd = 2; ?>
-                                                                        <th></th>
+                                                                        <th><label>INDIAN SIZE</label></th>
                                                                         <th><label class="radio_group">
                                                                                         <?php echo $form->radioButtonList($model, 'standerd', array('1' => ''), array('uncheckValue' => null, 'hidden' => 'true')); ?>
-                                                                                </label> <span class="radio_label pull-left">Small</span></th>
-                                                                        <th><label class="radio_group active"><?php echo $form->radioButtonList($model, 'standerd', array('2' => ''), array('uncheckValue' => null, 'hidden' => 'true')); ?></label><span class="radio_label pull-left">Medium</span></th>
-                                                                        <th><label class="radio_group"><?php echo $form->radioButtonList($model, 'standerd', array('3' => ''), array('uncheckValue' => null, 'hidden' => 'true')); ?></label><span class="radio_label pull-left">Large</span></th>
+                                                                                </label> <span class="radio_label pull-left">XS</span></th>
+                                                                        <th><label class="radio_group active"><?php echo $form->radioButtonList($model, 'standerd', array('2' => ''), array('uncheckValue' => null, 'hidden' => 'true')); ?></label><span class="radio_label pull-left">S</span></th>
+                                                                        <th><label class="radio_group"><?php echo $form->radioButtonList($model, 'standerd', array('3' => ''), array('uncheckValue' => null, 'hidden' => 'true')); ?></label><span class="radio_label pull-left">M</span></th>
+                                                                        <th><label class="radio_group"><?php echo $form->radioButtonList($model, 'standerd', array('4' => ''), array('uncheckValue' => null, 'hidden' => 'true')); ?></label><span class="radio_label pull-left">L</span></th>
+                                                                        <th><label class="radio_group"><?php echo $form->radioButtonList($model, 'standerd', array('5' => ''), array('uncheckValue' => null, 'hidden' => 'true')); ?></label><span class="radio_label pull-left">XL</span></th>
+                                                                        <th><label class="radio_group"><?php echo $form->radioButtonList($model, 'standerd', array('6' => ''), array('uncheckValue' => null, 'hidden' => 'true')); ?></label><span class="radio_label pull-left">XXL</span></th>
+                                                                        <th><label class="radio_group"><?php echo $form->radioButtonList($model, 'standerd', array('7' => ''), array('uncheckValue' => null, 'hidden' => 'true')); ?></label><span class="radio_label pull-left">XXXL</span></th>
+
                                                                 </tr>
                                                         </thead>
 
                                                         <tbody>
                                                                 <tr>
-                                                                        <td><strong>Chest</strong></td>
+                                                                        <td><strong>Bust</strong></td>
+                                                                        <th>32</th>
                                                                         <th>34</th>
                                                                         <th>36</th>
                                                                         <th>38</th>
+                                                                        <th>40</th>
+                                                                        <th>42</th>
+                                                                        <th>44</th>
                                                                 </tr>
                                                                 <tr>
                                                                         <td><strong>Waist</strong></td>
                                                                         <th>28</th>
                                                                         <th>30</th>
+                                                                        <th>32</th>
                                                                         <th>34</th>
+                                                                        <th>36</th>
+                                                                        <th>38</th>
+                                                                        <th>40</th>
                                                                 </tr>
 
                                                                 <tr>
                                                                         <td><strong>Hip</strong></td>
+                                                                        <th>36</th>
                                                                         <th>38</th>
                                                                         <th>40</th>
                                                                         <th>42</th>
+                                                                        <th>44</th>
+                                                                        <th>46</th>
+                                                                        <th>48</th>
                                                                 </tr>
                                                                 <tr>
-                                                                        <td><strong>Shoulder Back</strong></td>
-                                                                        <th>15</th>
-                                                                        <th>15</th>
-                                                                        <th>15.5</th>
+                                                                        <td><strong>Pant Waist</strong></td>
+                                                                        <th>26-28</th>
+                                                                        <th>28-30</th>
+                                                                        <th>30-32</th>
+                                                                        <th>32-34</th>
+                                                                        <th>34-36</th>
+                                                                        <th>38-40</th>
+                                                                        <th>42-44</th>
                                                                 </tr>
                                                                 <tr>
-                                                                        <td><strong>Neck</strong></td>
-                                                                        <th>7</th>
-                                                                        <th>7.5</th>
-                                                                        <th>8</th>
+                                                                        <td><strong>Hip</strong></td>
+                                                                        <th>35-37</th>
+                                                                        <th>37-39</th>
+                                                                        <th>39-41</th>
+                                                                        <th>41-43</th>
+                                                                        <th>43-45</th>
+                                                                        <th>45-47</th>
+                                                                        <th>47-49</th>
+                                                                </tr>
+                                                                <tr>
+                                                                        <td><strong>Inseam</strong></td>
+                                                                        <th>27</th>
+                                                                        <th>28</th>
+                                                                        <th>29</th>
+                                                                        <th>30</th>
+                                                                        <th>31</th>
+                                                                        <th>32</th>
+                                                                        <th>33</th>
                                                                 </tr>
 
-                                                                <tr>
-                                                                        <td><strong>Skirt length</strong></td>
-                                                                        <th>43</th>
-                                                                        <th>43</th>
-                                                                        <th>43</th>
-                                                                </tr>
 
 
                                                         </tbody>
                                                 </table>
+                                                <div>
+                                                        <label><strong>How to measure</strong></label>
+                                                        <div class="col-xs-12 col-sm-12"><strong>Bust:</strong>Measurements taken from underarm to underarm.Measure under your arms at the fuller part of your bust-keep tape parallel to shoulder blades.
+                                                                <br/>
+                                                                <strong>Waist:</strong>Measure around your natural waistline, generally 10" from the underarm, keeping the tape confortably loose.
+                                                                <br/>
+                                                                <strong>Pant Waist:</strong>Measure taken a few inches below your natural waist. The waistband will rest at about 1-2" below your belley button.
+                                                                <br/>
+                                                                <strong>Hip:</strong>Stand with feet together and measure around the fullest point of the hip, keeping the tape parallel to the floor.
+                                                                <br/>
+                                                                <strong>Inseam:</strong>In bear feet take the measurement from your crotch to the bottom of your leg.
+                                                                <br/><br/>
+                                                        </div>
+                                                </div>
                                         </div>
                                         <div id="custm" class="custom_measurement">
                                                 <ul>
@@ -373,7 +417,9 @@
                                                                 </table>
                                                                 <?php echo $form->labelEx($model, 'comments', array('class' => 'control-label ')); ?>
                                                                 <?php echo $form->textarea($model, 'comments', array('class' => 'form-control')); ?>
-
+                                                                <div class="col-xs-12 col-sm-12">
+                                                                        <label>Please provide us with any additional information that you believe will help us better fit your suit.</label>
+                                                                </div>
                                                         </div>
                                                         <div class="col-xs-12 col-sm-6"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/measurement_units.jpg" alt=""/></div>
                                                 </div>
@@ -383,7 +429,9 @@
                                                 <?php echo $form->hiddenField($model, 'enq_history_id', array('class' => 'form-control', 'value' => $history->id)); ?>
                                                 <?php echo CHtml::submitButton($model->isNewRecord ? 'SAVE AND SUBMIT' : 'Save', array('class' => 'btn btn-primary wdt ')); ?>
                                         </div>
-
+                                        <div class="col-xs-12 col-sm-12">
+                                                <div class="form_button"><?php echo CHtml::link('Laksyah.com Privacy Policy', array('site/Terms'), array('target' => '_blank')); ?></div>
+                                        </div>
                                         <?php $this->endWidget(); ?>
 
                                 </div><!-- form -->

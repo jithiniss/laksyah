@@ -90,7 +90,13 @@ class ProductsController extends Controller {
                                 }
                         }
 //                        $recently = ProductViewed::model()->findAllByAttributes(array('user_id' => $user_id), array('order' => 'date DESC', 'condition' => 'select distinct(product_id)'));
-                        $recently = ProductViewed::model()->findAll(array('select' => 't.product_id', 'distinct' => true), array('condition' => 'user_id = ' . $user_id));
+                        // $recently = ProductViewed::model()->findAll(array('select' => 't.product_id', 'distinct' => true), array('condition' => 'user_id = ' . $user_id));
+                        $cat = $prduct->enquiry_sale;
+                        if ($cat == 1) {
+                                $recently = Products::model()->findAll(array('condition' => 'status = 1 AND enquiry_sale = 1 AND NOT FIND_IN_SET(4, category_id) order by rand()'));
+                        } else {
+                                $recently = Products::model()->findAll(array('condition' => 'status = 1 and enquiry_sale = 0'));
+                        }
                 } else {
                         if (!isset(Yii::app()->session['temp_user'])) {
                                 Yii::app()->session['temp_user'] = microtime(true);
@@ -107,7 +113,13 @@ class ProductsController extends Controller {
                                         $product_view->save(FALSE);
                                 }
                         }
-                        $recently = ProductViewed::model()->findAllByAttributes(array('session_id' => $sessonid), array('order' => 'date DESC'));
+                        // $recently = ProductViewed::model()->findAllByAttributes(array('session_id' => $sessonid), array('order' => 'date DESC'));
+                        $cat = $prduct->enquiry_sale;
+                        if ($cat == 1) {
+                                $recently = Products::model()->findAll(array('condition' => 'status = 1 AND enquiry_sale = 1 AND NOT FIND_IN_SET(4, category_id)'));
+                        } else {
+                                $recently = Products::model()->findAll(array('condition' => 'status = 1 and enquiry_sale = 0'));
+                        }
                 }
                 $model = new ProductEnquiry('create');
                 if (isset($_POST['ProductEnquiry'])) {
