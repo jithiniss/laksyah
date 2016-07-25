@@ -72,7 +72,7 @@
                                         ?>
                                         <div class="row">
                                                 <div class="col-xs-12 col-mob-12">
-                                                        <p><strong>Payment for Order</strong></p>
+                                                        <p><strong>No Credit History</strong></p>
                                                 </div></div>
                                         <?php
                                 }

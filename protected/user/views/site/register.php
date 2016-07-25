@@ -190,7 +190,7 @@ Country<font color="red">*</font>', array('class' => '')); ?>
                 </div>
                 <div class="text-center form_button">
                         <!--            <button class="btn-primary">Create an Acocunt</button>-->
-                        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create an Account' : 'Save', array('class' => 'btn btn-success pos text-center form_button btn-primary ',)); ?>
+                        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create Account' : 'Save', array('class' => 'btn btn-success pos text-center form_button btn-primary ',)); ?>
                 </div>
                 <div class="text-center form_button"><?php echo CHtml::link('Laksyah.com Privacy Policy', array('site/Terms'), array('target' => '_blank')); ?></div>
         </div>

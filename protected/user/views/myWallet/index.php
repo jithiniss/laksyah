@@ -73,7 +73,7 @@
                                                 <div class="row margin-normal">
 
                                                         <div class="col-xs-12 col-sm-12">
-                                                                <?php echo $form->textField($wallet_add, 'unique_code', array('size' => 60, 'maxlength' => 100, 'placeholder' => "Enter Your Code", 'class' => 'form-control text-right', 'id' => 'gift_code', 'required' => true)); ?>
+                                                                <?php echo $form->textField($wallet_add, 'unique_code', array('size' => 60, 'maxlength' => 100, 'placeholder' => "Enter Your Code", 'class' => 'form-control', 'id' => 'gift_code', 'required' => true)); ?>
                                                                 <span class="gift_status"></span>
 
                                                                 <?php echo $form->error($wallet_add, 'unique_code', array('style' => 'padding-left:0px;')); ?>
@@ -91,7 +91,7 @@
 
                                                         <div class="col-xs-2 col-sm-3"><input type="text" class="form-control text-center" readonly placeholder="" value="Rs."></div>
                                                         <div class="col-xs-10 col-sm-9">
-                                                                <?php echo $form->textField($wallet_add, 'amount', array('size' => 60, 'maxlength' => 100, 'placeholder' => "0.00", 'class' => 'form-control text-right gift_amount', 'id' => 'gift_amount', 'required' => true)); ?>
+                                                                <?php echo $form->textField($wallet_add, 'amount', array('size' => 60, 'maxlength' => 100, 'placeholder' => "0.00", 'class' => 'form-control gift_amount', 'id' => 'gift_amount', 'required' => true)); ?>
 
                                                                 <?php echo $form->error($wallet_add, 'amount', array('style' => 'padding-left:0px;')); ?>
                                                         </div>
@@ -147,7 +147,7 @@
                                         </div>
                                         <div class="col-sm-6">
                                                 <div class="form_button">
-                                                        <strong><button type="submit" class="btn-primary">PAY SECURELY NOW</button></strong>
+                                                        <strong><button type="submit" class="btn-primary">REDEEM NOW</button></strong>
                                                 </div>
                                         </div>
                                 </div>

@@ -417,8 +417,9 @@
                                                                 </table>
                                                                 <?php echo $form->labelEx($model, 'comments', array('class' => 'control-label ')); ?>
                                                                 <?php echo $form->textarea($model, 'comments', array('class' => 'form-control')); ?>
+                                                                <br/>
                                                                 <div class="col-xs-12 col-sm-12">
-                                                                        <label>Please provide us with any additional information that you believe will help us better fit your suit.</label>
+                                                                        Please provide us with any additional information that you believe will help us better fit your suit.
                                                                 </div>
                                                         </div>
                                                         <div class="col-xs-12 col-sm-6"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/measurement_units.jpg" alt=""/></div>

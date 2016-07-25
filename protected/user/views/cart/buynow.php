@@ -627,7 +627,7 @@
                                 if (gift_message == 1) {
                                         $(".gift_msg").html('<h3>You are eligible for a free customized gift card and gift packing.</h3>');
                                 } else if (gift_message == 0) {
-                                        $(".gift_msg").html('<h3 style="color:#AB7420">You should pay <?php echo Yii::app()->Currency->convert(200); ?> for the gift packing.</h3>');
+                                        $(".gift_msg").html('<h3 style="color:#AB7420">You should pay <?php echo Yii::app()->Currency->convert(250); ?> for the gift packing.</h3>');
                                 }
                                 $('#temp-user-gifts-form').trigger("reset");
                                 $("#giftpopup").modal('show');

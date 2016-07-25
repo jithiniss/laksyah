@@ -220,48 +220,51 @@
                                                                 </div>
                                                         </div>
                                                         <div class="row">
-                                                                <div class="col-sm-6">
-                                                                        <?php echo $form->labelEx($billing, '[bill]contact_number', array('class' => 'control-label')); ?>
-                                                                        <?php echo $form->textField($billing, '[bill]contact_number', array('placeholder' => 'Contact Number ', 'class' => 'form-control aik')); ?>
-                                                                        <?php echo $form->error($billing, '[bill]contact_number'); ?>
-                                                                </div>
+
 
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($billing, '[bill]address_1', array('class' => 'control-label')); ?>
                                                                         <?php echo $form->textField($billing, '[bill]address_1', array('placeholder' => 'Address Line 1 ', 'class' => 'form-control aik')); ?>
                                                                         <?php echo $form->error($billing, '[bill]address_1'); ?>
                                                                 </div>
-                                                        </div>
-                                                        <div class="row">
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($billing, '[bill]address_2', array('class' => 'control-label')); ?>
                                                                         <?php echo $form->textField($billing, '[bill]address_2', array('placeholder' => 'Address Line 2 ', 'class' => 'form-control aik')); ?>
                                                                         <?php echo $form->error($billing, '[bill]address_2'); ?>
                                                                 </div>
 
-                                                                <div class="col-sm-6">
-                                                                        <?php echo $form->labelEx($billing, '[bill]city', array('class' => 'control-label')); ?>
-                                                                        <?php echo $form->textField($billing, '[bill]city', array('placeholder' => 'City ', 'class' => 'form-control aik')); ?>
-                                                                        <?php echo $form->error($billing, '[bill]city'); ?>
-                                                                </div>
                                                         </div>
                                                         <div class="row">
-                                                                <div class="col-sm-6">
-                                                                        <?php echo $form->labelEx($billing, '[bill]postcode', array('class' => 'control-label')); ?>
-                                                                        <?php echo $form->textField($billing, '[bill]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik postcode')); ?>
-                                                                        <?php echo $form->error($billing, '[bill]postcode'); ?>
-                                                                </div>
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($billing, '[bill]country', array('class' => 'control-label')); ?>
                                                                         <?php echo CHtml::activeDropDownList($billing, '[bill]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control aik', 'options' => array(99 => array('selected' => 'selected')))); ?>
                                                                         <?php echo $form->error($billing, '[bill]country'); ?>
                                                                 </div>
-                                                        </div>
-                                                        <div class="row">
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($billing, '[bill]state', array('class' => 'control-label')); ?>
                                                                         <?php echo $form->textField($billing, '[bill]state', array('placeholder' => 'state ', 'class' => 'form-control aik')); ?>
                                                                         <?php echo $form->error($billing, '[bill]state'); ?>
+                                                                </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, '[bill]city', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]city', array('placeholder' => 'City ', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo $form->error($billing, '[bill]city'); ?>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, '[bill]postcode', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik postcode')); ?>
+                                                                        <?php echo $form->error($billing, '[bill]postcode'); ?>
+                                                                </div>
+
+                                                        </div>
+                                                        <div class="row">
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($billing, '[bill]contact_number', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($billing, '[bill]contact_number', array('placeholder' => 'Contact Number ', 'class' => 'form-control aik')); ?>
+                                                                        <?php echo $form->error($billing, '[bill]contact_number'); ?>
                                                                 </div>
                                                                 <div class="col-sm-6">
 
@@ -319,49 +322,63 @@
                                                         </div>
                                                         <div class="row ship_form_content">
                                                                 <div class="col-sm-6">
-                                                                        <?php echo $form->labelEx($shipping, '[ship]contact_number', array('class' => 'control-label')); ?>
-                                                                        <?php echo $form->textField($shipping, '[ship]contact_number', array('placeholder' => 'Contact Number ', 'class' => 'form-control aik1')); ?>
-                                                                        <?php echo $form->error($shipping, '[ship]contact_number'); ?>
-                                                                </div>
-
-                                                                <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($shipping, '[ship]address_1', array('class' => 'control-label')); ?>
                                                                         <?php echo $form->textField($shipping, '[ship]address_1', array('placeholder' => 'Address Line 1 ', 'class' => 'form-control aik1')); ?>
                                                                         <?php echo $form->error($shipping, '[ship]address_1'); ?>
                                                                 </div>
-                                                        </div>
-                                                        <div class="row ship_form_content">
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($shipping, '[ship]address_2', array('class' => 'control-label')); ?>
                                                                         <?php echo $form->textField($shipping, '[ship]address_2', array('placeholder' => 'Address Line 2 ', 'class' => 'form-control aik1')); ?>
                                                                         <?php echo $form->error($shipping, '[ship]address_2'); ?>
                                                                 </div>
 
-                                                                <div class="col-sm-6">
-                                                                        <?php echo $form->labelEx($shipping, '[ship]city', array('class' => 'control-label')); ?>
-                                                                        <?php echo $form->textField($shipping, '[ship]city', array('placeholder' => 'City ', 'class' => 'form-control aik1')); ?>
-                                                                        <?php echo $form->error($shipping, '[ship]city'); ?>
-                                                                </div>
+
                                                         </div>
+
+
+
                                                         <div class="row ship_form_content">
-                                                                <div class="col-sm-6">
-                                                                        <?php echo $form->labelEx($shipping, '[ship]postcode', array('class' => 'control-label')); ?>
-                                                                        <?php echo $form->textField($shipping, '[ship]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik1')); ?>
-                                                                        <?php echo $form->error($shipping, '[ship]postcode'); ?>
-                                                                </div>
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($shipping, '[ship]country', array('class' => 'control-label')); ?>
                                                                         <?php echo CHtml::activeDropDownList($shipping, '[ship]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select Country--', 'class' => 'form-control aik1 shipping_country', 'options' => array(99 => array('selected' => 'selected')))); ?>
 
                                                                         <?php echo $form->error($shipping, '[ship]country'); ?>
                                                                 </div>
-                                                        </div>
-                                                        <div class="row ship_form_content">
+
                                                                 <div class="col-sm-6">
                                                                         <?php echo $form->labelEx($shipping, '[ship]state', array('class' => 'control-label')); ?>
                                                                         <?php echo $form->textField($shipping, '[ship]state', array('placeholder' => 'state ', 'class' => 'form-control aik1')); ?>
                                                                         <?php echo $form->error($shipping, '[ship]state'); ?>
                                                                 </div>
+                                                        </div>
+
+
+
+
+                                                        <div class="row ship_form_content">
+
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($shipping, '[ship]city', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($shipping, '[ship]city', array('placeholder' => 'City ', 'class' => 'form-control aik1')); ?>
+                                                                        <?php echo $form->error($shipping, '[ship]city'); ?>
+                                                                </div>
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($shipping, '[ship]postcode', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($shipping, '[ship]postcode', array('placeholder' => 'Postal Code ', 'class' => 'form-control aik1')); ?>
+                                                                        <?php echo $form->error($shipping, '[ship]postcode'); ?>
+                                                                </div>
+
+
+
+                                                        </div>
+
+                                                        <div class="row ship_form_content">
+                                                                <div class="col-sm-6">
+                                                                        <?php echo $form->labelEx($shipping, '[ship]contact_number', array('class' => 'control-label')); ?>
+                                                                        <?php echo $form->textField($shipping, '[ship]contact_number', array('placeholder' => 'Contact Number ', 'class' => 'form-control aik1')); ?>
+                                                                        <?php echo $form->error($shipping, '[ship]contact_number'); ?>
+                                                                </div>
+
                                                                 <div class="col-sm-6">
 
                                                                 </div>
@@ -511,7 +528,7 @@
 
                                         </div>
         <!--                                        <span id="gift_shipping"></span>
-                                        <span><input type="hidden" id="gift_subtotal" value="<?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                                                                                                                                                                                                       ?>" ></span>-->
+                                        <span><input type="hidden" id="gift_subtotal" value="<?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                                                                                                                                                                                                        ?>" ></span>-->
                                         <div class="price_group">
                                                 <div class="pull-left">Shipping</div>
                                                 <div class="pull-right"><span id="shipping_charge"></span></div>
@@ -521,7 +538,7 @@
                                         <div class="price_group total_amount">
 
                                                 <div class="pull-left">ORDER TOTAL</div>
-                                                <!--<div class="pull-right"><?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                                                                                                                                                                                     ?></div>-->
+                                                <!--<div class="pull-right"><?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                                                                                                                                                                                      ?></div>-->
                                                 <div class="pull-right"><span class="grant_total"></span></div>
                                                 <input type="hidden" class="grant_total" name="grant_total_gift" />
                                                 <div class="clearfix"></div>
@@ -618,7 +635,7 @@
                                 if (gift_message == 1) {
                                         $(".gift_msg").html('<h3>You are eligible for a free customized gift card and gift packing.</h3>');
                                 } else if (gift_message == 0) {
-                                        $(".gift_msg").html('<h3 style="color:#AB7420">You should pay <?php echo Yii::app()->Currency->convert(200); ?> for the gift packing.</h3>');
+                                        $(".gift_msg").html('<h3 style="color:#AB7420">You should pay <?php echo Yii::app()->Currency->convert(250); ?> for the gift packing.</h3>');
                                 }
                                 $('#temp-user-gifts-form').trigger("reset");
                                 $("#giftpopup").modal('show');

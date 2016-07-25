@@ -151,7 +151,7 @@
                                                 <span class="pull-right"><input type="checkbox" checked="" name="billing_same" value="1" class="bill_same"><label>Same as Billing Address</label></span>
                                                 <div class="ship_form">
                                                         <div class="form_row">
-                                                                <label>Select a billing address from your address book or enter a new address.</label>
+                                                                <label>Select a shipping address from your address book or enter a new address.</label>
                                                                 <select  name="ship_address" class="select_ship_exist form-control">
                                                                         <option  value="0">New Address</option>
                                                                         <?php
@@ -453,7 +453,7 @@
         </div>
 </div>
 <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
                 var select_val = $('.select_bill_exist').val();
 
@@ -478,13 +478,13 @@
                                 var country = $('.billing_country').val();
                                 getshipmethod(country);
 
-                                $(".billing_country").change(function () {
+                                $(".billing_country").change(function() {
 
                                         var country = $('.billing_country').val();
                                         getshipmethod(country);
                                 });
                         }
-                        $(".select_bill_exist").change(function () {
+                        $(".select_bill_exist").change(function() {
 
                                 var select_val = $(this).val();
                                 if (select_val != 0) {
@@ -496,7 +496,7 @@
                                         $('.bill_form').show();
                                         var country = $('.billing_country').val();
                                         getshipmethod(country);
-                                        $(".billing_country").change(function () {
+                                        $(".billing_country").change(function() {
                                                 var country = $('.billing_country').val();
                                                 getshipmethod(country);
                                         });
@@ -516,12 +516,12 @@
                                 var country = $('.shipping_country').val();
                                 getshipmethod(country);
                                 $('.ship_form_content').show();
-                                $(".shipping_country").change(function () {
+                                $(".shipping_country").change(function() {
                                         var country = $('.shipping_country').val();
                                         getshipmethod(country);
                                 });
                         }
-                        $(".select_ship_exist").change(function () {
+                        $(".select_ship_exist").change(function() {
                                 var select_ship_val = $(this).val();
 
                                 if (select_ship_val != 0) {
@@ -534,7 +534,7 @@
                                         var country = $('.shipping_country').val();
                                         getshipmethod(country);
                                         $('.ship_form_content').show();
-                                        $(".shipping_country").change(function () {
+                                        $(".shipping_country").change(function() {
                                                 var country = $('.shipping_country').val();
                                                 getshipmethod(country);
                                         });
@@ -592,7 +592,7 @@
                 $('.bill_same').prop('checked', false);
                 $('.ship_form').show();
 <?php } ?>
-        $('.bill_same').click(function () {
+        $('.bill_same').click(function() {
 
                 if ($(this).is(":checked"))
                 {
@@ -607,12 +607,12 @@
                                 var country = $('.billing_country').val();
                                 getshipmethod(country);
 
-                                $(".billing_country").change(function () {
+                                $(".billing_country").change(function() {
                                         var country = $('.billing_country').val();
                                         getshipmethod(country);
                                 });
                         }
-                        $(".select_bill_exist").change(function () {
+                        $(".select_bill_exist").change(function() {
 
                                 var select_val = $(this).val();
                                 if (select_val != 0) {
@@ -622,7 +622,7 @@
                                         $('.bill_form').show();
                                         var country = $('.billing_country').val();
                                         getshipmethod(country);
-                                        $(".billing_country").change(function () {
+                                        $(".billing_country").change(function() {
                                                 var country = $('.billing_country').val();
                                                 getshipmethod(country);
                                         });
@@ -645,12 +645,12 @@
                                 var country = $('.shipping_country').val();
                                 getshipmethod(country);
                                 $('.ship_form_content').show();
-                                $(".shipping_country").change(function () {
+                                $(".shipping_country").change(function() {
                                         var country = $('.shipping_country').val();
                                         getshipmethod(country);
                                 });
                         }
-                        $(".select_ship_exist").change(function () {
+                        $(".select_ship_exist").change(function() {
                                 var select_ship_val = $(this).val();
 
                                 if (select_ship_val != 0) {
@@ -663,7 +663,7 @@
                                         var country = $('.shipping_country').val();
                                         getshipmethod(country);
                                         $('.ship_form_content').show();
-                                        $(".shipping_country").change(function () {
+                                        $(".shipping_country").change(function() {
                                                 var country = $('.shipping_country').val();
                                                 getshipmethod(country);
                                         });
@@ -673,10 +673,10 @@
         });
 </script>
 <script>
-        $('input.select').on('change', function () {
+        $('input.select').on('change', function() {
                 $('input.select').not(this).prop('checked', false);
         });
-        $('input.select2').on('change', function () {
+        $('input.select2').on('change', function() {
                 $('input.select2').not(this).prop('checked', false);
         });
 </script>
@@ -687,7 +687,7 @@
 //        });
 </script>
 <script>
-        $(".wallet_amount").keyup(function () {
+        $(".wallet_amount").keyup(function() {
                 var wallet = $(this).val();
                 showLoader();
                 if ($('.bill_same').is(":checked"))
@@ -769,7 +769,7 @@
                         async: false,
                         url: baseurl + 'CheckOut/currencyconvert',
                         data: {total: total}
-                }).done(function (data) {
+                }).done(function(data) {
 
                         result = data;
                         hideLoader();
@@ -788,7 +788,7 @@
                         async: false,
                         url: baseurl + 'CheckOut/totalcalculate',
                         data: {wallet: wallet, country: country}
-                }).done(function (data) {
+                }).done(function(data) {
                         var obj = jQuery.parseJSON(data);
 
                         $("#wallet_total").html(obj.wallet_balance);
@@ -823,7 +823,7 @@
                         async: false,
                         url: baseurl + 'CheckOut/Getshippingmethod',
                         data: {country: country}
-                }).done(function (data) {
+                }).done(function(data) {
                         $("#shipping_method").html(data);
                         getshippingcharge(country);
                         totalcalculate(wallet, country);
@@ -839,7 +839,7 @@
                         async: false,
                         url: baseurl + 'CheckOut/Getshippingcharge',
                         data: {country: value}
-                }).done(function (data) {
+                }).done(function(data) {
                         var obj = jQuery.parseJSON(data);
                         $("#shipping_charge").html(obj.shippingcharge);
                         $("#grant_total").html(obj.granttotal);
@@ -858,7 +858,7 @@
                         async: false,
                         url: baseurl + 'CheckOut/Getcountry',
                         data: {country: country}
-                }).done(function (data) {
+                }).done(function(data) {
 
                         result = data;
                         hideLoader();
@@ -873,7 +873,7 @@
                         async: false,
                         url: baseurl + 'CheckOut/Getcountry',
                         data: {country: country}
-                }).done(function (data) {
+                }).done(function(data) {
 
                         getshippingcharge(data);
                         if (data != 0) {

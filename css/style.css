@@ -31,7 +31,9 @@ a:focus, button:focus{
 		    outline: none;
     outline-offset: -2px;
 	}
-
+.registration_form .btn-primary{
+width: 100% !important;
+}
 body {
 	margin: 0px;
 	padding: 0px;
