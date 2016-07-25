@@ -176,10 +176,10 @@
                                 <div class="border_box">
                                         <input type="hidden" value="<?php echo $deafult_shipping->country; ?>" class="country_default" name="country_default" />
                                         <div class="box_title">
-                                                Billing Details
+                                                Billing Address
                                         </div>
                                         <div class="box_content">
-                                                <h3>Billing Address</h3>
+                                                <!--<h3>Billing Address</h3>-->
                                                 <div class="form_row">
                                                         <label>Select a billing address from your address book or enter a new address.</label>
                                                         <select  name="bill_address" class="select_bill_exist form-control" id="bill_exist">
@@ -278,10 +278,10 @@
                                 <div class="border_box" id="shipping_address">
 
                                         <div class="box_title">
-                                                Shipping Details
+                                                Delivery Address
                                         </div>
                                         <div class="box_content">
-                                                <h3>Shipping Address <span class="pull-right"><input type="checkbox" checked="" name="billing_same" value="1" class="bill_same"><label>Same as Billing Address</label></span></h3>
+                                                <span class="pull-right"><input type="checkbox" checked="" name="billing_same" value="1" class="bill_same"><label>Same as Billing Address</label></span>
                                                 <div class="ship_form">
                                                         <div class="form_row">
                                                                 <label>Select a billing address from your address book or enter a new address.</label>
@@ -511,7 +511,7 @@
 
                                         </div>
         <!--                                        <span id="gift_shipping"></span>
-                                        <span><input type="hidden" id="gift_subtotal" value="<?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                                                                                                                                                                                                      ?>" ></span>-->
+                                        <span><input type="hidden" id="gift_subtotal" value="<?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                                                                                                                                                                                                       ?>" ></span>-->
                                         <div class="price_group">
                                                 <div class="pull-left">Shipping</div>
                                                 <div class="pull-right"><span id="shipping_charge"></span></div>
@@ -521,7 +521,7 @@
                                         <div class="price_group total_amount">
 
                                                 <div class="pull-left">ORDER TOTAL</div>
-                                                <!--<div class="pull-right"><?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                                                                                                                                                                                    ?></div>-->
+                                                <!--<div class="pull-right"><?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                                                                                                                                                                                     ?></div>-->
                                                 <div class="pull-right"><span class="grant_total"></span></div>
                                                 <input type="hidden" class="grant_total" name="grant_total_gift" />
                                                 <div class="clearfix"></div>
@@ -552,8 +552,8 @@
                                         </div>
                                         <div class="price_group payment_method">
 
-                                                <strong class="radio_label pull-left"><input type="radio" checked="" name="payment_method" value="2">CREDIT/DEBIT/NET BANKING</strong>
-                                                <strong class="radio_label pull-left"><input type="radio" name="payment_method" value="3">PAYPAL</strong>
+                                                <strong class="radio_label pull-left"><input type="radio" checked="" name="payment_method" value="2">&nbsp;&nbsp;&nbsp;CREDIT/DEBIT/NET BANKING</strong>
+                                                <strong class="radio_label pull-left"><input type="radio" name="payment_method" value="3">&nbsp;&nbsp;&nbsp;PAYPAL</strong>
                                                 <div class="clearfix"></div>
 
 
@@ -576,11 +576,11 @@
                 </div>
         </div>
         <script>
-                $(document).ready(function () {
+                $(document).ready(function() {
                         $("#mail_to_purchase").hide();
                         $('#shipping_address').hide();
                         $('#gft_check_bx').hide();
-                        $('.chekbx').click(function () {
+                        $('.chekbx').click(function() {
                                 var check_value = $(".chekbx:checked").val();
                                 if (check_value == 2) {
                                         if ($('.bill_same').is(":checked"))
@@ -600,7 +600,7 @@
                                         $("#mail_to_purchase").hide();
                                 }
                         });
-                        $('.mail_gift').click(function () {
+                        $('.mail_gift').click(function() {
                                 var mail_gifts = $(".mail_gift:checked").val();
                                 if (mail_gifts == 2) {
                                         $("#mail_to_purchase").show();
@@ -610,7 +610,7 @@
                                 }
                         });
                 });
-                $('.gift_options').click(function () {
+                $('.gift_options').click(function() {
                         if ($(this).is(":checked"))
                         {
                                 var gift_message = $(this).attr("gift_status");
@@ -624,8 +624,8 @@
                                 $("#giftpopup").modal('show');
                                 var cart_id = $(this).attr("id");
                                 $("#gift_cart_id").val(cart_id);
-                                $(document).on('hide.bs.modal', '#giftpopup', function () {
-                                        $('#' + cart_id).prop("checked", false);
+                                $(document).on('hide.bs.modal', '#giftpopup', function() {
+                                        $('.gift_ticker').prop("checked", false);
                                 });
                         }
                 });
@@ -637,7 +637,7 @@
                 } else {
                         $('.bill_form').show();
                 }
-                $(".select_bill_exist").change(function () {
+                $(".select_bill_exist").change(function() {
                         var select_val = $(this).val();
                         if ($('.bill_same').is(":checked")) {
                                 getcountry(select_val);
@@ -662,7 +662,7 @@
                 } else {
                         $('.ship_form_content').show();
                 }
-                $(".select_ship_exist").change(function () {
+                $(".select_ship_exist").change(function() {
                         var select_ship_val = $(this).val();
 
                         if (select_ship_val != 0) {
@@ -694,7 +694,7 @@
                         $('.bill_same').prop('checked', false);
                         $('.ship_form').show();
 <?php } ?>
-                $('.bill_same').click(function () {
+                $('.bill_same').click(function() {
                         if ($(this).is(":checked"))
                         {
                                 $('.ship_form').hide();
@@ -711,15 +711,15 @@
                 });
         </script>
         <script>
-                $('input.select').on('change', function () {
+                $('input.select').on('change', function() {
                         $('input.select').not(this).prop('checked', false);
                 });
-                $('input.select2').on('change', function () {
+                $('input.select2').on('change', function() {
                         $('input.select2').not(this).prop('checked', false);
                 });
         </script>
         <script>
-                $(document).ready(function () {
+                $(document).ready(function() {
                         var country = $('.country_default').val();
                         getshipmethod(country);
                 });
@@ -727,7 +727,7 @@
         <script>
                 var gift_card_id = $("#gift_card_id").val();
                 var gift_pack_id = $("#gift_pack").val();
-                $(".wallet_amount").keyup(function () {
+                $(".wallet_amount").keyup(function() {
                         var wallet = $(this).val();
                         if ($('.bill_same').is(":checked"))
                         {
@@ -768,7 +768,7 @@
                 }
         </script>
         <script>
-                $(".shipping_country").change(function () {
+                $(".shipping_country").change(function() {
                         var country = $('.shipping_country').val();
                         getshipmethod(country);
                 });
@@ -780,7 +780,7 @@
                                 cache: 'false',
                                 async: false,
                                 url: baseurl + 'CheckOut/currencyconvert',
-                                data: {total: total}}).done(function (data) {
+                                data: {total: total}}).done(function(data) {
 
                                 result = data;
                         });
@@ -798,7 +798,7 @@
                                 async: false,
                                 url: baseurl + 'Giftcard/Totalcalculate',
                                 data: {wallet: wallet, country: country, gift_card_id: gift_card_id, gift_pack_id: gift_pack_id}
-                        }).done(function (data) {
+                        }).done(function(data) {
 
                                 var obj = jQuery.parseJSON(data);
 
@@ -834,7 +834,7 @@
                                 async: false,
                                 url: baseurl + 'CheckOut/Getshippingmethod',
                                 data: {country: country}
-                        }).done(function (data) {
+                        }).done(function(data) {
                                 $("#shipping_method").html(data);
                                 getshippingcharge(country, gift_card_id, gift_pack_id);
                                 calculatetotalpay();
@@ -851,7 +851,7 @@
                                 async: false,
                                 url: baseurl + 'Giftcard/Getshippingcharge',
                                 data: {country: value, gift_card_id: gift_card_id, gift_pack_id: gift_pack_id}
-                        }).done(function (data) {
+                        }).done(function(data) {
                                 var obj = jQuery.parseJSON(data);
                                 $("#shipping_charge").html(obj.shippingcharge);
                                 $(".grant_total").html(obj.granttotal);
@@ -871,7 +871,7 @@
                                 async: false,
                                 url: baseurl + 'CheckOut/Getcountry',
                                 data: {country: country}
-                        }).done(function (data) {
+                        }).done(function(data) {
 
                                 result = data;
                                 hideLoader();
@@ -884,7 +884,7 @@
                                 cache: 'false',
                                 async: false,
                                 url: baseurl + 'CheckOut/Getcountry', data: {country: country}
-                        }).done(function (data) {
+                        }).done(function(data) {
 
                                 getshippingcharge(data);
                                 if (data != 0) {
