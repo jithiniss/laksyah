@@ -22,6 +22,18 @@
 
         padding: 5px;
 }
+.gift_header {
+    margin-bottom: 18px !important;
+}
+.container.centerd_page
+{
+padding: 30px;
+    background-color: #fff;
+    border: solid 2px #414042;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.39);
+    -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.39);
+    border-radius: 0;
+}
 .cart_item{
         position: relative;
         margin-bottom: 5px;

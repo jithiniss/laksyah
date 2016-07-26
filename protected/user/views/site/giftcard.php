@@ -39,7 +39,7 @@
                                 </div>
                         <?php } ?>
                         <div class="col-xs-12">
-                                <p><strong>Please Note:</strong> it is a requirement of the checkout process that a "shipping address" is provided when placing an order. If you have selected a digital gift card. It will be sent to the email address you specify with in 24 hours of placing your orders and will not be delivered physically to the specified "Shipping Address"</p>
+                                <p><strong>Please Note:</strong> It is a requirement of the checkout process that a "shipping address" is provided when placing an order. If you have selected a digital gift card. It will be sent to the email address you specify with in 24 hours of placing your orders and will not be delivered physically to the specified "Shipping Address"</p>
                         </div>
 
                 </div>

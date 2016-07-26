@@ -121,7 +121,7 @@
                 <label class="radio_group active" >
                         <input type="radio" name="gift_via_status" class="mail_gift"  hidden="true"  value="1">
                 </label>
-                <span class="radio_label pull-left">Email to my self</span>
+                <span class="radio_label pull-left">Email to my address</span>
                 <label class="radio_group">
                         <input type="radio" name="gift_via_status" class="mail_gift" hidden="true" value="2">
                 </label>
@@ -528,7 +528,7 @@
 
                                         </div>
         <!--                                        <span id="gift_shipping"></span>
-                                        <span><input type="hidden" id="gift_subtotal" value="<?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                                                                                                                                                                                                        ?>" ></span>-->
+                                        <span><input type="hidden" id="gift_subtotal" value="<?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                                                                                                                                                                                                         ?>" ></span>-->
                                         <div class="price_group">
                                                 <div class="pull-left">Shipping</div>
                                                 <div class="pull-right"><span id="shipping_charge"></span></div>
@@ -538,7 +538,7 @@
                                         <div class="price_group total_amount">
 
                                                 <div class="pull-left">ORDER TOTAL</div>
-                                                <!--<div class="pull-right"><?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                                                                                                                                                                                      ?></div>-->
+                                                <!--<div class="pull-right"><?php //echo Yii::app()->Currency->convert($subtotal);                                                                                                                                                                                                                                                                                       ?></div>-->
                                                 <div class="pull-right"><span class="grant_total"></span></div>
                                                 <input type="hidden" class="grant_total" name="grant_total_gift" />
                                                 <div class="clearfix"></div>
