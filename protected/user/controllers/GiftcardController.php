@@ -77,7 +77,7 @@ class GiftcardController extends Controller {
                                         $total_shipping_rate = 0;
                                 } else {
                                         $get_zone = Countries::model()->findByPk($shipp_address->country);
-                                        $get_total_weight = $this->GetTotalWeight();
+                                        $get_total_weight = $this->GetTotalWeight($_POST['gift_card_id']);
                                         $value = explode('.', $get_total_weight);
                                         if (strlen($value[1]) == 1) {
                                                 $value[1] = $value[1] . '0';
@@ -322,8 +322,8 @@ class GiftcardController extends Controller {
                                                                 $this->redirect(array('OrderSuccess'));
                                                         }
                                                 } else {
-                                                        var_dump($order->getErrors());
-                                                        exit;
+//                                                        var_dump($order->getErrors());
+//                                                        exit;
                                                 }
 //
                                         }
@@ -603,6 +603,8 @@ class GiftcardController extends Controller {
                                                         $order->gift_card_id = $_POST['gift_card_id'];
                                                         $order->gift_email = $_POST['gift_email'];
                                                         $order->gift_via_status = $_POST['gift_via_status'];
+                                                        $order->gift_sender_name = $_POST['sender_name'];
+                                                        $order->gift_personal_mesage = $_POST['personal_msg'];
 //                                                        if ($order->validate()) {
 
                                                         if (Yii::app()->user->hasFlash('shipp_availability') != 1) {
@@ -674,6 +676,8 @@ class GiftcardController extends Controller {
                                                         $order_shipping_detils = UserAddress::model()->findBypk($ship_address_id);
                                                         $order->gift_email = $_POST['gift_email'];
                                                         $order->gift_via_status = $_POST['gift_via_status'];
+                                                        $order->gift_sender_name = $_POST['sender_name'];
+                                                        $order->gift_personal_mesage = $_POST['personal_msg'];
                                                         if ($order->validate()) {
 
                                                                 if (Yii::app()->user->hasFlash('shipp_availability') != 1) {
@@ -779,8 +783,8 @@ class GiftcardController extends Controller {
                                                                 }
                                                         } else {
 
-                                                                var_dump($order->getErrors());
-                                                                exit;
+//                                                                var_dump($order->getErrors());
+//                                                                exit;
                                                         }
                                                 }
                                         } else {
@@ -811,6 +815,8 @@ class GiftcardController extends Controller {
                                                 $order_shipping_detils = UserAddress::model()->findBypk($ship_address_id);
                                                 $order->gift_email = $_POST['gift_email'];
                                                 $order->gift_via_status = $_POST['gift_via_status'];
+                                                $order->gift_sender_name = $_POST['sender_name'];
+                                                $order->gift_personal_mesage = $_POST['personal_msg'];
                                                 if ($order->validate()) {
 
                                                         if (Yii::app()->user->hasFlash('shipp_availability') != 1) {
@@ -915,9 +921,9 @@ class GiftcardController extends Controller {
                                                                 }
                                                         }
                                                 } else {
-
-                                                        var_dump($order->getErrors());
-                                                        exit;
+//
+//                                                        var_dump($order->getErrors());
+//                                                        exit;
                                                 }
                                         }
                                 }
@@ -1039,6 +1045,64 @@ class GiftcardController extends Controller {
                 }
         }
 
+        public function actionGetCountry() {
+                if (isset(Yii::app()->session['user']['id'])) {
+                        $country = $_POST['country'];
+
+                        $shipping_charge = UserAddress::model()->findByPk($country);
+
+                        if (!empty($shipping_charge)) {
+                                echo $shipping_charge->country;
+                        } else {
+                                echo 0;
+                        }
+                }
+        }
+
+        public function actionGetShippingMethod() {
+                if (isset(Yii::app()->session['user']['id'])) {
+                        $country = $_POST['country'];
+                        if ($country == 99) {
+                                $total_shipping_rate = 0;
+                        } else {
+                                $get_zone = Countries::model()->findByPk($country);
+                                $get_total_weight = $this->GetTotalWeight();
+                                $value = explode('.', $get_total_weight);
+                                if (strlen($value[1]) == 1) {
+                                        $value[1] = $value[1] . '0';
+                                }
+                                if ($value[1] <= 50) {
+                                        $total_weight = $value[0] + .5;
+                                } else {
+                                        $total_weight = $value[0] + 1;
+                                }
+
+
+                                /* 13% Fuel Charge and 15 % Service chARGE is applicable */
+                                $shipping_rate = ShippingCharges::model()->findByAttributes(array('zone' => $get_zone->zone, 'weight' => $total_weight));
+                                if (!empty($shipping_rate)) {
+                                        $fuel_charge = $shipping_rate->shipping_rate * .13;
+                                        $service_charge = ($shipping_rate->shipping_rate + $fuel_charge) * .15;
+                                        $total_shipping_rate = ceil($shipping_rate->shipping_rate + $fuel_charge + $service_charge);
+                                } else {
+                                        $total_shipping_rate = 0;
+                                }
+                        }
+
+                        if ($country == 99) {
+                                $this->renderPartial('_shipping_indian', array('shipping_charge' => $total_shipping_rate));
+                        } else {
+                                if (!empty($shipping_rate)) {
+                                        $this->renderPartial('_shipping_other', array('shipping_charge' => $total_shipping_rate));
+                                } else {
+                                        echo 'Sorry, no quotes are available for this order at this time.';
+                                }
+                        }
+                } else {
+//todo invalid user
+                }
+        }
+
         public function actionGetshippingcharge() {
                 if (isset(Yii::app()->session['user']['id'])) {
                         $country = $_POST['country'];
@@ -1073,8 +1137,6 @@ class GiftcardController extends Controller {
                                         $total_shipping_rate = 0;
                                 }
                         }
-
-
                         $giftcards = GiftCard::model()->findByPk($gift_card_id);
                         if ($gift_pack_id == '') {
                                 $subtotal = $giftcards->amount;

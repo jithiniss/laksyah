@@ -60,7 +60,7 @@ class Order extends CActiveRecord {
                     array('gift_email', 'email'),
                     // The following rule is used by search().
                     // @todo Please remove those attributes that should not be searched.
-                    array('id, user_id,laksyah_gift_transportaion, total_amount, order_date, address_book_id, comment, payment_mode, admin_comment, transaction_id, payment_status, admin_status, status,laksyah_gift, DOC, wallet,shipping_method, paypal, netbanking,gift_via_status,gift_email', 'safe', 'on' => 'search'),
+                    array('id, user_id,laksyah_gift_transportaion, total_amount, order_date, address_book_id, comment, payment_mode, admin_comment, transaction_id, payment_status, admin_status, status,laksyah_gift, DOC, wallet,shipping_method, paypal, netbanking,gift_via_status,gift_email,gift_sender_name,gift_personal_mesage', 'safe', 'on' => 'search'),
                 );
         }
 
@@ -110,6 +110,8 @@ class Order extends CActiveRecord {
                     'DOC' => 'Doc',
                     'gift_via_status' => 'Gift Via Status',
                     'gift_email' => 'Gift Email',
+                    'gift_sender_name' => 'Gift Sender Name',
+                    'gift_personal_mesage' => 'Gift Personal Mesage',
                 );
         }
 
@@ -158,6 +160,9 @@ class Order extends CActiveRecord {
                 $criteria->compare('DOC', $this->DOC, true);
                 $criteria->compare('gift_via_status', $this->gift_via_status);
                 $criteria->compare('gift_email', $this->gift_email, true);
+                $criteria->compare('gift_sender_name', $this->gift_sender_name, true);
+                $criteria->compare('gift_personal_mesage', $this->gift_personal_mesage, true);
+
 
                 return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,

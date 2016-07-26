@@ -345,7 +345,6 @@ class CheckOutController extends Controller {
         public function actionGetShippingMethod() {
                 if (isset(Yii::app()->session['user']['id'])) {
                         $country = $_POST['country'];
-
                         if ($country == 99) {
                                 $total_shipping_rate = 0;
                         } else {
