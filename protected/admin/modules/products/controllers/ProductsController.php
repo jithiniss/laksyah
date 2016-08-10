@@ -331,36 +331,6 @@ class ProductsController extends Controller {
                 if (!empty($datas)) {
                         foreach ($datas as $data) {
                                 $user = $data->email_id;
-//                                $to = $user->email;
-//                                $subject = "Product Availability";
-//
-//                                $message = "
-//                                                <html>
-//                                                <head>
-//                                                <title>Confirmation</title>
-//                                                </head>
-//                                                <body>
-//                                                <p>Dear, " . $user->first_name . ' ' . $user->last_name . " this mail is to inform you that your interested item is now available in our site </p>
-//                                                <table>
-//
-//                                                <tr><td><a href='http://localhost/laksyah/index.php/Products/Detail/name/$name'>Click Here To purchase </a></td></tr>
-//                                                </table>
-//                                                </body>
-//                                                </html>
-//                                                ";
-//
-//
-//
-//
-//// Always set content-type when sending HTML email
-//                                $headers = "MIME-Version: 1.0" . "\r\n";
-//                                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-//
-//// More headers
-//                                $headers .= 'From: <>' . "\r\n";
-//                                $headers .= 'Cc: ' . "\r\n";
-//
-//                                mail($to, $subject, $message, $headers);
                                 $data->delete();
                         }
                 } else {

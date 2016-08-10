@@ -32,10 +32,10 @@ class CheckOutController extends Controller {
                                         if ($data->save()) {
                                                 $order = Order::model()->findByPk($data->order_id);
                                                 $order->gift_option = 1;
-                                                if ($order->total_amount > 5000) {
+                                                if ($order->total_amount > 1249) {
                                                         $order->rate = 0;
                                                 } else {
-                                                        $order->rate = 200;
+                                                        $order->rate = 250;
                                                 }
                                                 $order->save();
                                                 Yii::app()->user->setFlash('success', "Dear, added as gift");
@@ -392,6 +392,7 @@ class CheckOutController extends Controller {
                         $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
                         $order = Order::model()->findByPk(Yii::app()->session['orderid']);
                         $cart = Cart::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
+
                         if (!empty($cart)) {
                                 $deafult_shipping = UserAddress::model()->findByAttributes(array('userid' => Yii::app()->session['user']['id'], 'default_shipping_address' => 1));
                                 $addresss = UserAddress::model()->findAllByAttributes(array('userid' => Yii::app()->session['user']['id']));
@@ -460,7 +461,7 @@ class CheckOutController extends Controller {
                                         }
 
 //                                        if (empty($shipp_available)) {
-//                                                Yii::app()->user->setFlash('shipp_availability', "Thre is no Shipping Option Available in your current shipping Address");
+//                                                Yii::app()->user->setFlash('shipp_availability', "There is no Shipping Option Available in your current shipping Address");
 //                                                $this->redirect(array('CheckOut/CheckOut'));
 //                                        }
                                         if ($_POST['wallet_amount'] != '') {
@@ -521,6 +522,7 @@ class CheckOutController extends Controller {
                                                         $total_balance_to_pay = ceil($total_balance_to_pay / Yii::app()->session['currency']['rate']);
                                                 }
                                         }
+                                        $total_balance_to_pay += $total_shipping_rate;
 
 
                                         if ($wallet != $post_wallet || $total_balance_to_pay != $post_total_pay) {
@@ -532,26 +534,24 @@ class CheckOutController extends Controller {
                                                 $order_id = Yii::app()->session['orderid'];
 
                                                 $this->addOrder($bill_address_id, $ship_address_id, $cart, $order_id);
+
                                                 $order->shipping_method = $_REQUEST['shipping_value'];
                                                 if ($shipp_address->country == 99) {
                                                         $postcode_exist = DtdcPostcode::model()->findByAttributes(array('postcode' => $shipp_address->postcode));
                                                         if (empty($postcode_exist)) {
-                                                                Yii::app()->user->setFlash('shipp_availability', "Thre is no Shipping Option Available in your current shipping Address. Please choose some other post code");
+                                                                Yii::app()->user->setFlash('shipp_availability', "There is no Shipping Option Available in your current shipping Address. Please choose some other post code");
                                                                 // $this->redirect(array('CheckOut/CheckOut'));
                                                         }
                                                         //$this->renderPartial('_shipping_indian', array('shipping_charge' => $total_shipping_rate));
                                                 } else {
                                                         if (empty($shipping_rate)) {
-                                                                Yii::app()->user->setFlash('shipp_availability', "Thre is no Shipping Option Available in your current shipping Address");
+                                                                Yii::app()->user->setFlash('shipp_availability', "There is no Shipping Option Available in your current shipping Address");
                                                                 // $this->redirect(array('CheckOut/CheckOut'));
                                                         }
                                                 }
                                                 if ($wallet > 0) {
 
-
-
                                                         /* wallet entry starts */
-
                                                         $wallet_amount = new WalletHistory;
                                                         $wallet_amount->user_id = Yii::app()->session['user']['id'];
                                                         $wallet_amount->type_id = 4;
@@ -600,9 +600,13 @@ class CheckOutController extends Controller {
                                                         $order->ship_address_id = $ship_address_id;
                                                         $order->order_date = date('Y-m-d H:i:s');
 
+                                                        $order_billing_details = UserAddress::model()->findBypk($bill_address_id);
+                                                        $order_shipping_detils = UserAddress::model()->findBypk($ship_address_id);
                                                         if ($order->validate()) {
                                                                 if (Yii::app()->user->hasFlash('shipp_availability') != 1) {
                                                                         if ($order->save()) {
+
+
                                                                                 Cart::model()->deleteAllByAttributes(array('user_id' => Yii::app()->session['user']['id']));
                                                                                 $this->updateorderproduct($order->id);
                                                                                 if ($user->save()) {
@@ -614,7 +618,59 @@ class CheckOutController extends Controller {
 
                                                                                 $this->updateorderproduct($order->id);
 
+                                                                                if ($post_total_pay != 0) {
 
+                                                                                        /* payment action goes here */
+//                                                                        if (isset(Yii::app()->session['currency'])) {
+//                                                                                $order->netbanking = $order->netbanking / Yii::app()->session['currency']->rate;
+//                                                                        } else {
+//                                                                                $order->netbanking = $order->netbanking;
+//                                                                        }
+
+                                                                                        if ($order->netbanking != '') {
+                                                                                                $hdfc_details = array();
+                                                                                                $hdfc_details['description'] = 'Laksyah Products';
+                                                                                                $hdfc_details['order'] = $order->id;
+                                                                                                $hdfc_details['totaltopay'] = $order->netbanking;
+                                                                                                $hdfc_details['bill_name'] = $order_billing_details->first_name . ' ' . $order_billing_details->last_name;
+                                                                                                $hdfc_details['bill_address'] = $order_billing_details->address_1 . ' ' . $order_billing_details->address_2;
+                                                                                                $hdfc_details['bill_city'] = $order_billing_details->city;
+                                                                                                $hdfc_details['bill_state'] = $order_billing_details->state;
+                                                                                                $hdfc_details['bill_postal_code'] = $order_billing_details->postcode;
+                                                                                                $hdfc_details['bill_country'] = Countries::model()->findbypk($order_billing_details->country)->country_name;
+                                                                                                $hdfc_details['bill_email'] = Yii::app()->session['user']['email'];
+                                                                                                $hdfc_details['bill_phone_number'] = Yii::app()->session['user']['phone_no_1'];
+
+                                                                                                $hdfc_details['ship_name'] = $order_shipping_detils->first_name . ' ' . $order_shipping_detils->last_name;
+                                                                                                $hdfc_details['ship_address'] = $order_shipping_detils->address_1 . ' ' . $order_shipping_detils->address_2;
+                                                                                                $hdfc_details['ship_city'] = $order_shipping_detils->city;
+                                                                                                $hdfc_details['ship_state'] = $order_shipping_detils->state;
+                                                                                                $hdfc_details['ship_postal_code'] = $order_shipping_detils->postcode;
+                                                                                                $hdfc_details['ship_country'] = Countries::model()->findbypk($order_shipping_detils->country)->country_name;
+                                                                                                $hdfc_details['ship_email'] = Yii::app()->session['user']['email'];
+                                                                                                $hdfc_details['bill_phone_number'] = Yii::app()->session['user']['phone_no_1'];
+                                                                                                $this->render('hdfcpay', array('hdfc_details' => $hdfc_details, 'aid' => '20951', 'sec' => 'b837f49de88e6be36f077b6928c43bf9'));
+                                                                                        } else if ($order->paypal != '') {
+
+                                                                                                $pid = time();
+                                                                                                if (isset(Yii::app()->session['currency'])) {
+                                                                                                        if (Yii::app()->session['currency']['currency_code'] == 'USD') {
+                                                                                                                $paypaltotalamount = $order->paypal;
+                                                                                                        } else {
+                                                                                                                $usdvalue = Currency::model()->findByPk(2);
+                                                                                                                $paypaltotalamount = round($order->paypal * $usdvalue->rate, 2);
+                                                                                                        }
+                                                                                                } else {
+                                                                                                        $usdvalue = Currency::model()->findByPk(2);
+                                                                                                        $paypaltotalamount = round($order->paypal * $usdvalue->rate, 2);
+                                                                                                }
+                                                                                                // $totaltopay = round(Currency::model()->findBypk(2)->rate * $order->paypal, 2);
+                                                                                                $this->renderPartial('paypalpay', array('itemname' => 'Laksyah Products', 'order' => $order->id, 'totaltopay' => $paypaltotalamount, 'pid' => $pid));
+                                                                                        }
+
+                                                                                        // $this->redirect(array('OrderSuccess'));
+                                                                                        // $this->redirect(array('OrderFailed'));
+                                                                                }
                                                                                 $this->redirect(array('OrderSuccess'));
                                                                         }
                                                                 }
@@ -711,9 +767,6 @@ class CheckOutController extends Controller {
                                                                                 }
                                                                         }
                                                                 }
-                                                        } else {
-                                                                var_dump($order->getErrors());
-                                                                exit;
                                                         }
 //
                                                 }
@@ -757,11 +810,7 @@ class CheckOutController extends Controller {
         }
 
         public function addOrder($bill_address_id, $ship_address_id, $cart, $order_id) {
-
-
                 $model1 = $this->loadModel($order_id);
-
-
                 $total_amt = $this->total($cart);
                 $model1->ship_address_id = $ship_address_id;
                 $model1->bill_address_id = $bill_address_id;
@@ -911,7 +960,7 @@ class CheckOutController extends Controller {
 
         /* mail send to admin and user */
 
-        public function actionOrderSuccess($payid, $tid, $amt) {
+        public function actionOrderSuccess($payid = '', $tid = '', $amt = '') {
                 if (isset(Yii::app()->session['orderid']) && Yii::app()->session['user']['id'] != '') {
                         $order = Order::model()->findByPk(Yii::app()->session['orderid']);
                         $userdetails = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
@@ -949,6 +998,8 @@ class CheckOutController extends Controller {
 
                                         Yii::app()->session['user'] = $userdetails;
                                         unset(Yii::app()->session['orderid']);
+                                        //$amt = Yii::app()->Currency->convert($order->total_amount);
+
                                         $this->render('payment_success', ['payid' => $payid, 'tid' => $tid, 'amt' => $amt]);
                                 }
                         } else {

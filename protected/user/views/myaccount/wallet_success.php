@@ -7,7 +7,7 @@
                 <div class="col-xs-6 row-borderd text-right empty_image"><img src="<?php echo Yii::app()->baseUrl ?>/images/laksyah_log.jpg" alt=""/></div>
                 <div class="col-xs-6 empty_message">
 
-                        <h4>Dear Customer You have successully paid Rs.<?php echo $amt; ?> to your wallet. Your Payment Id is <?php echo $payid; ?> and Transaction Id is <?php echo $tid; ?></h4>
+                        <h4>Dear Customer You have successully paid Rs.<?php echo $amt; ?>. <?php if($payid) { ?>Your Payment Id is <?php echo $payid; ?> and Transaction Id is <?php echo $tid; ?><?php } ?></h4>
                 </div>
         </div>
 

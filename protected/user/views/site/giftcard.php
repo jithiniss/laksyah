@@ -5,12 +5,32 @@
                 <!--<h4>Rush to grab sensational deals on exquisite outfits   </h4>-->
 
                 <div class="clearfix"></div>
-                <h4 style="">FOR USE LAKSYAH DESIGN HOUSE AND WWW.LAKSYAH.COM ONLY </h4>
-                <h3 style=""><a href="">How Do I Redeem My Card</a> </h3>
+                <h4 style="">For use Laksyah Design House and www.laksyah.com only</h4>
+                <h3 style=""><a href="#" data-toggle="modal" data-target="#redeemModal">How Do I Redeem My Card</a> </h3>
 
         </div>
 
 
+ <div class="modal fade" id="redeemModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                        1.Enter Your Giftcard Code.<br/>
+2.Click Submit to get the money credited to your wallet.
+
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-primary" data-dismiss="modal">Ok</button>
+
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                      
+</div>
 
         <div class="product_list">
                 <div class="row">
@@ -24,7 +44,7 @@
                                                 <a href="#"><img src="<?php echo Yii::app()->baseUrl ?>/uploads/gift/<?php echo $gift->id ?>.<?php echo $gift->image ?>"  ></a>
                                                 <div class="list_title">
                                                         <h3><?php echo $gift->name; ?></h3>
-                                                        <p><?php echo Yii::app()->Currency->convert($gift->amount); ?></p>
+                                                        <!--<p><?php echo Yii::app()->Currency->convert($gift->amount); ?></p>-->
                                                         <p>
                                                                 <?php if (isset(Yii::app()->session['user'])) { ?>
                                                                         <a href = "<?= Yii::app()->baseUrl; ?>/index.php/Giftcard/index?card_id=<?= $gift->id ?>" > <button  class="btn-primary btn-small">BUY NOW</button></a>

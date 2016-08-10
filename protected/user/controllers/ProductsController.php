@@ -10,7 +10,7 @@ class ProductsController extends Controller {
                 );
         }
 
-        public function actionCategory($name) {
+        public function actionCategory($name, $id = '') {
                 $parent = ProductCategory::model()->findByAttributes(array('canonical_name' => $name));
                 if (empty($parent)) {
                         $this->render('ProductNotfound');
@@ -163,7 +163,6 @@ class ProductsController extends Controller {
 
         public function ProductEnquiryMail($model) {
 
-                //$to = 'rejin@intersmart.in';
                 $to = $model->email;
 
                 $subject = 'Product Enquiry';
@@ -177,7 +176,7 @@ class ProductsController extends Controller {
 
                 // More headers
                 $headers .= 'From: <store@intersmarthosting.in>' . "\r\n";
-                //$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";                //  echo $message;
+                //$headers .= 'Cc: reply@intersmarthosting.in' . "\r\n";                //  echo $message;
                 //  exit();
                 mail($to, $subject, $message, $headers);
                 mail($to, $subject, $message1, $headers);
@@ -343,7 +342,7 @@ class ProductsController extends Controller {
                         $color = $_REQUEST['color'];
                         if ($option != "" && $color != "") {
 
-                                $sizes = OptionCategory::model()->findAll(['condition' => 'option_type_id=2']);
+                                $sizes = OptionCategory::model()->findAll(['condition' => 'option_type_id=2', 'order' => 'field1 asc']);
                                 if (!empty($sizes)) {
 
 

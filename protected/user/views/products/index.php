@@ -49,7 +49,8 @@
                                                         <div class="size_selector">
 
                                                                 <?php
-                                                                $sizes = OptionCategory::model()->findAllByAttributes(array('option_type_id' => 2));
+                                                                $sizes = OptionCategory::model()->findAllByAttributes(array('option_type_id' => 2), array('order' => 'field1 asc'));
+                                                                
                                                                 foreach ($sizes as $size) {
                                                                         ?>
                                                                         <label for="small" class="" id="<?= $size->id ?>"><?= $size->size; ?>
@@ -69,6 +70,14 @@
 
                 <!-- / Sidebar-->
                 <div class="col-sm-9">
+                        <?php
+                        $id = $_REQUEST['id'];
+                        if ($id == "1") {
+                                ?>
+                                <div class="giftcard"><img src="<?php echo yii::app()->baseUrl; ?>/uploads/banner/7.jpg" alt=""/></div>
+                                <?php
+                        }
+                        ?>
                         <div class="section_sort">
                                 <div class="row">
                                         <div class="col-sm-5 col-xs-6">

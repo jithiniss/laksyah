@@ -18,21 +18,8 @@
                                                         <input type="email" class="form-contact" id="email" name="email" placeholder="Enter your email" autocomplete="off" required="required">
                                                 </div>
                                         </div>
-                                        <div class="text-center form_button">
-
-                                                <input style="text-transform: uppercase;
-                                                       background-color: #f47721;
-                                                       border-radius: 0;margin-top: 10px;
-                                                       outline: none;
-                                                       border: none;
-                                                       height: 40px;
-                                                       color: white;
-                                                       line-height: 40px;
-                                                       padding: 0px 20px;
-                                                       transition: all 0.2s "
-                                                       type="submit" name="btn_submit" class="btn btn-default bowl3 text-center form_button">
-
-
+                                        <div class="btn-frht">
+                                                <input class="btn-primary" type="submit" name="yt0" value="Submit">                                
                                         </div>
                                 </form>
                         </div>

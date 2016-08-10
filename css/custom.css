@@ -444,3 +444,129 @@ span.required {
         font-size: 14px;
         line-height: 28px;
 }
+.remove_item {
+    font-size: 12px;
+    width: 16px;
+    height: 16px;
+    border: none !important;
+    color: #f58c50;
+    position: absolute;
+    top: 90px;
+    left: 108px;
+    line-height: 12px;
+    text-align: center;
+    cursor: pointer;
+}
+.header_special_row h4 i {
+    color: #bbbbc1;
+    }
+.gift_header {
+     margin-bottom: 0px;
+         padding: 36px 0px;
+}
+.gift_header h3 a {
+    font-size: 12px;
+    font-style: italic;
+    background-color: #ffffff;
+    }
+    .relatd_products .section_title h2 {
+    font-size: 15px;
+    font-weight: normal;
+    }
+    .old_price {
+    font-size: 18px;
+}
+.discounted {
+    font-size: 18px;
+}
+.nav-tabs>li>a {
+    margin-right: 37px;
+    }
+    .btn-primary {
+    font-size: 15px;
+}
+.standard_measurement td {
+         text-align: center !important;
+}
+.btn-cntr .btn-primary {
+    width: 36% !important;
+}   
+
+.btn-cntr {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+ 
+.radio_buttons label {
+    margin-top: 5px;
+    border-color: #fff;
+}
+.ons{
+ 
+            background-color: #f57b20 !important;
+
+}
+.ofs{
+ 
+            background-color: blue !important;
+
+}
+.radio_buttons .btn-dark {
+    background-color: #d5d5d7;
+}
+a.cart_close1 {
+    color: #000;
+}
+.btn-continue {
+     font-size: 10px;
+    text-decoration: none;
+    font-style: italic;
+}
+.fa-whatsapp{
+    color: green;
+}
+button.btn.btn-big.btn-primary.cartpg {
+    width: 100% !important;
+    margin-left: 0px !important;
+}
+.cart_buttons .btn-primary{
+width: 100% !important;
+    margin-left: 0px !important;
+}
+.relatd_products .section_title h2:after {
+    
+    background-color: #414042;
+font-weight:normal;
+    
+}
+tr.price_group {
+    background-color: #d5d5d7;
+}
+.radio_buttons label {
+    margin-top: 8px;
+}
+.container.centerd_page {
+    max-width: 800px;
+    margin: auto;
+    margin-top: 50px;
+    padding: 30px;
+    background-color: #fff;
+    border: solid 2px #414042;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.39);
+    -webkit-box-shadow: 0px 0px 4px rgba(0,0,0,0.39);
+    border-radius: 0;
+}
+.btn-frht{
+  display: inline-block;
+    text-align: center;
+    width: 100%;   
+    
+}
+.btn-frht .btn-primary {
+    width: 47% !important;
+}  
+
+.form_button.pull-right {
+     width: 180px !important;
+}

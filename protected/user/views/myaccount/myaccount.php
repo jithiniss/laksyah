@@ -76,15 +76,17 @@
                                                 </div>
                                         </a>
                                 </div>
-                                <!--                                <div class="col-sm-4 col-md-3 col-xs-4">
+                                                              <div class="col-sm-4 col-md-3 col-xs-4">
+<a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Makepayment">
                                                                         <div class="dash_item">
-                                                                                <img  src="<?php //echo Yii::app()->baseUrl;   ?> /images/dash_board_icon1.jpg" alt=""/>
+                                                                                <img  src="<?php echo Yii::app()->baseUrl;   ?> /images/dash_board_icon1.jpg" alt=""/>
                                                                                 <div class="dash_title">
-                                                                                        <a href="#"><i class="fa fa-credit-card"></i></a>
-                                                                                        <a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Makepayment">  <h3>Make a Payment</h3></a>
+                                                                                        <i class="fa fa-credit-card"></i>
+                                                                                          <h3>Make a Payment</h3>
                                                                                 </div>
                                                                         </div>
-                                                                </div>-->
+</a>
+                                                                </div>
                         </div>
 
 

@@ -38,7 +38,7 @@
                                         <?php if (isset(Yii::app()->session['enquiry_id']) && isset(Yii::app()->session['history_id'])) { ?>
                                                 <div class="row">
 
-                                                        <div class="col-md-2 col-sm-3"> <label><strong>Product Name</strong></label></div>
+                                                        <div class="col-md-2 col-sm-3"> <label><strong>Product Name*</strong></label></div>
                                                         <div class="col-sm-7 col-md-6"><?php echo $form->textField($model, 'product_name', array('size' => 60, 'maxlength' => 250, 'class' => 'form-control ', 'value' => $product_details->product_name, 'readonly' => true)); ?>
                                                                 <?php echo $form->error($model, 'product_name'); ?></div>
 
@@ -46,7 +46,7 @@
 
                                                 <div class="row">
                                                         <div class="col-md-2 col-sm-3">
-                                                                <label><strong>Product Code</strong></label>
+                                                                <label><strong>Product Code*</strong></label>
                                                         </div>
                                                         <div class="col-sm-7 col-md-6">
                                                                 <?php echo $form->textField($model, 'product_code', array('size' => 60, 'maxlength' => 250, 'class' => 'form-control', 'value' => $product_details->product_code, 'readonly' => true)); ?>
@@ -56,7 +56,7 @@
 
                                                 <div class="row">
 
-                                                        <div class="col-md-2 col-sm-3"> <label><strong>Product Name</strong></label></div>
+                                                        <div class="col-md-2 col-sm-3"> <label><strong>Product Name*</strong></label></div>
                                                         <div class="col-sm-7 col-md-6"><?php echo $form->textField($model, 'product_name', array('size' => 60, 'maxlength' => 250, 'class' => 'form-control ', 'value' => $product_details->product_name)); ?>
                                                                 <?php echo $form->error($model, 'product_name'); ?></div>
 
@@ -64,7 +64,7 @@
 
                                                 <div class="row">
                                                         <div class="col-md-2 col-sm-3">
-                                                                <label><strong>Product Code</strong></label>
+                                                                <label><strong>Product Code*</strong></label>
                                                         </div>
                                                         <div class="col-sm-7 col-md-6">
                                                                 <?php echo $form->textField($model, 'product_code', array('size' => 60, 'maxlength' => 250, 'class' => 'form-control', 'value' => $product_details->product_code)); ?>
@@ -72,29 +72,17 @@
                                                 </div>
                                         <?php } ?>
                                         <label><strong>Do you want our Standard fittings or Custom fittings?</strong></label>
-                                        <script>
-                                                $(document).ready(function() {
-                                                        $(".radio_group").click(function() {
-                                                                if ($(this).hasClass('active')) {
-                                                                        $(".btn-dark").removeClass("ons");
-                                                                        $(this).closest('.btn-dark').toggleClass("ons");
-                                                                }
-                                                        });
-                                                });
-                                        </script>
+
                                         <div class="price_group radio_buttons" id="fitting">
-                                                <a class="btn-dark ons">
-                                                        <label class="radio_group active" id="UserSizechart_type_0" >
-                                                                <?php echo $form->radioButton($model, 'type', array('value' => 1, 'uncheckValue' => null, 'checked' => true, 'hidden' => 'true', 'class' => 'chekbx stand')); ?>
-                                                        </label>
-                                                        <span class="radio_label pull-left">Standard Fittings </span>
-                                                </a>
-                                                <a class="btn-dark">
-                                                        <label class="radio_group" id="UserSizechart_type_1" >
-                                                                <?php echo $form->radioButton($model, 'type', array('value' => 2, 'uncheckValue' => null, 'hidden' => 'true', 'class' => 'chekbx cstum')); ?>
-                                                        </label>
-                                                        <span class="radio_label pull-left">Custom Fittings</span>
-                                                </a>
+                                                <?php // $model->type = 1; ?>
+                                                <label class="radio_group active" id="UserSizechart_type_0" >
+                                                        <?php echo $form->radioButton($model, 'type', array('value' => 1, 'uncheckValue' => null, 'checked' => true, 'hidden' => 'true', 'class' => 'chekbx stand')); ?>
+                                                </label>
+                                                <span class="radio_label pull-left">Standard Fittings </span>
+                                                <label class="radio_group" id="UserSizechart_type_1" >
+                                                        <?php echo $form->radioButton($model, 'type', array('value' => 2, 'uncheckValue' => null, 'hidden' => 'true', 'class' => 'chekbx cstum')); ?>
+                                                </label>
+                                                <span class="radio_label pull-left">Custom Fittings</span>
                                                 <div class="clearfix"></div>
                                         </div>
 
@@ -294,7 +282,7 @@
 
                                                                                 <tr>
                                                                                         <td class="col_slno">8</td>
-                                                                                        <td class="col_measure">Saree Blouse/Bodice Length:<br/>(Give Total Length from Shoulder)</td>
+                                                                                        <td class="col_measure">Saree Blouse/ Bodice Length:<br/>(Give Total Length from Shoulder)</td>
                                                                                         <td class="col_value"><?php echo $form->textField($model, 'shoulder_to_waist', array('class' => 'form-control centemeter', 'placeholder' => '.Inches')); ?>
                                                                                                 <?php echo $form->error($model, 'shoulder_to_waist'); ?></td>
                                                                                 </tr>
@@ -343,7 +331,7 @@
 
                                                                                 <tr>
                                                                                         <td class="col_slno">15</td>
-                                                                                        <td class="col_measure">Top/Kameez/Kurthi Length:<br/>(Give Total Length from Shoulder)</td>
+                                                                                        <td class="col_measure">Top/ Kameez/ Kurthi Length:<br/>(Give Total Length from Shoulder)</td>
                                                                                         <td class="col_value"><?php echo $form->textField($model, 'length_upper_garment', array('class' => 'form-control centemeter', 'placeholder' => '.Inches')); ?>
                                                                                                 <?php echo $form->error($model, 'length_upper_garment'); ?></td>
                                                                                 </tr>
@@ -358,7 +346,7 @@
 
                                                                                 <tr>
                                                                                         <td class="col_slno">17</td>
-                                                                                        <td class="col_measure">Around Lower Waist:<br/>(Skirt/Salwar/Pant Waist)</td>
+                                                                                        <td class="col_measure">Around Lower Waist:<br/>(Skirt/ Salwar/ Pant Waist)</td>
                                                                                         <td class="col_value"><?php echo $form->textField($model, 'around_lower_waist', array('class' => 'form-control centemeter', 'placeholder' => '.Inches')); ?>
                                                                                                 <?php echo $form->error($model, 'around_lower_waist'); ?></td>
                                                                                 </tr>
@@ -414,14 +402,14 @@
 
                                                                                 <tr>
                                                                                         <td class="col_slno">25</td>
-                                                                                        <td class="col_measure">Skirt/Salwar/Pant Length:<br/>(Give Total Length from Waist)</td>
+                                                                                        <td class="col_measure">Skirt/ Salwar/ Pant Length:<br/>(Give Total Length from Waist)</td>
                                                                                         <td class="col_value"> <?php echo $form->textField($model, 'skirt_length', array('class' => 'form-control centemeter', 'placeholder' => '.Inches')); ?>
                                                                                                 <?php echo $form->error($model, 'skirt_length'); ?></td>
                                                                                 </tr>
 
                                                                                 <tr>
-                                                                                        <td class="col_slno">25</td>
-                                                                                        <td class="col_measure">Dress/Gown Full Length:<br/>(Give Total Length from Shoulder)</td>
+                                                                                        <td class="col_slno">26</td>
+                                                                                        <td class="col_measure">Dress/ Gown Full Length:<br/>(Give Total Length from Shoulder)</td>
                                                                                         <td class="col_value">  <?php echo $form->textField($model, 'gown_full_length', array('class' => 'form-control centemeter', 'placeholder' => '.Inches')); ?>
                                                                                                 <?php echo $form->error($model, 'gown_full_length'); ?></td>
                                                                                 </tr>

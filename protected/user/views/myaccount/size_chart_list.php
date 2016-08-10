@@ -3,7 +3,7 @@
         <div class="row">
                 <?php echo $this->renderPartial('_menu'); ?>
                 <div class="col-sm-9 user_content">
-                        <h1>Measurement</h1>
+                        <h1>Measurements</h1>
                         <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-bordered measurement_table">
                                 <tr>
                                         <th>Date</th>

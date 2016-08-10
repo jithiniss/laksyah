@@ -97,19 +97,20 @@
                                 <div class="row">
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'default_billing_address'); ?>
-                                                <?php echo $form->checkBox($model, 'default_billing_address', array('class' => 'form-control')); ?>
+                                                <?php echo $form->checkBox($model, 'default_billing_address', array('class' => 'form-controlbtn')); ?>
                                                 <?php echo $form->error($model, 'default_billing_address'); ?>
                                         </div>
 
                                         <div class="col-sm-6">
                                                 <?php echo $form->labelEx($model, 'default_shipping_address'); ?>
-                                                <?php echo $form->checkBox($model, 'default_shipping_address', array('class' => 'form-control')); ?>
+                                                <?php echo $form->checkBox($model, 'default_shipping_address', array('class' => 'form-controlbtn')); ?>
                                                 <?php echo $form->error($model, 'default_shipping_address'); ?>
                                         </div>
                                 </div>
+<div class="btn-cntr">
                                 <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save', array('class' => 'btn-primary')); ?>
                         </div>
-
+</div>
                         <?php $this->endWidget(); ?>
 
                 </div><!-- form -->

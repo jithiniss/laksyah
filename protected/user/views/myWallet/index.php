@@ -4,7 +4,7 @@
                 <?php echo $this->renderPartial('//myaccount/_menu'); ?>
                 <!-- / Sidebar-->
                 <div class="col-sm-9 user_content">  <?php echo CHtml::link(' <span class="account_link pull-right">Credit History</span>', array('MyWallet/CreditHistory')); ?>
-                        <h1>Add Credit Money</h1>
+                        <h1>Add Your Gift Card</h1>
                         <!--<div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 Success </div>-->
@@ -67,7 +67,7 @@
 
                                 <div class="row">
                                         <div class="col-sm-3">
-                                                <label>Gift Card Number *</label>
+                                                <label>Gift Card Code<font color="red"> *</font></label>
                                         </div>
                                         <div class="col-md-6 col-sm-8">
                                                 <div class="row margin-normal">
@@ -84,14 +84,14 @@
                                 </div>
                                 <div class="row">
                                         <div class="col-sm-3">
-                                                <label>Amount*</label>
+                                                <label>Amount<font color="red"> *</font></label>
                                         </div>
                                         <div class="col-md-6 col-sm-8">
                                                 <div class="row margin-normal">
 
-                                                        <div class="col-xs-2 col-sm-3"><input type="text" class="form-control text-center" readonly placeholder="" value="Rs."></div>
+                                                        <div class="col-xs-2 col-sm-3"><input type="text" class="form-control text-center" readonly placeholder="" value="INR"></div>
                                                         <div class="col-xs-10 col-sm-9">
-                                                                <?php echo $form->textField($wallet_add, 'amount', array('size' => 60, 'maxlength' => 100, 'placeholder' => "0.00", 'class' => 'form-control gift_amount', 'id' => 'gift_amount', 'required' => true)); ?>
+                                                                <?php echo $form->textField($wallet_add, 'amount', array('size' => 60, 'maxlength' => 100, 'placeholder' => "₹ 0.00", 'class' => 'form-control gift_amount', 'id' => 'gift_amount', 'required' => true)); ?>
 
                                                                 <?php echo $form->error($wallet_add, 'amount', array('style' => 'padding-left:0px;')); ?>
                                                         </div>
@@ -99,7 +99,7 @@
 
                                         </div>
                                 </div>
-                                <div class="row">
+                              <!--  <div class="row">
                                         <div class="col-sm-3">
                                                 <label>Message</label>
                                         </div>
@@ -110,7 +110,7 @@
 
                                         </div>
                                 </div>
-                                <!--     <div class="row">
+                                     <div class="row">
                                        <div class="col-sm-3">
                                                <label>Payment Method*</label>
                                        </div>

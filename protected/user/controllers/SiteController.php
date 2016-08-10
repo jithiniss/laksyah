@@ -25,6 +25,7 @@ class SiteController extends Controller {
          * when an action is not explicitly requested by users.
          */
         public function actionIndex() {
+                $this->layout = "//layouts/main1";
                 $model = Testimonial::model()->findAllByAttributes(array('status' => 1));
                 $blog = Blog::model()->findAllByAttributes(array('status' => 1));
                 $slider = Slider::model()->findAllByAttributes(array('status' => 1));
@@ -198,7 +199,7 @@ class SiteController extends Controller {
                                                 $this->siteNavigator($modell);
                                         }
                                 } else {
-                                        Yii::app()->user->setFlash('login_list', "Username or password invalid");
+                                        Yii::app()->user->setFlash('login_list', "Invalid username or password");
                                 }
                         }
 
@@ -404,9 +405,9 @@ class SiteController extends Controller {
                                 }
                         } else {
                                 if ($model->first_name != '' || $model->email != '') {
-                                        Yii::app()->user->setFlash('newslettererror', "Please Fill the Feilds in correct format");
+                                        Yii::app()->user->setFlash('newslettererror', "Please Fill the Fields in correct format");
                                 } else {
-                                        Yii::app()->user->setFlash('newslettererror1', "Please Fill the  Feilds");
+                                        Yii::app()->user->setFlash('newslettererror1', "Please Fill the  Fields");
                                 }
                         }
                         $this->redirect('Index');

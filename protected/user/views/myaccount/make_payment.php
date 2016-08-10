@@ -26,7 +26,8 @@
                         <?php endif; ?>
                         <div class="registration_form">
                                 <?php
-                                if ($p != '') {
+                                if ($_GET['p'] != '') {
+                                        $p = $_GET['p'];
                                         $form = $this->beginWidget('CActiveForm', array(
                                             'id' => 'make-payment-form',
                                             'action' => Yii::app()->baseUrl . '/index.php/Myaccount/Makepayment?p=' . $p,
@@ -51,7 +52,7 @@
                                 <?php if (!empty($enquiry_product)) { ?>
                                         <div class="row">
                                                 <div class="col-sm-3">
-                                                        <label>Product Name*</label>
+                                                        <label>Product Name<font color="red">*</font></label>
                                                 </div>
                                                 <div class="col-sm-8 col-md-6">
                                                         <?php echo $form->textField($model, 'product_name', array('value' => $enquiry_product->product_name, 'class' => 'form-control', 'readonly' => 'on')); ?>
@@ -60,7 +61,7 @@
                                         </div>
                                         <div class="row">
                                                 <div class="col-sm-3">
-                                                        <label>Product Code*</label>
+                                                        <label>Product Code<font color="red">*</font></label>
                                                 </div>
                                                 <div class="col-sm-8 col-md-6">
                                                         <?php echo $form->textField($model, 'product_code', array('value' => $enquiry_product->product_code, 'class' => 'form-control', 'readonly' => 'on')); ?>
@@ -91,7 +92,7 @@
                                 <?php } ?>
                                 <div class="row">
                                         <div class="col-sm-3">
-                                                <label>Description</label>
+                                                <label>Description<font color="red">*</font></label>
                                         </div>
                                         <div class="col-sm-8 col-md-6">
                                                 <?php echo $form->textArea($model, 'message', array('size' => 200, 'class' => 'form-control')); ?>
@@ -100,23 +101,25 @@
                                 </div>
                                 <div class="row">
                                         <div class="col-sm-3">
-                                                <label>Amount*</label>
+                                                <label>Amount<font color="red">*</font></label>
                                         </div>
                                         <div class="col-md-6 col-sm-8">
                                                 <div class="row margin-normal">
-                                                        <div class="col-xs-5">
-                                                                <?php echo $form->dropDownList($model, 'amount_type', CHtml::listData(MasterPaymentType::model()->findAll(array('condition' => 'status=1', 'order' => 'sorting asc')), 'id', 'type'), array('empty' => 'Select Type', 'class' => 'form-control')); ?>
-                                                                <?php echo $form->error($model, 'amount_type', array('style' => 'color:red')); ?>
+                                                        <?php if (!isset($_GET['p'])) { ?>
+                                                                <div class="col-xs-5">
+                                                                        <?php echo $form->dropDownList($model, 'amount_type', CHtml::listData(MasterPaymentType::model()->findAll(array('condition' => 'status=1', 'order' => 'sorting asc')), 'id', 'type'), array('empty' => 'Select Type', 'class' => 'form-control')); ?>
+                                                                        <?php echo $form->error($model, 'amount_type', array('style' => 'color:red')); ?>
 
-                                                        </div>
+                                                                </div>
+                                                        <?php } ?>
                                                         <div class="col-xs-2"><input type="text" class="form-control text-center" readonly placeholder="" value="<?php echo $cur_symbol; ?>"></div>
                                                         <div class="col-xs-5">
                                                                 <?php if (!empty($celeb_history)) { ?>
 
                                                                         <input type="hidden"  id="MakePayment_amount1"  value='<?php echo Yii::app()->Currency->convert($celeb_history->pay_amount); ?>'/>
-                                                                        <input type="text"  id="MakePayment_amount" readonly autocomplete="off" value="<?php echo $celeb_history->pay_amount; ?>" class="form-control"/>
+                                                                        <input class="form-control" readonly="" name="MakePayment[total_amount]" id="MakePayment_total_amount" type="text" maxlength="25"  autocomplete="off" value="<?php echo $celeb_history->pay_amount; ?>">
                                                                 <?php } else { ?>
-                                                                        <?php echo $form->textField($model, 'total_amount', array('class' => 'form-control')); ?>
+                                                                        <?php echo $form->textField($model, 'total_amount', array('class' => 'form-control', 'placeholder' => "₹ 0.00")); ?>
                                                                         <?php echo $form->error($model, 'total_amount', array('style' => 'color:red')); ?>
                                                                 <?php } ?>
                                                         </div>
@@ -140,6 +143,7 @@
 
                                         </div>
                                 </div>
+ <?php if (Yii::app()->session['user']['wallet_amt'] != 0) { ?>
                                 <div class="row">
                                         <div class="col-sm-3">
                                                 <label>Amount from My Credit</label>
@@ -156,6 +160,7 @@
 
                                         </div>
                                 </div>
+<?php } ?>
                                 <div class="row">
                                         <div class="col-sm-3">
 
@@ -173,7 +178,7 @@
 
                                 <div class="row"id="payment_modes">
                                         <div class="col-sm-3">
-                                                <label>Payment Method*</label>
+                                                <label>Payment Method<font color="red">*</font></label>
                                         </div>
                                         <div class="col-sm-6">
                                                 <div class="price_group1 payment_method">

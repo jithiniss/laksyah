@@ -26,7 +26,7 @@
                                         </div>
 
                                         <div class="contact_us_details">
-                                                <h4><i class="fa fa-whatsapp"></i> +91 914 220 2222 &nbsp;&nbsp; <i class="fa fa-whatsapp"></i> +91 9656 30 3333</h4>
+                                                <h4><i class="fa fa-phone"></i> +91 914 220 2222 &nbsp;&nbsp; <i class="fa fa-whatsapp"></i> +91 9656 30 3333</h4>
                                         </div>
                                         <h3>ENQUIRIES</h3>
                                         <div class="row margin-bottom">
@@ -39,12 +39,13 @@
                                                 <div class="col-sm-4"><strong>Careers:</strong><br>careers@laksyah.com</div>
                                                 <div class="col-sm-4"><strong>All&nbsp;other&nbsp;enquiries:</strong><br>info@laksyah.com</div>
                                         </div>
-                                        <h3>WORKING HOURS:</h3>
-                                        <p>Mon to Sat 09:30am to 6:30pm IST (Indian Standard Time)</p>
+                                        
                                         <h3>VISIT US:</h3>
                                         <p>The Design House,<br/>
                                                 C-3, GCDA House, Mavelipuram,<br/>
-                                                Kakkanad, kochi</p>
+                                                Kakkanad, Kochi,<br/>Kerala, INDIA</p>
+                                        <h3>WORKING HOURS:</h3>
+                                        <p>Mon to Sat 09:30am to 6:30pm IST (Indian Standard Time)</p>
                         </article>
                 </div>
         </div>

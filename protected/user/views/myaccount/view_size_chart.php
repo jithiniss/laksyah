@@ -7,8 +7,8 @@
 
                 <!-- / Sidebar-->
                 <div class="col-sm-9 user_content">
-                        <?php echo CHtml::link('View Measurements', array('myaccount/SizeChartList'), array('class' => 'account_link pull-right')); ?>
-                        <h1>Add New Measurement</h1>
+                        <?php echo CHtml::link('View Old Measurements', array('myaccount/SizeChartList'), array('class' => 'account_link pull-right')); ?>
+                        <h1>View Measurement</h1>
                         <?php if (Yii::app()->user->hasFlash('meas_success')): ?>
                                 <div class="alert alert-success mesage">
                                         <a href="#" class="close" data-dismiss="alert">&times;</a>
@@ -35,14 +35,14 @@
                                 <div class="registration_form two_col_form">
                                         <div class="row">
 
-                                                <div class="col-md-2 col-sm-3"> <label><strong>Product Name*</strong></label></div>
+                                                <div class="col-md-2 col-sm-3"> <label><strong>Product Name</strong></label></div>
                                                 <div class="col-sm-7 col-md-6"><?php echo $form->textField($model, 'product_name', array('size' => 60, 'maxlength' => 250, 'class' => 'form-control ')); ?>
                                                         <?php echo $form->error($model, 'product_name'); ?></div>
 
                                         </div>
                                         <div class="row">
                                                 <div class="col-md-2 col-sm-3">
-                                                        <label><strong>Product Code*</strong></label>
+                                                        <label><strong>Product Code</strong></label>
                                                 </div>
                                                 <div class="col-sm-7 col-md-6">
                                                         <?php echo $form->textField($model, 'product_code', array('size' => 60, 'maxlength' => 250, 'class' => 'form-control')); ?>
@@ -58,13 +58,21 @@
                                                         <label> </label>
 
                                                         <div class="price_group radio_buttons">
-                                                                <?php $model->unit = 2; ?>
+                                                                <?php
+                                                                if ($model->unit == 1) {
+                                                                        $act = 'active';
+                                                                        $act1 = '';
+                                                                } else {
+                                                                        $act1 = 'active';
+                                                                        $act = "";
+                                                                }
+                                                                ?>
                                                                 <p class="pull-left padd-right-25">Measurement Unit :</p>
-                                                                <label class="radio_group ">
+                                                                <label class="radio_group <?= $act; ?>">
                                                                         <?php echo $form->radioButton($model, 'unit', array('value' => 1, 'uncheckValue' => null, 'hidden' => 'true')); ?>
                                                                 </label>
                                                                 <span class="radio_label pull-left"><strong>Inches</strong></span>
-                                                                <label class="radio_group active">
+                                                                <label class="radio_group <?= $act1; ?>">
                                                                         <?php echo $form->radioButton($model, 'unit', array('value' => 2, 'uncheckValue' => null, 'hidden' => 'true')); ?>
                                                                 </label>
                                                                 <span class="radio_label pull-left"> <strong>Centimeters</strong></span>
@@ -284,10 +292,10 @@
 </div>
 
 <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
 //                $('#custm').hide();
-                $('.chekbx').click(function () {
+                $('.chekbx').click(function() {
                         var std_value = $(".chekbx:checked").val();
                         var code2 = 2;
                         var code1 = 1;

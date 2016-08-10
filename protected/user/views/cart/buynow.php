@@ -33,7 +33,7 @@
                                                                 <?php if (Yii::app()->user->hasFlash('passworderror1')): ?>
                                                                         <div class="alert alert-danger mesage">
                                                                                 <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                                                                <strong>sorry!</strong><?php echo Yii::app()->user->getFlash('passworderror1'); ?>
+                                                                                <strong>Sorry! </strong><?php echo Yii::app()->user->getFlash('passworderror1'); ?>
                                                                         </div>
                                                                 <?php endif; ?>
 
@@ -58,7 +58,7 @@
 
                                                                 </div>
                                                                 <div class="form-group">
-                                                                        <?php echo $login->labelEx($loginform, '[log]password', array('class' => '')); ?>
+                                                                        <?php echo $login->labelEx($loginform, '[log]password<font color="red">*</font>', array('class' => '')); ?>
                                                                         <?php echo $login->passwordField($loginform, '[log]password', array('size' => 60, 'maxlength' => 100, 'class' => 'form-control')); ?>
                                                                         <?php echo $login->error($loginform, '[log]password'); ?>
 
@@ -66,12 +66,20 @@
 
 
 
-                                                                <ul class="list-inline list-unstyled">
+
+<p><a  href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/forgotPassword/" class="forgot">Forgot Password?</a>
+                                                                <a style="float:right;" href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/new-user" class="forgot">Register Now</a></p>
+                                                        <input type="submit"  class ="btn-primary btn-full" value="SIGN IN" />
+
+
+
+
+                                                               <!-- <ul class="list-inline list-unstyled">
                                                                         <li ><a style="text-decoration:underline;" href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/forgotPassword/">Forgot Password ?</a></li>
                                                                         <li><a style="text-decoration:underline;" href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/new-user">New User ?</a></li>
                                                                         <li>
                                                                                 <?php echo CHtml::submitButton($loginform->isNewRecord ? 'SIGN IN' : 'SIGN IN', array('class' => 'btn-primary btn-full')); ?>
-                                                                        </li>
+                                                                        </li>-->
 
 
                                                                         <?php $this->endWidget(); ?>
@@ -80,12 +88,12 @@
                                                 </div>
                                                 <div role="tabpanel" class="tab-pane login_popup" id="register">
                                                         <h2>REGISTRATION</h2>
-                                                        <h4>Please fill out your profile information</h4>
+                                                        <h4>PLEASE ENTER YOUR PERSONAL DETAILS</h4>
                                                         <div class="col-xs-12 forward">
                                                                 <?php if (Yii::app()->user->hasFlash('feilderror1')): ?>
                                                                         <div class="alert alert-danger mesage">
                                                                                 <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                                                                <strong>sorry!</strong><?php echo Yii::app()->user->getFlash('feilderror1'); ?>
+                                                                                <strong>Sorry! </strong><?php echo Yii::app()->user->getFlash('feilderror1'); ?>
                                                                         </div>
                                                                 <?php endif; ?>
                                                                 <div class="row">
@@ -102,6 +110,11 @@
                                                                             'enableAjaxValidation' => false,
                                                                         ));
                                                                         ?>
+
+                                                                         <?php echo $reg->labelEx($regform, '[reg]title', array('class' => '')); ?>
+                                                                        <?php echo $reg->dropDownList($regform, '[reg]title', array('Ms' => "Ms", 'Mrs' => "Mrs", 'Mr' => "Mr"), array('class' => 'form-control')); ?>
+                                                                        <?php echo $reg->error($regform, '[reg]title'); ?>
+
 
                                                                         <?php echo $reg->labelEx($regform, '[reg]first_name', array('class' => '')); ?>
                                                                         <?php echo $reg->textField($regform, '[reg]first_name', array('class' => 'form-control')); ?>
@@ -138,9 +151,10 @@
                                                                         <?php echo $reg->error($regform, 'Date of Birth'); ?>
 
 
-                                                                        <?php echo $reg->labelEx($regform, '[reg]gender', array('class' => '')); ?>
-                                                                        <?php echo $reg->dropDownList($regform, '[reg]gender', array('male' => "male", 'female' => "fe-male"), array('class' => 'form-control')); ?>
-                                                                        <?php echo $reg->error($regform, '[reg]gender'); ?>
+                                                                        <?php echo $reg->labelEx($regform, '[reg]country', array('class' => '')); ?>
+                                                                        <?php echo $reg->dropDownList($regform, '[reg]country', CHtml::listData(Countries::model()->findAll(), 'id', 'country_name'), array('empty' => '--Select--', 'class' => 'form-control ')); ?>
+                                                                        <?php echo $reg->error($regform, '[reg]country'); ?>
+
 
 
                                                                         <?php echo $reg->labelEx($regform, '[reg]email', array('class' => '')); ?>
@@ -157,9 +171,7 @@
                                                                         <?php echo $reg->error($regform, '[reg]phone_no_2'); ?>
 
 
-                                                                        <?php echo $reg->labelEx($regform, '[reg]fax', array('class' => '')); ?>
-                                                                        <?php echo $reg->textField($regform, '[reg]fax', array('size' => 60, 'maxlength' => 100, 'placeholder' => 'Fax', 'class' => 'form-control')); ?>
-                                                                        <?php echo $reg->error($regform, '[reg]fax'); ?>
+                                                                        
 
 
                                                                         <?php echo $reg->labelEx($regform, '[reg]password', array('class' => '')); ?>
@@ -315,7 +327,7 @@
                                                         <?php echo $form->error($gift_user, 'message'); ?>
                                                 </div>
                                                 <div class="form-group">
-                                                        <p>Maximum characters <b><span id="stringLengrth" style="color:red;">100</span> </b></p>
+                                                        <p>Maximum characters <span id="stringLengrth">100</span> </b></p>
                                                 </div>
                                                 <div class="modal-footer">
                                                         <?php echo CHtml::submitButton($gift_user->isNewRecord ? 'Submit' : 'Save', array('class' => 'btn btn-primary')); ?>
@@ -550,12 +562,13 @@
                                 </div>
                                 <!-- / Order Amount-->
                                 <div class="cart_buttons">
-                                        <a class="btn-continue" href="<?= Yii::app()->baseUrl; ?>/products/category?name=women">CONTINUE SHOPPING</a>
+                                        
                                         <?php if (isset(Yii::app()->session['user']['id'])) { ?>
                                                 <a href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/cart/Proceed/<?php echo $prod->id; ?>"><button type="button" class="btn btn-big btn-primary cartpg">CHECKOUT&nbsp;<i class="fa fa-angle-right "></i> </button></a>
                                         <?php } else { ?>
                                                 <a class="btn btn-big btn-primary" data-toggle="modal" data-target="#logreg">CHECKOUT&nbsp;<i class="fa fa-angle-right "></i> </a>
-                                        <?php } ?>
+                                        <?php } ?><br/>
+<a class="btn-continue" href="<?= Yii::app()->baseUrl; ?>/products/category?name=women">CONTINUE SHOPPING</a>
                                 </div>
 
                         </div>

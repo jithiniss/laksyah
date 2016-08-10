@@ -148,7 +148,7 @@
                                                 Delivery Address
                                         </div>
                                         <div class="box_content">
-                                                <span class="pull-right"><input type="checkbox" checked="" name="billing_same" value="1" class="bill_same"><label>Same as Billing Address</label></span>
+                                                <span class=""><input type="checkbox" checked="" name="billing_same" value="1" class="bill_same"><label>&nbsp;Same as Billing Address</label><br/><br/></span>
                                                 <div class="ship_form">
                                                         <div class="form_row">
                                                                 <label>Select a shipping address from your address book or enter a new address.</label>
@@ -238,26 +238,32 @@
                                                                 </div>
                                                         </div>
                                                 </div>
-                                                <h3>Shipping Method</h3>
-                                                <div class="row">
-                                                        <div class="col-xs-12 ">
-                                                                <?php if (Yii::app()->user->hasFlash('shipp_availability')): ?>
-                                                                        <div class="alert alert-danger fade in">
-                                                                                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
-                                                                                <?php echo Yii::app()->user->getFlash('shipp_availability'); ?>
-                                                                        </div>
 
-                                                                <?php endif; ?>
-
-                                                                <div id="shipping_method" class="shipping_method">
-
-                                                                </div>
-                                                        </div>
-                                                </div>
 
                                         </div>
                                 </div>
+                                <div class="border_box">
+                                        <div class="box_title">
+                                                Shipping Method
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-xs-12 ">
+                                                        <?php if (Yii::app()->user->hasFlash('shipp_availability')): ?>
+                                                                <div class="alert alert-danger fade in">
+                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
+                                                                        <?php echo Yii::app()->user->getFlash('shipp_availability'); ?>
+                                                                </div>
+
+                                                        <?php endif; ?>
+
+                                                        <div id="shipping_method" class="shipping_method">
+
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
                         </div>
+
                         <!--                        <div class="container">
                                                         <div class="row">
                                                                 <div class="col-xs-12 col-sm-6">

@@ -219,8 +219,9 @@ class MyWalletController extends Controller {
         }
 
         public function actionCreditHistory() {
-                $history = WalletHistory::model()->findAllByAttributes(['user_id' => Yii::app()->session['user']['id']], ['order' => 'entry_date desc']);
-                $this->render('wallet_history', array('history' => $history));
+                $history = WalletHistory::model()->findAllByAttributes(array('user_id' => Yii::app()->session['user']['id'], 'credit_debit' => '1'), ['order' => 'entry_date desc']);
+
+                $this->render('credit_history', array('history' => $history));
         }
 
         public function actionGetAmount() {

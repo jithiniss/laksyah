@@ -5,7 +5,7 @@
                 <!-- / Sidebar-->
                 <div class="col-sm-9 user_content">
                         <?php echo CHtml::link(' <span class="account_link pull-right">Redeem Your Gift Card</span>', array('MyWallet/index')); ?>
-                        <h1>My Credit <span><?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></span></h1>
+                        <h1>My Credit &nbsp;<?php echo Yii::app()->Currency->convert(Yii::app()->session['user']['wallet_amt']); ?></h1>
                         <!--<div class="alert alert-success alert-dismissible" role="alert">
                                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                 Success </div>-->
@@ -13,9 +13,9 @@
                                 <?php if (!empty($history)) { ?>
                                         <div class="row header_row">
                                                 <div class="col-xs-4">Description</div>
-                                                <div class="col-xs-3">WITHDRAWAL</div>
-                                                <div class="col-xs-3">DEPOSIT</div>
-                                                <div class="col-xs-2">Status</div>
+                                                <!--<div class="col-xs-3">WITHDRAWAL</div>-->
+                                                <div class="col-xs-4">DEPOSIT</div>
+                                                <div class="col-xs-4">Status</div>
 
                                         </div>
                                         <?php foreach ($history as $credit_history) { ?>
@@ -44,18 +44,18 @@
                                                                         ?>
                                                                 </p>
                                                         </div>
-                                                        <div class="col-xs-3 hidden-mobile">
+                                                       <!-- <div class="col-xs-3 hidden-mobile">
                                                                 <?php if ($credit_history->credit_debit == 2) { ?>
 
                                                                         <p><?php echo Yii::app()->Currency->convert($credit_history->amount); ?></p>
                                                                 <?php } ?>
-                                                        </div>
-                                                        <div class="col-xs-3 hidden-mobile">
+                                                        </div>-->
+                                                        <div class="col-xs-4 hidden-mobile">
                                                                 <?php if ($credit_history->credit_debit == 1) { ?>
                                                                         <?php echo Yii::app()->Currency->convert($credit_history->amount); ?>
                                                                 <?php } ?>
                                                         </div>
-                                                        <div class="col-xs-2 hidden-mobile">
+                                                        <div class="col-xs-4 hidden-mobile">
                                                                 <?php if ($credit_history->field2 == 1) { ?>
                                                                         <span class="label label-success" style="font-size: 90%;">Success</span>
                                                                 <?php } else if ($credit_history->field2 == 0) {

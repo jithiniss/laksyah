@@ -4,6 +4,7 @@
                 <?php echo $this->renderPartial('_menu'); ?>
                 <div class="col-sm-9 user_content">
                         <h1>My Wishlists</h1>
+						 <?php if (!empty($wishlists)) { ?>
                         <div class="cart_table">
                                 <div class="header_row cart_row">
                                         <div class="col-11">PRODUCT</div>
@@ -40,11 +41,14 @@
                                 <!-- / Cart Item-->
 
                         </div>
-                        <?php if (!empty($wishlists)) { ?>
-                                <!--                    <div class="form_button">
-                                                        <button class="btn btn-primary">ADD ALL TO CART</button>
-                                                    </div>-->
-                        <?php } ?>
+                        
+                        <?php } 
+						else
+						{?>
+					<div>No Products Found.</div>
+					<?php
+						}
+						?>
                 </div>
         </div>
 </div>

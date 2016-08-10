@@ -72,6 +72,9 @@
                                                         <?php echo $form2->textArea($gift_user, 'message', array('rows' => 6, 'cols' => 50, 'class' => 'form-control')); ?>
                                                         <?php echo $form2->error($gift_user, 'message'); ?>
                                                 </div>
+<div class="form-group">
+                                                        <p>Maximum characters <span id="stringLengrth">100</span> </b></p>
+                                                </div>
                                                 <div class="modal-footer">
                                                         <?php echo CHtml::submitButton($gift_user->isNewRecord ? 'Submit' : 'Save', array('class' => 'btn btn-primary', 'name' => 'gift_form')); ?>
                                                 </div>
@@ -311,7 +314,7 @@
                                                 Delivery Address
                                         </div>
                                         <div class="box_content">
-                                                <span class="pull-right"><input type="checkbox" checked="" name="billing_same" value="1" class="bill_same"><label>Same as Billing Address</label></span>
+                                                <span class=""><input type="checkbox" checked="" name="billing_same" value="1" class="bill_same"><label>&nbsp;Same as Billing Address</label><br/><br/></span>
                                                 <div class="ship_form">
                                                         <div class="form_row">
                                                                 <label>Select a billing address from your address book or enter a new address.</label>
@@ -411,25 +414,33 @@
                                                                 </div>
                                                         </div>
                                                 </div>
-                                                <h3>Shipping Method</h3>
-                                                <div class="row">
-                                                        <div class="col-xs-12 ">
-                                                                <?php if (Yii::app()->user->hasFlash('shipp_availability')): ?>
-                                                                        <div class="alert alert-danger fade in">
-                                                                                <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
-                                                                                <?php echo Yii::app()->user->getFlash('shipp_availability'); ?>
-                                                                        </div>
 
-                                                                <?php endif; ?>
-
-                                                                <div id="shipping_method" class="shipping_method">
-
-                                                                </div>
-                                                        </div>
-                                                </div>
 
                                         </div>
                                 </div>
+                                <div class="border_box" id="shipping_address">
+
+                                        <div class="box_title">
+                                                Shipping Method
+                                        </div>
+
+                                        <div class="row">
+                                                <div class="col-xs-12 ">
+                                                        <?php if (Yii::app()->user->hasFlash('shipp_availability')): ?>
+                                                                <div class="alert alert-danger fade in">
+                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">x</a>
+                                                                        <?php echo Yii::app()->user->getFlash('shipp_availability'); ?>
+                                                                </div>
+
+                                                        <?php endif; ?>
+
+                                                        <div id="shipping_method" class="shipping_method">
+
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
                         </div>
                         <!--                        <div class="container">
                                                         <div class="row">
@@ -955,3 +966,17 @@
                         $('.over-lay').hide();
                 }
         </script>
+<script>
+        $(document).ready(function() {
+                $("#UserGifts_message").keyup(function() {
+                        var StrLengths = $("#UserGifts_message").val().length;
+                        var myLength = 100 - StrLengths;
+                        var totallength = 100;
+                        document.getElementById("stringLengrth").innerHTML = myLength;
+                        if (myLength <= 0) {
+                                document.getElementById("stringLengrth").innerHTML = "Sorry.....Maximum message length is 100!!!";
+                        }
+
+                });
+        });
+</script>

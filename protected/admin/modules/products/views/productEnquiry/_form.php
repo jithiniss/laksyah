@@ -156,7 +156,7 @@
 </div><!-- form -->
 
 <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
                 var val = $('.enq_status').val();
 
                 if (val == 3) {
@@ -165,7 +165,7 @@
                 } else {
                         $(".amount").hide();
                 }
-                $('.enq_status').on('change', function () {
+                $('.enq_status').on('change', function() {
 
                         var value = $('.enq_status').val();
 

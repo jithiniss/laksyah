@@ -267,7 +267,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                                                 <!-- / End Top Left-->
                                                 <div class="col-sm-7 text-right col-md-6 mobile-inline">
                                                         <ul>
-                                                               <!-- <li class="hidden-mobile"> <?php echo CHtml::link('<i class="fa fa-envelope"></i><span class="hidden-xs">LEAVE A </span>MESSAGE', array('site/ContactUs')); ?></li>-->
+                                                                <li class="hidden-mobile"> <?php echo CHtml::link('<i class="fa fa-envelope"></i><span class="hidden-xs">LEAVE A </span>MESSAGE', array('site/ContactUs')); ?></li>
                                                                 <li class="hidden-mobile"><?php echo CHtml::link('<i class="fa fa-mobile-phone"></i>MOBILE APP', array('site/Mobileapp')); ?></li>
 
                                                                 <li class="has_dropdown"><a href="#" class="active_currency">

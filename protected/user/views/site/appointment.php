@@ -85,7 +85,7 @@
                         </div>
                     </div>
 
-                    <div class="text-center form_button">
+                   <div class="btn-cntr">
                         <?php echo CHtml::submitButton('Submit', array('class' => 'btn-primary')); ?>
                     </div>
 

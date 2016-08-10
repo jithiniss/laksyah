@@ -2,13 +2,13 @@
 
         <div class="row header_special_row">
                 <div class="col-sm-4 col-xs-4">
-                        <h4><a href="#"><i class="fa fa-globe"></i> <span>We Ship Worldwide</span></a></h4>
+                        <h4><a><i class="fa fa-globe"></i> <span>We Ship Worldwide</span></a></h4>
                 </div>
                 <div class="col-sm-4 col-xs-4">
                         <h4><a href="#" data-toggle="modal" data-target="#subscribeModal"><i class="fa fa-envelope"></i> <span>Sign up for our newsletter</span></a></h4>
                 </div>
                 <div class="col-sm-4 col-xs-4">
-                        <h4><a href="#"><i class="fa fa-truck"></i> <span>Free Shipping In India</span></a></h4>
+                        <h4><a><i class="fa fa-truck"></i> <span>Free Shipping In India</span></a></h4>
                 </div>
         </div>
         <!--/ End Shipping Area -->
@@ -108,7 +108,7 @@
                                 <div class="section_title gift_title">
                                         <h2><?= $gifts->heading ?></h2>
                                         <h4><?= $gifts->description ?></h4>
-                                        <?php echo CHtml::link($gifts->link, array('products/category', 'name' => 'women'), array('class' => 'btn-dark')); ?></div>
+                                        <?php echo CHtml::link($gifts->link, array('products/category', 'name' => 'women','id' =>'1'), array('class' => 'btn-dark')); ?></div>
                         </div>
                 </div>
         </div>

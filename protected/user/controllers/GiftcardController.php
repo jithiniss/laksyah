@@ -102,18 +102,18 @@ class GiftcardController extends Controller {
                                 if ($shipp_address->country == 99) {
                                         $postcode_exist = DtdcPostcode::model()->findByAttributes(array('postcode' => $shipp_address->postcode));
                                         if (empty($postcode_exist)) {
-                                                Yii::app()->user->setFlash('shipp_availability', "Thre is no Shipping Option Available in your current shipping Address. Please choose some other post code");
+                                                Yii::app()->user->setFlash('shipp_availability', "There is no Shipping Option Available in your current shipping Address. Please choose some other post code");
                                                 $this->redirect(array('CheckOut/CheckOut'));
                                         }
                                         //$this->renderPartial('_shipping_indian', array('shipping_charge' => $total_shipping_rate));
                                 } else {
                                         if (empty($shipping_rate)) {
-                                                Yii::app()->user->setFlash('shipp_availability', "Thre is no Shipping Option Available in your current shipping Address");
+                                                Yii::app()->user->setFlash('shipp_availability', "There is no Shipping Option Available in your current shipping Address");
                                                 $this->redirect(array('CheckOut/CheckOut'));
                                         }
                                 }
 //                                        if (empty($shipp_available)) {
-//                                                Yii::app()->user->setFlash('shipp_availability', "Thre is no Shipping Option Available in your current shipping Address");
+//                                                Yii::app()->user->setFlash('shipp_availability', "There is no Shipping Option Available in your current shipping Address");
 //                                                $this->redirect(array('CheckOut/CheckOut'));
 //                                        }
                                 if ($_POST['wallet_amount'] != '') {
@@ -288,7 +288,7 @@ class GiftcardController extends Controller {
 
                                                                 if ($order->netbanking != '') {
                                                                         $hdfc_details = array();
-                                                                        $hdfc_details['description'] = 'Laksyah Products';
+                                                                        $hdfc_details['description'] = 'Laksyah Giftcard';
                                                                         $hdfc_details['order'] = $order->id;
                                                                         $hdfc_details['totaltopay'] = $order->netbanking;
                                                                         $hdfc_details['bill_name'] = $order_billing_details->first_name . ' ' . $order_billing_details->last_name;
@@ -312,6 +312,17 @@ class GiftcardController extends Controller {
                                                                 } else if ($order->paypal != '') {
 
                                                                         $pid = time();
+                                                                        if (isset(Yii::app()->session['currency'])) {
+                                                                                if (Yii::app()->session['currency']['currency_code'] == 'USD') {
+                                                                                        $paypaltotalamount = $model->paypal;
+                                                                                } else {
+                                                                                        $usdvalue = Currency::model()->findByPk(2);
+                                                                                        $paypaltotalamount = round($model->paypal * $usdvalue->rate, 2);
+                                                                                }
+                                                                        } else {
+                                                                                $usdvalue = Currency::model()->findByPk(2);
+                                                                                $paypaltotalamount = round($model->paypal * $usdvalue->rate, 2);
+                                                                        }
                                                                         // $totaltopay = round(Currency::model()->findBypk(2)->rate * $order->paypal, 2);
                                                                         $this->render('paypalpay', array('order' => $order->id, 'totaltopay' => $order->paypal, 'pid' => $pid));
                                                                 }
@@ -993,23 +1004,23 @@ class GiftcardController extends Controller {
                 $shiping_charge = ShippingCharges::model()->findByAttributes(array('country' => $user_address->country));
                 $user = $userdetails->email;
 
+
+
                 $user_subject = 'Order Confirmation - Your Order with laksyah.com [' . $order->id . '] has been successfully placed!';
+
+
                 $user_message = $this->renderPartial('_user_order_success_mail', array('order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge), true);
 
                 $admin = AdminUser::model()->findByPk(4)->email;
-                $admin_subject = 'laksyah.com: New Order to admin # ' . $order->id;
-                $admin_message = $this->renderPartial('_admin_order_success_mail', array('userdetails' => $userdetails, 'order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge), true);
 
+                $admin_subject = 'laksyah.com: New Order to admin # ' . $order->id;
+
+                $admin_message = $this->renderPartial('_admin_order_success_mail', array('userdetails' => $userdetails, 'order' => $order, 'user_address' => $user_address, 'bill_address' => $bill_address, 'order_details' => $order_details, 'shiping_charge' => $shiping_charge), true);
 // Always set content-type when sending HTML email
                 $headers = "MIME-Version: 1.0" . "\r\n";
                 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-// More headers
                 $headers .= 'From: <no-reply@intersmarthosting.in>' . "\r\n";
-//$headers .= 'Cc: reply@foldingbooks.com' . "\r\n";
-// echo $user_message;
-// echo $admin_message;
-//unset(Yii::app()->session['orderid']);
-// exit;
+
                 mail($user, $user_subject, $user_message, $headers);
                 mail($admin, $admin_subject, $admin_message, $headers);
         }
@@ -1287,6 +1298,12 @@ class GiftcardController extends Controller {
                         $json = CJSON::encode($array);
                         echo $json;
                 }
+        }
+
+        public function siteURL() {
+                $protocol = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+                $domainName = $_SERVER['HTTP_HOST'];
+                return $protocol . $domainName;
         }
 
 }

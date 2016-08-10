@@ -24,13 +24,13 @@
 
 
                                 <div class="form-group">
-                                        <?php echo $form->labelEx($model, 'email', array('class' => '')); ?>
+                                        <?php echo $form->labelEx($model, 'Email*', array('class' => '')); ?>
                                         <?php echo $form->textField($model, 'email', array('maxlength' => 100, 'class' => 'form-control', 'autocomplete' => "off")); ?>
                                         <?php echo $form->error($model, 'email'); ?>
 
                                 </div>
                                 <div class="form-group">
-                                        <?php echo $form->labelEx($model, 'password', array('class' => '')); ?>
+                                        <?php echo $form->labelEx($model, 'Password*', array('class' => '')); ?>
                                         <?php echo $form->passwordField($model, 'password', array('maxlength' => 100, 'class' => 'form-control')); ?>
                                         <?php echo $form->error($model, 'password'); ?>
 
@@ -38,12 +38,21 @@
 
 
 
-                                <ul class="list-inline list-unstyled">
+
+<p><a  href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/forgotPassword/" class="forgot">Forgot Password?</a>
+                                                                <a style="float:right;" href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/new-user" class="forgot">Register Now</a></p>
+                                                        <input type="submit"  class ="btn-primary btn-full" value="SIGN IN" />
+
+
+
+
+
+                                <!--<ul class="list-inline list-unstyled">
                                         <li ><a class="forgot" href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/forgotPassword/">Forgot Password ?</a></li>
                                         <li><a class="text-center register italic" href="<?php echo Yii::app()->request->baseUrl; ?>/index.php/new-user">New User Registration?</a></li>
                                         <li>
                                                 <?php echo CHtml::submitButton($model->isNewRecord ? 'SIGN IN' : 'SIGN IN', array('class' => 'btn-primary btn-full')); ?>
-                                        </li>
+                                        </li>-->
 
 
                                         <?php $this->endWidget(); ?>

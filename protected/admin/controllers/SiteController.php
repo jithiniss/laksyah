@@ -35,7 +35,7 @@ class SiteController extends Controller {
                         if ($model->validate()) {
                                 $admin = AdminUser::model()->findByAttributes(array('username' => $model->username, 'password' => $model->password));
                                 if ($admin == '') {
-                                        $model->addError(password, 'invalid username or password');
+                                        $model->addError(password, 'Invalid username or password');
                                 } else {
                                         $id = $admin->admin_post_id;
                                         $post = AdminPost::model()->findByPk($id);
