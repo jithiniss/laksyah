@@ -1,16 +1,16 @@
+
 <?php
 if (isset(Yii::app()->session['user']['id'])) {
-                        $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
-                        $addresss = UserAddress::model()->findByPk(array('userid' => Yii::app()->session['user']['id']));
-$firstname=$user->first_name;
-$lastname=$user->last_name;
-$address1=$addresss->address_1;
-$address2=$addresss->address_2;
-$pin=$addresss->postcode;
-$email=$user->email;
-$city=$addresss->city;
-$phone=$addresss->contact_number;
-
+        $user = UserDetails::model()->findByPk(Yii::app()->session['user']['id']);
+        $addresss = UserAddress::model()->findByPk(array('userid' => Yii::app()->session['user']['id']));
+        $firstname = $user->first_name;
+        $lastname = $user->last_name;
+        $address1 = $addresss->address_1;
+        $address2 = $addresss->address_2;
+        $pin = $addresss->postcode;
+        $email = $user->email;
+        $city = $addresss->city;
+        $phone = $addresss->contact_number;
 }
 ?>
 <form name=paypal action='https://www.paypal.com/cgi-bin/webscr' method='post'>
@@ -35,6 +35,18 @@ $phone=$addresss->contact_number;
         <input type='hidden' name='lc' value='US'>
         <input type='hidden' name='bn' value='PP-BuyNowBF'>
 </form>
+<div class="menu_bar">
+        <div class="logo-bar">
+                <div class="container">
+                        <div class="row">
+                                <div class="col-sm-4 hidden-xs">
+
+                                </div>
+                                <div class="col-sm-3 logo_col col-xs-4"><a href="<?php echo Yii::app()->baseUrl; ?>/"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" alt=""/></a></div>
+                        </div>
+                </div>
+        </div>
+</div>
 <h3>Payment Procedure  Progress <span id="wait">.</span> </h3>
 <script>
         var dots = window.setInterval(function () {

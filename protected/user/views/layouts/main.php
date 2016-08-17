@@ -43,8 +43,7 @@
                         $canonical_name = $_GET['name'];
                         $product_det = Products::model()->findByAttributes(array('canonical_name' => $canonical_name));
                         $folder = Yii::app()->Upload->folderName(0, 1000, $product_det->id);
-                        ?>
-                        <?php
+
                         //  $folder = Yii::app()->Upload->folderName(0, 1000, $product->id);
                         $big = Yii::app()->basePath . '/../uploads/products/' . $folder . '/' . $product_det->id . '/gallery/big';
                         $bigg = Yii::app()->request->baseUrl . '/uploads/products/' . $folder . '/' . $product_det->id . '/gallery/big/';
@@ -85,7 +84,7 @@
                 <div class="over-lay"><img src="<?= Yii::app()->baseUrl; ?>/images/ajax-loader_1.gif"></div>
                 <script>
 
-                        $(document).ready(function() {
+                        $(document).ready(function () {
 <?php
 if (Yii::app()->user->hasFlash('login_list')):
         ?>
@@ -349,7 +348,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
                                                                                         <div class="laksyah_dropdown">
                                                                                                 <ul class="drop_menu">
                                                                                                         <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount" class="currency" >My Account</a></li>
-                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                                                                                                                                                  ?></li>-->
+                                                        <!--                                                                                                        <li><?php //echo CHtml::link('Settings', array('Myaccount/Profile'), array('class' => 'currency'));                                                                                                                                                   ?></li>-->
                                                                                                         <li><?php echo CHtml::link('Log Out', array('site/Logout'), array('class' => 'currency')); ?></li>
                                                         <!--                                                    <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Mywishlists" class="currency" >My WishList</a></li>
                                                                                                 <li><a href="<?= Yii::app()->baseUrl; ?>/index.php/Myaccount/Myordernew" class="currency" >My Orders</a></li>
@@ -398,7 +397,7 @@ $unverified_user1 = UserDetails::model()->findByPk($unlog_users1);
 
                                                                                 <li class="shopping_bag has_dropdown cart_btn">
                                                                                         <div class="cart_icon">
-                                                                                                <div class="cart_items"><?php //echo $counts;                                                                                                                                                           ?></div>
+                                                                                                <div class="cart_items"><?php //echo $counts;                                                                                                                                                            ?></div>
                                                                                                 <i class="fa fa-shopping-bag"></i></div>
                                                                                         <span class="bag_title">Shopping Bag </span><span class="amount"></span>
                                                                                         <div class="laksyah_dropdown  cart_box" id="cart_box">

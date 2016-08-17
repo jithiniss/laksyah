@@ -324,7 +324,7 @@ class GiftcardController extends Controller {
                                                                                 $paypaltotalamount = round($model->paypal * $usdvalue->rate, 2);
                                                                         }
                                                                         // $totaltopay = round(Currency::model()->findBypk(2)->rate * $order->paypal, 2);
-                                                                        $this->render('paypalpay', array('order' => $order->id, 'totaltopay' => $order->paypal, 'pid' => $pid));
+                                                                        $this->renderPartial('paypalpay', array('order' => $order->id, 'totaltopay' => $order->paypal, 'pid' => $pid));
                                                                 }
 
                                                                 // $this->redirect(array('OrderSuccess'));
@@ -735,7 +735,7 @@ class GiftcardController extends Controller {
                                                                                                 $usdvalue = Currency::model()->findByPk(2);
                                                                                                 $paypaltotalamount = round($order->paypal * $usdvalue->rate, 2);
                                                                                         }
-                                                                                        $this->render('paypalpay', array('order' => $order->id, 'totaltopay' => $paypaltotalamount, 'pid' => $pid));
+                                                                                        $this->renderPartial('paypalpay', array('order' => $order->id, 'totaltopay' => $paypaltotalamount, 'pid' => $pid));
                                                                                 }
                                                                         } else {
                                                                                 Yii::app()->session['orderid'] = $order->id;
@@ -784,7 +784,7 @@ class GiftcardController extends Controller {
                                                                                                         $usdvalue = Currency::model()->findByPk(2);
                                                                                                         $paypaltotalamount = round($order->paypal * $usdvalue->rate, 2);
                                                                                                 }
-                                                                                                $this->render('paypalpay', array('order' => $order->id, 'totaltopay' => $paypaltotalamount, 'pid' => $pid));
+                                                                                                $this->renderPartial('paypalpay', array('order' => $order->id, 'totaltopay' => $paypaltotalamount, 'pid' => $pid));
                                                                                         }
                                                                                 } else {
                                                                                         Yii::app()->session['orderid'] = $order->id;
@@ -874,7 +874,7 @@ class GiftcardController extends Controller {
                                                                                         $usdvalue = Currency::model()->findByPk(2);
                                                                                         $paypaltotalamount = round($order->paypal * $usdvalue->rate, 2);
                                                                                 }
-                                                                                $this->render('paypalpay', array('order' => $order->id, 'totaltopay' => $paypaltotalamount, 'pid' => $pid));
+                                                                                $this->renderPartial('paypalpay', array('order' => $order->id, 'totaltopay' => $paypaltotalamount, 'pid' => $pid));
                                                                         }
                                                                 } else {
                                                                         Yii::app()->session['orderid'] = $order->id;
@@ -923,7 +923,7 @@ class GiftcardController extends Controller {
                                                                                                 $usdvalue = Currency::model()->findByPk(2);
                                                                                                 $paypaltotalamount = round($order->paypal * $usdvalue->rate, 2);
                                                                                         }
-                                                                                        $this->render('paypalpay', array('order' => $order->id, 'totaltopay' => $paypaltotalamount, 'pid' => $pid));
+                                                                                        $this->renderPartial('paypalpay', array('order' => $order->id, 'totaltopay' => $paypaltotalamount, 'pid' => $pid));
                                                                                 }
                                                                         } else {
                                                                                 Yii::app()->session['orderid'] = $order->id;
